@@ -11,30 +11,30 @@ We are a team based in the [School of Computing, National University of Singapor
 -----
 
 #### [Nicholas](http://github.com/lejolly)
-<img src="images/JoshuaLee.jpg" width="150"><br>
+<img src="images/ME.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: UI
+Responsibilities: 
 
 -----
 
 #### [Tianze](http://github.com/yijinl) 
 <img src="images/LeowYijin.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Data
+Responsibilities: 
 
 -----
 
 #### [Quang](http://github.com/m133225)
 <img src="images/TranVietQuang.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Dev Ops
+Responsibilities: 
 
 -----
 
 #### [Pierce](https://github.com/ndt93)
-<img src="images/Pierce.jpg" width="150"><br>
+<img src="images/Pierce.jng" width="150"><br>
  Role: TA <br>  
- Responsibilities: Threading
+ Responsibilities: 
  
  -----
 
