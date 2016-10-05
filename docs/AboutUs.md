@@ -19,7 +19,7 @@ Responsibilities: Code Quality <br>
 -----
 
 #### [Tianze](http://github.com/tankztz)
-<img src="images/LeowYijin.jpg" width="150"><br>
+<img src="images/tianze.jpg" width="150"><br>
 Role: Developer <br>  
 Responsibilities: Testing <br>
 
