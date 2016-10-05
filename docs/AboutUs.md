@@ -33,7 +33,7 @@ Responsibilities: UI Developer <br>
 -----
 
 #### [Pierce](https://github.com/ndt93)
-<img src="images/Pierce.jng" width="150"><br>
+<img src="images/Pierce.png" width="150"><br>
  Role: TA <br>  
  Responsibilities:
 
