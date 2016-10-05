@@ -21,8 +21,8 @@
 
 * Some parts of this sample application were inspired by the excellent 
   [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by *Marco Jakob*. 
-* The most of the code is reused from Address-Book Level 4 
-  [Address-Book](https://github.com/se-edu/addressbook-level4)
+* The most of the code is reused from 
+  [Address-Book Level 4](https://github.com/se-edu/addressbook-level4)
 
 
 #### Licence : [MIT](LICENSE)
