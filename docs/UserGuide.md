@@ -107,7 +107,7 @@ Examples:
 Edits the current selected task.<br>
 Format: `edit DETAIL/NEW_DETAIL_INFO [OTHER_DETAILS/OTHER_NEW_DETAILS]`
 
-> Edits the current selected task and updates the relevant `DETAIL` .
+> Edits the current selected task and updates the relevant `DETAIL`. <br>
   The detail refers to a specific detail of the selected task.<br>
   The detail **must be a valid detail** d/, t/, c/ . <br>
   Repetition of detail type is not allowed..
