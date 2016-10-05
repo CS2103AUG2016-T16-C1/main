@@ -256,11 +256,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *` | user | add a new to-do item |
+`* * *` | user | delete a to-do | remove entries that I no longer need
+`* * *` | user | find a to-do by word | locate details of to-dos without having to go through the entire list
+`* * *` | user | edit a to-do | fix mistakes in my schedule
+`* * *` | advanced user | edit a to-do | add to-dos quickly using hotkeys
+`* *` | user | be reminded of the appointment | stop worry about deadlines
+`* *` | user | undo actions taken with a shortcut | fix mistakes in my schedule
+
+`*` | user with many to-dos in the address book | sort to-dos by importance | decide which item to do first
 
 {More to be added}
 
@@ -312,5 +316,5 @@ Use case ends.
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+1. Wunderlist
 
