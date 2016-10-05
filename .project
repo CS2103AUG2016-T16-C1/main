@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
+<<<<<<< HEAD
 	<name>main</name>
 	<comment>Project addressbook-level4 created by Buildship.</comment>
+=======
+	<name>HARD2do</name>
+	<comment>Project HARD2do created by hard2name.</comment>
+>>>>>>> 5f0819568def7af4c14f337d453523547fe20dce
 	<projects>
 	</projects>
 	<buildSpec>
