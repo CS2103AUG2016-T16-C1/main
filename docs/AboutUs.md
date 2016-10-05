@@ -4,7 +4,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project Team
 
-#### [Wei Jie](http://www.comp.nus.edu.sg/~damithch) <br>
+#### [Wei Jie](http://www.comp.nus.edu.sg/skynobleu) <br>
 <img src="images/DamithRajapakse.jpg" width="150"><br>
 **Role**: Project Advisor
 
@@ -17,14 +17,14 @@ Responsibilities:
 
 -----
 
-#### [Tianze](http://github.com/yijinl) 
+#### [Tianze](http://github.com/tankztz) 
 <img src="images/LeowYijin.jpg" width="150"><br>
 Role: Developer <br>  
 Responsibilities: 
 
 -----
 
-#### [Quang](http://github.com/m133225)
+#### [Quang](http://github.com/vitquay1996)
 <img src="images/TranVietQuang.jpg" width="150"><br>
 Role: Developer <br>  
 Responsibilities: 
