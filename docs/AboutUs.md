@@ -10,7 +10,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 -----
 
-#### [Nicholas](http://github.com/lejolly)
+#### [Nicolas](http://github.com/nicolashww)
 <img src="images/ME.jpg" width="150"><br>
 Role: Developer <br>  
 Responsibilities: 
