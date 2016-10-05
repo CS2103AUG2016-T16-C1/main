@@ -5,49 +5,42 @@ We are a team based in the [School of Computing, National University of Singapor
 ## Project Team
 
 #### [Wei Jie](http://www.comp.nus.edu.sg/skynobleu) <br>
-<img src="images/DamithRajapakse.jpg" width="150"><br>
-**Role**: Project Advisor
+<img src="images/NgWeiJie.jpg" width="150"><br>
+Role: Developer <br>
+Responsibilities: Integration <br>
 
 -----
 
 #### [Nicolas](http://github.com/nicolashww)
 <img src="images/ME.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: 
+Responsibilities: Code Quality <br>
 
 -----
 
-#### [Tianze](http://github.com/tankztz) 
+#### [Tianze](http://github.com/tankztz)
 <img src="images/LeowYijin.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: 
+Responsibilities: Testing <br>
 
 -----
 
 #### [Quang](http://github.com/vitquay1996)
 <img src="images/TranVietQuang.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: 
+Responsibilities: UI Developer <br>
 
 -----
 
 #### [Pierce](https://github.com/ndt93)
 <img src="images/Pierce.jng" width="150"><br>
  Role: TA <br>  
- Responsibilities: 
- 
+ Responsibilities:
+
  -----
 
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: UI
- 
- -----
+
 
 # Contributors
 
-We welcome contributions. See [Contact Us](ContactUs.md) page for more info.
-
-* [Akshay Narayan](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Aokkhoy)
-* [Sam Yong](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Amauris)
+We do not welcome contributions, we accept reviews. See [Contact Us](ContactUs.md) page for more info.
