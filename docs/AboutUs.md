@@ -4,10 +4,10 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project Team
 
-#### [Wei Jie](http://www.comp.nus.edu.sg/skynobleu) <br>
-<img src="images/NgWeiJie.jpg" width="150"><br>
+#### [Tianze](http://www.comp.nus.edu.sg/tankztz) <br>
+<img src="images/tianze.jpg" width="150"><br>
 Role: Developer <br>
-Responsibilities: Integration <br>
+Responsibilities: Testing <br>
 
 -----
 
@@ -18,10 +18,10 @@ Responsibilities: Code Quality <br>
 
 -----
 
-#### [Tianze](http://github.com/tankztz)
-<img src="images/tianze.jpg" width="150"><br>
+#### [Wei Jie](http://github.com/skynobleu)
+<img src="images/NgWeiJie.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Testing <br>
+Responsibilities: Integration <br>
 
 -----
 
