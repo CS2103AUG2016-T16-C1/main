@@ -7,7 +7,7 @@
   a CLI (Command Line Interface).
 * It is built as a project submission for module CS2103 which is offered in NUS in sem 1 16/17. 
 * It is **written in OOP fashion** using JavaFx
-
+* Testing
   
 #### Site Map
 * [User Guide](docs/UserGuide.md) 
