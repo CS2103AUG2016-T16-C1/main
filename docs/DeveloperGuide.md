@@ -269,7 +269,7 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | user | share my to-do-list with others | discover if there are clashes
 `*` | user | list events within a time frame | be aware of upcoming events
 `*` | user with many to-dos in the address book | sort to-dos by importance | decide which item to do first
-
+`*` | seeing if this works | okay 
 
 ## Appendix B : Use Cases
 
