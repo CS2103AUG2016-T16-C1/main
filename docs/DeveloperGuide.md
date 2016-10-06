@@ -260,11 +260,14 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | delete a to-do | remove entries that I no longer need
 `* * *` | user | find a to-do by word | locate details of to-dos without having to go through the entire list
 `* * *` | user | edit a to-do | fix mistakes in my schedule
+`* * *` | user | mark to-do as done | keep track of completed tasks
 `* * *` | advanced user | edit a to-do | add to-dos quickly using hotkeys
 `* *` | user | be reminded of the appointment | stop worry about deadlines
 `* *` | user | undo actions taken with a shortcut | fix mistakes in my schedule
-
-`*` | user with many to-dos in the address book | sort to-dos by importance | decide which item to do first
+`* *` | user | use it offline | use it anywhere
+`*` | user | share my to-do-list with others | discover if there are clashes
+`*` | user with many to-dos | sort to-dos by importance | decide which item to do first
+`*` | user | list events within a time frame | be aware of upcoming events
 
 {More to be added}
 
@@ -292,6 +295,22 @@ Use case ends.
 
 > 3a1. TaskManager shows an error message <br>
   Use case resumes at step 2
+
+#### Use case: Mark As Done
+
+**MSS**
+
+1. User requests to list tasks
+2. TaskManager shows a list of tasks
+3. User requests to mark specific or multiple tasks as done
+4. TaskManager masks the task(s) as done <br>
+Use case ends.
+
+**Extensions**
+
+2a. The task is already marked as done
+
+> Task becomes marked as undone
 
 {More to be added}
 
