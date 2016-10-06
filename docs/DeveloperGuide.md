@@ -349,7 +349,6 @@ Mail-to list function
 Can sync well with other calendar
 ~~~~
 * Not Nice
-Too much work to add an item
 ~~~~
-
+Too much work to add an item
 ~~~~
