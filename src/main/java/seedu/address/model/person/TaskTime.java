@@ -8,7 +8,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 
 public class TaskTime {
 
-    public static final String MESSAGE_TIME_CONSTRAINTS = "Task date should only follow this format dd/mm/yyyy";
+    public static final String MESSAGE_TIME_CONSTRAINTS = "Task date should only follow this format HH:MM";
     public static final String TASKTIME_VALIDATION_REGEX = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
 
     public final Date value;
