@@ -27,7 +27,7 @@ public class Content {
     }
 
     /**
-     * Returns true if a given string is a valid person email.
+     * Returns true if a given string is a valid task content.
      */
     public static boolean isValidContent(String test) {
         return test.matches(CONTENT_VALIDATION_REGEX);
