@@ -20,7 +20,7 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
 5. Some example commands you can try:
    * **`list`** : lists all tasks to do in the future
-   * **`add`**` Go to tutorial d/10.6 t/1200 c/take the laptop ` :
+   * **`add`**` c/Go to tutorial d/10.6 h/1200 c/take the laptop ` :
      adds a task of `Go to tutorial` to the Hard2Do.
    * **`delete`**` 3` : deletes the 3rd task shown in the current list
    * **`exit`** : exits the app
