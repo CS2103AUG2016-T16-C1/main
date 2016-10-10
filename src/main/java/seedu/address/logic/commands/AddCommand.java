@@ -22,7 +22,7 @@ public class AddCommand extends Command {
             + " c/do this task manager d/2016:10:12 t/1300 #shaglife #wheregottime";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
 
     private final Task toAdd;
 
