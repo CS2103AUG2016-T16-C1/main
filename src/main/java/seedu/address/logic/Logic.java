@@ -4,7 +4,6 @@ import java.text.ParseException;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.ReadOnlyTask;
 
 /**
