@@ -13,6 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.ReadOnlyTask;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -40,7 +41,7 @@ public class MainWindow extends UiPart {
     private VBox rootLayout;
     private Scene scene;
 
-    private String addressBookName;
+    private String taskManagerName;
 
     @FXML
     private AnchorPane browserPlaceholder;
@@ -82,12 +83,12 @@ public class MainWindow extends UiPart {
         return mainWindow;
     }
 
-    private void configure(String appTitle, String addressBookName, Config config, UserPrefs prefs,
+    private void configure(String appTitle, String taskManagerName, Config config, UserPrefs prefs,
                            Logic logic) {
 
         //Set dependencies
         this.logic = logic;
-        this.addressBookName = addressBookName;
+        this.taskManagerName = taskManagerName;
         this.config = config;
         this.userPrefs = prefs;
 
@@ -108,7 +109,7 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         browserPanel = BrowserPanel.load(browserPlaceholder);
-        taskListPanel = TaskListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
+        taskListPanel = TaskListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -185,7 +186,7 @@ public class MainWindow extends UiPart {
         return this.taskListPanel;
     }
 
-    public void loadPersonPage(ReadOnlyPerson person) {
+    public void loadPersonPage(ReadOnlyTask person) {
         browserPanel.loadPersonPage(person);
     }
 
