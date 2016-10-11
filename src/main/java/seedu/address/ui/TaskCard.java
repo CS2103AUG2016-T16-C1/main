@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.ReadOnlyTask;
 
 public class TaskCard extends UiPart{
@@ -14,17 +13,13 @@ public class TaskCard extends UiPart{
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label content;
     @FXML
     private Label id;
     @FXML
-    private Label phone;
-    @FXML
-    private Label address;
-    @FXML
-    private Label email;
-    @FXML
     private Label tags;
+    @FXML
+    private Label date;
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -33,21 +28,20 @@ public class TaskCard extends UiPart{
 
     }
 
-    public static TaskCard load(ReadOnlyPerson person, int displayedIndex){
+    public static TaskCard load(ReadOnlyTask task, int displayedIndex){
         TaskCard card = new TaskCard();
-        card.person = person;
+        card.task = task;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
 
     @FXML
     public void initialize() {
-        name.setText(person.getName().fullName);
+        content.setText(task.getContent().toString());
         id.setText(displayedIndex + ". ");
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
-        tags.setText(person.tagsString());
+        date.setText(task.getDate().value.toString());
+
+        tags.setText(task.tagsString());
     }
 
     public HBox getLayout() {
