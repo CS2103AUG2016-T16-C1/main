@@ -23,7 +23,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task listed the task manager. "
             + "Parameters: INDEX[MUST BE POSITIVE INTEGER] c/CONTENT d/DATE[dd-mm-yyyy] t/time[HH:mm] \n"
             + "Example: " + COMMAND_WORD
-            + "1 c/do this task manager d/20-10-2016 t/13:00";
+            + " 1 c/do this task manager d/20-10-2016 t/13:00";
 
     public static final String MESSAGE_SUCCESS = "Task edited: %1$s";
  
