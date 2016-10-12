@@ -30,7 +30,7 @@ public class Parser {
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("c/(?<content>[^/]+)"
                     + " d/(?<date>[^/]+)"
-                    + " t/(?<time>[^#]+)"
+                    + " t/(?<time>[^/]+)"
                     + "(?<tagArguments>(?: #[^/]+)*)"); // variable number of tags
 
     public Parser() {}

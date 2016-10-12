@@ -8,8 +8,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 
 public class TaskDate {
 
-    public static final String MESSAGE_DATE_CONSTRAINTS = "Task date should only follow this format dd-mm-yyyy";
-    public static final String TASKDATE_VALIDATION_REGEX = "(0?[1-9]|[12][0-9]|3[01])-(0?[1-9]|1[012])-((19|20)\\d\\d)";
+    public static final String MESSAGE_DATE_CONSTRAINTS = "Task date should only follow this format dd/mm/yyyy";
+    public static final String TASKDATE_VALIDATION_REGEX = "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)";
 
     public final Date value;
     
@@ -26,7 +26,7 @@ public class TaskDate {
         if (!isValidTaskDate(dateString)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("DD-mm-yyyy");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("DD/mm/yyyy");
 
         Date date = simpleDateFormat.parse(dateString);
         this.value = date;
