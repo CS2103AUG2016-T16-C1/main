@@ -82,8 +82,9 @@ public class EditCommand extends Command {
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
         }
-        ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, taskToEdit));
+        UnmodifiableObservableList<ReadOnlyTask> updatedList = model.getFilteredTaskList();
+        ReadOnlyTask editedTask = updatedList.get(targetIndex - 1);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, editedTask));
     }
 
 }
