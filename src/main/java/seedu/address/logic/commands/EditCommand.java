@@ -9,6 +9,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
@@ -84,6 +85,10 @@ public class EditCommand extends Command {
         }
         UnmodifiableObservableList<ReadOnlyTask> updatedList = model.getFilteredTaskList();
         ReadOnlyTask editedTask = updatedList.get(targetIndex - 1);
+        String[] contentArr = editedTask.getContent().value.split("\\s+"); 
+        Set<String> contentSet = new HashSet<>(Arrays.asList(contentArr));
+        model.updateFilteredTaskList(contentSet);
+        model.updateFilteredListToShowAll();
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedTask));
     }
 
