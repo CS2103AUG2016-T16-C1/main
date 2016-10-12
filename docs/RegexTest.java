@@ -13,14 +13,15 @@ public class RegexTest {
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("c/(?<content>[^/]+)"
                     + " d/(?<date>[^/]+)"
-                    + " t/(?<time>[^/]+)"
+                    + " t/(?<time>[^#]+)"
                     + "(?<tagArguments>(?: #[^/]+)*)"); // variable number of tags
 
    public static void main( String args[] ) {
       // String to be scanned to find the pattern.
-      String input = "add c/do this task manager d/20/10/2016 t/1300 #shaglife #wheregottime";
-
-
+      String input = "add c/do this task manager d/20-10-2016 t/1300 #shaglife #wheregottime";
+      System.out.println("########## BEGIN REGEX TEST ###############");
+      System.out.println("Input: " + input);
+      System.out.println(" ");
       // Now create matcher object.
       Matcher checkInitialInput = BASIC_COMMAND_FORMAT.matcher(input.trim());
       System.out.println("######### TEST BASIC_COMMAND_FORMAT ############");
@@ -35,14 +36,20 @@ public class RegexTest {
 
          System.out.println("######### TEST TASK_DATA_ARGS_FORMAT ############");
          Matcher checkAddArgs = TASK_DATA_ARGS_FORMAT.matcher(arguments.trim());
+         System.out.println("Testing matcher groups...");
+         //System.out.println("Group 1: " + checkAddArgs.group(1));
+         //System.out.println("Group 2: " + checkAddArgs.group(2));
+
          if(checkAddArgs.matches()){
 
            String content = checkAddArgs.group("content");
            String date = checkAddArgs.group("date");
            String time = checkAddArgs.group("time");
+           String tags = checkAddArgs.group("tagArguments");
            System.out.println("Found content: " + content );
            System.out.println("Found date: " + date );
            System.out.println("Found time: " + time );
+           System.out.println("Found Tags: " + tags);
            System.out.println("############## TEST PASSED ##################");
 
 
