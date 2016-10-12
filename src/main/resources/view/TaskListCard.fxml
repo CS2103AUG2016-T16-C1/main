@@ -9,15 +9,15 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" prefHeight="63.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <GridPane HBox.hgrow="ALWAYS">
+        <GridPane prefHeight="70.0" prefWidth="250.0" HBox.hgrow="ALWAYS">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" GridPane.columnIndex="0">
+                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="50.0" prefHeight="71.0" prefWidth="150.0" GridPane.columnIndex="0">
                     <stylesheets>
                         <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />
@@ -40,9 +40,9 @@
                 </VBox>
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
-                  <Label fx:id="date" alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="Date">
+                  <Label fx:id="date" alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="13-12-2016">
                      <HBox.margin>
-                        <Insets left="50.0" top="50.0" />
+                        <Insets top="25.0" />
                      </HBox.margin>
                   </Label>
                </children>
