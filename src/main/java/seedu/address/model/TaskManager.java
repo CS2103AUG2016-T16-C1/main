@@ -16,8 +16,8 @@ import java.util.stream.Collectors;
  */
 public class TaskManager implements ReadOnlyTaskManager {
 
-    private final UniqueTaskList tasks;
-    private final UniqueTagList tags;
+    private UniqueTaskList tasks;
+    private UniqueTagList tags;
 
     {
         tasks = new UniqueTaskList();

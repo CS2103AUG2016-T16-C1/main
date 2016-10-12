@@ -4,6 +4,7 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.Task;
 import seedu.address.model.person.UniqueTaskList;
+import seedu.address.model.person.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
 
@@ -31,5 +32,7 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
+    
+	void editTask(Task task) throws TaskNotFoundException;
 
 }

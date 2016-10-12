@@ -32,6 +32,8 @@ public class Parser {
                     + " d/(?<date>[^/]+)"
                     + " t/(?<time>[^#]+)"
                     + "(?<tagArguments>(?: #[^/]+)*)"); // variable number of tags
+    private static final Pattern EDIT_TASK_ARGS_FORMAT = 
+    		Pattern.compile("(?<index>\\S+)(?<taskDetails>.+)");
 
     public Parser() {}
 
@@ -75,12 +77,34 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+        case EditCommand.COMMAND_WORD:
+        	return prepareEdit(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
+    /**
+     * Parses arguments in the context of the add person command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     * @throws ParseException 
+     */
+    private Command prepareEdit(String args) throws ParseException{
+        final Matcher matcher = EDIT_TASK_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        try {
+            return new EditCommand( matcher.group("index"),
+                    matcher.group("taskDetails"));
+            
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
     /**
      * Parses arguments in the context of the add person command.
      *

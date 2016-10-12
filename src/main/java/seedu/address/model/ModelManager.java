@@ -22,8 +22,8 @@ import java.util.logging.Logger;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final TaskManager taskManager;
-    private final FilteredList<Task> filteredTasks;
+    private TaskManager taskManager;
+    private FilteredList<Task> filteredTasks;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -77,7 +77,13 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
-
+    
+    @Override
+    public synchronized void editTask(Task task) throws TaskNotFoundException {
+    	taskManager.editTask(task);
+    	updateFilteredListToShowAll();
+    	indicateTaskManagerChanged();
+    }
     //=========== Filtered Person List Accessors ===============================================================
 
     @Override
