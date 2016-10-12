@@ -12,6 +12,7 @@ public class TaskTime {
     public static final String TASKTIME_VALIDATION_REGEX = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
 
     public final Date value;
+    public final String timeString;
     
 
     /**
@@ -20,15 +21,15 @@ public class TaskTime {
      * @throws IllegalValueException if given date string is invalid.
      * @throws ParseException 
      */
-    public TaskTime(String dateString) throws IllegalValueException, ParseException {
-        assert dateString != null;
-        dateString = dateString.trim();
-        if (!isValidTaskTime(dateString)) {
+    public TaskTime(String timeString) throws IllegalValueException, ParseException {
+        assert timeString != null;
+        this.timeString = timeString.trim();
+        if (!isValidTaskTime(timeString)) {
             throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
         }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
 
-        Date time = simpleDateFormat.parse(dateString);
+        Date time = simpleDateFormat.parse(timeString);
         this.value = time;
 
     }
@@ -42,7 +43,8 @@ public class TaskTime {
 
     @Override
     public String toString() {
-        return value.toString();
+        //return value.toString();
+    	return timeString;
     }
 
     @Override

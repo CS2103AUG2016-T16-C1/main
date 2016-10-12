@@ -12,6 +12,7 @@ public class TaskDate {
     public static final String TASKDATE_VALIDATION_REGEX = "(0?[1-9]|[12][0-9]|3[01])-(0?[1-9]|1[012])-((19|20)\\d\\d)";
 
     public final Date value;
+    public final String dateString;
     
 
     /**
@@ -22,11 +23,11 @@ public class TaskDate {
      */
     public TaskDate(String dateString) throws IllegalValueException, ParseException {
         assert dateString != null;
-        dateString = dateString.trim();
+        this.dateString = dateString.trim();
         if (!isValidTaskDate(dateString)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("DD-mm-yyyy");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
         Date date = simpleDateFormat.parse(dateString);
         this.value = date;
@@ -42,7 +43,9 @@ public class TaskDate {
 
     @Override
     public String toString() {
-        return value.toString();
+        //return value.toString();
+    	return dateString;
+    	
     }
 
     @Override
