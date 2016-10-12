@@ -11,7 +11,7 @@ public class Content {
     public static final String MESSAGE_CONTENT_CONSTRAINTS = "Task Content can be in any format";
     public static final String CONTENT_VALIDATION_REGEX = ".+";
 
-    public final String value;
+    public String value;
 
     /**
      * Validates given Content.

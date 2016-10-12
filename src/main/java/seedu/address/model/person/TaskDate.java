@@ -11,8 +11,8 @@ public class TaskDate {
     public static final String MESSAGE_DATE_CONSTRAINTS = "Task date should only follow this format dd-mm-yyyy";
     public static final String TASKDATE_VALIDATION_REGEX = "(0?[1-9]|[12][0-9]|3[01])-(0?[1-9]|1[012])-((19|20)\\d\\d)";
 
-    public final Date value;
-    public final String dateString;
+    public Date value;
+    public String dateString;
     
 
     /**
