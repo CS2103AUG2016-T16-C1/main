@@ -24,7 +24,7 @@ public class RegexTest {
       // Now create matcher object.
       Matcher checkInitialInput = BASIC_COMMAND_FORMAT.matcher(input.trim());
       System.out.println("######### TEST BASIC_COMMAND_FORMAT ############");
-      if (checkInitialInput.matches() {
+      if (checkInitialInput.matches()) {
          String commandWord = checkInitialInput.group("commandWord");
          String arguments = checkInitialInput.group("arguments");
 
@@ -32,7 +32,7 @@ public class RegexTest {
          System.out.println("Found arguments: " + arguments );
          System.out.println("############## TEST PASSED ##################");
          System.out.println(" ");
-         
+
          System.out.println("######### TEST TASK_DATA_ARGS_FORMAT ############");
          Matcher checkAddArgs = TASK_DATA_ARGS_FORMAT.matcher(arguments.trim());
          if(checkAddArgs.matches()){
