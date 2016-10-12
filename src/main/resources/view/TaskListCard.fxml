@@ -40,7 +40,7 @@
                 </VBox>
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
-                  <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="Date">
+                  <Label fx:id="date" alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="Date">
                      <HBox.margin>
                         <Insets left="50.0" top="50.0" />
                      </HBox.margin>
