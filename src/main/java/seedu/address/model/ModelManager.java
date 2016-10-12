@@ -79,8 +79,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void editTask(Task task) throws TaskNotFoundException {
-    	taskManager.editTask(task);
+    public synchronized void editTask(int targetIndex, String newDate, String newTime, String newContent) throws TaskNotFoundException {
+    	taskManager.editTask(targetIndex, newDate, newTime, newContent);
     	updateFilteredListToShowAll();
     	indicateTaskManagerChanged();
     }

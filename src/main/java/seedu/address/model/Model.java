@@ -33,6 +33,6 @@ public interface Model {
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
     
-	void editTask(Task task) throws TaskNotFoundException;
+	void editTask(int targetIndex, String newDate, String newTime, String newContent) throws TaskNotFoundException;
 
 }

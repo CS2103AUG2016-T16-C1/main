@@ -76,13 +76,13 @@ public class EditCommand extends Command {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-        ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
+        
         try {
-            model.editTask(taskToEdit);
+            model.editTask(targetIndex, newDate, newTime, newContent);
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
         }
-
+        ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
         return new CommandResult(String.format(MESSAGE_SUCCESS, taskToEdit));
     }
 

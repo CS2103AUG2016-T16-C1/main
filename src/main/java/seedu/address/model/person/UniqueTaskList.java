@@ -60,6 +60,23 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         internalList.add(toAdd);
     }
+    /**
+     * Edits a task in the list.
+     *
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     */
+    public boolean edit(int targetIndex, String newDate, String newTime, String newContent) throws TaskNotFoundException {
+    	
+        Task toEdit = internalList.get(targetIndex);
+        if(newDate != null)
+        	toEdit.getDate().dateString = newDate;
+        if(newTime != null)
+        	toEdit.getTime().timeString = newTime;
+        if(newContent != null)
+        	toEdit.getContent().value = newContent;
+        return true;
+
+    }
 
     /**
      * Removes the equivalent task from the list.
