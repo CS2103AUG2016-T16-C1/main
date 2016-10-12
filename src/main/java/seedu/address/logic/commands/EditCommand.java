@@ -78,7 +78,7 @@ public class EditCommand extends Command {
         }
         
         try {
-            model.editTask(targetIndex, newDate, newTime, newContent);
+            model.editTask(targetIndex - 1, newDate, newTime, newContent);
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
         }
