@@ -13,6 +13,10 @@ public class Content {
 
     public String value;
 
+    public Content(){
+    	
+    }
+    
     /**
      * Validates given Content.
      *

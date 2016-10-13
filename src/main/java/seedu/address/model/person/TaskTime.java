@@ -14,7 +14,9 @@ public class TaskTime {
     public Date value;
     public String timeString;
     
-
+    public TaskTime() {
+    	
+    }
     /**
      * Validates given date.
      *
