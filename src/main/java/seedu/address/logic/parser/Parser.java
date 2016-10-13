@@ -27,11 +27,7 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-    private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("c/(?<content>[^/]+)"
-                    + " d/(?<date>[^/]+)"
-                    + " t/(?<time>[^#]+)"
-                    + "(?<tagArguments>(?: #[^/]+)*)"); // variable number of tags
+            		
     private static final Pattern EDIT_TASK_ARGS_FORMAT = 
     		Pattern.compile("(?<index>\\S+)(?<taskDetails>.+)");
 
@@ -85,7 +81,7 @@ public class Parser {
         }
     }
     /**
-     * Parses arguments in the context of the add person command.
+     * Parses arguments in the context of the edit person command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -113,17 +109,73 @@ public class Parser {
      * @throws ParseException 
      */
     private Command prepareAdd(String args) throws ParseException{
-        final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
-        if (!matcher.matches()) {
+    	
+    	Scanner validator = new Scanner(args);
+    	// Validate arg string format: String cannot be empty or null
+        if (args == null || args.isEmpty()) {
+        	validator.close();
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            
+        }else{
+        //Validate arg string format: String starts with content and not date/time/tag
+        	String startOfLine = validator.next();
+        	
+        	if(startOfLine.startsWith("d/") || startOfLine.startsWith("t/") || startOfLine.startsWith("#")){
+        		validator.close();
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        	}
+        	
         }
+        validator.close();
+        
+        //Obtain content of Task from String args
+    	Scanner scanContent = new Scanner(args);
+    	StringBuilder content = new StringBuilder();
+		while(scanContent.hasNext()){
+			String check = scanContent.next();
+			if(check.startsWith("d/") || check.startsWith("t/"))
+				break;
+			else
+				content.append(" " + check);
+		}
+		scanContent.close();
+		
+		//Obtain set of tags if any from String args
+		Set<String> setTags = new HashSet<String>();
+		Scanner scanTags = new Scanner(args);
+		if(scanTags.findInLine("#") != null){
+			setTags.add(scanTags.next());
+			while(scanTags.hasNext()){
+				String tmp = scanTags.next();
+				if(tmp.startsWith("#"))
+					setTags.add(tmp);
+			}
+			
+		}else{
+			setTags = Collections.emptySet();
+		}
+		scanTags.close();
+		
+		//Obtain date if any from String args
+		String dateString = null;
+		Scanner scanDate = new Scanner(args);
+		if(scanDate.findInLine("d/") != null){
+			dateString = scanDate.next();
+		}
+		scanDate.close();
+		
+		//Obtain date if any from String args
+		String timeString = null;
+		Scanner scanTime = new Scanner(args);
+		if(scanTime.findInLine("t/") != null){
+			timeString = scanTime.next();
+		}
+		scanTime.close();
+		
+        
         try {
-            return new AddCommand( matcher.group("content"),
-                    matcher.group("date"),
-                    matcher.group("time"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
-            );
+            return new AddCommand( content.toString().trim(), dateString, timeString, setTags);
+            
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
