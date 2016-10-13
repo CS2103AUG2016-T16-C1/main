@@ -61,8 +61,8 @@ Two of those classes play important roles at the architecture level.
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of the App.
-* [**`Logic`**](#logic-component) : The command executor.
+* [**`UI`**](#ui-component) : Present the UI of the App.
+* [**`Logic`**](#logic-component) : Distribute the commands from the user.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
 
@@ -98,7 +98,7 @@ The sections below give more details of each component.
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
 `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
@@ -120,7 +120,7 @@ The `UI` component,
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
@@ -134,11 +134,11 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
 The `Model`,
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Task Manager data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
+* Stores a `UserPref` object that represents the user's preferences.
+* Stores the Task Manager data.
+* Exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* Does not depend on any of the other three components.
 
 ### Storage component
 
@@ -147,8 +147,8 @@ The `Model`,
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
 The `Storage` component,
-* can save `UserPref` objects in json format and read it back.
-* can save the Task Manager data in xml format and read it back.
+* Save `UserPref` objects in json format and read it back.
+* Save the Task Manager data in xml format and read it back.
 
 ### Common classes
 
@@ -185,7 +185,7 @@ Certain properties of the application can be controlled (e.g App name, logging l
 
 Tests can be found in the `./src/test/java` folder.
 
-**In Eclipse**:
+**Tests using Eclipse**:
 > If you are not using a recent Eclipse version (i.e. _Neon_ or later), enable assertions in JUnit tests
   as described [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
 
@@ -194,8 +194,8 @@ Tests can be found in the `./src/test/java` folder.
 * To run a subset of tests, you can right-click on a test package, test class, or a test and choose
   to run as a JUnit test.
 
-**Using Gradle**:
-* See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
+**Tests using Gradle**:
+See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
 
 We have two types of tests:
 
