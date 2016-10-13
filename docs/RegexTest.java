@@ -1,6 +1,6 @@
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import java.util.Scanner;
 
 public class RegexTest {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
@@ -17,11 +17,26 @@ public class RegexTest {
             Pattern.compile("(?<index>\\S+)(?<taskDetails>.*)");
 
    public static void main( String args[] ) {
+
+
       // String to be scanned to find the pattern.
 
-      String input = "add do this task manager d/20-10-2016 t/13:00 #shaglife #wheregottime";
+
+      String input = "add do this task manager #test d/20-10-2016 t/13:00 #shaglife #wheregottime d/what";
       String input2 = "add";
       String editInput = "2 d/12-20-2012 c/do something";
+      Scanner sc = new Scanner(input);
+      String setTags = "";
+      if(sc.findInLine("#") != null){
+
+			  setTags = setTags + sc.next();
+        while(sc.findInLine("#") != null){
+				  setTags = setTags + " " + sc.next();
+			}
+
+		  }
+      System.out.println("output is : " + setTags);
+
       System.out.println("########## BEGIN REGEX TEST ###############");
       System.out.println("Input: " + input);
       System.out.println(" ");

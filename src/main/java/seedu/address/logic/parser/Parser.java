@@ -145,10 +145,8 @@ public class Parser {
 		Scanner scanTags = new Scanner(args);
 		if(scanTags.findInLine("#") != null){
 			setTags.add(scanTags.next());
-			while(scanTags.hasNext()){
-				String tmp = scanTags.next();
-				if(tmp.startsWith("#"))
-					setTags.add(tmp);
+			while(scanTags.findInLine("#") != null){
+				setTags.add(scanTags.next());
 			}
 			
 		}else{

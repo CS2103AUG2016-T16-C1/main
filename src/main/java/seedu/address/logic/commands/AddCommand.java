@@ -25,6 +25,9 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
 
     private final Task toAdd;
+    
+    private TaskDate dateToAdd;
+    private TaskTime timeToAdd;
 
     /**
      * Convenience constructor using raw values.
@@ -34,14 +37,29 @@ public class AddCommand extends Command {
      */
     public AddCommand(String content, String date, String time, Set<String> tags)
             throws IllegalValueException, ParseException {
+    	assert content != null;
+    	
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
+        
+        if(date == null )
+        	dateToAdd = new TaskDate();
+        else
+        	dateToAdd = new TaskDate(date);
+        
+        
+        if(time == null)
+        	timeToAdd = new TaskTime();
+        else
+        	timeToAdd = new TaskTime(time);
+        
+        
         this.toAdd = new Task(
                 new Content(content),
-                new TaskDate(date),
-                new TaskTime(time),
+                dateToAdd,
+                timeToAdd,
                 new UniqueTagList(tagSet)
         );
     }
