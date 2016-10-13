@@ -15,7 +15,7 @@ public class TaskTime {
     public String timeString;
     
     public TaskTime() {
-    	
+    	timeString = "<TimeNotSpecified>";
     }
     /**
      * Validates given date.
