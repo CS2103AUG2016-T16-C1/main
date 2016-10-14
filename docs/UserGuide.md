@@ -44,7 +44,7 @@ Format: `help`
 
 #### Adding a person: `add`
 Adds a task to the to-do list <br>
-Format: `add task d/DD-MM-YYYY t/HH:MM #tag`
+Format: `add task d/DD-MM-YYYY t/HH:MM #tag` <br>
 Note: `presence and order of arguments after task do not matter`
 
 Examples:
