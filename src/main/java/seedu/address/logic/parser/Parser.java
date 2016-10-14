@@ -133,7 +133,7 @@ public class Parser {
     	StringBuilder content = new StringBuilder();
 		while(scanContent.hasNext()){
 			String check = scanContent.next();
-			if(check.startsWith("d/") || check.startsWith("t/"))
+			if(check.startsWith("d/") || check.startsWith("t/") || check.startsWith("#"))
 				break;
 			else
 				content.append(" " + check);
