@@ -44,11 +44,13 @@ Format: `help`
 
 #### Adding a person: `add`
 Adds a task to the to-do list <br>
-Format: `add task c/do something d/DD/mm/yyyy t/HHRR #nothing to do`
+Format: `add task d/DD-MM-YYYY t/HH:MM #tag`
+Note: `presence and order of arguments after task do not matter`
 
 Examples:
-* `add c/Go to CS tutorial d/10.6 t/1200 #takethelaptop`
-* `add c/Watch movie d/10/06/2016 t/1201 #gotmoney`
+* `add Go to CS tutorial d/10-6-2016 t/12:00 #takethelaptop`
+* `add Watch movie t/12:01 #gotmoney`
+* `add Do Something`
 
 #### Listing all tasks : `list`
 Shows a list of all tasks in the future.<br>
