@@ -15,7 +15,7 @@ public class TaskDate {
     public String dateString;
     
     public TaskDate() {
-    	this.dateString = "<DateNotSpecified>";
+    	this.dateString = "";
     }
     /**
      * Validates given date.
