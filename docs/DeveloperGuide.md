@@ -260,9 +260,9 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | add a new to-do item |
 `* * *` | user | delete a to-do | remove entries that I no longer need
 `* * *` | user | find a to-do by word | locate details of to-dos without having to go through the entire list
-`* * *` | user | edit a to-do | fix mistakes in my schedule
+`* * *` | user | edit a to-do | change my schedule
 `* * *` | user | mark to-do as done | keep track of completed tasks
-`* * *` | advanced user | edit a to-do | add to-dos quickly using hotkeys
+`* * *` | advanced user | edit a to-do | change my schedule quickly using hotkeys
 `* * *` | user | undo actions taken with a shortcut | fix mistakes in my schedule
 `* *` | user | be reminded of the appointment | stop worry about deadlines
 `* *` | user | save email as to-do | save time re-writing and scheduling task
@@ -320,7 +320,6 @@ Use case ends.
 2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
-
 {More to be added}
 
 ## Appendix D : Glossary
