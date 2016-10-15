@@ -9,7 +9,7 @@
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e-product-survey)
+* [Appendix E : Product Survey](#appendix-e--product-survey)
 
 
 ## Setting up
@@ -263,8 +263,8 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | edit a to-do | fix mistakes in my schedule
 `* * *` | user | mark to-do as done | keep track of completed tasks
 `* * *` | advanced user | edit a to-do | add to-dos quickly using hotkeys
+`* * *` | user | undo actions taken with a shortcut | fix mistakes in my schedule
 `* *` | user | be reminded of the appointment | stop worry about deadlines
-`* *` | user | undo actions taken with a shortcut | fix mistakes in my schedule
 `* *` | user | save email as to-do | save time re-writing and scheduling task
 `* *` | user | use it offline | use it anywhere
 `*` | user | share my to-do-list with others | discover if there are clashes
