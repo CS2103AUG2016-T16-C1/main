@@ -1,7 +1,10 @@
 package seedu.address.ui;
 
+import java.time.LocalDate;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -21,11 +24,11 @@ public class TaskDetail extends UiPart {
     @FXML
     private Label content;
     @FXML
-    private Label time;
+    private AnchorPane timePane;
     @FXML
     private Label tags;
     @FXML
-    private Label date;
+    private Label time;
 
     public TaskDetail() {
     }
@@ -34,15 +37,24 @@ public class TaskDetail extends UiPart {
         System.out.println("TaskDetail is called");
         TaskDetail detail = UiPartLoader.loadUiPart(primaryStage, placeHolder, new TaskDetail());
         detail.addToPlaceHolder();
+        detail.initiateDatePicker();
         return detail;
     }
 
     public void loadTaskDetail(ReadOnlyTask task) {
         content.setText(task.getContent().toString());
-        date.setText(task.getDate().toString());
         time.setText(task.getTime().toString());
 
         tags.setText(task.tagsString());    
+    }
+    
+    private void initiateDatePicker() {
+        DatePicker datePicker = new DatePicker();
+        datePicker.setOnAction(event -> {
+            LocalDate date = datePicker.getValue();
+            System.out.println("Selected date: " + date);
+        });
+        timePane.getChildren().add(datePicker);
     }
     
     private void addToPlaceHolder() {
