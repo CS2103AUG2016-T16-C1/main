@@ -42,6 +42,10 @@ public class TaskDate {
     public static boolean isValidTaskDate(String test) {
         return test.matches(TASKDATE_VALIDATION_REGEX);
     }
+    
+    public Date getValue() {
+        return value;
+    }
 
     @Override
     public String toString() {
