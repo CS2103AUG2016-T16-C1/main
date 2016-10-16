@@ -120,6 +120,14 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+    
+    public boolean markTaskAsDone(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+        if (tasks.done(key)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
 
 //// tag-level operations
 

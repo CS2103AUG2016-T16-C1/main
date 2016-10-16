@@ -33,6 +33,10 @@ public interface Model {
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
     
+    /** Edit the given task. */
 	void editTask(int targetIndex, String newDate, String newTime, String newContent) throws TaskNotFoundException;
+
+    /** Mark the given task as done. */
+    void doneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
 }

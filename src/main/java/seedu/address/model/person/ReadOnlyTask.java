@@ -11,7 +11,9 @@ public interface ReadOnlyTask {
     Content getContent();
     TaskDate getDate();
     TaskTime getTime();
-
+    boolean getDone();
+    boolean setDone();
+    
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the task's internal tags.
@@ -57,5 +59,4 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
-
 }

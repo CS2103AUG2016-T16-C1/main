@@ -84,6 +84,15 @@ public class ModelManager extends ComponentManager implements Model {
     	updateFilteredListToShowAll();
     	indicateTaskManagerChanged();
     }
+    
+    @Override
+    public synchronized void doneTask(ReadOnlyTask target) throws TaskNotFoundException {
+        taskManager.markTaskAsDone(target);
+        logger.info("successfully mark as done"+target.getDone());
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+    }
+    
     //=========== Filtered Person List Accessors ===============================================================
 
     @Override
@@ -94,6 +103,8 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
+        filteredTasks.setPredicate((Task t) -> !t.getDone());
+        logger.info("filterTasks called");
     }
 
     @Override

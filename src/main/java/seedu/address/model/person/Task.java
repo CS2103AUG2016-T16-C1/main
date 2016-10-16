@@ -14,6 +14,7 @@ public class Task implements ReadOnlyTask {
     private Content content;
     private TaskDate date;
     private TaskTime time;
+    boolean Done = false;
 
     private UniqueTagList tags;
 
@@ -79,5 +80,16 @@ public class Task implements ReadOnlyTask {
     public TaskTime getTime() {
         return time;
     }
-
+    
+    @Override
+    public boolean setDone() {
+        if (!Done) Done = true;
+        else return false;
+        return true;
+    }
+    
+    @Override
+    public boolean getDone() {
+        return Done;
+    }
 }
