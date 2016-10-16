@@ -4,7 +4,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.XmlSerializableTaskManager;
 import seedu.address.testutil.TestUtil;
@@ -20,14 +20,14 @@ public class TestApp extends MainApp {
     public static final String SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
     protected static final String DEFAULT_PREF_FILE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("pref_testing.json");
     public static final String APP_TITLE = "Test App";
-    protected static final String ADDRESS_BOOK_NAME = "Test";
-    protected Supplier<ReadOnlyAddressBook> initialDataSupplier = () -> null;
+    protected static final String TASK_MANAGER_NAME = "Test";
+    protected Supplier<ReadOnlyTaskManager> initialDataSupplier = () -> null;
     protected String saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, String saveFileLocation) {
+    public TestApp(Supplier<ReadOnlyTaskManager> initialDataSupplier, String saveFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.saveFileLocation = saveFileLocation;
@@ -44,9 +44,9 @@ public class TestApp extends MainApp {
     protected Config initConfig(String configFilePath) {
         Config config = super.initConfig(configFilePath);
         config.setAppTitle(APP_TITLE);
-        config.setAddressBookFilePath(saveFileLocation);
+        config.setTaskManagerFilePath(saveFileLocation);
         config.setUserPrefsFilePath(DEFAULT_PREF_FILE_LOCATION_FOR_TESTING);
-        config.setAddressBookName(ADDRESS_BOOK_NAME);
+        config.setTaskManagerName(TASK_MANAGER_NAME);
         return config;
     }
 
