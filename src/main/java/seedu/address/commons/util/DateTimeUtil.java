@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class DateTimeUtil {
@@ -21,5 +22,11 @@ public class DateTimeUtil {
         ZonedDateTime zdt = instant.atZone(ZoneId.systemDefault());
         LocalTime time = zdt.toLocalTime();
         return time;
+    }
+    
+    public static String changeLocalDateToFormattedString(LocalDate value) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String formattedString = value.format(formatter);
+        return formattedString;
     }
 }

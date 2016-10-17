@@ -114,9 +114,7 @@ public class TaskDetail extends UiPart {
     @FXML
     private void handleDateChanged() throws ParseException {
         newDate = datePicker.getValue();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        String formattedString = newDate.format(formatter);
-        mostRecentResult = logic.execute("edit " + index + " d/" + formattedString);
+        mostRecentResult = logic.execute("edit " + index + " d/" + DateTimeUtil.changeLocalDateToFormattedString(newDate));
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
