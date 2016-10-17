@@ -6,8 +6,14 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
-import com.jfoenix.controls.JFXDatePicker;
+import javax.swing.text.AbstractDocument.Content;
 
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.validation.RequiredFieldValidator;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.DatePicker;
@@ -16,11 +22,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.util.DateTimeUtil;
+import seedu.address.logic.Logic;
 import seedu.address.model.person.ReadOnlyTask;
 
 public class TaskDetail extends UiPart {
 
     private static final String FXML = "TaskDetail.fxml";
+    private Logic logic;
 
     private AnchorPane placeHolderPane;
     private AnchorPane taskDetailPane;
@@ -30,7 +38,7 @@ public class TaskDetail extends UiPart {
     @FXML
     private VBox detailView;
     @FXML
-    private Label content;
+    private JFXTextField content;
     @FXML
     private Label tags;
     @FXML
@@ -39,11 +47,30 @@ public class TaskDetail extends UiPart {
     public TaskDetail() {
     }
 
-    public static TaskDetail load(Stage primaryStage, AnchorPane placeHolder) {
-        System.out.println("TaskDetail is called");
+    public static TaskDetail load(Stage primaryStage, AnchorPane placeHolder, Logic logic) {
         TaskDetail detail = UiPartLoader.loadUiPart(primaryStage, placeHolder, new TaskDetail());
-        detail.addToPlaceHolder();
+        detail.configure(logic);
+        detail.addToPlaceHolder();      
+        detail.initializeTextField();
         return detail;
+    }
+    
+    private void configure(Logic logic) {
+        this.logic = logic;
+    }
+    
+    private void initializeTextField() {
+        RequiredFieldValidator validator = new RequiredFieldValidator();
+        content.getValidators().add(validator);
+        validator.setMessage("No Input Given");
+        content.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (!newValue) {
+                    content.validate();
+                }
+            } 
+        });
     }
 
     public void loadTaskDetail(ReadOnlyTask task) {
