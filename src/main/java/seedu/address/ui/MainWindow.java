@@ -187,8 +187,8 @@ public class MainWindow extends UiPart {
         return this.taskListPanel;
     }
 
-    public void loadTaskDetail(ReadOnlyTask task) {
-        taskDetail.loadTaskDetail(task);
+    public void loadTaskDetail(ReadOnlyTask task, int index) {
+        taskDetail.loadTaskDetail(task, index);
     }
 
     public void releaseResources() {

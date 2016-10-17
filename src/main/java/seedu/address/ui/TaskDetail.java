@@ -34,6 +34,7 @@ public class TaskDetail extends UiPart {
     private static final String FXML = "TaskDetail.fxml";
     private Logic logic;
     private String newContent;
+    private int index;
     private ResultDisplay resultDisplay;
     private CommandResult mostRecentResult;
 
@@ -82,7 +83,8 @@ public class TaskDetail extends UiPart {
         });
     }
 
-    public void loadTaskDetail(ReadOnlyTask task) {
+    public void loadTaskDetail(ReadOnlyTask task, int index) {
+        this.index = index + 1;
         content.setText(task.getContent().toString());
         if (task.getDate().getValue() != null) {
             datePicker.setValue(DateTimeUtil.changeDateToLocalDate(task.getDate().getValue()));
@@ -104,7 +106,7 @@ public class TaskDetail extends UiPart {
     private void handleContentChanged() throws ParseException {
         logger.info("changed is called");
         newContent = content.getText();
-        mostRecentResult = logic.execute("edit c/" + newContent);
+        mostRecentResult = logic.execute("edit " + index + " c/" + newContent);
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }

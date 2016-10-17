@@ -120,7 +120,7 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handlePanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.loadTaskDetail(event.getNewSelection());
+        mainWindow.loadTaskDetail(event.getNewSelection(), event.getNewIndex());
     }
 
 }

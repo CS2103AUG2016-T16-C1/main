@@ -10,9 +10,11 @@ public class TaskPanelSelectionChangedEvent extends BaseEvent {
 
 
     private final ReadOnlyTask newSelection;
+    private final int newIndex;
 
-    public TaskPanelSelectionChangedEvent(ReadOnlyTask newSelection){
+    public TaskPanelSelectionChangedEvent(ReadOnlyTask newSelection, int newIndex){
         this.newSelection = newSelection;
+        this.newIndex = newIndex;
     }
 
     @Override
@@ -22,5 +24,9 @@ public class TaskPanelSelectionChangedEvent extends BaseEvent {
 
     public ReadOnlyTask getNewSelection() {
         return newSelection;
+    }
+
+    public int getNewIndex() {
+        return newIndex;
     }
 }
