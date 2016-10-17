@@ -38,10 +38,9 @@ public class TaskDetail extends UiPart {
     private ResultDisplay resultDisplay;
     private CommandResult mostRecentResult;
 
-
     private AnchorPane placeHolderPane;
     private AnchorPane taskDetailPane;
-    
+
     @FXML
     private DatePicker datePicker;
     @FXML
@@ -56,19 +55,21 @@ public class TaskDetail extends UiPart {
     public TaskDetail() {
     }
 
-    public static TaskDetail load(Stage primaryStage, AnchorPane placeHolder, ResultDisplay resultDisplay, Logic logic) {
+    public static TaskDetail load(Stage primaryStage, AnchorPane placeHolder, ResultDisplay resultDisplay,
+            Logic logic) {
         TaskDetail detail = UiPartLoader.loadUiPart(primaryStage, placeHolder, new TaskDetail());
         detail.configure(resultDisplay, logic);
-        detail.addToPlaceHolder();      
+        detail.addToPlaceHolder();
         detail.initializeTextField();
         return detail;
     }
-    
+
     private void configure(ResultDisplay resultDisplay, Logic logic) {
         this.logic = logic;
+
         this.resultDisplay = resultDisplay;
     }
-    
+
     private void initializeTextField() {
         RequiredFieldValidator validator = new RequiredFieldValidator();
         content.getValidators().add(validator);
@@ -79,7 +80,7 @@ public class TaskDetail extends UiPart {
                 if (!newValue) {
                     content.validate();
                 }
-            } 
+            }
         });
     }
 
@@ -88,20 +89,18 @@ public class TaskDetail extends UiPart {
         content.setText(task.getContent().toString());
         if (task.getDate().getValue() != null) {
             datePicker.setValue(DateTimeUtil.changeDateToLocalDate(task.getDate().getValue()));
-        }
-        else {
+        } else {
             datePicker.setValue(null);
         }
         if (task.getTime().getValue() != null) {
 
             timePicker.setTime(DateTimeUtil.changeDateToLocalTime(task.getTime().getValue()));
-        }
-        else {
+        } else {
             timePicker.setValue(null);
         }
         tags.setText(task.tagsString());
     }
-    
+
     @FXML
     private void handleContentChanged() throws ParseException {
         logger.info("changed is called");
@@ -111,7 +110,6 @@ public class TaskDetail extends UiPart {
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
 
-    
     private void addToPlaceHolder() {
         placeHolderPane.getChildren().add(detailView);
     }

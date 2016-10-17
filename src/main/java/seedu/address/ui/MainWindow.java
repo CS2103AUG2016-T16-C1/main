@@ -109,9 +109,9 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        taskDetail = TaskDetail.load(primaryStage, browserPlaceholder, resultDisplay, logic);
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
+        taskDetail = TaskDetail.load(primaryStage, browserPlaceholder, resultDisplay, logic);
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
