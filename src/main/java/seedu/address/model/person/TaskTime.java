@@ -12,6 +12,8 @@ public class TaskTime {
     public static final String TASKTIME_VALIDATION_REGEX = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
 
     public Date value;
+
+
     public String timeString;
     
     public TaskTime() {
@@ -42,7 +44,11 @@ public class TaskTime {
     public static boolean isValidTaskTime(String test) {
         return test.matches(TASKTIME_VALIDATION_REGEX);
     }
-
+    
+    public Date getValue() {
+        return value;
+    }
+    
     @Override
     public String toString() {
         //return value.toString();
