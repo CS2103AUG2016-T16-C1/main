@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Logger;
 
 import javax.swing.text.AbstractDocument.Content;
@@ -35,6 +36,7 @@ public class TaskDetail extends UiPart {
     private Logic logic;
     private String newContent;
     private int index;
+    private LocalDate newDate;
     private ResultDisplay resultDisplay;
     private CommandResult mostRecentResult;
 
@@ -103,9 +105,18 @@ public class TaskDetail extends UiPart {
 
     @FXML
     private void handleContentChanged() throws ParseException {
-        logger.info("changed is called");
         newContent = content.getText();
         mostRecentResult = logic.execute("edit " + index + " c/" + newContent);
+        resultDisplay.postMessage(mostRecentResult.feedbackToUser);
+        logger.info("Result: " + mostRecentResult.feedbackToUser);
+    }
+    
+    @FXML
+    private void handleDateChanged() throws ParseException {
+        newDate = datePicker.getValue();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String formattedString = newDate.format(formatter);
+        mostRecentResult = logic.execute("edit " + index + " d/" + formattedString);
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
