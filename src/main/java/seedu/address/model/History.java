@@ -47,6 +47,7 @@ public class History {
 		taskStates =  new Stack <List<Task>>(); 
 		messages = new Stack<String>();
 		tagStates = new Stack <Collection<Tag>>();
+		tagsState = FXCollections.observableArrayList();
 	}
 	
 	
@@ -90,6 +91,8 @@ public class History {
 			throw new StateNotFoundException();
 		
 		tasksState = taskStates.pop();
+		messages.pop();
+		tagsState = tagStates.pop();
 	}
 	
 	public List<Task> getPreviousTasks(){
