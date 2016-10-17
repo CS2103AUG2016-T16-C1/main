@@ -34,7 +34,7 @@ public class UniqueTaskList implements Iterable<Task> {
     public static class TaskNotFoundException extends Exception {}
     
     
-    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
+    private ObservableList<Task> internalList = FXCollections.observableArrayList();
 
     /**
      * Constructs empty TaskList.

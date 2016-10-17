@@ -18,10 +18,12 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     private UniqueTaskList tasks;
     private UniqueTagList tags;
+    private History history;
 
     {
         tasks = new UniqueTaskList();
         tags = new UniqueTagList();
+        history = new History();
     }
 
     public TaskManager() {}
