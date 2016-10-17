@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.model.person.ReadOnlyTask;
 
 public class TaskDetail extends UiPart {
@@ -48,19 +49,14 @@ public class TaskDetail extends UiPart {
     public void loadTaskDetail(ReadOnlyTask task) {
         content.setText(task.getContent().toString());
         if (task.getDate().getValue() != null) {
-            Instant instant = task.getDate().getValue().toInstant();
-            ZonedDateTime zdt = instant.atZone(ZoneId.systemDefault());
-            LocalDate date = zdt.toLocalDate();
-            datePicker.setValue(date);
+            datePicker.setValue(DateTimeUtil.changeDateToLocalDate(task.getDate().getValue()));
         }
         else {
             datePicker.setValue(null);
         }
         if (task.getTime().getValue() != null) {
-            Instant instant = task.getTime().getValue().toInstant();
-            ZonedDateTime zdt = instant.atZone(ZoneId.systemDefault());
-            LocalTime time = zdt.toLocalTime();
-            timePicker.setTime(time);
+
+            timePicker.setTime(DateTimeUtil.changeDateToLocalTime(task.getTime().getValue()));
         }
         else {
             timePicker.setValue(null);
