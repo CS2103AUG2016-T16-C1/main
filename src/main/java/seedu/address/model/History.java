@@ -70,8 +70,10 @@ public class History {
 			newState.add( new Task( new Content(t.getContent().value), 
 					new TaskDate(t.getDate().dateString),
 					new TaskTime(t.getTime().timeString), 
-					new UniqueTagList(tagSet) 
-					));
+					new UniqueTagList(tagSet))
+					);
+			if(t.getDone())
+				newState.get(newState.size() - 1).setDone();
 		}
 		taskStates.push(newState);
 		messages.push(commandType);

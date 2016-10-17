@@ -5,6 +5,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.Task;
@@ -12,6 +13,7 @@ import seedu.address.model.person.UniqueTaskList;
 import seedu.address.model.person.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.person.UniqueTaskList.TaskNotFoundException;
 
+import java.text.ParseException;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -50,7 +52,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void resetData(ReadOnlyTaskManager newData) {
+    public void resetData(ReadOnlyTaskManager newData) throws IllegalValueException, ParseException {
         taskManager.resetData(newData);
         indicateTaskManagerChanged();
     }

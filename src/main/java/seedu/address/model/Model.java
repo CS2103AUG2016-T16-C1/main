@@ -1,19 +1,23 @@
 package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.Task;
 import seedu.address.model.person.UniqueTaskList;
 import seedu.address.model.person.UniqueTaskList.TaskNotFoundException;
 
+import java.text.ParseException;
 import java.util.Set;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
-    /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyTaskManager newData);
+    /** Clears existing backing model and replaces with the provided new data. 
+     * @throws ParseException 
+     * @throws IllegalValueException */
+    void resetData(ReadOnlyTaskManager newData) throws IllegalValueException, ParseException;
 
     /** Returns the TaskManager */
     ReadOnlyTaskManager getTaskManager();
