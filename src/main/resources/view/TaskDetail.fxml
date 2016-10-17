@@ -14,7 +14,7 @@
    <children>
       <VBox fx:id="detailView" layoutY="-121.0" prefHeight="280.0" prefWidth="319.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <JFXTextField fx:id="content" maxWidth="319.0" minWidth="319.0" prefHeight="59.0" prefWidth="319.0" promptText="Enter Content" text="Something">
+            <JFXTextField fx:id="content" maxWidth="319.0" minWidth="319.0" onAction="#handleContentChanged" prefHeight="59.0" prefWidth="319.0" promptText="Enter Content" text="Something">
                <font>
                   <Font name="Abyssinica SIL" size="33.0" />
                </font>

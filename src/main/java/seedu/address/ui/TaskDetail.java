@@ -1,10 +1,12 @@
 package seedu.address.ui;
 
+import java.text.ParseException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.logging.Logger;
 
 import javax.swing.text.AbstractDocument.Content;
 
@@ -21,14 +23,20 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.person.ReadOnlyTask;
 
 public class TaskDetail extends UiPart {
-
+    private final Logger logger = LogsCenter.getLogger(TaskDetail.class);
     private static final String FXML = "TaskDetail.fxml";
     private Logic logic;
+    private String newContent;
+    private ResultDisplay resultDisplay;
+    private CommandResult mostRecentResult;
+
 
     private AnchorPane placeHolderPane;
     private AnchorPane taskDetailPane;
@@ -47,16 +55,17 @@ public class TaskDetail extends UiPart {
     public TaskDetail() {
     }
 
-    public static TaskDetail load(Stage primaryStage, AnchorPane placeHolder, Logic logic) {
+    public static TaskDetail load(Stage primaryStage, AnchorPane placeHolder, ResultDisplay resultDisplay, Logic logic) {
         TaskDetail detail = UiPartLoader.loadUiPart(primaryStage, placeHolder, new TaskDetail());
-        detail.configure(logic);
+        detail.configure(resultDisplay, logic);
         detail.addToPlaceHolder();      
         detail.initializeTextField();
         return detail;
     }
     
-    private void configure(Logic logic) {
+    private void configure(ResultDisplay resultDisplay, Logic logic) {
         this.logic = logic;
+        this.resultDisplay = resultDisplay;
     }
     
     private void initializeTextField() {
@@ -90,7 +99,17 @@ public class TaskDetail extends UiPart {
         }
         tags.setText(task.tagsString());
     }
+    
+    @FXML
+    private void handleContentChanged() throws ParseException {
+        logger.info("changed is called");
+        newContent = content.getText();
+        mostRecentResult = logic.execute("edit c/" + newContent);
+        resultDisplay.postMessage(mostRecentResult.feedbackToUser);
+        logger.info("Result: " + mostRecentResult.feedbackToUser);
+    }
 
+    
     private void addToPlaceHolder() {
         placeHolderPane.getChildren().add(detailView);
     }
