@@ -1,15 +1,8 @@
 package seedu.address.ui;
 
 import java.text.ParseException;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.logging.Logger;
-
-import javax.swing.text.AbstractDocument.Content;
 
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
@@ -29,13 +22,16 @@ import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.person.ReadOnlyTask;
+import seedu.address.model.person.Task;
 
 public class TaskDetail extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TaskDetail.class);
     private static final String FXML = "TaskDetail.fxml";
     private Logic logic;
     private String newContent;
+    private String formattedString;
     private int index;
+    private ReadOnlyTask task;
     private LocalDate newDate;
     private ResultDisplay resultDisplay;
     private CommandResult mostRecentResult;
@@ -88,6 +84,7 @@ public class TaskDetail extends UiPart {
 
     public void loadTaskDetail(ReadOnlyTask task, int index) {
         this.index = index + 1;
+        this.task = task;
         content.setText(task.getContent().toString());
         if (task.getDate().getValue() != null) {
             datePicker.setValue(DateTimeUtil.changeDateToLocalDate(task.getDate().getValue()));
@@ -110,13 +107,16 @@ public class TaskDetail extends UiPart {
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
-    
+
     @FXML
     private void handleDateChanged() throws ParseException {
         newDate = datePicker.getValue();
-        mostRecentResult = logic.execute("edit " + index + " d/" + DateTimeUtil.changeLocalDateToFormattedString(newDate));
-        resultDisplay.postMessage(mostRecentResult.feedbackToUser);
-        logger.info("Result: " + mostRecentResult.feedbackToUser);
+        formattedString = DateTimeUtil.changeLocalDateToFormattedString(newDate);
+        if (formattedString.compareTo(task.getDate().toString()) != 0) {
+            mostRecentResult = logic.execute("edit " + index + " d/" + formattedString);
+            resultDisplay.postMessage(mostRecentResult.feedbackToUser);
+            logger.info("Result: " + mostRecentResult.feedbackToUser);
+        }
     }
 
     private void addToPlaceHolder() {
