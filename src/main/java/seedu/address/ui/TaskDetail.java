@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.logging.Logger;
 
 import com.jfoenix.controls.JFXDatePicker;
@@ -33,6 +34,7 @@ public class TaskDetail extends UiPart {
     private int index;
     private ReadOnlyTask task;
     private LocalDate newDate;
+    private LocalTime newTime;
     private ResultDisplay resultDisplay;
     private CommandResult mostRecentResult;
 
@@ -114,6 +116,19 @@ public class TaskDetail extends UiPart {
         formattedString = DateTimeUtil.changeLocalDateToFormattedString(newDate);
         if (formattedString.compareTo(task.getDate().toString()) != 0) {
             mostRecentResult = logic.execute("edit " + index + " d/" + formattedString);
+            resultDisplay.postMessage(mostRecentResult.feedbackToUser);
+            logger.info("Result: " + mostRecentResult.feedbackToUser);
+        }
+    }
+    
+    @FXML
+    private void handleTimeChanged() throws ParseException {
+        System.out.println("this is called");
+        newTime = timePicker.getTime();
+        formattedString = DateTimeUtil.changeLocalDateToFormattedString(newDate);
+        System.out.println(formattedString + " " + task.getTime().toString()); 
+        if (formattedString.compareTo(task.getTime().toString()) != 0) {
+            mostRecentResult = logic.execute("edit " + index + " t/" + formattedString);
             resultDisplay.postMessage(mostRecentResult.feedbackToUser);
             logger.info("Result: " + mostRecentResult.feedbackToUser);
         }

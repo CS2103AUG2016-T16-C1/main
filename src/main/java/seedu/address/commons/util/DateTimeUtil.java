@@ -29,4 +29,10 @@ public class DateTimeUtil {
         String formattedString = value.format(formatter);
         return formattedString;
     }
+    
+    public static String changeLocalTimeToFormattedString(LocalTime value) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:MM");
+        String formattedString = value.format(formatter);
+        return formattedString;
+    }
 }
