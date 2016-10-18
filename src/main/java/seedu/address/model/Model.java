@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.History.StateNotFoundException;
 import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.Task;
 import seedu.address.model.person.UniqueTaskList;
@@ -42,5 +43,9 @@ public interface Model {
 
     /** Mark the given task as done. */
     void doneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+
+	void save(String commandType) throws IllegalValueException, ParseException;
+
+	void undo() throws StateNotFoundException;
 
 }

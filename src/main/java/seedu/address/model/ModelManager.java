@@ -7,6 +7,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.core.ComponentManager;
+import seedu.address.model.History.StateNotFoundException;
 import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.Task;
 import seedu.address.model.person.UniqueTaskList;
@@ -53,6 +54,15 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void resetData(ReadOnlyTaskManager newData) throws IllegalValueException, ParseException {
+    	try {
+			taskManager.save("clear");
+		} catch (IllegalValueException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         taskManager.resetData(newData);
         indicateTaskManagerChanged();
     }
@@ -69,19 +79,46 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        taskManager.removeTask(target);
+    	try {
+			taskManager.save("delete");
+		} catch (IllegalValueException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	taskManager.removeTask(target);
         indicateTaskManagerChanged();
     }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        taskManager.addTask(task);
+    	try {
+			taskManager.save("add");
+		} catch (IllegalValueException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	taskManager.addTask(task);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
     
     @Override
     public synchronized void editTask(int targetIndex, String newDate, String newTime, String newContent) throws TaskNotFoundException {
+    	try {
+			taskManager.save("edit");
+		} catch (IllegalValueException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	taskManager.editTask(targetIndex, newDate, newTime, newContent);
     	updateFilteredListToShowAll();
     	indicateTaskManagerChanged();
@@ -93,6 +130,14 @@ public class ModelManager extends ComponentManager implements Model {
         logger.info("successfully mark as done"+target.getDone());
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
+    }
+    @Override
+    public synchronized void save(String commandType) throws IllegalValueException, ParseException{
+    	taskManager.save(commandType);
+    }
+    @Override
+    public synchronized void undo() throws StateNotFoundException{
+    	taskManager.undo();
     }
     
     //=========== Filtered Person List Accessors ===============================================================

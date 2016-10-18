@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.FXCollections;
+
 import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
@@ -11,6 +12,7 @@ import seedu.address.model.person.TaskTime;
 import seedu.address.model.person.UniqueTaskList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+
 
 import java.text.ParseException;
 import java.util.*;
@@ -51,7 +53,8 @@ public class History {
 	}
 	
 	
-	public void save(ObservableList<Task> stateToSave, ObservableList<Tag> tagsToSave, String commandType) throws IllegalValueException, ParseException{
+	public void save(ObservableList<Task> stateToSave, ObservableList<Tag> tagsToSave, String commandType) 
+			throws IllegalValueException, ParseException{
 		
 		if (stateToSave.isEmpty())
 			return;
@@ -65,13 +68,23 @@ public class History {
 	        for (Tag tag : t.getTags().toSet()) {
 	            tagSet.add(new Tag(tag.tagName));
 	        }
-			
+	        
+
+	        TaskDate td = new TaskDate();
+	        TaskTime tt = new TaskTime();
+	        
+	        if(!t.getDate().dateString.isEmpty())
+	        	td = new TaskDate(t.getDate().dateString);
+	        if(!t.getTime().timeString.isEmpty())
+	        	tt = new TaskTime(t.getTime().timeString);
 			
 			newState.add( new Task( new Content(t.getContent().value), 
-					new TaskDate(t.getDate().dateString),
-					new TaskTime(t.getTime().timeString), 
+					td,
+					tt, 
 					new UniqueTagList(tagSet))
 					);
+			
+			
 			if(t.getDone())
 				newState.get(newState.size() - 1).setDone();
 		}
@@ -87,10 +100,10 @@ public class History {
 		}
 	}
 	
-	public void undo() throws StateNotFoundException{
+	public void undo() {
 		
-		if(taskStates.isEmpty()) 
-			throw new StateNotFoundException();
+		if(taskStates.isEmpty())
+			return;
 		
 		tasksState = taskStates.pop();
 		messages.pop();

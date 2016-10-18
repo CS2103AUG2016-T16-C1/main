@@ -69,7 +69,6 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     public void resetData(ReadOnlyTaskManager newData) throws IllegalValueException, ParseException {
-    	history.save(tasks.getInternalList(), tags.getInternalList(), "clear");
         resetData(newData.getTaskList(), newData.getTagList());
     }
     
@@ -92,15 +91,6 @@ public class TaskManager implements ReadOnlyTaskManager {
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
     public void addTask(Task t) throws UniqueTaskList.DuplicateTaskException {
-        try {
-			save("add");
-		} catch (IllegalValueException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
     	syncTagsWithMasterList(t);
         tasks.add(t);
     }
@@ -130,15 +120,6 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
     	
-    	try {
-			save("remove");
-		} catch (IllegalValueException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
         if (tasks.remove(key)) {
             return true;
         } else {
@@ -148,16 +129,6 @@ public class TaskManager implements ReadOnlyTaskManager {
     
     public boolean editTask(int targetIndex, String newDate, String newTime, String newContent) 
     		throws UniqueTaskList.TaskNotFoundException {
-    	
-    	try {
-			save("edit");
-		} catch (IllegalValueException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
     	
         if (tasks.edit(targetIndex, newDate, newTime, newContent)) {
             return true;
