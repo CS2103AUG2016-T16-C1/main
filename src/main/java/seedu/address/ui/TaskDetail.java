@@ -82,6 +82,15 @@ public class TaskDetail extends UiPart {
                 }
             }
         });
+        timePicker.timeProperty().addListener(new ChangeListener<LocalTime>() {
+
+            @Override
+            public void changed(ObservableValue<? extends LocalTime> observable, LocalTime oldValue,
+                    LocalTime newValue) {
+                System.out.println("this is called");
+            }
+                
+        });
     }
 
     public void loadTaskDetail(ReadOnlyTask task, int index) {
