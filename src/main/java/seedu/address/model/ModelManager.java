@@ -126,6 +126,15 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public synchronized void doneTask(ReadOnlyTask target) throws TaskNotFoundException {
+    	try {
+			taskManager.save("done");
+		} catch (IllegalValueException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         taskManager.markTaskAsDone(target);
         logger.info("successfully mark as done"+target.getDone());
         updateFilteredListToShowAll();
@@ -138,6 +147,8 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void undo() throws StateNotFoundException{
     	taskManager.undo();
+    	updateFilteredListToShowAll();
+    	indicateTaskManagerChanged();
     }
     
     //=========== Filtered Person List Accessors ===============================================================
@@ -215,6 +226,11 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+	@Override
+	public History getHistory() {
+		
+		return taskManager.getHistory();
+	}
 
 
 }

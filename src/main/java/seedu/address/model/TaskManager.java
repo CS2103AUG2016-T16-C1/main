@@ -144,6 +144,9 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+    public History getHistory(){
+    	return history;
+    }
 
 //// tag-level operations
 
@@ -193,6 +196,6 @@ public class TaskManager implements ReadOnlyTaskManager {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, tags);
     }
-
+    
 
 }

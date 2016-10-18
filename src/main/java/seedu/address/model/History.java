@@ -39,10 +39,7 @@ public class History {
 	private List<Task> tasksState;
 	private Collection<Tag> tagsState;
 	
-	public final String UNDO_ADD_MESSAGE = "Added Task has been deleted";
-	public final String UNDO_DELETE_MESSAGE = "Removed Task has been re-added";
-	public final String EMPTY_HISTORY_MESSAGE = "No available commands can be undone";
-	public final String UNDO_SORT_MESSAGE = "Sorting has been undone";
+	private String message;
 	
 	
 	History(){
@@ -106,7 +103,7 @@ public class History {
 			return;
 		
 		tasksState = taskStates.pop();
-		messages.pop();
+		message = messages.pop();
 		tagsState = tagStates.pop();
 	}
 	
@@ -116,5 +113,12 @@ public class History {
 	
 	public Collection<Tag> getPreviousTags(){
 		return tagsState;
+	}
+	
+	public boolean isEmpty(){
+		return taskStates.isEmpty();
+	}
+	public String getMessage(){
+		return message;
 	}
 }

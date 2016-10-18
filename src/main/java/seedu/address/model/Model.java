@@ -48,4 +48,6 @@ public interface Model {
 
 	void undo() throws StateNotFoundException;
 
+	History getHistory();
+
 }
