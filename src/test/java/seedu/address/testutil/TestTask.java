@@ -57,12 +57,11 @@ import seedu.address.model.person.*;
 
 	    public String getAddCommand() {
 	        StringBuilder sb = new StringBuilder();
-	        sb.append("add " + this.getContent() + " ");
-	        sb.append("d/" + this.getDate() + " ");
-	        sb.append("t/" + this.getTime() + " ");
+	        sb.append("add " + this.getContent().value + " ");
+	        sb.append("d/" + this.getDate().dateString + " ");
+	        sb.append("t/" + this.getTime().timeString + " ");
 	        this.getTags().getInternalList().stream().forEach(s -> sb.append("#" + s.tagName + " "));
 	        return sb.toString();
 	    }
 	}
 
-}

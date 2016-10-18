@@ -111,6 +111,7 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     /**
+     * 
      * Navigates the listview to display and select the person.
      */
     public TaskCardHandle navigateToPerson(ReadOnlyPerson person) {

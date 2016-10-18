@@ -52,7 +52,7 @@ public class TaskListPanelHandle extends GuiHandle {
      * Clicks on the ListView.
      */
     public void clickOnListView() {
-        Point2D point= TestUtil.getScreenMidPoint(getListView());
+        Point2D point = TestUtil.getScreenMidPoint(getListView());
         guiRobot.clickOn(point.getX(), point.getY());
     }
 
@@ -69,7 +69,7 @@ public class TaskListPanelHandle extends GuiHandle {
 
         // Return false if any of the tasks doesn't match
         for (int i = 0; i < tasks.length; i++) {
-            if (!tasksInList.get(startPosition + i).getContent().equals(tasks[i].getContent())){
+            if (!tasksInList.get(startPosition + i).getContent().value.equals(tasks[i].getContent().value)){
                 return false;
             }
         }
@@ -100,11 +100,13 @@ public class TaskListPanelHandle extends GuiHandle {
     }
 
 
-    public TaskCardHandle navigateToTask(String content) {
+    public TaskCardHandle navigateToTask(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
-        final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> p.getContent().equals(content)).findAny();
+        final Optional<ReadOnlyTask> task = getListView().getItems().stream()
+                                                    .filter(p -> p.getContent().value.compareTo(name) == 0)
+                                                    .findAny();
         if (!task.isPresent()) {
-            throw new IllegalStateException("Content not found: " + content);
+            throw new IllegalStateException("Name not found: " + name);
         }
 
         return navigateToTask(task.get());

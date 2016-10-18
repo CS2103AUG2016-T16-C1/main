@@ -66,15 +66,15 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Content("homework"), new TaskDate("11-02-2016"), new TaskTime("12:00"), new UniqueTagList()),
-                    new Task(new Content("study"), new TaskDate("11-02-2016"), new TaskTime("13:00"), new UniqueTagList()),
-                    new Task(new Content("exam"), new TaskDate("11-02-2016"), new TaskTime("02:00"), new UniqueTagList()),
-                    new Task(new Content("activities"), new TaskDate("11-02-2016"), new TaskTime("02:00"), new UniqueTagList()),
-                    new Task(new Content("tuition"), new TaskDate("11-02-2016"), new TaskTime("02:00"), new UniqueTagList()),
-                    new Task(new Content("family"), new TaskDate("11-02-2016"), new TaskTime("02:00"), new UniqueTagList()),
-                    new Task(new Content("groceries"), new TaskDate("11-02-2016"), new TaskTime("02:00"), new UniqueTagList()),
-                    new Task(new Content("flight"), new TaskDate("11-02-2016"), new TaskTime("02:00"), new UniqueTagList()),
-                    new Task(new Content("appointment"), new TaskDate("11-02-2016"), new TaskTime("14:00"), new UniqueTagList())
+                    new Task(new Content("a"), new TaskDate("11-02-2016"), new TaskTime("12:00"), new UniqueTagList()),
+                    new Task(new Content("b"), new TaskDate("11-02-2016"), new TaskTime("13:00"), new UniqueTagList()),
+                    new Task(new Content("c"), new TaskDate("11-02-2016"), new TaskTime("02:00"), new UniqueTagList()),
+                    new Task(new Content("d"), new TaskDate("11-02-2016"), new TaskTime("02:00"), new UniqueTagList()),
+                    new Task(new Content("e"), new TaskDate("11-02-2016"), new TaskTime("02:00"), new UniqueTagList()),
+                    new Task(new Content("f"), new TaskDate("11-02-2016"), new TaskTime("02:00"), new UniqueTagList()),
+                    new Task(new Content("g"), new TaskDate("11-02-2016"), new TaskTime("02:00"), new UniqueTagList()),
+                    new Task(new Content("h"), new TaskDate("11-02-2016"), new TaskTime("02:00"), new UniqueTagList()),
+                    new Task(new Content("i"), new TaskDate("11-02-2016"), new TaskTime("14:00"), new UniqueTagList())
             };
         } catch (IllegalValueException | ParseException e) {
             assert false;
