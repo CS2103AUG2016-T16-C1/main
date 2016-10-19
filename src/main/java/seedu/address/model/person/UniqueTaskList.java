@@ -1,6 +1,9 @@
 package seedu.address.model.person;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 
 import javafx.collections.FXCollections;
@@ -65,14 +68,26 @@ public class UniqueTaskList implements Iterable<Task> {
      * Edits a task in the list.
      *
      * @throws TaskNotFoundException if no such task could be found in the list.
+     * @throws ParseException 
      */
-    public boolean edit(int targetIndex, String newDate, String newTime, String newContent) throws TaskNotFoundException {
+    public boolean edit(int targetIndex, String newDate, String newTime, String newContent) 
+    		throws TaskNotFoundException, ParseException {
     	
         Task toEdit = internalList.get(targetIndex);
-        if(newDate != null)
+        if(newDate != null){
         	toEdit.getDate().dateString = newDate;
-        if(newTime != null)
+        	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+            Date date = simpleDateFormat.parse(newDate);
+            toEdit.getDate().value = date;
+        }
+        if(newTime != null){
         	toEdit.getTime().timeString = newTime;
+        	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+
+            Date time = simpleDateFormat.parse(newTime);
+            toEdit.getTime().value = time;
+        }
         if(newContent != null)
         	toEdit.getContent().value = newContent;
         return true;

@@ -80,7 +80,7 @@ public class EditCommand extends Command {
         
         try {
             model.editTask(targetIndex - 1, newDate, newTime, newContent);
-        } catch (TaskNotFoundException tnfe) {
+        } catch (TaskNotFoundException | ParseException tnfe) {
             assert false : "The target task cannot be missing";
         }
         UnmodifiableObservableList<ReadOnlyTask> updatedList = model.getFilteredTaskList();
