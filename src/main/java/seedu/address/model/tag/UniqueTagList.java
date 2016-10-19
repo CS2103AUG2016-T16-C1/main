@@ -26,7 +26,7 @@ public class UniqueTagList implements Iterable<Tag> {
         }
     }
 
-    private final ObservableList<Tag> internalList = FXCollections.observableArrayList();
+    private ObservableList<Tag> internalList = FXCollections.observableArrayList();
 
     /**
      * Constructs empty TagList.

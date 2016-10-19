@@ -1,6 +1,10 @@
 package seedu.address.model.person;
 
+import java.util.ArrayList;
+
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 
 /**
  * A read-only immutable interface for a task in Hard2Do.
@@ -59,4 +63,5 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
+	void addTags(ArrayList<String> tagsToAdd) throws DuplicateTagException, IllegalValueException;
 }

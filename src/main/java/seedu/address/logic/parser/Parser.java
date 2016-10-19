@@ -30,6 +30,9 @@ public class Parser {
             		
     private static final Pattern EDIT_TASK_ARGS_FORMAT = 
     		Pattern.compile("(?<index>\\S+)(?<taskDetails>.+)");
+    
+    private static final Pattern ADD_TAGS_FORMAT =
+    		Pattern.compile("(?<index>\\S+)(?<tagsToAdd>.+)");
 
     public Parser() {}
 
@@ -79,6 +82,9 @@ public class Parser {
             
         case EditCommand.COMMAND_WORD:
         	return prepareEdit(arguments);
+        
+        case AddTagCommand.COMMAND_WORD:
+        	return prepareAddTags(arguments);
         
         case UndoCommand.COMMAND_WORD:
         	return new UndoCommand();
@@ -180,6 +186,21 @@ public class Parser {
         
         try {
             return new AddCommand( content.toString().trim(), dateString, timeString, setTags);
+            
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+    private Command prepareAddTags(String args) throws ParseException{
+        Matcher matcher = ADD_TAGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE));
+        }
+        
+        try {
+            return new AddTagCommand( matcher.group("index"),
+                    matcher.group("tagsToAdd"));
             
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());

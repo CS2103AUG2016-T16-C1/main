@@ -153,6 +153,11 @@ public class TaskManager implements ReadOnlyTaskManager {
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
     }
+    
+    public void addTags(int targetIndex, ArrayList<String> newTags) throws IllegalValueException{
+    	tasks.addTags( targetIndex, newTags);
+		
+	}
 
 //// util methods
 
@@ -196,6 +201,8 @@ public class TaskManager implements ReadOnlyTaskManager {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, tags);
     }
+
+	
     
 
 }

@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
@@ -9,7 +10,9 @@ import java.util.Iterator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.DuplicateDataException;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
@@ -106,6 +109,14 @@ public class UniqueTaskList implements Iterable<Task> {
             throw new TaskNotFoundException();
         }
         return taskFoundAndDeleted;
+    }
+    
+    public boolean addTags(int targetIndex, ArrayList<String> tagsToAdd) 
+    		throws DuplicateTagException, IllegalValueException{
+    	Task toAddTags = internalList.get(targetIndex);
+    	toAddTags.addTags(tagsToAdd);
+    	
+    	return true;
     }
 
     /**

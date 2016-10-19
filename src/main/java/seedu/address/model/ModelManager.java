@@ -15,6 +15,7 @@ import seedu.address.model.person.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.person.UniqueTaskList.TaskNotFoundException;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -121,6 +122,24 @@ public class ModelManager extends ComponentManager implements Model {
 			e.printStackTrace();
 		}
     	taskManager.editTask(targetIndex, newDate, newTime, newContent);
+        updateFilteredListToShowDone();
+    	indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public synchronized void addTags(int targetIndex, ArrayList<String> newTags) 
+    		throws TaskNotFoundException, ParseException, IllegalValueException {
+    	try {
+			taskManager.save("addTag");
+		} catch (IllegalValueException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	taskManager.addTags(targetIndex, newTags);
+
         updateFilteredListToShowDone();
     	indicateTaskManagerChanged();
     }

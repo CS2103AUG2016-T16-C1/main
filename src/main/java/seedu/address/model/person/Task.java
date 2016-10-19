@@ -1,9 +1,13 @@
 package seedu.address.model.person;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 
 /**
  * Represents a task in Hard2Do.
@@ -26,7 +30,7 @@ public class Task implements ReadOnlyTask {
         this.content = content;
         this.date = date;
         this.time = time;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.tags = tags; 
     }
 
     /**
@@ -35,10 +39,19 @@ public class Task implements ReadOnlyTask {
     public Task(ReadOnlyTask source) {
         this(source.getContent(), source.getDate(), source.getTime(), source.getTags());
     }
+    @Override
+    public void addTags(ArrayList<String> tagsToAdd) throws DuplicateTagException, IllegalValueException {
+    	UniqueTagList newList = new UniqueTagList();
+    	for(String t : tagsToAdd){
+    		newList.add(new Tag(t));
+    	}
+    	newList.mergeFrom(tags);
+        setTags(newList);
+    }
 
     @Override
     public UniqueTagList getTags() {
-        return new UniqueTagList(tags);
+        return tags;
     }
 
     /**

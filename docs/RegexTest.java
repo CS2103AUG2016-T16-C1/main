@@ -15,7 +15,8 @@ public class RegexTest {
 
     private static final Pattern EDIT_TASK_ARGS_FORMAT =
             Pattern.compile("(?<index>\\S+)(?<taskDetails>.*)");
-
+    private static final Pattern ADD_TAGS_FORMAT =
+            Pattern.compile("(?<index>\\S+)(?<tagsToAdd>.+)");
    public static void main( String args[] ) {
 
 
@@ -25,6 +26,13 @@ public class RegexTest {
       String input = "add do this task manager #test d/20-10-2016 t/13:00 #shaglife #wheregottime d/what";
       String input2 = "add";
       String editInput = "2 d/12-20-2012 c/do something";
+      String addTagsInput = "1 sometag ok";
+      Matcher test = ADD_TAGS_FORMAT.matcher(addTagsInput.trim());
+      if(test.matches()){
+        System.out.println("Matches");
+        System.out.println(test.group("index"));
+        System.out.println(test.group("tagsToAdd"));
+      }
       Scanner sc = new Scanner(input);
       String setTags = "";
       if(sc.findInLine("#") != null){

@@ -9,6 +9,7 @@ import seedu.address.model.person.UniqueTaskList;
 import seedu.address.model.person.UniqueTaskList.TaskNotFoundException;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Set;
 
 /**
@@ -53,5 +54,8 @@ public interface Model {
 	History getHistory();
 
 	void updateFilteredListToShowDone();
+
+	void addTags(int targetIndex, ArrayList<String> newTag) 
+			throws TaskNotFoundException, ParseException, IllegalValueException;
 
 }
