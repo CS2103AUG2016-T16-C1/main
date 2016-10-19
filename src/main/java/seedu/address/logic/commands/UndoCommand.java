@@ -22,7 +22,8 @@ public class UndoCommand extends Command {
 	public static final String UNDO_EDIT_MESSAGE = "Edits has been revoked";
 	public static final String UNDO_CLEAR_MESSAGE = "Deleted Tasks have been restored";
 	public static final String UNDO_DONE_MESSAGE = "Task has been marked undone";
-
+	public static final String UNDO_ADD_TAG_MESSAGE = "Tag/s have been removed";
+	
     public UndoCommand() {}
 
 
@@ -54,6 +55,8 @@ public class UndoCommand extends Command {
         		return new CommandResult(UNDO_EDIT_MESSAGE);
         	case "done" :
         		return new CommandResult(UNDO_DONE_MESSAGE);
+        	case "addTag" :
+        		return new CommandResult(UNDO_ADD_TAG_MESSAGE);
         	default:
         		return new CommandResult(MESSAGE_SUCCESS);
         
