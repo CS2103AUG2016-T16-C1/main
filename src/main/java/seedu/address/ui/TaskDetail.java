@@ -87,7 +87,12 @@ public class TaskDetail extends UiPart {
             @Override
             public void changed(ObservableValue<? extends LocalTime> observable, LocalTime oldValue,
                     LocalTime newValue) {
-                System.out.println("this is called");
+                try {
+                    handleTimeChanged();
+                } catch (ParseException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
                 
         });
@@ -121,6 +126,7 @@ public class TaskDetail extends UiPart {
 
     @FXML
     private void handleDateChanged() throws ParseException {
+        System.out.println("handle is called");
         newDate = datePicker.getValue();
         formattedString = DateTimeUtil.changeLocalDateToFormattedString(newDate);
         if (formattedString.compareTo(task.getDate().toString()) != 0) {
@@ -134,7 +140,7 @@ public class TaskDetail extends UiPart {
     private void handleTimeChanged() throws ParseException {
         System.out.println("this is called");
         newTime = timePicker.getTime();
-        formattedString = DateTimeUtil.changeLocalDateToFormattedString(newDate);
+        formattedString = DateTimeUtil.changeLocalTimeToFormattedString(newTime);
         System.out.println(formattedString + " " + task.getTime().toString()); 
         if (formattedString.compareTo(task.getTime().toString()) != 0) {
             mostRecentResult = logic.execute("edit " + index + " t/" + formattedString);

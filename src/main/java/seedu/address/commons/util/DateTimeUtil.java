@@ -31,7 +31,7 @@ public class DateTimeUtil {
     }
     
     public static String changeLocalTimeToFormattedString(LocalTime value) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:MM");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         String formattedString = value.format(formatter);
         return formattedString;
     }
