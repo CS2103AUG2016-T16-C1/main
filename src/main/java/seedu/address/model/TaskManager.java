@@ -2,11 +2,14 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Task;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.History.StateNotFoundException;
 import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.UniqueTaskList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
+import java.text.ParseException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -18,10 +21,12 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     private UniqueTaskList tasks;
     private UniqueTagList tags;
+    private History history;
 
     {
         tasks = new UniqueTaskList();
         tags = new UniqueTagList();
+        history = new History();
     }
 
     public TaskManager() {}
@@ -63,10 +68,19 @@ public class TaskManager implements ReadOnlyTaskManager {
         setTags(newTags);
     }
 
-    public void resetData(ReadOnlyTaskManager newData) {
+    public void resetData(ReadOnlyTaskManager newData) throws IllegalValueException, ParseException {
         resetData(newData.getTaskList(), newData.getTagList());
     }
-
+    
+    public void save(String commandType) throws IllegalValueException, ParseException{
+    	history.save(tasks.getInternalList(), tags.getInternalList(), commandType);
+    } 
+    
+    public void undo() throws StateNotFoundException{
+    	history.undo();
+    	setTasks(history.getPreviousTasks());
+    	setTags(history.getPreviousTags());
+    }
 //// task-level operations
 
     /**
@@ -77,7 +91,7 @@ public class TaskManager implements ReadOnlyTaskManager {
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
     public void addTask(Task t) throws UniqueTaskList.DuplicateTaskException {
-        syncTagsWithMasterList(t);
+    	syncTagsWithMasterList(t);
         tasks.add(t);
     }
 
@@ -105,6 +119,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+    	
         if (tasks.remove(key)) {
             return true;
         } else {
@@ -114,11 +129,23 @@ public class TaskManager implements ReadOnlyTaskManager {
     
     public boolean editTask(int targetIndex, String newDate, String newTime, String newContent) 
     		throws UniqueTaskList.TaskNotFoundException {
+    	
         if (tasks.edit(targetIndex, newDate, newTime, newContent)) {
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
         }
+    }
+    
+    public boolean markTaskAsDone(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+        if (tasks.done(key)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
+    public History getHistory(){
+    	return history;
     }
 
 //// tag-level operations
@@ -169,6 +196,6 @@ public class TaskManager implements ReadOnlyTaskManager {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, tags);
     }
-
+    
 
 }
