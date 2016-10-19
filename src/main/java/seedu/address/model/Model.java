@@ -50,4 +50,6 @@ public interface Model {
 
 	History getHistory();
 
+	void updateFilteredListToShowDone();
+
 }

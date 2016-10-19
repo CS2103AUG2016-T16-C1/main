@@ -104,7 +104,7 @@ public class ModelManager extends ComponentManager implements Model {
 			e.printStackTrace();
 		}
     	taskManager.addTask(task);
-        updateFilteredListToShowAll();
+    	updateFilteredListToShowDone();
         indicateTaskManagerChanged();
     }
     
@@ -120,7 +120,7 @@ public class ModelManager extends ComponentManager implements Model {
 			e.printStackTrace();
 		}
     	taskManager.editTask(targetIndex, newDate, newTime, newContent);
-    	updateFilteredListToShowAll();
+        updateFilteredListToShowDone();
     	indicateTaskManagerChanged();
     }
     
@@ -137,7 +137,7 @@ public class ModelManager extends ComponentManager implements Model {
 		}
         taskManager.markTaskAsDone(target);
         logger.info("successfully mark as done"+target.getDone());
-        updateFilteredListToShowAll();
+        updateFilteredListToShowDone();
         indicateTaskManagerChanged();
     }
     @Override
@@ -147,7 +147,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void undo() throws StateNotFoundException{
     	taskManager.undo();
-    	updateFilteredListToShowAll();
+    	updateFilteredListToShowDone();
     	indicateTaskManagerChanged();
     }
     
@@ -161,8 +161,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
+    }
+    
+    public void updateFilteredListToShowDone() {
+        filteredTasks.setPredicate(null);
         filteredTasks.setPredicate((Task t) -> !t.getDone());
-        logger.info("filterTasks called");
     }
 
     @Override
