@@ -14,8 +14,9 @@ public class AddCommandTestTask extends TaskManagerGuiTest {
     @Test
     public void add() {
         //add one task
-        TestTask[] currentList = td.getTypicalTasks();
-        TestTask taskToAdd = td.homework;
+
+    	TestTask[] currentList = td.getTypicalTasks();
+        TestTask taskToAdd = td.flight;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
    
