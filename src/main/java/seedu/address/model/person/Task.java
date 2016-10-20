@@ -14,18 +14,31 @@ public class Task implements ReadOnlyTask {
     private Content content;
     private TaskDate date;
     private TaskTime time;
-    boolean Done = false;
+    private boolean done = false;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Content content, TaskDate date, TaskTime time, UniqueTagList tags) {
+    public Task(Content content, TaskDate date, TaskTime time, /*boolean done, */UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(content, date, time, tags);
         this.content = content;
         this.date = date;
         this.time = time;
+        //this.done = done;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+    }
+    
+    /**
+     * create a task with done status
+     */
+    public Task(Content content, TaskDate date, TaskTime time, boolean done, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(content, date, time, tags);
+        this.content = content;
+        this.date = date;
+        this.time = time;
+        this.done = done;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -84,13 +97,13 @@ public class Task implements ReadOnlyTask {
     
     @Override
     public boolean setDone() {
-        if (!Done) Done = true;
+        if (!done) done = true;
         else return false;
         return true;
     }
     
     @Override
     public boolean getDone() {
-        return Done;
+        return done;
     }
 }

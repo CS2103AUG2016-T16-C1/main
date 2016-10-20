@@ -67,6 +67,7 @@ public class XmlAdaptedTask {
         final UniqueTagList tags = new UniqueTagList(taskTags);
         /*Task tempTask = new Task(content, date, time, tags);
         if (done) tempTask.setDone();*/
-        return new Task(content, date, time, tags);
+        //return new Task(content, date, time, done, tags);
+        return new Task(content, date, time, tags);//whenever changed cannot unlist done task
     }
 }
