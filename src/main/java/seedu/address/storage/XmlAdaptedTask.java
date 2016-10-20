@@ -21,6 +21,8 @@ public class XmlAdaptedTask {
     private TaskDate date;//phone=>date
     @XmlElement(required = true)
     private TaskTime time;//email=>time
+    @XmlElement(required = true)
+    private boolean done;
 
 
     @XmlElement
@@ -41,6 +43,7 @@ public class XmlAdaptedTask {
         content = source.getContent();
         date = source.getDate();
         time = source.getTime();
+        done = source.getDone();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -60,7 +63,10 @@ public class XmlAdaptedTask {
         final Content content = this.content;//old version: new Content(this.content.toString());
         final TaskDate date = this.date;     //Unknown purpose ??
         final TaskTime time = this.time;
+        final boolean done = this.done;
         final UniqueTagList tags = new UniqueTagList(taskTags);
+        /*Task tempTask = new Task(content, date, time, tags);
+        if (done) tempTask.setDone();*/
         return new Task(content, date, time, tags);
     }
 }

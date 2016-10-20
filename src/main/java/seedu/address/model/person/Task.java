@@ -34,6 +34,7 @@ public class Task implements ReadOnlyTask {
      */
     public Task(ReadOnlyTask source) {
         this(source.getContent(), source.getDate(), source.getTime(), source.getTags());
+        if (source.getDone()) setDone();
     }
 
     @Override
