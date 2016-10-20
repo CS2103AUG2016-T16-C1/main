@@ -18,18 +18,30 @@ public class Task implements ReadOnlyTask {
     private Content content;
     private TaskDate date;
     private TaskTime time;
-    boolean Done = false;
+    private boolean done = false;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Content content, TaskDate date, TaskTime time, UniqueTagList tags) {
+    public Task(Content content, TaskDate date, TaskTime time, /*boolean done, */UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(content, date, time, tags);
         this.content = content;
         this.date = date;
         this.time = time;
+        this.tags = tags; 
+    }
+    
+    /**
+     * create a task with done status
+     */
+    public Task(Content content, TaskDate date, TaskTime time, boolean done, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(content, date, time, tags);
+        this.content = content;
+        this.date = date;
+        this.time = time;
+        this.done = done;
         this.tags = tags; 
     }
 
@@ -38,6 +50,7 @@ public class Task implements ReadOnlyTask {
      */
     public Task(ReadOnlyTask source) {
         this(source.getContent(), source.getDate(), source.getTime(), source.getTags());
+        if (source.getDone()) setDone();
     }
     @Override
     public void addTags(ArrayList<String> tagsToAdd) throws DuplicateTagException, IllegalValueException {
@@ -96,13 +109,13 @@ public class Task implements ReadOnlyTask {
     
     @Override
     public boolean setDone() {
-        if (!Done) Done = true;
+        if (!done) done = true;
         else return false;
         return true;
     }
     
     @Override
     public boolean getDone() {
-        return Done;
+        return done;
     }
 }
