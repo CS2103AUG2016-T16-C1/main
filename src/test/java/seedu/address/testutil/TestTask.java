@@ -1,6 +1,11 @@
 package seedu.address.testutil;
 
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
+
+import java.util.ArrayList;
+
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.*;
 
 /**
@@ -63,5 +68,23 @@ import seedu.address.model.person.*;
 	        this.getTags().getInternalList().stream().forEach(s -> sb.append("#" + s.tagName + " "));
 	        return sb.toString();
 	    }
+
+        @Override
+        public boolean getDone() {
+            // TODO Auto-generated method stub
+            return false;
+        }
+
+        @Override
+        public boolean setDone() {
+            // TODO Auto-generated method stub
+            return false;
+        }
+
+        @Override
+        public void addTags(ArrayList<String> tagsToAdd) throws DuplicateTagException, IllegalValueException {
+            // TODO Auto-generated method stub
+            
+        }
 	}
 
