@@ -133,7 +133,7 @@ public class Parser {
         //Validate arg string format: String starts with content and not date/time/tag
         	String startOfLine = validator.next();
         	
-        	if(startOfLine.startsWith("d/") || startOfLine.startsWith("t/") || startOfLine.startsWith("#")){
+        	if(startOfLine.startsWith("d/") || startOfLine.startsWith("t/") || startOfLine.startsWith("#") || startOfLine.startsWith("et")){
         		validator.close();
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         	}
@@ -146,7 +146,7 @@ public class Parser {
     	StringBuilder content = new StringBuilder();
 		while(scanContent.hasNext()){
 			String check = scanContent.next();
-			if(check.startsWith("d/") || check.startsWith("t/") || check.startsWith("#"))
+			if(check.startsWith("d/") || check.startsWith("t/") || check.startsWith("#") || check.startsWith("et"))
 				break;
 			else
 				content.append(" " + check);
@@ -175,7 +175,7 @@ public class Parser {
 		}
 		scanDate.close();
 		
-		//Obtain date if any from String args
+		//Obtain time if any from String args
 		String timeString = null;
 		Scanner scanTime = new Scanner(args);
 		if(scanTime.findInLine("t/") != null){
@@ -183,9 +183,16 @@ public class Parser {
 		}
 		scanTime.close();
 		
+		//Obtain endTime if any from String args
+		String endString = null;
+		Scanner scanEnd = new Scanner(args);
+		if(scanEnd.findInLine("et/") != null){
+			endString = scanEnd.next();
+		}
+		scanEnd.close();
         
         try {
-            return new AddCommand( content.toString().trim(), dateString, timeString, setTags);
+            return new AddCommand( content.toString().trim(), dateString, timeString, endString, setTags);
             
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());

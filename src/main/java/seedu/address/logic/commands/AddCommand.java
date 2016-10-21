@@ -17,7 +17,7 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task manager. \n"
-            + "Parameters: CONTENT d/DATE[dd-mm-yyyy] t/time[HH:mm] [#TAG]...\n"
+            + "Parameters: CONTENT d/DATE[dd-mm-yyyy] t/time[HH:mm] et/endTime[HH:mm] [#TAG]...\n"
     		+ "Note: order and presence of parameters after CONTENT do not matter. \n"
             + "Example: " + COMMAND_WORD
             + " do this task manager d/20-10-2016 t/13:00 #shaglife #wheregottime";
@@ -36,7 +36,7 @@ public class AddCommand extends Command {
      * @throws IllegalValueException if any of the raw values are invalid
      * @throws ParseException 
      */
-    public AddCommand(String content, String date, String time, Set<String> tags)
+    public AddCommand(String content, String date, String time, String endTime, Set<String> tags)
             throws IllegalValueException, ParseException {
     	assert content != null;
     	
@@ -54,7 +54,7 @@ public class AddCommand extends Command {
         if(time == null)
         	timeToAdd = new TaskTime();
         else
-        	timeToAdd = new TaskTime(time);
+        	timeToAdd = new TaskTime(time, endTime);
         
         
         this.toAdd = new Task(

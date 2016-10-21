@@ -104,6 +104,8 @@ public class History {
 		
 		tasksState = taskStates.pop();
 		message = messages.pop();
+		if(tagsState.isEmpty())
+			return;
 		tagsState = tagStates.pop();
 	}
 	
