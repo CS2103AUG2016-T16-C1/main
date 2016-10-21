@@ -6,6 +6,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.commons.core.Messages;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertTrue;
 
@@ -16,23 +17,23 @@ public class AddCommandTestTask extends TaskManagerGuiTest {
         //add one task
 
     	TestTask[] currentList = td.getTypicalTasks();
-        TestTask taskToAdd = td.flight;
+        TestTask taskToAdd = TypicalTestTasks.appointment;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
    
         //add another person
-        taskToAdd = td.appointment;
+        taskToAdd = TypicalTestTasks.appointment;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add duplicate person
-        commandBox.runCommand(td.flight.getAddCommand());
+        commandBox.runCommand(TypicalTestTasks.flight.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
 
         //add to empty list
         commandBox.runCommand("clear");
-        assertAddSuccess(td.homework);
+        assertAddSuccess(TypicalTestTasks.homework);
 
         //invalid command
         commandBox.runCommand("adds Johnny");
