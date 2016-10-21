@@ -21,12 +21,12 @@ public class AddCommandTestTask extends TaskManagerGuiTest {
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
    
-        //add another person
-        taskToAdd = TypicalTestTasks.appointment;
+        //add another task
+        taskToAdd = TypicalTestTasks.flight;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
-        //add duplicate person
+        //add duplicate task
         commandBox.runCommand(TypicalTestTasks.flight.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
