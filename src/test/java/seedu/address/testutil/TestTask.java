@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 
@@ -83,8 +84,20 @@ import seedu.address.model.person.*;
 
         @Override
         public void addTags(ArrayList<String> tagsToAdd) throws DuplicateTagException, IllegalValueException {
-            // TODO Auto-generated method stub
-            
+            UniqueTagList newList = new UniqueTagList();
+            for(String t : tagsToAdd){
+                newList.add(new Tag(t));
+            }
+            newList.mergeFrom(tags);
+            setTags(newList);
         }
+        
+        /**
+         * Replaces this task's tags with the tags in the argument tag list.
+         */
+        public void setTags(UniqueTagList replacement) {
+            tags.setTags(replacement);
+        }
+
 	}
 
