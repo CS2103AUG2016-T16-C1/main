@@ -11,6 +11,8 @@ import seedu.address.model.person.ReadOnlyTask;
 public class TaskCardHandle extends GuiHandle {
     private static final String CONTENT_FIELD_ID = "#content";
     private static final String DATE_FIELD_ID = "#date";
+    private static final String TAG_FIELD_ID = "#tags";
+
 
     private Node node;
 
@@ -29,6 +31,10 @@ public class TaskCardHandle extends GuiHandle {
 
     public String getDate() {
         return getTextFromLabel(DATE_FIELD_ID);
+    }
+    
+    public String getTag() {
+        return getTextFromLabel(TAG_FIELD_ID);
     }
 
 
