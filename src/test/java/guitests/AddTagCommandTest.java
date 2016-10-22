@@ -37,9 +37,7 @@ public class AddTagCommandTest extends TaskManagerGuiTest{
         //add tag to item with no task
         targetIndex = 2;
         assertAddTagSuccess(targetIndex, currentList, newTag);
-        
-        //add tag to invalid index
-        commandBox.runCommand("addtag " + "100 " + newTag);        
+              
     }
     
     @Test

@@ -19,8 +19,6 @@ public class ConfigTest {
                 "Preference file Location : preferences.json\n" +
                 "Local data file location : data/taskmanager.xml\n" +
                 "Task Manager name : Hard2Do";
-        System.out.println(defaultConfigAsString);
-        System.out.println(new Config().toString());
         
         assertEquals(defaultConfigAsString, new Config().toString());
     }

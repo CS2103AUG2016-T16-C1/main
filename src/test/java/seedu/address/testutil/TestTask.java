@@ -17,6 +17,7 @@ import seedu.address.model.person.*;
 	    private Content content;
 	    private TaskDate taskdate;
 	    private TaskTime tasktime;
+	    private boolean done;
 
 	    private UniqueTagList tags;
 
@@ -72,14 +73,14 @@ import seedu.address.model.person.*;
 
         @Override
         public boolean getDone() {
-            // TODO Auto-generated method stub
-            return false;
+            return done;
         }
 
         @Override
         public boolean setDone() {
-            // TODO Auto-generated method stub
-            return false;
+            if (!done) done = true;
+            else return false;
+            return true;
         }
 
         @Override
@@ -97,6 +98,14 @@ import seedu.address.model.person.*;
          */
         public void setTags(UniqueTagList replacement) {
             tags.setTags(replacement);
+        }
+
+        public boolean isDone() {
+            return done;
+        }
+
+        public void setDone(boolean done) {
+            this.done = done;
         }
 
 	}
