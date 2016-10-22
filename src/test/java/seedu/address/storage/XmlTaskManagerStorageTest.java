@@ -12,6 +12,7 @@ import seedu.address.model.TaskManager;
 import seedu.address.model.person.Task;
 import seedu.address.testutil.TypicalTestTasks;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
@@ -32,7 +33,7 @@ public class XmlTaskManagerStorageTest {
         readTaskManager(null);
     }
 
-    private java.util.Optional<ReadOnlyTaskManager> readTaskManager(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlyTaskManager> readTaskManager(String filePath) throws DataConversionException, FileNotFoundException {
         return new XmlTaskManagerStorage(filePath).readTaskManager(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -48,7 +49,7 @@ public class XmlTaskManagerStorageTest {
     }
 
     @Test
-    public void read_notXmlFormat_exceptionThrown() throws Exception {
+    public void read_notXmlFormat_exceptionThrown() throws DataConversionException, FileNotFoundException {
 
         thrown.expect(DataConversionException.class);
         readTaskManager("NotXmlFormatTaskManager.xml");
