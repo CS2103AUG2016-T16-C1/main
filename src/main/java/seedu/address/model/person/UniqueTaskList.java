@@ -129,6 +129,25 @@ public class UniqueTaskList implements Iterable<Task> {
         return tagsAddedToTask;
     	
     }
+    
+    /**
+     * Delete tags from the equivalent task.
+     * 
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     * @throws IllegalValueException if tags are not alphanumerical.
+     * @throws DuplicateTagException if task already has similar tag.
+     */
+    
+    public boolean deleteTags(ReadOnlyTask target, ArrayList<String> tagsToDel) 
+    		throws DuplicateTagException, IllegalValueException, TaskNotFoundException{
+    	assert target != null;
+    	final boolean tagsDeletedFromTask = target.deleteTags(tagsToDel);
+    	if (!tagsDeletedFromTask) {
+            throw new TaskNotFoundException();
+        }
+        return tagsDeletedFromTask;
+    	
+    }
 
     /**
      * Mark the equivalent task as done.

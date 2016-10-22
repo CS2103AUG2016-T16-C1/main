@@ -58,4 +58,7 @@ public interface Model {
 	void addTags(ReadOnlyTask target, ArrayList<String> newTag) 
 			throws TaskNotFoundException, ParseException, IllegalValueException;
 
+	void deleteTags(ReadOnlyTask taskToDelTags, ArrayList<String> tagsToDel) 
+			throws TaskNotFoundException, ParseException, IllegalValueException;
+
 }

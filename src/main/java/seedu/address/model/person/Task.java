@@ -62,6 +62,17 @@ public class Task implements ReadOnlyTask {
         setTags(newList);
         return true;
     }
+    
+    @Override
+    public boolean deleteTags(ArrayList<String> tagsToDelete) 
+    		throws DuplicateTagException, IllegalValueException {
+    	UniqueTagList newList = new UniqueTagList(tags);
+    	for(String t : tagsToDelete){
+    		newList.remove(new Tag(t));
+    	}
+        setTags(newList);
+        return true;
+    }
 
     @Override
     public UniqueTagList getTags() {

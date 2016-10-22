@@ -118,6 +118,16 @@ public class UniqueTagList implements Iterable<Tag> {
         }
         internalList.add(toAdd);
     }
+    /**
+     * Removes a Tag from the list.
+     *
+     * @throws DuplicateTagException if the Tag to add is a duplicate of an existing Tag in the list.
+     */
+    public void remove(Tag tag) {
+		assert tag != null;
+		internalList.remove(tag);
+		
+	}
 
     @Override
     public Iterator<Tag> iterator() {
@@ -140,4 +150,6 @@ public class UniqueTagList implements Iterable<Tag> {
     public int hashCode() {
         return internalList.hashCode();
     }
+
+	
 }

@@ -32,7 +32,10 @@ public class Parser {
     		Pattern.compile("(?<index>\\S+)(?<taskDetails>.+)");
     
     private static final Pattern ADD_TAGS_FORMAT =
-    		Pattern.compile("(?<index>\\S+)(?<tagsToAdd>.+)");
+    		Pattern.compile("(?<index>\\S+)(?<tagsToAdd>[^#/%]+)");
+    
+    private static final Pattern DELETE_TAGS_FORMAT =
+    		Pattern.compile("(?<index>\\S+)(?<tagsToDelete>[^#/%]+)");
 
     public Parser() {}
 
@@ -85,6 +88,9 @@ public class Parser {
         
         case AddTagCommand.COMMAND_WORD:
         	return prepareAddTags(arguments);
+        
+        case DeleteTagCommand.COMMAND_WORD:
+        	return prepareDeleteTags(arguments);
         
         case UndoCommand.COMMAND_WORD:
         	return new UndoCommand();
@@ -201,6 +207,22 @@ public class Parser {
         try {
             return new AddTagCommand( matcher.group("index"),
                     matcher.group("tagsToAdd"));
+            
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+    
+    private Command prepareDeleteTags(String args) throws ParseException{
+        Matcher matcher = DELETE_TAGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTagCommand.MESSAGE_USAGE));
+        }
+        
+        try {
+            return new DeleteTagCommand( matcher.group("index"),
+                    matcher.group("tagsToDelete"));
             
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());

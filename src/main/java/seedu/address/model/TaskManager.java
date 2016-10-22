@@ -165,6 +165,17 @@ public class TaskManager implements ReadOnlyTaskManager {
     	}
 		
 	}
+    
+    public boolean deleteTags(ReadOnlyTask target, ArrayList<String> newTags) 
+    		throws IllegalValueException, TaskNotFoundException{
+    	
+    	if(tasks.deleteTags( target, newTags)){
+    		return true;
+    	} else {
+    		throw new UniqueTaskList.TaskNotFoundException();
+    	}
+		
+	}
 
 //// util methods
 

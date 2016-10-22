@@ -145,6 +145,24 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
+    public synchronized void deleteTags(ReadOnlyTask target, ArrayList<String> tagsToDelete) 
+    		throws TaskNotFoundException, ParseException, IllegalValueException {
+    	assert !(tagsToDelete.size() == 0);
+    	try {
+			taskManager.save("deleteTag");
+		} catch (IllegalValueException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	taskManager.deleteTags(target, tagsToDelete);
+
+        updateFilteredListToShowDone();
+    	indicateTaskManagerChanged();
+    }
+    @Override
     public synchronized void doneTask(ReadOnlyTask target) throws TaskNotFoundException {
     	try {
 			taskManager.save("done");
