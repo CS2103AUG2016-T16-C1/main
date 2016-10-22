@@ -127,7 +127,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void addTags(int targetIndex, ArrayList<String> newTags) 
+    public synchronized void addTags(ReadOnlyTask target, ArrayList<String> newTags) 
     		throws TaskNotFoundException, ParseException, IllegalValueException {
     	try {
 			taskManager.save("addTag");
@@ -138,7 +138,7 @@ public class ModelManager extends ComponentManager implements Model {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	taskManager.addTags(targetIndex, newTags);
+    	taskManager.addTags(target, newTags);
 
         updateFilteredListToShowDone();
     	indicateTaskManagerChanged();

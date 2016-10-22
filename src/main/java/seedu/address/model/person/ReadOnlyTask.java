@@ -17,6 +17,7 @@ public interface ReadOnlyTask {
     TaskTime getTime();
     boolean getDone();
     boolean setDone();
+    boolean addTags(ArrayList<String> tagsToAdd) throws DuplicateTagException, IllegalValueException;
     
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -63,5 +64,5 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
-	void addTags(ArrayList<String> tagsToAdd) throws DuplicateTagException, IllegalValueException;
+	
 }

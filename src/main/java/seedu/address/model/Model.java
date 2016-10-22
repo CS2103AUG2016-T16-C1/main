@@ -55,7 +55,7 @@ public interface Model {
 
 	void updateFilteredListToShowDone();
 
-	void addTags(int targetIndex, ArrayList<String> newTag) 
+	void addTags(ReadOnlyTask target, ArrayList<String> newTag) 
 			throws TaskNotFoundException, ParseException, IllegalValueException;
 
 }

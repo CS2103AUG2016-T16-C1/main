@@ -111,12 +111,23 @@ public class UniqueTaskList implements Iterable<Task> {
         return taskFoundAndDeleted;
     }
     
-    public boolean addTags(int targetIndex, ArrayList<String> tagsToAdd) 
-    		throws DuplicateTagException, IllegalValueException{
-    	Task toAddTags = internalList.get(targetIndex);
-    	toAddTags.addTags(tagsToAdd);
+    /**
+     * Add tags to the equivalent task.
+     * 
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     * @throws IllegalValueException if tags are not alphanumerical.
+     * @throws DuplicateTagException if task already has similar tag.
+     */
+    
+    public boolean addTags(ReadOnlyTask target, ArrayList<String> tagsToAdd) 
+    		throws DuplicateTagException, IllegalValueException, TaskNotFoundException{
+    	assert target != null;
+    	final boolean tagsAddedToTask = target.addTags(tagsToAdd);
+    	if (!tagsAddedToTask) {
+            throw new TaskNotFoundException();
+        }
+        return tagsAddedToTask;
     	
-    	return true;
     }
 
     /**

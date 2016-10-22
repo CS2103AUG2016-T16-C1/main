@@ -56,14 +56,17 @@ public class AddTagCommand extends Command {
         }
         if(tagsToAdd.size() == 0)
         	return new CommandResult("No Tags To Add");
+        
+        ReadOnlyTask taskToAddTags= lastShownList.get(targetIndex - 1);
+        
         try {
-            model.addTags(targetIndex - 1, tagsToAdd);
+            model.addTags(taskToAddTags, tagsToAdd);
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
         } catch (ParseException pe){
         	return new CommandResult("ParseException");
         } catch (IllegalValueException ive){
-        	return new CommandResult("IllegalValueException");
+        	return new CommandResult("Tags must be alphanumerical");
         }
        lastShownList = model.getFilteredTaskList();
         ReadOnlyTask updatedTask = lastShownList.get(targetIndex - 1);
