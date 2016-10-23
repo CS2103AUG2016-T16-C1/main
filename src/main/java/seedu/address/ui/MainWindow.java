@@ -29,7 +29,6 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
     private TaskDetail taskDetail;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
@@ -192,6 +191,5 @@ public class MainWindow extends UiPart {
     }
 
     public void releaseResources() {
-        browserPanel.freeResources();
     }
 }
