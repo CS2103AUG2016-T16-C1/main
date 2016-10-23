@@ -16,8 +16,11 @@ public class AddTagCommand extends Command {
             + "Parameters: INDEX[MUST BE POSITIVE INTEGER] TAGS[ANY NUMBER OF TAGS SEPARATED BY SPACE] \n"
             + "Example: " + COMMAND_WORD
             + " 1 toughlife easygame";
-
+    
+    public static final String MESSAGE_INVALID_TAG = "Tags must be alphanumerical";
+    public static final String MESSAGE_NO_TAG = "No Tag can be found";
     public static final String MESSAGE_SUCCESS = "Task tags updated: %1$s";
+    
  
     private int targetIndex;
     private ArrayList<String> tagsToAdd;
@@ -55,7 +58,7 @@ public class AddTagCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
         if(tagsToAdd.size() == 0)
-        	return new CommandResult("No Tags To Add");
+        	return new CommandResult(MESSAGE_NO_TAG);
         
         ReadOnlyTask taskToAddTags= lastShownList.get(targetIndex - 1);
         
@@ -66,7 +69,7 @@ public class AddTagCommand extends Command {
         } catch (ParseException pe){
         	return new CommandResult("ParseException");
         } catch (IllegalValueException ive){
-        	return new CommandResult("Tags must be alphanumerical");
+        	return new CommandResult(MESSAGE_INVALID_TAG);
         }
        lastShownList = model.getFilteredTaskList();
         ReadOnlyTask updatedTask = lastShownList.get(targetIndex - 1);

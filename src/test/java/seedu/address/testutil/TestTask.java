@@ -84,13 +84,14 @@ import seedu.address.model.person.*;
         }
 
         @Override
-        public void addTags(ArrayList<String> tagsToAdd) throws DuplicateTagException, IllegalValueException {
+        public boolean addTags(ArrayList<String> tagsToAdd) throws DuplicateTagException, IllegalValueException {
             UniqueTagList newList = new UniqueTagList();
             for(String t : tagsToAdd){
                 newList.add(new Tag(t));
             }
             newList.mergeFrom(tags);
             setTags(newList);
+            return true;
         }
         
         /**
@@ -107,6 +108,12 @@ import seedu.address.model.person.*;
         public void setDone(boolean done) {
             this.done = done;
         }
+
+		@Override
+		public boolean deleteTags(ArrayList<String> tagsToDel) throws DuplicateTagException, IllegalValueException {
+			
+			return false;
+		}
 
 	}
 
