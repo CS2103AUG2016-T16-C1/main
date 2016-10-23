@@ -185,6 +185,11 @@ public class ModelManager extends ComponentManager implements Model {
     
     public void updateFilteredListToShowDone() {
         filteredTasks.setPredicate(null);
+        filteredTasks.setPredicate((Task t) -> t.getDone());
+    }
+    
+    public void updateFilteredListToShowUndone() {
+        filteredTasks.setPredicate(null);
         filteredTasks.setPredicate((Task t) -> !t.getDone());
     }
 
