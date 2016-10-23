@@ -13,9 +13,12 @@ import seedu.address.model.person.Task;
 import seedu.address.model.person.UniqueTaskList;
 import seedu.address.model.person.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.person.UniqueTaskList.TaskNotFoundException;
+import info.debatty.java.stringsimilarity.*;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -218,6 +221,22 @@ public class ModelManager extends ComponentManager implements Model {
 
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
+    }
+    
+    public void updateFilteredTaskList(String toFind){
+    	
+    	filteredTasks.setPredicate((Task t) -> new Scanner(t.getContent().value).findInLine(toFind) != null);
+    	Comparator<Task> byEditDistance = new Comparator<Task>() {
+    	    public int compare(Task left, Task right) {
+    	        if (left.getContent().value.length() > right.getContent().value.length()) {
+    	            return -1;
+    	        } else {
+    	            return 1;
+    	        } 
+    	    }
+    	};
+    	
+    	filteredTasks.sorted(byEditDistance);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================

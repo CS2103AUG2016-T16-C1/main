@@ -39,6 +39,9 @@ public interface Model {
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
     
+    /** Updates the filter of the filtered task list to filter by the closest edit distance to given string input*/
+    void updateFilteredTaskList(String toFind);
+    
     /** Edit the given task. 
      * @throws ParseException */
 	void editTask(int targetIndex, String newDate, String newTime, String newContent) 
