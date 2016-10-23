@@ -41,6 +41,7 @@ public class LogicManagerTest {
 
     private Model model;
     private Logic logic;
+    private Config config;
 
     //These are for checking the correctness of the events raised
     private ReadOnlyTaskManager latestSavedTaskManager;

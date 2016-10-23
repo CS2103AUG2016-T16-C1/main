@@ -4,6 +4,7 @@ import seedu.address.logic.commands.*;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
 
+import java.io.File;
 import java.text.ParseException;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -88,6 +89,9 @@ public class Parser {
         
         case UndoCommand.COMMAND_WORD:
         	return new UndoCommand();
+        	
+        case LoadCommand.COMMAND_WORD:
+            return prepareLoad(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -191,6 +195,19 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
+    
+    private Command prepareLoad(String args) throws ParseException{
+        File file = new File(args.trim());
+        if (file.isDirectory()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoadCommand.MESSAGE_DIRECTORY_FILEPATH));
+        }
+        else if (!file.exists()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoadCommand.MESSAGE_INVALID_FILEPATH));
+        }
+        else
+            return new LoadCommand(args);
+    }
+    
     private Command prepareAddTags(String args) throws ParseException{
         Matcher matcher = ADD_TAGS_FORMAT.matcher(args.trim());
         // Validate arg string format
