@@ -31,9 +31,9 @@ public interface ReadOnlyTask {
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getContent().equals(this.getContent()) // state checks here onwards
-                && other.getDate().equals(this.getDate())
-                && other.getTime().equals(this.getTime()));
+                && other.getContent().equals(this.getContent())); // state checks here onwards
+                //&& other.getDate().equals(this.getDate())
+                //&& other.getTime().equals(this.getTime()));
     }
 
     /**
