@@ -16,9 +16,9 @@ public class TypicalTestTasks {
     public TypicalTestTasks(){
         try {
             homework =  new TaskBuilder().withContent("Do Homework").withDate("24-08-2016").withTime("13:00").withTags("shag").build();
-            study = new TaskBuilder().withContent("Study").withDate("30-08-2016").withTime("14:00").withTags("tired").build();
+            study = new TaskBuilder().withContent("Study").withDate("30-08-2016").withTime("14:00").build();
             exam = new TaskBuilder().withContent("Have Exam").withDate("20-05-2016").withTime("10:00").withTags("shaglife", "tired").build();
-            activities = new TaskBuilder().withContent("Hall Activities").withDate("15-06-2016").withTime("19:00").withTags("fun").build();
+            activities = new TaskBuilder().withContent("Hall Activities and Study section").withDate("15-06-2016").withTime("19:00").withTags("fun").build();
             tuition = new TaskBuilder().withContent("Teach Tuition").withDate("21-03-2016").withTime("14:00").withTags("money").build();
             family = new TaskBuilder().withContent("Family Event").withDate("02-11-2016").withTime("12:00").withTags("love").build();
             groceries = new TaskBuilder().withContent("Get Groceries").withDate("01-12-2016").withTime("09:00").withTags("food").build();

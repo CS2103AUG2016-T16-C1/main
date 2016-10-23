@@ -88,7 +88,7 @@ public class Config {
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("App title : " + appTitle);
+        sb.append("Task Manager name: " + appTitle);
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
         sb.append("\nLocal data file location : " + taskManagerFilePath);

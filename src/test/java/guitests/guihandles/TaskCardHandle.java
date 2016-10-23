@@ -6,12 +6,13 @@ import javafx.stage.Stage;
 import seedu.address.model.person.ReadOnlyTask;
 
 /**
- * Provides a handle to a person card in the person list panel.
+ * Provides a handle to a task card in the person list panel.
  */
 public class TaskCardHandle extends GuiHandle {
     private static final String CONTENT_FIELD_ID = "#content";
     private static final String DATE_FIELD_ID = "#date";
-    private static final String TIME_FIELD_ID = "#time";
+    private static final String TAG_FIELD_ID = "#tags";
+
 
     private Node node;
 
@@ -31,14 +32,15 @@ public class TaskCardHandle extends GuiHandle {
     public String getDate() {
         return getTextFromLabel(DATE_FIELD_ID);
     }
-
-    public String getTime() {
-        return getTextFromLabel(TIME_FIELD_ID);
+    
+    public String getTag() {
+        return getTextFromLabel(TAG_FIELD_ID);
     }
 
+
+
     public boolean isSameTask(ReadOnlyTask task){
-        return getContent().equals(task.getContent().value) && getDate().equals(task.getDate().dateString)
-                && getTime().equals(task.getTime().timeString);
+        return getContent().toString().equals(task.getContent().value) && getDate().toString().equals(task.getDate().toString());
     }
 
     @Override
@@ -46,14 +48,13 @@ public class TaskCardHandle extends GuiHandle {
         if(obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
             return getContent().equals(handle.getContent())
-                    && getDate().equals(handle.getDate())
-                    && getTime().equals(handle.getTime());
+                    && getDate().equals(handle.getDate());
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return getContent() + " " + getDate() + " " + getTime();
+        return getContent() + " " + getDate();
     }
 }

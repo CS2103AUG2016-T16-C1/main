@@ -35,7 +35,7 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
      */
     public Optional<ReadOnlyTaskManager> readTaskManager(String filePath) throws DataConversionException, FileNotFoundException {
         assert filePath != null;
-
+              
         File taskManagerFile = new File(filePath);
 
         if (!taskManagerFile.exists()) {

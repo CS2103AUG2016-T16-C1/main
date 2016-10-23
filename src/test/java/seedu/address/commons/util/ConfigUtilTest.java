@@ -75,7 +75,7 @@ public class ConfigUtilTest {
         Config config = new Config();
         config.setAppTitle("Typical App Title");
         config.setLogLevel(Level.INFO);
-        config.setUserPrefsFilePath("preferences.json");
+        config.setUserPrefsFilePath("C:" + "\\preferences.json");
         config.setTaskManagerFilePath("data/taskmanager.xml");
         config.setTaskManagerName("Hard2Do");
         return config;

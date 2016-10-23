@@ -1,6 +1,12 @@
 package seedu.address.testutil;
 
+import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
+
+import java.util.ArrayList;
+
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.*;
 
 /**
@@ -11,6 +17,7 @@ import seedu.address.model.person.*;
 	    private Content content;
 	    private TaskDate taskdate;
 	    private TaskTime tasktime;
+	    private boolean done;
 
 	    private UniqueTagList tags;
 
@@ -63,5 +70,43 @@ import seedu.address.model.person.*;
 	        this.getTags().getInternalList().stream().forEach(s -> sb.append("#" + s.tagName + " "));
 	        return sb.toString();
 	    }
+
+        @Override
+        public boolean getDone() {
+            return done;
+        }
+
+        @Override
+        public boolean setDone() {
+            if (!done) done = true;
+            else return false;
+            return true;
+        }
+
+        @Override
+        public void addTags(ArrayList<String> tagsToAdd) throws DuplicateTagException, IllegalValueException {
+            UniqueTagList newList = new UniqueTagList();
+            for(String t : tagsToAdd){
+                newList.add(new Tag(t));
+            }
+            newList.mergeFrom(tags);
+            setTags(newList);
+        }
+        
+        /**
+         * Replaces this task's tags with the tags in the argument tag list.
+         */
+        public void setTags(UniqueTagList replacement) {
+            tags.setTags(replacement);
+        }
+
+        public boolean isDone() {
+            return done;
+        }
+
+        public void setDone(boolean done) {
+            this.done = done;
+        }
+
 	}
 

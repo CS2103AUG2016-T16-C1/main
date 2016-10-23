@@ -4,6 +4,7 @@ import seedu.address.logic.commands.*;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
 
+import java.io.File;
 import java.text.ParseException;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -72,7 +73,7 @@ public class Parser {
             return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return prepareList(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -94,6 +95,9 @@ public class Parser {
         
         case UndoCommand.COMMAND_WORD:
         	return new UndoCommand();
+        	
+        case LoadCommand.COMMAND_WORD:
+            return prepareLoad(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -197,6 +201,27 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
+    
+    private Command prepareList(String args) throws ParseException{
+        if (args.trim().compareTo("done") != 0 && args.trim().compareTo("undone") != 0 && args.trim().compareTo("all") != 0 && args.trim().compareTo("") != 0) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_LIST_RESTRICTION));
+        }
+        else 
+            return new ListCommand(args.trim());
+    }
+    
+    private Command prepareLoad(String args) throws ParseException{
+        File file = new File(args.trim());
+        if (file.isDirectory()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoadCommand.MESSAGE_DIRECTORY_FILEPATH));
+        }
+        else if (!file.exists()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoadCommand.MESSAGE_INVALID_FILEPATH));
+        }
+        else
+            return new LoadCommand(args.trim());
+    }
+    
     private Command prepareAddTags(String args) throws ParseException{
         Matcher matcher = ADD_TAGS_FORMAT.matcher(args.trim());
         // Validate arg string format
