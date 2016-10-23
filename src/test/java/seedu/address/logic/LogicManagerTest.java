@@ -221,7 +221,7 @@ public class LogicManagerTest {
         helper.addToModel(model, 2);
 
         assertCommandBehavior("list",
-                ListCommand.MESSAGE_SUCCESS,
+                ListCommand.MESSAGE_SUCCESS_ALL,
                 expectedTM,
                 expectedList);
     }
