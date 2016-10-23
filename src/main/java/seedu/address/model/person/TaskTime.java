@@ -61,6 +61,7 @@ public class TaskTime {
        }
        
        else {
+    	   endtimeString = "";
     	   this.timeString = timeString.trim();
     	   if(!isValidTaskTime(timeString)) {
     		   throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
@@ -91,13 +92,14 @@ public class TaskTime {
     }
     
     @Override
-    public String toString() {
-    	if(!endtimeString.isEmpty()){
-    		return timeString + "-" + endtimeString;
+    public String toString() {    	
+    	if(endtimeString == null){
+    		return timeString;
     	}
-    	
-    	else
-    	return timeString;
+    	else {
+    	return timeString + "-" + endtimeString;
+    	}
+
     }
 
     @Override

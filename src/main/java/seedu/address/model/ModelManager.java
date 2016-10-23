@@ -121,7 +121,7 @@ public class ModelManager extends ComponentManager implements Model {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	taskManager.editTask(targetIndex, newDate, newTime, newContent);
+    	taskManager.editTask(targetIndex, newDate, newTime, newEndTime, newContent);
         updateFilteredListToShowDone();
     	indicateTaskManagerChanged();
     }

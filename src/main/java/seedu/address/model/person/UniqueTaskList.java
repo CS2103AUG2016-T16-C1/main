@@ -73,7 +73,7 @@ public class UniqueTaskList implements Iterable<Task> {
      * @throws TaskNotFoundException if no such task could be found in the list.
      * @throws ParseException 
      */
-    public boolean edit(int targetIndex, String newDate, String newTime, String newContent) 
+    public boolean edit(int targetIndex, String newDate, String newTime, String newEndTime, String newContent) 
     		throws TaskNotFoundException, ParseException {
     	
         Task toEdit = internalList.get(targetIndex);
@@ -91,6 +91,15 @@ public class UniqueTaskList implements Iterable<Task> {
             Date time = simpleDateFormat.parse(newTime);
             toEdit.getTime().value = time;
         }
+        
+        if(newEndTime != null){
+        	toEdit.getTime().endtimeString = newEndTime;
+        	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+        	
+        	Date time2 = simpleDateFormat.parse(newEndTime);
+        	toEdit.getTime().endTime = time2;
+        }
+        
         if(newContent != null)
         	toEdit.getContent().value = newContent;
         return true;
