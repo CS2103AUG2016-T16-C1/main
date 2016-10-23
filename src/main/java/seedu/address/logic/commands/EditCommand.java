@@ -22,9 +22,9 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task listed the task manager. "
-            + "Parameters: INDEX[MUST BE POSITIVE INTEGER] c/CONTENT d/DATE[dd-mm-yyyy] t/time[HH:mm] \n"
+            + "Parameters: INDEX[MUST BE POSITIVE INTEGER] c/CONTENT d/DATE[dd-mm-yyyy] st/time[HH:mm] et/time[HH:mm]\n"
             + "Example: " + COMMAND_WORD
-            + " 1 c/do this task manager d/20-10-2016 t/13:00";
+            + " 1 c/do this task manager d/20-10-2016 st/13:00 et/17:00";
 
     public static final String MESSAGE_SUCCESS = "Task edited: %1$s";
  
@@ -32,6 +32,7 @@ public class EditCommand extends Command {
     private String newDate;
     private String newTime;
     private String newContent;
+    private String newEndTime;
 
     /**
      * Convenience constructor using raw values.
@@ -49,15 +50,19 @@ public class EditCommand extends Command {
     			newDate = sc.next();
     			sc = new Scanner(taskDetails);	
     		}
-    		if(sc.findInLine("t/") != null){
+    		if(sc.findInLine("st/") != null){
     			newTime = sc.next();
     			sc = new Scanner(taskDetails);
     		}	
+    		if(sc.findInLine("et/") != null){
+    			newEndTime = sc.next();
+    			sc = new Scanner(taskDetails);
+    		}
     		if(sc.findInLine("c/") != null){
     			StringBuilder data = new StringBuilder();
     			while(sc.hasNext()){
     				String check = sc.next();
-    				if(check.startsWith("d/") || check.startsWith("t/"))
+    				if(check.startsWith("d/") || check.startsWith("st/") || check.startsWith("et/"))
     					break;
     				else
     					data.append(" " + check);
@@ -79,7 +84,7 @@ public class EditCommand extends Command {
         }
         
         try {
-            model.editTask(targetIndex - 1, newDate, newTime, newContent);
+            model.editTask(targetIndex - 1, newDate, newTime, newEndTime, newContent);
         } catch (TaskNotFoundException | ParseException tnfe) {
             assert false : "The target task cannot be missing";
         }

@@ -11,6 +11,7 @@ public class TaskTime {
     public static final String MESSAGE_TIME_CONSTRAINTS = "Task time should only follow this format HH:MM";
     public static final String TASKTIME_VALIDATION_REGEX = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
     public static final String MESSAGE_ENDTIME_CONSTRAINTS = "End time should only follow this format HH:MM";
+    public static final String MESSAGE_STARTEND_CONSTRAINTS = "Start time must be added";
     
     public Date value;
     public Date endTime;
@@ -33,7 +34,12 @@ public class TaskTime {
      */
     public TaskTime(String timeString, String endtimeString) throws IllegalValueException, ParseException {
        assert timeString != null;
-       if(endtimeString != null) {
+       assert endtimeString != null;
+    	if(endtimeString != null) {
+    	   if(timeString == null) {
+    		   throw new IllegalValueException(MESSAGE_STARTEND_CONSTRAINTS);
+    	   }
+    	   
         this.timeString = timeString.trim();
         this.endtimeString = endtimeString.trim();
         
@@ -86,7 +92,11 @@ public class TaskTime {
     
     @Override
     public String toString() {
-        //return value.toString();
+    	if(!endtimeString.isEmpty()){
+    		return timeString + "-" + endtimeString;
+    	}
+    	
+    	else
     	return timeString;
     }
 

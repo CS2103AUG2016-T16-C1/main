@@ -133,7 +133,7 @@ public class Parser {
         //Validate arg string format: String starts with content and not date/time/tag
         	String startOfLine = validator.next();
         	
-        	if(startOfLine.startsWith("d/") || startOfLine.startsWith("t/") || startOfLine.startsWith("#") || startOfLine.startsWith("et")){
+        	if(startOfLine.startsWith("d/") || startOfLine.startsWith("st/") || startOfLine.startsWith("#") || startOfLine.startsWith("et/")){
         		validator.close();
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         	}
@@ -146,7 +146,7 @@ public class Parser {
     	StringBuilder content = new StringBuilder();
 		while(scanContent.hasNext()){
 			String check = scanContent.next();
-			if(check.startsWith("d/") || check.startsWith("t/") || check.startsWith("#") || check.startsWith("et"))
+			if(check.startsWith("d/") || check.startsWith("st/") || check.startsWith("#") || check.startsWith("et/"))
 				break;
 			else
 				content.append(" " + check);
@@ -178,7 +178,7 @@ public class Parser {
 		//Obtain time if any from String args
 		String timeString = null;
 		Scanner scanTime = new Scanner(args);
-		if(scanTime.findInLine("t/") != null){
+		if(scanTime.findInLine("st/") != null){
 			timeString = scanTime.next();
 		}
 		scanTime.close();
