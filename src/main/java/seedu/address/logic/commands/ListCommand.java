@@ -25,7 +25,7 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute() {
         if (listModification.compareTo("done") == 0) {
-            model.updateFilteredListToShowDone();
+            model.updateFilteredListToShowUndone();
             return new CommandResult(MESSAGE_SUCCESS_DONE);
         }
         else if (listModification.compareTo("undone") == 0) {

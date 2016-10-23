@@ -105,7 +105,7 @@ public class ModelManager extends ComponentManager implements Model {
 			e.printStackTrace();
 		}
     	taskManager.addTask(task);
-    	updateFilteredListToShowDone();
+    	updateFilteredListToShowUndone();
         indicateTaskManagerChanged();
     }
     
@@ -122,7 +122,7 @@ public class ModelManager extends ComponentManager implements Model {
 			e.printStackTrace();
 		}
     	taskManager.editTask(targetIndex, newDate, newTime, newContent);
-        updateFilteredListToShowDone();
+        updateFilteredListToShowUndone();
     	indicateTaskManagerChanged();
     }
     
@@ -140,7 +140,7 @@ public class ModelManager extends ComponentManager implements Model {
 		}
     	taskManager.addTags(targetIndex, newTags);
 
-        updateFilteredListToShowDone();
+        updateFilteredListToShowUndone();
     	indicateTaskManagerChanged();
     }
     
@@ -157,7 +157,7 @@ public class ModelManager extends ComponentManager implements Model {
 		}
         taskManager.markTaskAsDone(target);
         logger.info("successfully mark as done"+target.getDone());
-        updateFilteredListToShowDone();
+        updateFilteredListToShowUndone();
         indicateTaskManagerChanged();
     }
     @Override
@@ -167,7 +167,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void undo() throws StateNotFoundException{
     	taskManager.undo();
-    	updateFilteredListToShowDone();
+    	updateFilteredListToShowUndone();
     	indicateTaskManagerChanged();
     }
     
