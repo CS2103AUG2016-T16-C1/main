@@ -1,5 +1,5 @@
 
-# Hard2Do
+# Hard2Do [![Build Status](https://travis-ci.org/CS2103AUG2016-T16-C1/main.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-T16-C1/main)
 
 <img src="docs/images/Ui.png" width="600"><br>
 
