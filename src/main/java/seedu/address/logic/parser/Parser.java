@@ -205,7 +205,7 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoadCommand.MESSAGE_INVALID_FILEPATH));
         }
         else
-            return new LoadCommand(args);
+            return new LoadCommand(args.trim());
     }
     
     private Command prepareAddTags(String args) throws ParseException{

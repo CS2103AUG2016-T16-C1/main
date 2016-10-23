@@ -1,5 +1,9 @@
 package seedu.address.logic.commands;
 
+import java.io.IOException;
+
+import seedu.address.commons.util.ConfigUtil;
+
 public class LoadCommand extends Command {
     
     public static final String COMMAND_WORD = "load";
@@ -21,7 +25,12 @@ public class LoadCommand extends Command {
         assert config != null;
         
         config.setTaskManagerFilePath(taskManagerFilePath);
-        System.out.println(config.getTaskManagerFilePath());
+        try {
+            ConfigUtil.saveConfig(config, config.DEFAULT_CONFIG_FILE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
