@@ -40,7 +40,11 @@ public class History {
 	private Collection<Tag> tagsState;
 	
 	private String message;
-	
+
+	/**
+
+	 * Constructor that initialises History class whenever Hard2Do is started
+	 */
 	
 	History(){
 		taskStates =  new Stack <List<Task>>(); 
@@ -49,7 +53,9 @@ public class History {
 		tagsState = FXCollections.observableArrayList();
 	}
 	
-	
+	/*
+	 * method to save and store the existing state of the TaskManger before any overwrite operations
+	 */
 	public void save(ObservableList<Task> stateToSave, ObservableList<Tag> tagsToSave, String commandType) 
 			throws IllegalValueException, ParseException{
 		
@@ -85,6 +91,7 @@ public class History {
 			if(t.getDone())
 				newState.get(newState.size() - 1).setDone();
 		}
+		//Store the current state of the TaskManger into Stacks
 		taskStates.push(newState);
 		messages.push(commandType);
 		
@@ -96,7 +103,9 @@ public class History {
 			tagStates.push(newTags);
 		}
 	}
-	
+	/**
+	 * Sets the state before last change
+	 */
 	public void undo() {
 		
 		if(taskStates.isEmpty())
@@ -106,6 +115,8 @@ public class History {
 		message = messages.pop();
 		tagsState = tagStates.pop();
 	}
+	
+	//Operations to retrieve previous state of Tasks and Tags
 	
 	public List<Task> getPreviousTasks(){
 		return tasksState;

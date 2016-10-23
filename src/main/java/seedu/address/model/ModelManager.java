@@ -105,7 +105,7 @@ public class ModelManager extends ComponentManager implements Model {
 			e.printStackTrace();
 		}
     	taskManager.addTask(task);
-    	updateFilteredListToShowDone();
+    	updateFilteredListToShowUndone();
         indicateTaskManagerChanged();
     }
     
@@ -122,12 +122,12 @@ public class ModelManager extends ComponentManager implements Model {
 			e.printStackTrace();
 		}
     	taskManager.editTask(targetIndex, newDate, newTime, newContent);
-        updateFilteredListToShowDone();
+        updateFilteredListToShowUndone();
     	indicateTaskManagerChanged();
     }
     
     @Override
-    public synchronized void addTags(int targetIndex, ArrayList<String> newTags) 
+    public synchronized void addTags(ReadOnlyTask target, ArrayList<String> newTags) 
     		throws TaskNotFoundException, ParseException, IllegalValueException {
     	try {
 			taskManager.save("addTag");
@@ -138,12 +138,30 @@ public class ModelManager extends ComponentManager implements Model {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	taskManager.addTags(targetIndex, newTags);
+    	taskManager.addTags(target, newTags);
+
+        updateFilteredListToShowUndone();
+    	indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public synchronized void deleteTags(ReadOnlyTask target, ArrayList<String> tagsToDelete) 
+    		throws TaskNotFoundException, ParseException, IllegalValueException {
+    	assert !(tagsToDelete.size() == 0);
+    	try {
+			taskManager.save("deleteTag");
+		} catch (IllegalValueException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	taskManager.deleteTags(target, tagsToDelete);
 
         updateFilteredListToShowDone();
     	indicateTaskManagerChanged();
     }
-    
     @Override
     public synchronized void doneTask(ReadOnlyTask target) throws TaskNotFoundException {
     	try {
@@ -157,7 +175,7 @@ public class ModelManager extends ComponentManager implements Model {
 		}
         taskManager.markTaskAsDone(target);
         logger.info("successfully mark as done"+target.getDone());
-        updateFilteredListToShowDone();
+        updateFilteredListToShowUndone();
         indicateTaskManagerChanged();
     }
     @Override
@@ -167,7 +185,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void undo() throws StateNotFoundException{
     	taskManager.undo();
-    	updateFilteredListToShowDone();
+    	updateFilteredListToShowUndone();
     	indicateTaskManagerChanged();
     }
     
@@ -184,6 +202,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     public void updateFilteredListToShowDone() {
+        filteredTasks.setPredicate(null);
+        filteredTasks.setPredicate((Task t) -> t.getDone());
+    }
+    
+    public void updateFilteredListToShowUndone() {
         filteredTasks.setPredicate(null);
         filteredTasks.setPredicate((Task t) -> !t.getDone());
     }

@@ -1,12 +1,17 @@
 package seedu.address.ui;
 
 import com.google.common.eventbus.Subscribe;
+
+import impl.org.controlsfx.autocompletion.AutoCompletionTextFieldBinding;
+import javafx.collections.FXCollections;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.*;
@@ -14,7 +19,13 @@ import seedu.address.commons.util.FxViewUtil;
 import seedu.address.commons.core.LogsCenter;
 
 import java.text.ParseException;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.logging.Logger;
+
+import org.controlsfx.control.textfield.AutoCompletionBinding;
+import org.controlsfx.control.textfield.AutoCompletionBinding.AutoCompletionEvent;
+import org.controlsfx.control.textfield.TextFields;
 
 public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
@@ -42,6 +53,17 @@ public class CommandBox extends UiPart {
     public void configure(ResultDisplay resultDisplay, Logic logic) {
         this.resultDisplay = resultDisplay;
         this.logic = logic;
+        AutoCompletionBinding<String> acb = TextFields.bindAutoCompletion(commandTextField , FXCollections.observableArrayList("Undo", "Select", "List", "Add"));
+
+        acb.setOnAutoCompleted(new EventHandler<AutoCompletionBinding.AutoCompletionEvent<String>>()
+        {
+
+        @Override
+        public void handle(AutoCompletionEvent<String> event) {
+            String valueFromAutoCompletion = event.getCompletion();
+            
+        }
+        });      
         registerAsAnEventHandler(this);
     }
 

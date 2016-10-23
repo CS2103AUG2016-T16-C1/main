@@ -53,13 +53,25 @@ public class Task implements ReadOnlyTask {
         if (source.getDone()) setDone();
     }
     @Override
-    public void addTags(ArrayList<String> tagsToAdd) throws DuplicateTagException, IllegalValueException {
+    public boolean addTags(ArrayList<String> tagsToAdd) throws DuplicateTagException, IllegalValueException {
     	UniqueTagList newList = new UniqueTagList();
     	for(String t : tagsToAdd){
     		newList.add(new Tag(t));
     	}
     	newList.mergeFrom(tags);
         setTags(newList);
+        return true;
+    }
+    
+    @Override
+    public boolean deleteTags(ArrayList<String> tagsToDelete) 
+    		throws DuplicateTagException, IllegalValueException {
+    	UniqueTagList newList = new UniqueTagList(tags);
+    	for(String t : tagsToDelete){
+    		newList.remove(new Tag(t));
+    	}
+        setTags(newList);
+        return true;
     }
 
     @Override
@@ -110,7 +122,6 @@ public class Task implements ReadOnlyTask {
     @Override
     public boolean setDone() {
         if (!done) done = true;
-        else return false;
         return true;
     }
     

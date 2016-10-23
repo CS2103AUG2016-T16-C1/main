@@ -54,8 +54,14 @@ public interface Model {
 	History getHistory();
 
 	void updateFilteredListToShowDone();
+	
+	void updateFilteredListToShowUndone();
 
-	void addTags(int targetIndex, ArrayList<String> newTag) 
+
+	void addTags(ReadOnlyTask target, ArrayList<String> newTag) 
+			throws TaskNotFoundException, ParseException, IllegalValueException;
+
+	void deleteTags(ReadOnlyTask taskToDelTags, ArrayList<String> tagsToDel) 
 			throws TaskNotFoundException, ParseException, IllegalValueException;
 
 }
