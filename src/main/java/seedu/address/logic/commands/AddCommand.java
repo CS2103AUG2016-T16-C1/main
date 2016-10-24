@@ -61,6 +61,16 @@ public class AddCommand extends Command {
         	    calendar.add(Calendar.DAY_OF_YEAR, 1);
         	    String dateTmr = sdfDate.format(calendar.getTime()); 
         	    dateToAdd = new TaskDate(dateTmr);
+        	    
+        	}else if (new Scanner(content).findInLine("next week") != null){
+        		SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy");
+        		Date now = new Date();
+        	    Calendar calendar = Calendar.getInstance();
+        	    calendar.setTime(now);
+        	    calendar.add(Calendar.WEEK_OF_YEAR, 1);
+        	    String dateNextWeek = sdfDate.format(calendar.getTime()); 
+        	    dateToAdd = new TaskDate(dateNextWeek);
+        	
         	}else
         		dateToAdd = new TaskDate();
         }

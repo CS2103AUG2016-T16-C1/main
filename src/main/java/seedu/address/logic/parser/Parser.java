@@ -150,7 +150,8 @@ public class Parser {
         //Validate arg string format: String starts with content and not date/time/tag
         	String startOfLine = validator.next();
         	
-        	if(startOfLine.startsWith("d/") || startOfLine.startsWith("st/") || startOfLine.startsWith("#") || startOfLine.startsWith("et/")){
+        	if(startOfLine.startsWith("d/") || startOfLine.startsWith("st/") 
+        			|| startOfLine.startsWith("#") || startOfLine.startsWith("et/")){
         		validator.close();
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         	}
