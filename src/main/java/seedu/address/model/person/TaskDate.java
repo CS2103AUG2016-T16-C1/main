@@ -8,10 +8,12 @@ import seedu.address.commons.exceptions.IllegalValueException;
 
 public class TaskDate {
 
-	public static final String MESSAGE_DATE_CONSTRAINTS = "Task date should only follow this format dd-mm-yyyy";
+	public static final String MESSAGE_DATE_CONSTRAINTS = "Task date should only follow this format dd-mm-yyyy(@duration)";
 	public static final String TASKDATE_VALIDATION_REGEX = "(0?[1-9]|[12][0-9]|3[01])-(0?[1-9]|1[012])-((19|20)\\d\\d)";
 
 	public Date value;
+	public int duration = 0;
+	public boolean isRecurring = false;
 	public String dateString;
 
 	public TaskDate() {
@@ -20,6 +22,7 @@ public class TaskDate {
 
 	/**
 	 * Validates given date.
+	 * 
 	 *
 	 * @throws IllegalValueException
 	 *             if given date string is invalid.
@@ -28,7 +31,18 @@ public class TaskDate {
 	public TaskDate(String dateString) throws IllegalValueException, ParseException {
 		assert dateString != null;
 		this.dateString = dateString.trim();
-		if (!isValidTaskDate(dateString)) {
+		
+		//@@author A0147989B
+		//check the state of recurring date - Tianze
+		String[] temp = dateString.split("@");
+		if (temp.length == 2) {
+		    this.duration = Integer.parseInt(temp[1]);
+		    this.isRecurring = true;
+		    this.dateString = temp[0].trim();
+		}
+		//@@author
+		
+		if (!isValidTaskDate(this.dateString)) {
 			throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
 		}
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -48,11 +62,14 @@ public class TaskDate {
 	public Date getValue() {
 		return value;
 	}
+	
+	public int getDuration(){
+	    return duration;
+	}
 
 	@Override
 	public String toString() {
-		// return value.toString();
-		return dateString;
+		return dateString+(this.isRecurring? " duration:"+this.duration : "");
 
 	}
 

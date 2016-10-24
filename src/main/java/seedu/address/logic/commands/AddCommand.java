@@ -17,10 +17,10 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task manager. \n"
-            + "Parameters: CONTENT d/DATE[dd-mm-yyyy] t/time[HH:mm] [#TAG]...\n"
+            + "Parameters: CONTENT d/DATE[dd-mm-yyyy(@duration)] t/time[HH:mm] [#TAG]...\n"
     		+ "Note: order and presence of parameters after CONTENT do not matter. \n"
             + "Example: " + COMMAND_WORD
-            + " do this task manager d/20-10-2016 t/13:00 #shaglife #wheregottime";
+            + " do this task manager d/20-10-2016@7 t/13:00 #shaglife #wheregottime";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
