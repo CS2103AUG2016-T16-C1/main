@@ -13,9 +13,13 @@ import seedu.address.model.person.Task;
 import seedu.address.model.person.UniqueTaskList;
 import seedu.address.model.person.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.person.UniqueTaskList.TaskNotFoundException;
+import seedu.address.model.tag.Tag;
+import info.debatty.java.stringsimilarity.*;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -105,12 +109,12 @@ public class ModelManager extends ComponentManager implements Model {
 			e.printStackTrace();
 		}
     	taskManager.addTask(task);
-    	updateFilteredListToShowDone();
+    	updateFilteredListToShowUndone();
         indicateTaskManagerChanged();
     }
-    
+
     @Override
-    public synchronized void editTask(int targetIndex, String newDate, String newTime, String newEndTime, String newContent) 
+    public synchronized void editTask(int targetIndex, String newDate, String newTime, String newEndTime, String newContent)
     		throws TaskNotFoundException, ParseException {
     	try {
 			taskManager.save("edit");
@@ -122,12 +126,13 @@ public class ModelManager extends ComponentManager implements Model {
 			e.printStackTrace();
 		}
     	taskManager.editTask(targetIndex, newDate, newTime, newEndTime, newContent);
-        updateFilteredListToShowDone();
-    	indicateTaskManagerChanged();
+        updateFilteredListToShowUnDone();
+        indicateTaskManagerChanged();
+
     }
-    
+
     @Override
-    public synchronized void addTags(int targetIndex, ArrayList<String> newTags) 
+    public synchronized void addTags(ReadOnlyTask target, ArrayList<String> newTags)
     		throws TaskNotFoundException, ParseException, IllegalValueException {
     	try {
 			taskManager.save("addTag");
@@ -138,12 +143,30 @@ public class ModelManager extends ComponentManager implements Model {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	taskManager.addTags(targetIndex, newTags);
+    	taskManager.addTags(target, newTags);
+
+        updateFilteredListToShowUndone();
+    	indicateTaskManagerChanged();
+    }
+
+    @Override
+    public synchronized void deleteTags(ReadOnlyTask target, ArrayList<String> tagsToDelete)
+    		throws TaskNotFoundException, ParseException, IllegalValueException {
+    	assert !(tagsToDelete.size() == 0);
+    	try {
+			taskManager.save("deleteTag");
+		} catch (IllegalValueException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	taskManager.deleteTags(target, tagsToDelete);
 
         updateFilteredListToShowDone();
     	indicateTaskManagerChanged();
     }
-    
     @Override
     public synchronized void doneTask(ReadOnlyTask target) throws TaskNotFoundException {
     	try {
@@ -157,7 +180,7 @@ public class ModelManager extends ComponentManager implements Model {
 		}
         taskManager.markTaskAsDone(target);
         logger.info("successfully mark as done"+target.getDone());
-        updateFilteredListToShowDone();
+        updateFilteredListToShowUndone();
         indicateTaskManagerChanged();
     }
     @Override
@@ -167,10 +190,10 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void undo() throws StateNotFoundException{
     	taskManager.undo();
-    	updateFilteredListToShowDone();
+    	updateFilteredListToShowUndone();
     	indicateTaskManagerChanged();
     }
-    
+
     //=========== Filtered Person List Accessors ===============================================================
 
     @Override
@@ -182,8 +205,13 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
     }
-    
+
     public void updateFilteredListToShowDone() {
+        filteredTasks.setPredicate(null);
+        filteredTasks.setPredicate((Task t) -> t.getDone());
+    }
+
+    public void updateFilteredListToShowUndone() {
         filteredTasks.setPredicate(null);
         filteredTasks.setPredicate((Task t) -> !t.getDone());
     }
@@ -195,6 +223,27 @@ public class ModelManager extends ComponentManager implements Model {
 
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
+    }
+
+    public void updateFilteredTaskList(String toFind){
+
+    	filteredTasks.setPredicate((Task t) -> new Scanner(t.getContent().value).findInLine(toFind) != null);
+    	Comparator<Task> byEditDistance = new Comparator<Task>() {
+    	    public int compare(Task left, Task right) {
+    	        if (left.getContent().value.length() > right.getContent().value.length()) {
+    	            return -1;
+    	        } else {
+    	            return 1;
+    	        }
+    	    }
+    	};
+
+    	filteredTasks.sorted(byEditDistance);
+    }
+
+    public void updateFilteredTaskList(Tag tagToFind){
+    	filteredTasks.setPredicate((Task t) -> t.getTags().hasTag(tagToFind));
+
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
@@ -251,7 +300,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 	@Override
 	public History getHistory() {
-		
+
 		return taskManager.getHistory();
 	}
 

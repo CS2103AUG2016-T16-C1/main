@@ -6,6 +6,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.History.StateNotFoundException;
 import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.UniqueTaskList;
+import seedu.address.model.person.UniqueTaskList.TaskNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -154,8 +155,25 @@ public class TaskManager implements ReadOnlyTaskManager {
         tags.add(t);
     }
     
-    public void addTags(int targetIndex, ArrayList<String> newTags) throws IllegalValueException{
-    	tasks.addTags( targetIndex, newTags);
+    public boolean addTags(ReadOnlyTask target, ArrayList<String> newTags) 
+    		throws IllegalValueException, TaskNotFoundException{
+    	
+    	if(tasks.addTags( target, newTags)){
+    		return true;
+    	} else {
+    		throw new UniqueTaskList.TaskNotFoundException();
+    	}
+		
+	}
+    
+    public boolean deleteTags(ReadOnlyTask target, ArrayList<String> newTags) 
+    		throws IllegalValueException, TaskNotFoundException{
+    	
+    	if(tasks.deleteTags( target, newTags)){
+    		return true;
+    	} else {
+    		throw new UniqueTaskList.TaskNotFoundException();
+    	}
 		
 	}
 

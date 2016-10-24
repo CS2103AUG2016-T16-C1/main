@@ -4,6 +4,7 @@ import seedu.address.logic.commands.*;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
 
+import java.io.File;
 import java.text.ParseException;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -32,7 +33,13 @@ public class Parser {
     		Pattern.compile("(?<index>\\S+)(?<taskDetails>.+)");
     
     private static final Pattern ADD_TAGS_FORMAT =
-    		Pattern.compile("(?<index>\\S+)(?<tagsToAdd>.+)");
+    		Pattern.compile("(?<index>\\S+)(?<tagsToAdd>[^#/%]+)");
+    
+    private static final Pattern DELETE_TAGS_FORMAT =
+    		Pattern.compile("(?<index>\\S+)(?<tagsToDelete>[^#/%]+)");
+    
+    private static final Pattern FIND_TAG_FORMAT =
+    		Pattern.compile("(?<tagname>[\\p{Alnum}]+)");
 
     public Parser() {}
 
@@ -67,9 +74,12 @@ public class Parser {
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
+            
+        case FindTagCommand.COMMAND_WORD:
+        	return prepareFindTag(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return prepareList(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -86,8 +96,15 @@ public class Parser {
         case AddTagCommand.COMMAND_WORD:
         	return prepareAddTags(arguments);
         
+        case DeleteTagCommand.COMMAND_WORD:
+        	return prepareDeleteTags(arguments);
+        
         case UndoCommand.COMMAND_WORD:
         	return new UndoCommand();
+        	
+        case LoadCommand.COMMAND_WORD:
+            return prepareLoad(arguments);
+        
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -198,6 +215,27 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
+    
+    private Command prepareList(String args) throws ParseException{
+        if (args.trim().compareTo("done") != 0 && args.trim().compareTo("undone") != 0 && args.trim().compareTo("all") != 0 && args.trim().compareTo("") != 0) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_LIST_RESTRICTION));
+        }
+        else 
+            return new ListCommand(args.trim());
+    }
+    
+    private Command prepareLoad(String args) throws ParseException{
+        File file = new File(args.trim());
+        if (file.isDirectory()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoadCommand.MESSAGE_DIRECTORY_FILEPATH));
+        }
+        else if (!file.exists()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoadCommand.MESSAGE_INVALID_FILEPATH));
+        }
+        else
+            return new LoadCommand(args.trim());
+    }
+    
     private Command prepareAddTags(String args) throws ParseException{
         Matcher matcher = ADD_TAGS_FORMAT.matcher(args.trim());
         // Validate arg string format
@@ -208,6 +246,22 @@ public class Parser {
         try {
             return new AddTagCommand( matcher.group("index"),
                     matcher.group("tagsToAdd"));
+            
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+    
+    private Command prepareDeleteTags(String args) throws ParseException{
+        Matcher matcher = DELETE_TAGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTagCommand.MESSAGE_USAGE));
+        }
+        
+        try {
+            return new DeleteTagCommand( matcher.group("index"),
+                    matcher.group("tagsToDelete"));
             
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
@@ -308,11 +362,32 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindCommand.MESSAGE_USAGE));
         }
-
+        final String keywords = matcher.group("keywords");
         // keywords delimited by whitespace
-        final String[] keywords = matcher.group("keywords").split("\\s+");
-        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
+        //final String[] keywords = matcher.group("keywords").split("\\s+");
+        //final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
+        return new FindCommand(keywords);
     }
-
+    
+    /**
+     * Parses arguments in the context of the findtag task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     * @throws IllegalValueException 
+     */
+    private Command prepareFindTag(String args){
+        final Matcher matcher = FIND_TAG_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    FindTagCommand.MESSAGE_USAGE));
+        }
+        final String keywords = matcher.group("tagname");
+        try {
+			return new FindTagCommand(keywords);
+		} catch (IllegalValueException e) {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+					FindTagCommand.MESSAGE_USAGE));
+		}
+    }
 }

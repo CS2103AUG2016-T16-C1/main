@@ -105,6 +105,18 @@ public class UniqueTagList implements Iterable<Tag> {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
+    /**
+     * Returns true if the list contains a Tag with the same tagname as the given argument.
+     * Is case-insensitive
+     */
+    public boolean hasTag(Tag toCheck) {
+        assert toCheck != null;
+        for(Tag tag: internalList){
+        	if(tag.tagName.equalsIgnoreCase(toCheck.tagName)){
+        		return true;
+        	}
+        }return false;
+    }
 
     /**
      * Adds a Tag to the list.
@@ -118,6 +130,16 @@ public class UniqueTagList implements Iterable<Tag> {
         }
         internalList.add(toAdd);
     }
+    /**
+     * Removes a Tag from the list.
+     *
+     * @throws DuplicateTagException if the Tag to add is a duplicate of an existing Tag in the list.
+     */
+    public void remove(Tag tag) {
+		assert tag != null;
+		internalList.remove(tag);
+		
+	}
 
     @Override
     public Iterator<Tag> iterator() {
@@ -140,4 +162,6 @@ public class UniqueTagList implements Iterable<Tag> {
     public int hashCode() {
         return internalList.hashCode();
     }
+
+	
 }

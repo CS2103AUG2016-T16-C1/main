@@ -8,22 +8,22 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.UniqueTaskList.TaskNotFoundException;
+import seedu.address.model.tag.Tag;
 
-public class AddTagCommand extends Command {
-    public static final String COMMAND_WORD = "addtag";
+public class DeleteTagCommand extends Command {
+    public static final String COMMAND_WORD = "deltag";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": adds a tag to a task listed in the task manager. \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": deletes a tag from a task listed in the task manager. \n"
             + "Parameters: INDEX[MUST BE POSITIVE INTEGER] TAGS[ANY NUMBER OF TAGS SEPARATED BY SPACE] \n"
             + "Example: " + COMMAND_WORD
             + " 1 toughlife easygame";
-    
+
+    public static final String MESSAGE_SUCCESS = "Task tags updated: %1$s";
     public static final String MESSAGE_INVALID_TAG = "Tags must be alphanumerical";
     public static final String MESSAGE_NO_TAG = "No Tag can be found";
-    public static final String MESSAGE_SUCCESS = "Task tags updated: %1$s";
     
- 
     private int targetIndex;
-    private ArrayList<String> tagsToAdd;
+    private ArrayList<String> tagsToDel;
 
 
     /**
@@ -33,15 +33,15 @@ public class AddTagCommand extends Command {
      * @throws ParseException 
      */
    
-	public AddTagCommand(String index, String tagsString)
+	public DeleteTagCommand(String index, String tagsString)
             throws IllegalValueException, ParseException {
     		this.targetIndex = Integer.parseInt(index.trim());
-    		tagsToAdd = new ArrayList<String>();
+    		tagsToDel = new ArrayList<String>();
     		
     		Scanner sc = new Scanner(tagsString.trim());
     			while(sc.hasNext()){
     				String tagToAdd = sc.next();
-    				tagsToAdd.add(tagToAdd);
+    				tagsToDel.add(tagToAdd);
     			}
     		
     		
@@ -57,19 +57,30 @@ public class AddTagCommand extends Command {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-        if(tagsToAdd.size() == 0)
-        	return new CommandResult(MESSAGE_NO_TAG);
+        if(tagsToDel.size() == 0)
+        	return new CommandResult("No Tags To Delete");
         
-        ReadOnlyTask taskToAddTags= lastShownList.get(targetIndex - 1);
+        ReadOnlyTask taskToDelTags= lastShownList.get(targetIndex - 1);
+        for(String s : tagsToDel){
+        	try {
+				if(!taskToDelTags.getTags().contains(new Tag(s))){
+					return new CommandResult("Task does not have Tag: " + s );
+				}
+			} catch (IllegalValueException e) {
+				
+				return new CommandResult("Tag must be alphanumerical");
+			}
+        	
+        }
         
         try {
-            model.addTags(taskToAddTags, tagsToAdd);
+            model.deleteTags(taskToDelTags, tagsToDel);
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
         } catch (ParseException pe){
         	return new CommandResult("ParseException");
         } catch (IllegalValueException ive){
-        	return new CommandResult(MESSAGE_INVALID_TAG);
+        	return new CommandResult("Tags must be alphanumerical");
         }
        lastShownList = model.getFilteredTaskList();
         ReadOnlyTask updatedTask = lastShownList.get(targetIndex - 1);

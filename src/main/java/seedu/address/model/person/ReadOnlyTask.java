@@ -17,7 +17,8 @@ public interface ReadOnlyTask {
     TaskTime getTime();
     boolean getDone();
     boolean setDone();
-    
+    boolean addTags(ArrayList<String> tagsToAdd) throws DuplicateTagException, IllegalValueException;
+    boolean deleteTags(ArrayList<String> tagsToDel) throws DuplicateTagException, IllegalValueException;
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the task's internal tags.
@@ -30,9 +31,9 @@ public interface ReadOnlyTask {
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getContent().equals(this.getContent()) // state checks here onwards
-                && other.getDate().equals(this.getDate())
-                && other.getTime().equals(this.getTime()));
+                && other.getContent().equals(this.getContent())); // state checks here onwards
+                //&& other.getDate().equals(this.getDate())
+                //&& other.getTime().equals(this.getTime()));
     }
 
     /**
@@ -63,5 +64,6 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
-	void addTags(ArrayList<String> tagsToAdd) throws DuplicateTagException, IllegalValueException;
+	
+	
 }

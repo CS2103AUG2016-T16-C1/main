@@ -93,7 +93,7 @@ public class EditCommand extends Command {
         String[] contentArr = editedTask.getContent().value.split("\\s+"); 
         Set<String> contentSet = new HashSet<>(Arrays.asList(contentArr));
         model.updateFilteredTaskList(contentSet);
-        model.updateFilteredListToShowDone();
+        model.updateFilteredListToShowUndone();
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedTask));
     }
 
