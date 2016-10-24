@@ -7,6 +7,7 @@ import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.Task;
 import seedu.address.model.person.UniqueTaskList;
 import seedu.address.model.person.UniqueTaskList.TaskNotFoundException;
+import seedu.address.model.tag.Tag;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -41,6 +42,9 @@ public interface Model {
     
     /** Updates the filter of the filtered task list to filter by the closest edit distance to given string input*/
     void updateFilteredTaskList(String toFind);
+    
+    /** Updates the filter of the filtered task list to filter by the given Tag*/
+    void updateFilteredTaskList(Tag tagToFind);
     
     /** Edit the given task. 
      * @throws ParseException */

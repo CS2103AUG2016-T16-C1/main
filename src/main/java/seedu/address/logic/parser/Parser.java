@@ -37,6 +37,9 @@ public class Parser {
     
     private static final Pattern DELETE_TAGS_FORMAT =
     		Pattern.compile("(?<index>\\S+)(?<tagsToDelete>[^#/%]+)");
+    
+    private static final Pattern FIND_TAG_FORMAT =
+    		Pattern.compile("(?<tagname>[\\p{Alnum}]+)");
 
     public Parser() {}
 
@@ -71,6 +74,9 @@ public class Parser {
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
+            
+        case FindTagCommand.COMMAND_WORD:
+        	return prepareFindTag(arguments);
 
         case ListCommand.COMMAND_WORD:
             return prepareList(arguments);
@@ -98,6 +104,7 @@ public class Parser {
         	
         case LoadCommand.COMMAND_WORD:
             return prepareLoad(arguments);
+        
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -354,5 +361,26 @@ public class Parser {
         //final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywords);
     }
-
+    
+    /**
+     * Parses arguments in the context of the findtag task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     * @throws IllegalValueException 
+     */
+    private Command prepareFindTag(String args){
+        final Matcher matcher = FIND_TAG_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    FindTagCommand.MESSAGE_USAGE));
+        }
+        final String keywords = matcher.group("tagname");
+        try {
+			return new FindTagCommand(keywords);
+		} catch (IllegalValueException e) {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+					FindTagCommand.MESSAGE_USAGE));
+		}
+    }
 }

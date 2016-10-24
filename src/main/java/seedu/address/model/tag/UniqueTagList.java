@@ -105,6 +105,18 @@ public class UniqueTagList implements Iterable<Tag> {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
+    /**
+     * Returns true if the list contains a Tag with the same tagname as the given argument.
+     * Is case-insensitive
+     */
+    public boolean hasTag(Tag toCheck) {
+        assert toCheck != null;
+        for(Tag tag: internalList){
+        	if(tag.tagName.equalsIgnoreCase(toCheck.tagName)){
+        		return true;
+        	}
+        }return false;
+    }
 
     /**
      * Adds a Tag to the list.
