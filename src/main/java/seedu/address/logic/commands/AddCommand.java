@@ -6,7 +6,11 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.Scanner;
 import java.util.Set;
 
 /**
@@ -44,11 +48,22 @@ public class AddCommand extends Command {
             tagSet.add(new Tag(tagName));
         }
         
-        if(date == null )
-        	dateToAdd = new TaskDate();
-        else
+        if(date != null ){
         	dateToAdd = new TaskDate(date);
-        
+        }else if (date == null){
+        	if(new Scanner(content).findInLine("tmr") != null 
+        			|| new Scanner(content).findInLine("tommorrow") != null){
+        		
+        		SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy");
+        		Date now = new Date();
+        	    Calendar calendar = Calendar.getInstance();
+        	    calendar.setTime(now);
+        	    calendar.add(Calendar.DAY_OF_YEAR, 1);
+        	    String dateTmr = sdfDate.format(calendar.getTime()); 
+        	    dateToAdd = new TaskDate(dateTmr);
+        	}else
+        		dateToAdd = new TaskDate();
+        }
         	
         if(time == null && endTime == null)
         	timeToAdd = new TaskTime();
