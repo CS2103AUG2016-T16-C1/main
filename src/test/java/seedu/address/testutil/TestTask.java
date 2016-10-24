@@ -66,7 +66,8 @@ import seedu.address.model.person.*;
 	        StringBuilder sb = new StringBuilder();
 	        sb.append("add " + this.getContent().value + " ");
 	        sb.append("d/" + this.getDate().dateString + " ");
-	        sb.append("t/" + this.getTime().timeString + " ");
+	        sb.append("st/" + this.getTime().timeString + " ");
+	        sb.append("et/" + this.getTime().endtimeString + " ");
 	        this.getTags().getInternalList().stream().forEach(s -> sb.append("#" + s.tagName + " "));
 	        return sb.toString();
 	    }

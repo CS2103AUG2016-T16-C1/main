@@ -33,8 +33,6 @@ public class TaskTime {
      * @throws ParseException 
      */
     public TaskTime(String timeString, String endtimeString) throws IllegalValueException, ParseException {
-       assert timeString != null;
-       assert endtimeString != null;
     	if(endtimeString != null) {
     	   if(timeString == null) {
     		   throw new IllegalValueException(MESSAGE_STARTEND_CONSTRAINTS);
@@ -96,6 +94,8 @@ public class TaskTime {
     	if(endtimeString == null){
     		return timeString;
     	}
+    	else if(endtimeString.isEmpty() && timeString.isEmpty())
+    		return "";
     	else {
     	return timeString + "-" + endtimeString;
     	}
