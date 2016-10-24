@@ -14,7 +14,6 @@ import seedu.address.model.person.UniqueTaskList;
 import seedu.address.model.person.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.person.UniqueTaskList.TaskNotFoundException;
 import seedu.address.model.tag.Tag;
-import info.debatty.java.stringsimilarity.*;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -126,7 +125,7 @@ public class ModelManager extends ComponentManager implements Model {
 			e.printStackTrace();
 		}
     	taskManager.editTask(targetIndex, newDate, newTime, newEndTime, newContent);
-        updateFilteredListToShowUnDone();
+        updateFilteredListToShowUndone();
         indicateTaskManagerChanged();
 
     }
