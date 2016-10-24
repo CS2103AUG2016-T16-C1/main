@@ -126,6 +126,13 @@ public class Task implements ReadOnlyTask {
     }
     
     @Override
+    public boolean setUndone() {
+        if (done) done = false;
+        else return false;
+        return true;
+    }
+    
+    @Override
     public boolean getDone() {
         return done;
     }

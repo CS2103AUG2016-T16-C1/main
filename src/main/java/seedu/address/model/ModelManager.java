@@ -166,6 +166,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowDone();
     	indicateTaskManagerChanged();
     }
+    
     @Override
     public synchronized void doneTask(ReadOnlyTask target) throws TaskNotFoundException {
     	try {
@@ -179,6 +180,23 @@ public class ModelManager extends ComponentManager implements Model {
 		}
         taskManager.markTaskAsDone(target);
         logger.info("successfully mark as done"+target.getDone());
+        updateFilteredListToShowUndone();
+        indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public synchronized void undoneTask(ReadOnlyTask target) throws TaskNotFoundException {
+        try {
+            taskManager.save("undone");
+        } catch (IllegalValueException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        taskManager.markTaskAsUndone(target);
+        logger.info("successfully mark as undone"+target.getDone());
         updateFilteredListToShowUndone();
         indicateTaskManagerChanged();
     }

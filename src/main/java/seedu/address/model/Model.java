@@ -53,6 +53,9 @@ public interface Model {
 
     /** Mark the given task as done. */
     void doneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    
+    /** Mark the given task as undone. */
+    void undoneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
 	void save(String commandType) throws IllegalValueException, ParseException;
 

@@ -163,6 +163,21 @@ public class UniqueTaskList implements Iterable<Task> {
         return taskFoundAndMarked;
     }
     
+    /**
+     * Mark the equivalent task as undone.
+     *
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     */
+    public boolean undone(ReadOnlyTask toUnDone) throws TaskNotFoundException {
+        assert toUnDone != null;
+        final boolean taskFoundAndMarked = toUnDone.setUndone();
+        if (!taskFoundAndMarked) {
+            throw new TaskNotFoundException();
+        }
+        return taskFoundAndMarked;
+    }
+    
+    
    
     public ObservableList<Task> getInternalList() {
         return internalList;
