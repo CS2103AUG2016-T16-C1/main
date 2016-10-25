@@ -145,6 +145,15 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+    
+    public boolean markTaskAsUndone(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+        if (tasks.undone(key)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
+    
     public History getHistory(){
     	return history;
     }

@@ -109,12 +109,21 @@ import seedu.address.model.person.*;
         public void setDone(boolean done) {
             this.done = done;
         }
+        
+        public boolean setUndone(){
+        	if (done) done = false;
+        	else return false;
+        	return true;
+        }
+        
 
 		@Override
 		public boolean deleteTags(ArrayList<String> tagsToDel) throws DuplicateTagException, IllegalValueException {
 			
 			return false;
 		}
+
+
 
 	}
 
