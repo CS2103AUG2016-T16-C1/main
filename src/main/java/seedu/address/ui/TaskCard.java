@@ -1,14 +1,21 @@
 package seedu.address.ui;
 
+import java.text.ParseException;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import seedu.address.logic.Logic;
 import seedu.address.model.person.ReadOnlyTask;
+import seedu.address.testutil.TestTask;
 
 public class TaskCard extends UiPart{
 
     private static final String FXML = "TaskListCard.fxml";
+    private Logic logic;
+
 
     @FXML
     private HBox cardPane;
@@ -20,6 +27,8 @@ public class TaskCard extends UiPart{
     private Label tags;
     @FXML
     private Label date;
+    @FXML
+    private CheckBox doneCheckBox;
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -28,8 +37,9 @@ public class TaskCard extends UiPart{
 
     }
 
-    public static TaskCard load(ReadOnlyTask task, int displayedIndex){
+    public static TaskCard load(ReadOnlyTask task, int displayedIndex, Logic logic){
         TaskCard card = new TaskCard();
+        card.logic = logic;
         card.task = task;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
@@ -40,6 +50,7 @@ public class TaskCard extends UiPart{
         content.setText(task.getContent().toString());
         id.setText(displayedIndex + ". ");
         date.setText(task.getDate().toString());
+        doneCheckBox.setSelected(task.getDone());
 
         tags.setText(task.tagsString());
     }
@@ -56,5 +67,15 @@ public class TaskCard extends UiPart{
     @Override
     public String getFxmlPath() {
         return FXML;
+    }
+    
+    @FXML
+    public void handleDoneCheckBox() throws ParseException {
+    	if (doneCheckBox.isSelected()) {
+    		logic.execute("done " + displayedIndex);
+    	}
+    	else {
+    		logic.execute("undone " + displayedIndex);
+    	}
     }
 }

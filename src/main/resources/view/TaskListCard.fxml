@@ -2,6 +2,7 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -30,6 +31,7 @@
                         <HBox alignment="CENTER_LEFT" spacing="5">
                             <children>
                                 <HBox>
+                           <CheckBox fx:id="doneCheckBox" mnemonicParsing="false" onAction="#handleDoneCheckBox" />
                                     <Label fx:id="id" styleClass="cell_big_label" />
                                     <Label fx:id="content" styleClass="cell_big_label" text="\$first" />
                                 </HBox>

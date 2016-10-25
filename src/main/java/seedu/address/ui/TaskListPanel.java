@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
+import seedu.address.logic.Logic;
 import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.commons.core.LogsCenter;
 
@@ -22,6 +23,8 @@ import java.util.logging.Logger;
 public class TaskListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
     private static final String FXML = "TaskListPanel.fxml";
+    private Logic logic;
+
     private VBox panel;
     private AnchorPane placeHolderPane;
 
@@ -48,9 +51,10 @@ public class TaskListPanel extends UiPart {
     }
 
     public static TaskListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
-                                       ObservableList<ReadOnlyTask> taskList) {
+                                       ObservableList<ReadOnlyTask> taskList, Logic logic) {
         TaskListPanel taskListPanel =
                 UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new TaskListPanel());
+        taskListPanel.logic = logic;
         taskListPanel.configure(taskList);
         return taskListPanel;
     }
@@ -100,7 +104,7 @@ public class TaskListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
+                setGraphic(TaskCard.load(task, getIndex() + 1, logic).getLayout());
             }
         }
     }
