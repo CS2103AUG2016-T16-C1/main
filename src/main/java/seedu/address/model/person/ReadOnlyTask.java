@@ -51,7 +51,23 @@ public interface ReadOnlyTask {
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
+    
+    default String getAsText2() {
+    	final StringBuilder builder = new StringBuilder();
+    	builder.append(getContent())
+    			.append(" ")
+    			.append(getDate().dateString)
+    			.append(" ")
+    			.append(getTime().timeString)
+    			.append(" - ")
+    			.append(getDate().enddateString)
+    			.append(" ")
+    			.append(getTime().endtimeString)
+    			.append(" Tags: ");
+    	getTags().forEach(builder::append);
+    	return builder.toString();
+    }
+    
     /**
      * Returns a string representation of this task's tags
      */

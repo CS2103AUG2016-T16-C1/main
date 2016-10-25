@@ -153,8 +153,8 @@ public class Parser {
         //Validate arg string format: String starts with content and not date/time/tag
         	String startOfLine = validator.next();
         	
-        	if(startOfLine.startsWith("d/") || startOfLine.startsWith("st/") 
-        			|| startOfLine.startsWith("#") || startOfLine.startsWith("et/")){
+        	if(startOfLine.startsWith("sd/") || startOfLine.startsWith("st/") 
+        			|| startOfLine.startsWith("#") || startOfLine.startsWith("et/") || startOfLine.startsWith("ed/")){
         		validator.close();
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         	}
@@ -167,7 +167,7 @@ public class Parser {
     	StringBuilder content = new StringBuilder();
 		while(scanContent.hasNext()){
 			String check = scanContent.next();
-			if(check.startsWith("d/") || check.startsWith("st/") || check.startsWith("#") || check.startsWith("et/"))
+			if(check.startsWith("sd/") || check.startsWith("st/") || check.startsWith("#") || check.startsWith("et/") || check.startsWith("ed/"))
 				break;
 			else
 				content.append(" " + check);
@@ -205,15 +205,23 @@ public class Parser {
 		scanTime.close();
 		
 		//Obtain endTime if any from String args
-		String endString = null;
-		Scanner scanEnd = new Scanner(args);
-		if(scanEnd.findInLine("et/") != null){
-			endString = scanEnd.next();
+		String endTimeString = null;
+		Scanner scanEndTime = new Scanner(args);
+		if(scanEndTime.findInLine("et/") != null){
+			endTimeString = scanEndTime.next();
 		}
-		scanEnd.close();
+		scanEndTime.close();
+		
+		//Obtain endDate if any from String args
+		String endDateString = null;
+		Scanner scanEndDate = new Scanner(args);
+		if(scanEndDate.findInLine("ed/") != null){
+			endDateString = scanEndDate.next();
+		}
+		scanEndDate.close();	
         
         try {
-            return new AddCommand( content.toString().trim(), dateString, timeString, endString, setTags);
+            return new AddCommand( content.toString().trim(), dateString, endDateString, timeString, endTimeString, setTags);
             
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());

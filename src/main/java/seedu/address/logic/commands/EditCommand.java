@@ -22,9 +22,9 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task listed the task manager. "
-            + "Parameters: INDEX[MUST BE POSITIVE INTEGER] c/CONTENT d/DATE[dd-mm-yyyy] st/time[HH:mm] et/time[HH:mm]\n"
+            + "Parameters: INDEX[MUST BE POSITIVE INTEGER] c/CONTENT sd/DATE[dd-mm-yyyy] ed/DATE[dd-mm-yyyy] st/time[HH:mm] et/time[HH:mm]\n"
             + "Example: " + COMMAND_WORD
-            + " 1 c/do this task manager d/20-10-2016 st/13:00 et/17:00";
+            + " 1 c/do this task manager sd/20-10-2016 ed/ 20-10-2016 st/13:00 et/17:00";
 
     public static final String MESSAGE_SUCCESS = "Task edited: %1$s";
  
@@ -33,6 +33,7 @@ public class EditCommand extends Command {
     private String newTime;
     private String newContent;
     private String newEndTime;
+    private String newEndDate;
 
     /**
      * Convenience constructor using raw values.
@@ -46,9 +47,13 @@ public class EditCommand extends Command {
     		this.targetIndex = Integer.parseInt(index.trim());
     		
     		Scanner sc = new Scanner(taskDetails);
-    		if( sc.findInLine("d/") != null){
+    		if(sc.findInLine("sd/") != null){
     			newDate = sc.next();
     			sc = new Scanner(taskDetails);	
+    		}
+    		if(sc.findInLine("ed/") != null){
+    			newEndDate = sc.next();
+    			sc = new Scanner(taskDetails);
     		}
     		if(sc.findInLine("st/") != null){
     			newTime = sc.next();
@@ -62,7 +67,7 @@ public class EditCommand extends Command {
     			StringBuilder data = new StringBuilder();
     			while(sc.hasNext()){
     				String check = sc.next();
-    				if(check.startsWith("d/") || check.startsWith("st/") || check.startsWith("et/"))
+    				if(check.startsWith("d/") || check.startsWith("st/") || check.startsWith("et/") || check.startsWith("ed/"))
     					break;
     				else
     					data.append(" " + check);
@@ -84,7 +89,7 @@ public class EditCommand extends Command {
         }
         
         try {
-            model.editTask(targetIndex - 1, newDate, newTime, newEndTime, newContent);
+            model.editTask(targetIndex - 1, newDate, newEndDate, newTime, newEndTime, newContent);
         } catch (TaskNotFoundException | ParseException tnfe) {
             assert false : "The target task cannot be missing";
         }

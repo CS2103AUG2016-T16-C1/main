@@ -77,7 +77,7 @@ public class History {
 	        TaskTime tt = new TaskTime();
 	        
 	        if(!t.getDate().dateString.isEmpty())
-	        	td = new TaskDate(t.getDate().dateString);
+	        	td = new TaskDate(t.getDate().dateString, t.getDate().enddateString);
 	        if(!t.getTime().timeString.isEmpty())
 	        	tt = new TaskTime(t.getTime().timeString, t.getTime().endtimeString);
 			

@@ -101,7 +101,11 @@ public class Task implements ReadOnlyTask {
 
     @Override
     public String toString() {
-        return getAsText();
+    	if(date.enddateString != null) {
+        return getAsText2();
+    	}
+    	else
+    		return getAsText();
     }
 
     @Override
