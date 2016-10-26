@@ -1,10 +1,10 @@
 # User Guide
 
-* [About Hard2Do](#about-hard2do])
-* [Getting Started](#getting-started)
-* [Features](#features)
-* [FAQ](#faq)
-* [Command Summary](#command-summary)
+* [About Hard2Do](#2-about-hard2do)
+* [Getting Started](#3-getting-started)
+* [Features](#4-features)
+* [FAQ](#5-faq)
+* [Command Summary](#6-command-summary)
 
 ## 2 About Hard2Do
 
