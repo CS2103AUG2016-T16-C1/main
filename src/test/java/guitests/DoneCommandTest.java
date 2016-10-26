@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.DoneCommand;
 import seedu.address.logic.commands.ImportantCommand;
 import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.address.testutil.TestTask;
@@ -48,7 +49,7 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         //confirm marking the task as done, item is not in the undone list
         assertNull(taskListPanel.navigateToTask(taskToDone.getContent().value));
         //confirm the result message is correct
-        assertResultMessage(String.format(ImportantCommand.MESSAGE_DONE_TASK_SUCCESS, taskToDone));
+        assertResultMessage(String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, taskToDone));
         
         //confirm task is in the whole list
         commandBox.runCommand("list");

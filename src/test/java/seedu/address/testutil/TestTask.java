@@ -123,6 +123,24 @@ import seedu.address.model.person.*;
 			return false;
 		}
 
+        @Override
+        public boolean getImportant() {
+            // TODO Auto-generated method stub
+            return false;
+        }
+
+        @Override
+        public boolean setImportant() {
+            // TODO Auto-generated method stub
+            return false;
+        }
+
+        @Override
+        public boolean setUnimportant() {
+            // TODO Auto-generated method stub
+            return false;
+        }
+
 
 
 	}
