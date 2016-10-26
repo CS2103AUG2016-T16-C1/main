@@ -37,6 +37,11 @@ import seedu.address.model.person.*;
 	    public void setTime(TaskTime tasktime) {
 	        this.tasktime = tasktime;
 	    }
+	    
+        
+        public void setDuration(Integer duration) {
+            this.duration = duration;
+        }
 
 	    @Override
 	    public Content getContent() {
@@ -59,12 +64,12 @@ import seedu.address.model.person.*;
 	    }
 
 	    @Override
-	    public String toString() {
-	    if(this.getDate().enddateString == null) {
+	    public String toString(){
+	    	if(!this.getDate().enddateString.isEmpty() && !this.getTime().endtimeString.isEmpty()) {
+	    		return getAsText2();
+	    	}
+	    	else
 	          return getAsText();
-	            }
-	            else
-	                return getAsText2();
 	        }
 
 	    public String getAddCommand() {
@@ -74,7 +79,7 @@ import seedu.address.model.person.*;
 	        sb.append("ed/" + this.getDate().enddateString + " ");
 	        sb.append("st/" + this.getTime().timeString + " ");
 	        sb.append("et/" + this.getTime().endtimeString + " ");
-	        this.getTags().getInternalList().stream().forEach(s -> sb.append("#" + s.tagName + " "));
+	        this.getTags().getInternalList().stream().forEach(s -> sb.append("#" + s.tagName + " "));	        
 	        return sb.toString();
 	    }
 

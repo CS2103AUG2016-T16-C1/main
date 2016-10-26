@@ -15,17 +15,17 @@ public class TypicalTestTasks {
 
     public TypicalTestTasks(){
         try {
-            homework =  new TaskBuilder().withContent("Do Homework").withDate("24-08-2016", null).withTime("13:00", null).withTags("shag").build();
-            study = new TaskBuilder().withContent("Study").withDate("30-08-2016", null).withTime("14:00", null).build();
-            exam = new TaskBuilder().withContent("Have Exam").withDate("20-05-2016", null).withTime("10:00", null).withTags("shaglife", "tired").build();
-            activities = new TaskBuilder().withContent("Hall Activities and Study section").withDate("15-06-2016", null).withTime("19:00" ,"23:00").withTags("fun").build();
-            tuition = new TaskBuilder().withContent("Teach Tuition").withDate("21-03-2016", null).withTime("14:00", null).withTags("money").build();
-            family = new TaskBuilder().withContent("Family Event").withDate("02-11-2016", null).withTime("12:00", null).withTags("love").build();
-            groceries = new TaskBuilder().withContent("Get Groceries").withDate("01-12-2016", null).withTime("09:00", null).withTags("food").build();
+            homework =  new TaskBuilder().withContent("Do Homework").withDate("24-08-2016", "25-08-2016").withTime("13:00", "15:00").withDuration(0).withTags("shag").build();
+            study = new TaskBuilder().withContent("Study").withDate("28-08-2016", "29-08-2016").withTime("14:00", "15:00").withDuration(0).build();
+            exam = new TaskBuilder().withContent("Have Exam").withDate("20-05-2016", "21-05-2016").withTime("10:00", "11:00").withDuration(0).withTags("shaglife", "tired").build();
+            activities = new TaskBuilder().withContent("Hall Activities and Study section").withDate("15-06-2016", "16-06-2016").withTime("19:00" ,"23:00").withDuration(0).withTags("fun").build();
+            tuition = new TaskBuilder().withContent("Teach Tuition").withDate("21-03-2016", "22-03-2016").withTime("14:00", "15:00").withDuration(0).withTags("money").build();
+            family = new TaskBuilder().withContent("Family Event").withDate("02-11-2016", "03-11-2016").withTime("12:00", "13:00").withDuration(0).withTags("love").build();
+            groceries = new TaskBuilder().withContent("Get Groceries").withDate("01-12-2016", "02-12-2016").withTime("09:00", "10:00").withDuration(0).withTags("food").build();
 
             //Manually added
-            flight = new TaskBuilder().withContent("Catch Flight").withDate("01-02-2016", null).withTime("13:00", null).withTags("littleindia").build();
-            appointment = new TaskBuilder().withContent("Have Appointment").withDate("12-01-2016", null).withTime("01:00", null).withTags("early").build();
+            flight = new TaskBuilder().withContent("Catch Flight").withDate("01-02-2016", "02-02-2016").withTime("13:00", "15:00").withDuration(0).withTags("littleindia").build();
+            appointment = new TaskBuilder().withContent("Have Appointment").withDate("12-01-2016", "13-01-2016").withTime("01:00", "03:00").withDuration(0).withTags("early").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible illegal value";

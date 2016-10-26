@@ -90,13 +90,13 @@ public class TaskTime {
     
     @Override
     public String toString() {    	
-    	if(endtimeString == null) {
-    		return timeString;
+    	if(!endtimeString.isEmpty() && !timeString.isEmpty()) {
+    		return timeString + "-" + endtimeString;
     	}
     	else if(endtimeString.isEmpty() && timeString.isEmpty())
     		return "";
     	else {
-    	return timeString + "-" + endtimeString;
+    		return timeString;
     	}
 
     }

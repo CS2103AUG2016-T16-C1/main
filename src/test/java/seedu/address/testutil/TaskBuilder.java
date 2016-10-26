@@ -38,7 +38,17 @@ public class TaskBuilder {
         this.task.setTime(new TaskTime(startTime, endTime));
         return this;
     }
-
+    
+    public TaskBuilder withDuration(Integer duration) throws IllegalValueException, ParseException {
+    	this.task.setDuration(duration);
+		return this;
+    }
+    
+    public TaskBuilder withDone(boolean done) throws IllegalValueException, ParseException {
+    	this.task.setDone(done);
+    	return this;
+    }
+    
     public TestTask build() {
         return this.task;
     }

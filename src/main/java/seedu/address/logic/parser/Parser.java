@@ -165,7 +165,7 @@ public class Parser {
         	String startOfLine = validator.next();
         	
         	if(startOfLine.startsWith("sd/") || startOfLine.startsWith("st/") 
-        			|| startOfLine.startsWith("#") || startOfLine.startsWith("et/") || startOfLine.startsWith("ed/")){
+        			|| startOfLine.startsWith("#") || startOfLine.startsWith("et/") || startOfLine.startsWith("ed/") || startOfLine.startsWith("r/")){
         		validator.close();
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         	}
@@ -178,7 +178,7 @@ public class Parser {
     	StringBuilder content = new StringBuilder();
 		while(scanContent.hasNext()){
 			String check = scanContent.next();
-			if(check.startsWith("sd/") || check.startsWith("st/") || check.startsWith("#") || check.startsWith("et/") || check.startsWith("ed/"))
+			if(check.startsWith("sd/") || check.startsWith("st/") || check.startsWith("#") || check.startsWith("et/") || check.startsWith("ed/") || check.startsWith("r/"))
 				break;
 			else
 				content.append(" " + check);

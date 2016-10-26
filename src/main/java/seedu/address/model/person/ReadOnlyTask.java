@@ -64,15 +64,16 @@ public interface ReadOnlyTask {
     default String getAsText2() {
     	final StringBuilder builder = new StringBuilder();
     	builder.append(getContent())
-    			.append(" Start(")
-    			.append(getTime().timeString)
-    			.append(" , ")
+    			.append(" ")
     			.append(getDate().dateString)
-    			.append(") - End(")
-    			.append(getTime().endtimeString)
-    			.append(" , ")
+    			.append(" ")
+    			.append(getTime().timeString)
+    			.append(" - ")
     			.append(getDate().enddateString)
-    			.append(")")
+    			.append(" ")
+    			.append(getTime().endtimeString)
+    			.append(" ")
+    			.append("repeat per "+getDuration()+" days ")
     			.append(" Tags: ");
     	getTags().forEach(builder::append);
     	return builder.toString();
