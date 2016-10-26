@@ -1,11 +1,11 @@
 # User Guide
 
- [2 About Hard2Do](#about-hard2do])<br>
- [3 Getting Started](#getting-started)<br>
+ [2 About Hard2Do](#2-about-hard2do])<br>
+ [3 Getting Started](#3-getting-started)<br>
  [3.1 Prerequisites](#31-prerequisites) <br>
  [3.2 Launch](#32-launch) <br>
  [3.3 Commands](#33-commands) <br>
- [4 Features](#features)<br>
+ [4 Features](#4-features-)<br>
  [4.1 Adding tasks](#41-adding-tasks--add) <br>
  [4.2 Listing all tasks](#42-listing-all-tasks--list) <br>
  [4.3 Finding all tasks containing any keyword in their content](#43-finding-all-tasks-containing-any-keyword-in-their-content--find) <br>
@@ -15,8 +15,8 @@
  [4.7 Clearing all entries](#47-clearing-all-entries--clear) <br>
  [4.8 Exiting the program](#48-exiting-the-program--exit) <br>
  [4.9 Viewing help](#49-viewing-help--help) <br>
- [5 FAQ](#faq) <br>
- [6 Command Summary](#command-summary)<br>
+ [5 FAQ](#5-faq) <br>
+ [6 Command Summary](#6-command-summary)<br>
 
 ## 2 About Hard2Do
 
@@ -88,7 +88,7 @@ Examples:
 Shows a list of all tasks in the future.<br>
 Format: `list`
 
-### 4.3 Finding all tasks containing any keyword in their content: `find`
+### 4.3 Finding all tasks containing any keyword in their content : `find`
 Finds tasks whose names contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
