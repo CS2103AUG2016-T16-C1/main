@@ -7,6 +7,8 @@ import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 import seedu.address.logic.Logic;
 import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.testutil.TestTask;
@@ -29,6 +31,8 @@ public class TaskCard extends UiPart{
     private Label date;
     @FXML
     private CheckBox doneCheckBox;
+    @FXML
+    private Circle importantCircle;
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -51,6 +55,13 @@ public class TaskCard extends UiPart{
         id.setText(displayedIndex + ". ");
         date.setText(task.getDate().toString());
         doneCheckBox.setSelected(task.getDone());
+        if (task.getImportant()) {
+        	importantCircle.setFill(Paint.valueOf("red"));
+        }
+        else {
+        	importantCircle.setFill(Paint.valueOf("green"));
+
+        }
 
         tags.setText(task.tagsString());
     }
