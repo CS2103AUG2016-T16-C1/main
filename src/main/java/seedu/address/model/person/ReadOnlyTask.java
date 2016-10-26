@@ -18,6 +18,9 @@ public interface ReadOnlyTask {
     boolean getDone();
     boolean setDone();
     boolean setUndone();
+    boolean getImportant();
+    boolean setImportant();
+    boolean setUnimportant();
     boolean addTags(ArrayList<String> tagsToAdd) throws DuplicateTagException, IllegalValueException;
     boolean deleteTags(ArrayList<String> tagsToDel) throws DuplicateTagException, IllegalValueException;
     /**
