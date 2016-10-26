@@ -217,9 +217,17 @@ public class Parser {
 			endString = scanEnd.next();
 		}
 		scanEnd.close();
+		
+	    //Obtain duration if any from String args
+        Integer duration = null;
+        Scanner scanDuration = new Scanner(args);
+        if(scanDuration.findInLine("r/") != null){
+            duration = scanDuration.nextInt();
+        }
+        scanDuration.close();
         
         try {
-            return new AddCommand( content.toString().trim(), dateString, timeString, endString, setTags);
+            return new AddCommand( content.toString().trim(), dateString, timeString, endString, duration, setTags);
             
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
