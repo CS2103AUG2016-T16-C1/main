@@ -195,6 +195,34 @@ public class UniqueTaskList implements Iterable<Task> {
         return taskFoundAndMarked;
     }
     
+    /**
+     * Mark the equivalent task as important.
+     *
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     */
+    public boolean important(ReadOnlyTask toImportant) throws TaskNotFoundException {
+        assert toImportant != null;
+        final boolean taskFoundAndMarked = toImportant.setImportant();
+        if (!taskFoundAndMarked) {
+            throw new TaskNotFoundException();
+        }
+        return taskFoundAndMarked;
+    }
+    
+    /**
+     * Mark the equivalent task as unimportant.
+     *
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     */
+    public boolean unimportant(ReadOnlyTask toUnimportant) throws TaskNotFoundException {
+        assert toUnimportant != null;
+        final boolean taskFoundAndMarked = toUnimportant.setUnimportant();
+        if (!taskFoundAndMarked) {
+            throw new TaskNotFoundException();
+        }
+        return taskFoundAndMarked;
+    }
+    
     
    
     public ObservableList<Task> getInternalList() {

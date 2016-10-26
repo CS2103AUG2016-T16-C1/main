@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.DoneCommand;
+import seedu.address.logic.commands.ImportantCommand;
 import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.address.testutil.TestTask;
 import org.junit.Test;

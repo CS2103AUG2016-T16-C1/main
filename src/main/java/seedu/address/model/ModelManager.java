@@ -200,6 +200,41 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowUndone();
         indicateTaskManagerChanged();
     }
+    
+    @Override
+    public synchronized void importantTask(ReadOnlyTask target) throws TaskNotFoundException {
+        try {
+            taskManager.save("important");
+        } catch (IllegalValueException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        taskManager.markTaskAsImportant(target);
+        logger.info("successfully mark as important"+target.getImportant());
+        updateFilteredListToShowUndone();
+        indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public synchronized void unimportantTask(ReadOnlyTask target) throws TaskNotFoundException {
+        try {
+            taskManager.save("unimportant");
+        } catch (IllegalValueException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        taskManager.markTaskAsUnimportant(target);
+        logger.info("successfully mark as unimportant"+target.getImportant());
+        updateFilteredListToShowUndone();
+        indicateTaskManagerChanged();
+    }
+    
     @Override
     public synchronized void save(String commandType) throws IllegalValueException, ParseException{
     	taskManager.save(commandType);

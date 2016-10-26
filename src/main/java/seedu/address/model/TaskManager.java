@@ -154,6 +154,22 @@ public class TaskManager implements ReadOnlyTaskManager {
         }
     }
     
+    public boolean markTaskAsImportant(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+        if (tasks.important(key)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
+    
+    public boolean markTaskAsUnimportant(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+        if (tasks.unimportant(key)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
+    
     public History getHistory(){
     	return history;
     }

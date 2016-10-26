@@ -93,6 +93,12 @@ public class Parser {
         case UndoneCommand.COMMAND_WORD:
             return prepareUndone(arguments);
             
+        case ImportantCommand.COMMAND_WORD:
+            return prepareImportant(arguments);
+
+        case UnimportantCommand.COMMAND_WORD:
+            return prepareUnimportant(arguments);
+            
         case EditCommand.COMMAND_WORD:
         	return prepareEdit(arguments);
         
@@ -312,7 +318,7 @@ public class Parser {
     }
     
     /**
-     * Parses arguments in the context of the delete person command.
+     * Parses arguments in the context of the done person command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -329,7 +335,7 @@ public class Parser {
     }
     
     /**
-     * Parses arguments in the context of the delete person command.
+     * Parses arguments in the context of the undone person command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -343,6 +349,40 @@ public class Parser {
         }
 
         return new UndoneCommand(index.get());
+    }
+    
+    /**
+     * Parses arguments in the context of the important person command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareImportant(String args) {
+
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportantCommand.MESSAGE_USAGE));
+        }
+
+        return new ImportantCommand(index.get());
+    }
+    
+    /**
+     * Parses arguments in the context of the unimportant person command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareUnimportant(String args) {
+
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnimportantCommand.MESSAGE_USAGE));
+        }
+
+        return new UnimportantCommand(index.get());
     }
 
     /**
