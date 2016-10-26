@@ -84,6 +84,10 @@ public class TaskTime {
         return value;
     }
     
+    public Date getEndTime() {
+    	return endTime;
+    }
+    
     @Override
     public String toString() {    	
     	if(endtimeString == null) {

@@ -42,7 +42,9 @@ public class TaskDetail extends UiPart {
     private AnchorPane taskDetailPane;
 
     @FXML
-    private DatePicker datePicker;
+    private DatePicker startDatePicker;
+    @FXML
+    private DatePicker endDatePicker;
     @FXML
     private VBox detailView;
     @FXML
@@ -50,7 +52,9 @@ public class TaskDetail extends UiPart {
     @FXML
     private Label tags;
     @FXML
-    private JFXDatePicker timePicker;
+    private JFXDatePicker startTimePicker;
+    @FXML
+    private JFXDatePicker endTimePicker;
 
     public TaskDetail() {
     }
@@ -82,7 +86,7 @@ public class TaskDetail extends UiPart {
                 }
             }
         });
-        timePicker.timeProperty().addListener(new ChangeListener<LocalTime>() {
+        startTimePicker.timeProperty().addListener(new ChangeListener<LocalTime>() {
 
             @Override
             public void changed(ObservableValue<? extends LocalTime> observable, LocalTime oldValue,
@@ -103,15 +107,27 @@ public class TaskDetail extends UiPart {
         this.task = task;
         content.setText(task.getContent().toString());
         if (task.getDate().getValue() != null) {
-            datePicker.setValue(DateTimeUtil.changeDateToLocalDate(task.getDate().getValue()));
+            startDatePicker.setValue(DateTimeUtil.changeDateToLocalDate(task.getDate().getValue()));
         } else {
-            datePicker.setValue(null);
+            startDatePicker.setValue(null);
         }
         if (task.getTime().getValue() != null) {
 
-            timePicker.setTime(DateTimeUtil.changeDateToLocalTime(task.getTime().getValue()));
+            startTimePicker.setTime(DateTimeUtil.changeDateToLocalTime(task.getTime().getValue()));
         } else {
-            timePicker.setValue(null);
+            startTimePicker.setValue(null);
+        }
+        
+        if (task.getDate().getEndDate() != null) {
+            endDatePicker.setValue(DateTimeUtil.changeDateToLocalDate(task.getDate().getEndDate()));
+        } else {
+            endDatePicker.setValue(null);
+        }
+        if (task.getTime().getEndTime() != null) {
+
+            endTimePicker.setTime(DateTimeUtil.changeDateToLocalTime(task.getTime().getEndTime()));
+        } else {
+            endTimePicker.setValue(null);
         }
         tags.setText(task.tagsString());
     }
@@ -127,10 +143,10 @@ public class TaskDetail extends UiPart {
     @FXML
     private void handleDateChanged() throws ParseException {
         System.out.println("handle is called");
-        newDate = datePicker.getValue();
+        newDate = startDatePicker.getValue();
         formattedString = DateTimeUtil.changeLocalDateToFormattedString(newDate);
         if (formattedString.compareTo(task.getDate().toString()) != 0) {
-            mostRecentResult = logic.execute("edit " + index + " d/" + formattedString);
+            mostRecentResult = logic.execute("edit " + index + " sd/" + formattedString);
             resultDisplay.postMessage(mostRecentResult.feedbackToUser);
             logger.info("Result: " + mostRecentResult.feedbackToUser);
         }
@@ -139,11 +155,11 @@ public class TaskDetail extends UiPart {
     @FXML
     private void handleTimeChanged() throws ParseException {
         System.out.println("this is called");
-        newTime = timePicker.getTime();
+        newTime = startTimePicker.getTime();
         formattedString = DateTimeUtil.changeLocalTimeToFormattedString(newTime);
         System.out.println(formattedString + " " + task.getTime().toString()); 
         if (formattedString.compareTo(task.getTime().toString()) != 0) {
-            mostRecentResult = logic.execute("edit " + index + " t/" + formattedString);
+            mostRecentResult = logic.execute("edit " + index + " st/" + formattedString);
             resultDisplay.postMessage(mostRecentResult.feedbackToUser);
             logger.info("Result: " + mostRecentResult.feedbackToUser);
         }

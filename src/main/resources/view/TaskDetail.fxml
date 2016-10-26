@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="279.0" prefWidth="319.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.TaskDetail">
+<AnchorPane prefHeight="441.0" prefWidth="319.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.TaskDetail">
    <children>
       <VBox fx:id="detailView" layoutY="-121.0" prefHeight="280.0" prefWidth="319.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -25,15 +25,15 @@
             <Separator prefWidth="200.0" />
             <Separator prefWidth="200.0" />
             <Separator prefWidth="200.0" />
-            <SplitPane dividerPositions="0.5, 0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" style="-fx-background-color: white;">
+            <SplitPane dividerPositions="0.5, 0.5, 0.5, 0.5" orientation="VERTICAL" prefHeight="316.0" prefWidth="319.0" style="-fx-background-color: white;">
               <items>
-                <AnchorPane minHeight="0.0" minWidth="60.0" prefHeight="100.0" prefWidth="160.0">
+                <AnchorPane minHeight="60.0" minWidth="60.0" prefHeight="60.0" prefWidth="317.0">
                      <children>
                         <SplitPane dividerPositions="0.27" prefHeight="160.0" prefWidth="200.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                  <children>
-                                    <Label layoutX="27.0" layoutY="24.0" prefHeight="63.0" prefWidth="79.0" text="Due Date" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <Label layoutX="27.0" layoutY="24.0" prefHeight="63.0" prefWidth="79.0" text="Start/Due" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <padding>
                                           <Insets left="5.0" />
                                        </padding>
@@ -42,19 +42,41 @@
                               </AnchorPane>
                             <AnchorPane fx:id="timePane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                  <children>
-                                    <JFXDatePicker fx:id="datePicker" layoutY="9.0" onAction="#handleDateChanged" />
+                                    <JFXDatePicker fx:id="startDatePicker" layoutY="9.0" onAction="#handleDateChanged" />
                                  </children></AnchorPane>
                           </items>
                         </SplitPane>
                      </children>
                   </AnchorPane>
-                <AnchorPane minHeight="60.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                  <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="60.0" minWidth="60.0" prefHeight="60.0" prefWidth="160.0">
+                     <children>
+                        <SplitPane dividerPositions="0.27" prefHeight="160.0" prefWidth="200.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <items>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <Label layoutX="27.0" layoutY="24.0" prefHeight="63.0" prefWidth="79.0" text="End" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <padding>
+                                          <Insets left="5.0" />
+                                       </padding>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane fx:id="timePane1" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <JFXDatePicker fx:id="endDatePicker" layoutY="9.0" onAction="#handleDateChanged" />
+                                 </children>
+                              </AnchorPane>
+                           </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+                <AnchorPane minHeight="60.0" minWidth="0.0" prefHeight="60.0" prefWidth="160.0">
                      <children>
                         <SplitPane dividerPositions="0.27" prefHeight="160.0" prefWidth="200.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                  <children>
-                                    <Label layoutX="8.0" layoutY="6.0" text="Remind At" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <Label layoutX="8.0" layoutY="6.0" text="Start/Due" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <padding>
                                           <Insets left="5.0" />
                                        </padding>
@@ -63,14 +85,36 @@
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                  <children>
-                                    <JFXDatePicker fx:id="timePicker" layoutY="13.0" onAction="#handleTimeChanged" showTime="true" />
+                                    <JFXDatePicker fx:id="startTimePicker" layoutY="13.0" onAction="#handleTimeChanged" showTime="true" />
                                  </children>
                               </AnchorPane>
                           </items>
                         </SplitPane>
                      </children>
                   </AnchorPane>
-                  <AnchorPane minHeight="0.0" minWidth="60.0" prefHeight="100.0" prefWidth="160.0">
+                  <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="60.0" minWidth="0.0" prefHeight="60.0" prefWidth="160.0">
+                     <children>
+                        <SplitPane dividerPositions="0.27" prefHeight="160.0" prefWidth="200.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <items>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <Label layoutX="8.0" layoutY="6.0" text="End" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <padding>
+                                          <Insets left="5.0" />
+                                       </padding>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <JFXDatePicker fx:id="endTimePicker" layoutY="13.0" onAction="#handleTimeChanged" showTime="true" />
+                                 </children>
+                              </AnchorPane>
+                           </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane minHeight="60.0" minWidth="60.0" prefHeight="60.0" prefWidth="160.0">
                      <children>
                         <SplitPane dividerPositions="0.27" prefHeight="160.0" prefWidth="200.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <items>
