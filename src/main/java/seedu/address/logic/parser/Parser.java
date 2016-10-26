@@ -191,7 +191,7 @@ public class Parser {
 		//Obtain date if any from String args
 		String dateString = null;
 		Scanner scanDate = new Scanner(args);
-		if(scanDate.findInLine("d/") != null){
+		if(scanDate.findInLine("sd/") != null){
 			dateString = scanDate.next();
 		}
 		scanDate.close();

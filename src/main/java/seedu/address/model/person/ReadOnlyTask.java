@@ -55,14 +55,15 @@ public interface ReadOnlyTask {
     default String getAsText2() {
     	final StringBuilder builder = new StringBuilder();
     	builder.append(getContent())
-    			.append(" ")
-    			.append(getDate().dateString)
-    			.append(" ")
+    			.append(" Start(")
     			.append(getTime().timeString)
-    			.append(" - ")
-    			.append(getDate().enddateString)
-    			.append(" ")
+    			.append(" , ")
+    			.append(getDate().dateString)
+    			.append(") - End(")
     			.append(getTime().endtimeString)
+    			.append(" , ")
+    			.append(getDate().enddateString)
+    			.append(")")
     			.append(" Tags: ");
     	getTags().forEach(builder::append);
     	return builder.toString();
