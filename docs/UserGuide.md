@@ -1,6 +1,6 @@
 # User Guide
 
- [2 About Hard2Do](#2-about-hard2do])<br>
+ [2 About Hard2Do](#2-about-hard2do)<br>
  [3 Getting Started](#3-getting-started)<br>
  [3.1 Prerequisites](#31-prerequisites) <br>
  [3.2 Launch](#32-launch) <br>
