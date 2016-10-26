@@ -152,6 +152,12 @@ import seedu.address.model.person.*;
             return false;
         }
 
+        @Override
+        public boolean setNext() {
+            // TODO Auto-generated method stub
+            return false;
+        }
+
 
 
 	}

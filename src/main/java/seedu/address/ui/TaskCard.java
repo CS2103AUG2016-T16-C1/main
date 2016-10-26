@@ -11,7 +11,6 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import seedu.address.logic.Logic;
 import seedu.address.model.person.ReadOnlyTask;
-import seedu.address.testutil.TestTask;
 
 public class TaskCard extends UiPart{
 
