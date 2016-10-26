@@ -2,7 +2,7 @@
 
 * [About Hard2Do](#2-about-hard2do)
 * [Getting Started](#3-getting-started)
-* [Features](#4-features)
+* [Features](#4-features-)
 * [FAQ](#5-faq)
 * [Command Summary](#6-command-summary)
 
