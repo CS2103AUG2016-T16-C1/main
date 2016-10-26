@@ -10,6 +10,7 @@ import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
  * A read-only immutable interface for a task in Hard2Do.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
+//@@author A0139523E
 public interface ReadOnlyTask {
 
     Content getContent();

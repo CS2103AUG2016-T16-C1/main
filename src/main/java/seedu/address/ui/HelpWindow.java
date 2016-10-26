@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 /**
  * Controller for a help page
  */
+//@@author A0135787N-reused
 public class HelpWindow extends UiPart {
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);

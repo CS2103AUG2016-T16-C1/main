@@ -8,6 +8,7 @@ import seedu.address.model.person.ReadOnlyTask;
 /**
  * Provides a handle to a task card in the person list panel.
  */
+//@@author A0139523E-reused
 public class TaskCardHandle extends GuiHandle {
     private static final String CONTENT_FIELD_ID = "#content";
     private static final String DATE_FIELD_ID = "#date";

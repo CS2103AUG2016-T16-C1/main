@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import seedu.address.commons.util.ConfigUtil;
 
+//@@author A0141054W
 public class LoadCommand extends Command {
     
     public static final String COMMAND_WORD = "load";

@@ -11,7 +11,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import seedu.address.logic.Logic;
 import seedu.address.model.person.ReadOnlyTask;
-
+//@@author A0141054W
 public class TaskCard extends UiPart{
 
     private static final String FXML = "TaskListCard.fxml";

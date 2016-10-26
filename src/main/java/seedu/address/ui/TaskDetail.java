@@ -25,6 +25,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.Task;
 
+//@@author A0141054W
 public class TaskDetail extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TaskDetail.class);
     private static final String FXML = "TaskDetail.fxml";

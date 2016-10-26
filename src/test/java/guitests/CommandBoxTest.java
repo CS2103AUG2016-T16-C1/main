@@ -3,7 +3,7 @@ package guitests;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-
+//@@author A0147989B-reused
 public class CommandBoxTest extends TaskManagerGuiTest {
 
     @Test

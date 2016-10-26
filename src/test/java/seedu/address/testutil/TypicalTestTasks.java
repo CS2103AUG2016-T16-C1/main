@@ -9,6 +9,7 @@ import seedu.address.model.person.*;
 /**
  *
  */
+//@@author A0139523E
 public class TypicalTestTasks {
 
     public static TestTask homework, study, exam, activities, tuition, family, groceries, flight, appointment;

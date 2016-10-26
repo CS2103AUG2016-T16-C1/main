@@ -2,7 +2,7 @@ package guitests.guihandles;
 
 import guitests.GuiRobot;
 import javafx.stage.Stage;
-
+//@@author A0141054W
 public class TaskDetailHandle extends GuiHandle {
     private static final String CONTENT_FIELD_ID = "#content";
     private static final String DATE_FIELD_ID = "#datePicker";

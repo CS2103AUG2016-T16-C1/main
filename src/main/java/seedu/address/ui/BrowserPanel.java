@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 /**
  * The Browser Panel of the App.
  */
+//@@author A0139523E-reused
 public class BrowserPanel extends UiPart{
 
     private static Logger logger = LogsCenter.getLogger(BrowserPanel.class);

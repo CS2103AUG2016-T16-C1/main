@@ -16,6 +16,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 /**
  * Parses user input.
  */
+//@@author A0139523E
 public class Parser {
 
     /**
@@ -131,6 +132,7 @@ public class Parser {
      * @return the prepared command
      * @throws ParseException 
      */
+  //@@author A0135787N
     private Command prepareEdit(String args) throws ParseException{
         final Matcher matcher = EDIT_TASK_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
@@ -255,7 +257,7 @@ public class Parser {
         else 
             return new ListCommand(args.trim());
     }
-    
+  //@@author A0141054W
     private Command prepareLoad(String args) throws ParseException{
         File file = new File(args.trim());
         if (file.isDirectory()) {
@@ -424,6 +426,7 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
+  //@@author A0141054W
     private Command prepareSelect(String args) {
         Optional<Integer> index = parseIndex(args);
         if(!index.isPresent()){
@@ -458,6 +461,7 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
+  //@@author A0135787N
     private Command prepareFind(String args) {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {

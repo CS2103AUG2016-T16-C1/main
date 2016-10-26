@@ -15,6 +15,7 @@ import java.util.*;
  * @see Tag#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
+//@@author A0135787N-reused
 public class UniqueTagList implements Iterable<Tag> {
 
     /**

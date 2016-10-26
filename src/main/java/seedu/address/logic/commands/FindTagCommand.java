@@ -9,6 +9,7 @@ import seedu.address.model.tag.Tag;
  * Finds and lists all tasks in task manager whose content contains any of the argument keywords.
  * Keyword matching is case sensitive.
  */
+//@@author A0135787N
 public class FindTagCommand extends Command {
 
     public static final String COMMAND_WORD = "findtag";
