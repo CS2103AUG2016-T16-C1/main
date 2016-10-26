@@ -279,7 +279,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     public void updateFilteredTaskList(String toFind){
 
-    	filteredTasks.setPredicate((Task t) -> new Scanner(t.getContent().value).findInLine(toFind) != null);
+    	filteredTasks.setPredicate((Task t) -> 
+    	new Scanner(t.getContent().value.toLowerCase()).findInLine(toFind) != null);
     	Comparator<Task> byEditDistance = new Comparator<Task>() {
     	    public int compare(Task left, Task right) {
     	        if (left.getContent().value.length() > right.getContent().value.length()) {

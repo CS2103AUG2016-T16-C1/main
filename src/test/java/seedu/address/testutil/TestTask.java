@@ -18,6 +18,7 @@ import seedu.address.model.person.*;
 	    private TaskDate taskdate;
 	    private TaskTime tasktime;
 	    private boolean done;
+	    private Integer duration;
 
 	    private UniqueTagList tags;
 
@@ -59,13 +60,18 @@ import seedu.address.model.person.*;
 
 	    @Override
 	    public String toString() {
-	        return getAsText();
-	    }
+	    if(this.getDate().enddateString == null) {
+	          return getAsText();
+	            }
+	            else
+	                return getAsText2();
+	        }
 
 	    public String getAddCommand() {
 	        StringBuilder sb = new StringBuilder();
 	        sb.append("add " + this.getContent().value + " ");
-	        sb.append("d/" + this.getDate().dateString + " ");
+	        sb.append("sd/" + this.getDate().dateString + " ");
+	        sb.append("ed/" + this.getDate().enddateString + " ");
 	        sb.append("st/" + this.getTime().timeString + " ");
 	        sb.append("et/" + this.getTime().endtimeString + " ");
 	        this.getTags().getInternalList().stream().forEach(s -> sb.append("#" + s.tagName + " "));
@@ -83,7 +89,12 @@ import seedu.address.model.person.*;
             else return false;
             return true;
         }
-
+        
+        @Override
+        public Integer getDuration() {
+            return duration;
+        }
+        
         @Override
         public boolean addTags(ArrayList<String> tagsToAdd) throws DuplicateTagException, IllegalValueException {
             UniqueTagList newList = new UniqueTagList();
