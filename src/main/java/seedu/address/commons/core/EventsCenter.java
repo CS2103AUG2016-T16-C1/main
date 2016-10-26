@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 /**
  * Manages the event dispatching of the app.
  */
+//@@author A0135787N-reused
 public class EventsCenter {
     private static final Logger logger = LogsCenter.getLogger(EventsCenter.class);
     private final EventBus eventBus;

@@ -19,6 +19,7 @@ import seedu.address.model.person.ReadOnlyTask;
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
+//@@author A0141054W-reused
 public class MainWindow extends UiPart {
 
     private static final String ICON = "/images/address_book_32.png";

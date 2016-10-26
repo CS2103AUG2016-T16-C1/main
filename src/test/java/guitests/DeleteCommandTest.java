@@ -6,7 +6,7 @@ import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
-
+//@@author A0141054W-reused
 public class DeleteCommandTest extends TaskManagerGuiTest {
 
     @Test

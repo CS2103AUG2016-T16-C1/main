@@ -32,7 +32,7 @@ import java.util.Random;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.*;
-
+//@@author A0139523E-reused
 public class LogicManagerTest {
 
     /**

@@ -5,7 +5,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
-
+//@@author A0139523E-reused
 public class FindCommandTest extends TaskManagerGuiTest {
 
     @Test

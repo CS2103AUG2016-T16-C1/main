@@ -22,6 +22,7 @@ import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
  * @see Task#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
+//@@author A0141054W-reused
 public class UniqueTaskList implements Iterable<Task> {
 
     /**

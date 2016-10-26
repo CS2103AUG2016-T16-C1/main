@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 
  * Duplicates are not allowed (by .equals comparison)
  */
+//@@author A0139523E-reused
 public class TaskManager implements ReadOnlyTaskManager {
 
     private UniqueTaskList tasks;

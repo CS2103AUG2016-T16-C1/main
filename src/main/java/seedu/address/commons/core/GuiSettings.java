@@ -7,6 +7,7 @@ import java.util.Objects;
 /**
  * A Serializable class that contains the GUI settings.
  */
+//@@author A0139523E-reused
 public class GuiSettings implements Serializable {
 
     private static final double DEFAULT_HEIGHT = 600;

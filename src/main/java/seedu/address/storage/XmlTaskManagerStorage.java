@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 /**
  * A class to access TaskManager data stored as an xml file on the hard disk.
  */
+//@@author A0141054W-reused
 public class XmlTaskManagerStorage implements TaskManagerStorage {
 
     private static final Logger logger = LogsCenter.getLogger(XmlTaskManagerStorage.class);

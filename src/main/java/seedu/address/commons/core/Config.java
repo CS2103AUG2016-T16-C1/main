@@ -6,6 +6,7 @@ import java.util.logging.Level;
 /**
  * Config values used by the app
  */
+//@@author A0147989B-reused
 public class Config {
 
     public static final String DEFAULT_CONFIG_FILE = "config.json";

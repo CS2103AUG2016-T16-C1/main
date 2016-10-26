@@ -9,6 +9,7 @@ import seedu.address.model.person.ReadOnlyTask;
 /**
  * Selects a task identified using it's last displayed index from the task manager.
  */
+//@@author A0141054W-reused
 public class SelectCommand extends Command {
 
     public final int targetIndex;

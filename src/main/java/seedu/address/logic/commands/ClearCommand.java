@@ -8,6 +8,7 @@ import seedu.address.model.TaskManager;
 /**
  * Clears the address book.
  */
+//@@author A0147989B-reused
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";

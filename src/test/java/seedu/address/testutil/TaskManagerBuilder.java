@@ -11,6 +11,7 @@ import seedu.address.model.person.UniqueTaskList;
  * Example usage: <br>
  *     {@code TaskManager tm = new TaskManagerBuilder().withTask("do homework").withTag("shag").build();}
  */
+//@@author A0139523E-reused
 public class TaskManagerBuilder {
 
     private TaskManager taskManager;

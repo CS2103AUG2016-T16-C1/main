@@ -26,6 +26,7 @@ import java.util.logging.Logger;
  * Represents the in-memory model of the task manager data.
  * All changes to any model should be synchronized.
  */
+//@@author A0141054W-reused
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 

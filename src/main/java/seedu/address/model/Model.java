@@ -16,6 +16,7 @@ import java.util.Set;
 /**
  * The API of the Model component.
  */
+//@@author A0139523E-reused
 public interface Model {
     /** Clears existing backing model and replaces with the provided new data. 
      * @throws ParseException 

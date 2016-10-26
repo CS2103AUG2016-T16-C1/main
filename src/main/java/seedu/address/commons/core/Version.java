@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 /**
  * Represents a version with major, minor and patch number
  */
+//@@author A0139523E-reused
 public class Version implements Comparable<Version> {
 
     public static final String VERSION_REGEX = "V(\\d+)\\.(\\d+)\\.(\\d+)(ea)?";

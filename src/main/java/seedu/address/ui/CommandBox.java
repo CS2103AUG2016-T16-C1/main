@@ -26,7 +26,7 @@ import java.util.logging.Logger;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.AutoCompletionBinding.AutoCompletionEvent;
 import org.controlsfx.control.textfield.TextFields;
-
+//@@author A0141054W-reused
 public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private static final String FXML = "CommandBox.fxml";
@@ -49,7 +49,7 @@ public class CommandBox extends UiPart {
         commandBox.addToPlaceholder();
         return commandBox;
     }
-
+  //@@author A0141054W
     public void configure(ResultDisplay resultDisplay, Logic logic) {
         this.resultDisplay = resultDisplay;
         this.logic = logic;
@@ -66,7 +66,7 @@ public class CommandBox extends UiPart {
         });      
         registerAsAnEventHandler(this);
     }
-
+  //@@author
     private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(commandTextField);
