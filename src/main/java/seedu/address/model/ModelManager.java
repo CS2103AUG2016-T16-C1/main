@@ -130,6 +130,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     }
 
+
     @Override
     public synchronized void addTags(ReadOnlyTask target, ArrayList<String> newTags)
     		throws TaskNotFoundException, ParseException, IllegalValueException {
@@ -165,6 +166,25 @@ public class ModelManager extends ComponentManager implements Model {
 
         updateFilteredListToShowDone();
     	indicateTaskManagerChanged();
+    }
+    
+    
+    @Override
+    //@@author A0147989B 
+    public synchronized void nextTask(ReadOnlyTask target) throws TaskNotFoundException {
+        try {
+            taskManager.save("next");
+        } catch (IllegalValueException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        taskManager.fetchNextDate(target);
+        updateFilteredListToShowUndone();
+        indicateTaskManagerChanged();
+
     }
     
     @Override
@@ -234,6 +254,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowUndone();
         indicateTaskManagerChanged();
     }
+    //@@author
     
     @Override
     public synchronized void save(String commandType) throws IllegalValueException, ParseException{

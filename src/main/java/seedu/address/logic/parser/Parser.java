@@ -87,6 +87,7 @@ public class Parser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
             
+        //@@author A0147989B    
         case DoneCommand.COMMAND_WORD:
             return prepareDone(arguments);
 
@@ -98,6 +99,10 @@ public class Parser {
 
         case UnimportantCommand.COMMAND_WORD:
             return prepareUnimportant(arguments);
+            
+        case NextCommand.COMMAND_WORD:
+            return prepareNext(arguments);
+        //@@author   
             
         case EditCommand.COMMAND_WORD:
         	return prepareEdit(arguments);
@@ -332,6 +337,24 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
+    //@@author A0147989B 
+    private Command prepareNext(String args) {
+
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+        }
+
+        return new NextCommand(index.get());
+    }
+    
+    /**
+     * Parses arguments in the context of the done person command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareDone(String args) {
 
         Optional<Integer> index = parseIndex(args);
@@ -393,6 +416,7 @@ public class Parser {
 
         return new UnimportantCommand(index.get());
     }
+    //@@author 
 
     /**
      * Parses arguments in the context of the select task command.

@@ -15,13 +15,16 @@ public interface ReadOnlyTask {
     Content getContent();
     TaskDate getDate();
     TaskTime getTime();
+    //@@author A0147989B
     Integer getDuration();
+    boolean setNext();
     boolean getDone();
     boolean setDone();
     boolean setUndone();
     boolean getImportant();
     boolean setImportant();
     boolean setUnimportant();
+    //@@author
     boolean addTags(ArrayList<String> tagsToAdd) throws DuplicateTagException, IllegalValueException;
     boolean deleteTags(ArrayList<String> tagsToDel) throws DuplicateTagException, IllegalValueException;
     /**

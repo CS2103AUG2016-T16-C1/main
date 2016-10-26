@@ -1,5 +1,8 @@
 package seedu.address.model.person;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -136,6 +139,17 @@ public class Task implements ReadOnlyTask {
     @Override
     public Integer getDuration() {
         return duration;
+    }
+    
+    @Override
+    public boolean setNext() {
+        if (duration != null){
+            while (date.getValue().before(Date.valueOf(LocalDate.now()))){
+                date.getValue().setDate(date.getValue().getDate()+duration);
+            };
+            System.out.println("nexting");
+        }
+        return true;
     }
     
     @Override

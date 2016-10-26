@@ -9,8 +9,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 
-<HBox id="cardPane" fx:id="cardPane" prefHeight="63.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" prefHeight="63.0" prefWidth="393.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane prefHeight="70.0" prefWidth="250.0" HBox.hgrow="ALWAYS">
             <columnConstraints>
@@ -28,14 +29,25 @@
                     </padding>
 
                     <children>
-                        <HBox alignment="CENTER_LEFT" spacing="5">
+                        <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="232.0" spacing="5">
                             <children>
-                                <HBox>
-                           <CheckBox fx:id="doneCheckBox" mnemonicParsing="false" onAction="#handleDoneCheckBox" />
-                                    <Label fx:id="id" styleClass="cell_big_label" />
-                                    <Label fx:id="content" styleClass="cell_big_label" text="\$first" />
+                                <HBox prefHeight="20.0" prefWidth="90.0">
+                           <Circle fx:id="importantCircle" fill="#08eb40" radius="6.0" stroke="BLACK" strokeType="INSIDE">
+                              <HBox.margin>
+                                 <Insets top="3.0" />
+                              </HBox.margin>
+                           </Circle>
+                           <CheckBox fx:id="doneCheckBox" mnemonicParsing="false" onAction="#handleDoneCheckBox">
+                              <HBox.margin>
+                                 <Insets left="5.0" />
+                              </HBox.margin></CheckBox>
+                                    <Label fx:id="id" minWidth="20.0" styleClass="cell_big_label" />
+                                    <Label fx:id="content" minWidth="300.0" prefHeight="20.0" prefWidth="140.0" styleClass="cell_big_label" text="\$first" />
                                 </HBox>
-                                <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
+                                <Label fx:id="tags" styleClass="cell_small_label" text="\$tags">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin></Label>
                             </children>
                         </HBox>
                     </children>

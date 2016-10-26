@@ -86,6 +86,10 @@ public class TaskDate {
 	public Date getValue() {
 		return value;
 	}
+	
+	public Date getEndDate() {
+		return endDate;
+	}
 
 	@Override
 	public String toString() {
