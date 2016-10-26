@@ -1,62 +1,81 @@
 # User Guide
 
-* [Quick Start](#quick-start)
+* [About Hard2Do](#about-hard2do])
+* [Getting Started](#getting-started)
 * [Features](#features)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
-## Quick Start
+## 2 About Hard2Do
 
-0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
-   > Having any Java 8 version is not enough. <br>
+  >Are you tired of having too many tasks on your mind and constantly being frustrated of not having an avenue to list them down? Fret not because Hard2Do is here to save you from all your daily migraines that will soon be a thing of the past.
+
+  >Hard2Do is a personal scheduler that enables you to manage your daily tasks in an easy and flexible manner. It will keep your added tasks in order and remind you when the deadline is approaching. Unlike other task managers that you have encountered before, instead of being inconvenienced by the use of a mouse, all it takes is just a single line of command to get things done. No longer will you have to be burdened by the use of a mouse as everything can be done just on the keyboard itself! Furthermore, this is just the beginning of the multitude of functions that Hard2Do is able to perform.
+
+  >Read on to find out more!
+
+## 3 Getting Started
+
+### 3.1 Prerequisites
+1. *Java Version 1.8.0_60* <br>
+   Before you can get started, ensure you have Java version `1.8.0_60` or later installed in your Computer. <br>
+   >Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
 
-1. Download the latest `Hard2Name.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Hard2Do list.
-3. Double-click the file to start the app. The GUI should appear in a few seconds.
+2. *Hard2Name.exe* <br>
+ Download the latest `Hard2Name.jar` from the [releases](../../../releases) tab.
+
+### 3.2 Launch
+Now you can finally begin your journey with `Hard2Do` Task Manager.
+1. Copy the file to the folder you want to use as the home folder for your `Hard2Do` list.<br>
+
+2. Double-click the file to start the app. The GUI should appear in a few seconds.
    > <img src="images/Ui.png" width="600">
 
+### 3.3 Commands
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
 5. Some example commands you can try:
    * **`list`** : lists all tasks to do in the future
-   * **`add`**` c/Go to tutorial d/10.6 t/1200 #sadlife ` :
-     adds a task of `Go to tutorial` to the Hard2Do.
+   * **`add`**` go to tutorial sd/10-12-2016 st/12:00 #sadlife ` :
+     adds a task of `Go to tutorial` to the `Hard2Do` Task Manager.
    * **`delete`**` 3` : deletes the 3rd task shown in the current list
    * **`exit`** : exits the app
-   * **`edit`**` 3 t/1300 ` :
-      updates the time in the 3rd task shown in the current list
+   * **`edit`**` 3 c/do homework ` :
+      updates the contents in the 3rd task shown in the current list
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
 
-## Features
-
+## 4 Features <br>
+In the guide below, we will showcase how to execute the various features that `Hard2Do` has.
 > **Command Format**
 > * Words in `UPPER_CASE` are the parameters.
 > * Items in `SQUARE_BRACKETS` are optional.
 > * Items with `...` after them can have multiple instances.
-> * The order of parameters is fixed.
+> * Not all orders of parameters are fixed.
 
-#### Viewing help : `help`
-Format: `help`
-
-> Help is also shown if you enter an incorrect command e.g. `abcd`
-
-#### Adding a person: `add`
+### 4.1 Adding tasks: `add`
 Adds a task to the to-do list <br>
-Format: `add task d/DD-MM-YYYY t/HH:MM #tag` <br>
-Note: `presence and order of arguments after task do not matter`
+Format: `add TASKDETAILS sd/DD-MM-YYYY ed/DD-MM-YYYY st/HH:MM et/HH:MM #TAGNAME...` <br>
+> * The `presence and order` of arguments after `TASKDETAILS` do not matter except end time and dates `cannot be added` without a start time or date.
+> * The format of time is `24 hours` e.g. `19:15`
+> * The days and months of dates added can be a single number. e.g. `sd/22-6-2016` or `ed/2-6-2016`
+> * `sd/` takes in the start date, `ed/` takes in the end date, `st/` takes in the start time and `et/` takes in the end time
+> * Time inputted cannot be represented by a single digit e.g. ~~`9:30`~~
 
 Examples:
-* `add Go to CS tutorial d/10-6-2016 t/12:00 #takethelaptop`
-* `add Watch movie t/12:01 #gotmoney`
-* `add Do Something`
+* `add Go to CS tutorial sd/10-6-2016 st/12:00 #takethelaptop`
+* `add Eat dinner sd/7-10-2016 st/19:00 et/20:00 #hungry #nomoney`
+* `add Go for night cycling sd/1-7/2016 ed/2-7-2016 st/22:00 et/04:00 #tiring`
+* `add Watch movie st/20:01 #gotmoney`
+* `add Do homework sd/28-10-2016`
+* `add Have a bbq`
 
-#### Listing all tasks : `list`
+### 4.2 Listing all tasks : `list`
 Shows a list of all tasks in the future.<br>
 Format: `list`
 
-#### Finding all tasks containing any keyword in their content: `find`
+### 4.3 Finding all tasks containing any keyword in their content: `find`
 Finds tasks whose names contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
@@ -73,7 +92,7 @@ Examples:
 * `find CS EE CEG`<br>
   Returns ANY tasks having content `CS`, `EE`, or `CEG`
 
-#### Deleting a task : `delete`
+### 4.4 Deleting a task : `delete`
 Deletes the specified task from the address book. Irreversible.<br>
 Format: `delete INDEX`
 
@@ -89,7 +108,7 @@ Examples:
   `delete 1`<br>
   Deletes the 1st task in the results of the `find` command.
 
-#### Select a task : `select`
+### 4.5 Select a task : `select`
 Selects the task identified by the index number used in the last task listing.<br>
 Format: `select INDEX`
 
@@ -105,7 +124,7 @@ Examples:
   `select 1`<br>
   Selects the 1st task in the results of the `find` command.
 
-#### Edit a task : `edit`
+### 4.6 Edit a task : `edit`
 Edits the current selected task.<br>
 Format: `edit DETAIL/NEW_DETAIL_INFO [OTHER_DETAILS/OTHER_NEW_DETAILS]`
 
@@ -124,33 +143,50 @@ Examples:
   `edit d/2016.10.07 t/1800 c/update details`
   Updates all details in the task selected by the `select` command.
 
-#### Clearing all entries : `clear`
+### 4.7 Clearing all entries : `clear`
 Clears all entries from the address book.<br>
 Format: `clear`  
 
-#### Exiting the program : `exit`
+### 4.8 Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`  
+
+### 4.9 Viewing help : `help`
+Format: `help`
+
+> Help is also shown if you enter an incorrect command e.g. `abcd`
+
 
 #### Saving the data
 Hard2Do list data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
-## FAQ
+## 5 FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with
        the file that contains the data of your previous Hard2Do list folder.
 
-## Command Summary
+## 6 Command Summary
 
 Command | Format  
 -------- | :--------
-Add | `add TASK d/YYYY.MM.DD t/HHRR c/BALABALA.`
+Add | `add CONTENT sd/DD-MM-YYYY ed/DD-MM-YYYY st/HH-MM et/HH-MM r/NUMBER #TAGS`
 Clear | `clear`
 Delete | `delete INDEX`
+Edit | `edit INDEX c/CONTENT sd/DD-MM-YYYY ed/DD-MM-YYYY st/HH-MM et/HH-MM #TAGS`
 Find | `find KEYWORD [MORE_KEYWORDS]`
+FindTag | `findtag TAGNAME`
+AddTag | `addtag TAGNAME`
+DeleteTag | `deltag TAGNAME`
+Undo | `undo`
 List | `list`
+List By Progress | `list done/undone`
+Done | `done INDEX`
+Undone | `undone INDEX`
+Important | `important INDEX`
+Unimportant | `unimportant INDEX`
+Load | `load /FILENAME`
 Help | `help`
 Select | `select INDEX`
-Edit | `edit DETAIL/NEW_DETAIL [OTHER_DETAILS/OTHER_NEW_DETAILS]`
+Exit | `exit`
