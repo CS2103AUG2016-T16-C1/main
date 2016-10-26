@@ -15,6 +15,7 @@ public interface ReadOnlyTask {
     Content getContent();
     TaskDate getDate();
     TaskTime getTime();
+    Integer getDuration();
     boolean getDone();
     boolean setDone();
     boolean setUndone();
@@ -50,6 +51,8 @@ public interface ReadOnlyTask {
                 .append(getDate())
                 .append(" ")
                 .append(getTime())
+                .append(" ")
+                .append("repeat per "+getDuration()+" days ")
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

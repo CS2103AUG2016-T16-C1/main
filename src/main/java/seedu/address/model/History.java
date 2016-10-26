@@ -76,6 +76,8 @@ public class History {
 	        TaskDate td = new TaskDate();
 	        TaskTime tt = new TaskTime();
 	        
+	        Integer duration = null;
+	        
 	        if(!t.getDate().dateString.isEmpty())
 	        	td = new TaskDate(t.getDate().dateString, t.getDate().enddateString);
 	        if(!t.getTime().timeString.isEmpty())
@@ -83,7 +85,8 @@ public class History {
 			
 			newState.add( new Task( new Content(t.getContent().value), 
 					td,
-					tt, 
+					tt,
+					duration,
 					new UniqueTagList(tagSet))
 					);
 			

@@ -40,7 +40,8 @@ public class AddCommand extends Command {
      * @throws IllegalValueException if any of the raw values are invalid
      * @throws ParseException
      */
-    public AddCommand(String content, String date, String enddate, String time, String endTime, Set<String> tags)
+
+    public AddCommand(String content, String date, String enddate, String time, String endTime, Integer duration, Set<String> tags)
             throws IllegalValueException, ParseException {
     	assert content != null;
 
@@ -86,6 +87,7 @@ public class AddCommand extends Command {
                 new Content(content),
                 dateToAdd,
                 timeToAdd,
+                duration,
                 new UniqueTagList(tagSet)
         );
     }

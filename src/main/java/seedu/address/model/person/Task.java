@@ -18,6 +18,7 @@ public class Task implements ReadOnlyTask {
     private Content content;
     private TaskDate date;
     private TaskTime time;
+    private Integer duration;
     private boolean done = false;
     private boolean important = false;
 
@@ -26,22 +27,24 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Content content, TaskDate date, TaskTime time, /*boolean done, */UniqueTagList tags) {
+    public Task(Content content, TaskDate date, TaskTime time, Integer duration, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(content, date, time, tags);
         this.content = content;
         this.date = date;
         this.time = time;
         this.tags = tags; 
+        this.duration = duration;
     }
     
     /**
      * create a task with done status
      */
-    public Task(Content content, TaskDate date, TaskTime time, boolean done, boolean important, UniqueTagList tags) {
+    public Task(Content content, TaskDate date, TaskTime time, Integer duration, boolean done, boolean important, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(content, date, time, tags);
         this.content = content;
         this.date = date;
         this.time = time;
+        this.duration = duration;
         this.done = done;
         this.important = important;
         this.tags = tags; 
@@ -51,8 +54,13 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getContent(), source.getDate(), source.getTime(), source.getDone(), source.getImportant(), source.getTags());
-        //if (source.getDone()) setDone();
+        this(source.getContent(), 
+                source.getDate(), 
+                source.getTime(), 
+                source.getDuration(), 
+                source.getDone(), 
+                source.getImportant(), 
+                source.getTags());
     }
     @Override
     public boolean addTags(ArrayList<String> tagsToAdd) throws DuplicateTagException, IllegalValueException {
@@ -123,6 +131,11 @@ public class Task implements ReadOnlyTask {
     @Override
     public TaskTime getTime() {
         return time;
+    }
+    
+    @Override
+    public Integer getDuration() {
+        return duration;
     }
     
     @Override

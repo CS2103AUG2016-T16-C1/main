@@ -216,6 +216,7 @@ public class Parser {
 		if(scanEndTime.findInLine("et/") != null){
 			endTimeString = scanEndTime.next();
 		}
+		
 		scanEndTime.close();
 		
 		//Obtain endDate if any from String args
@@ -225,10 +226,18 @@ public class Parser {
 			endDateString = scanEndDate.next();
 		}
 		scanEndDate.close();	
+		
+	    //Obtain duration if any from String args
+        Integer duration = null;
+        Scanner scanDuration = new Scanner(args);
+        if(scanDuration.findInLine("r/") != null){
+            duration = scanDuration.nextInt();
+        }
+        scanDuration.close();
         
         try {
-            return new AddCommand( content.toString().trim(), dateString, endDateString, timeString, endTimeString, setTags);
-            
+            return new AddCommand(content.toString().trim(), dateString, endDateString, timeString, endTimeString, duration, setTags);
+
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
