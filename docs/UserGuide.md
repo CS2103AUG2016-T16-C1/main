@@ -1,10 +1,22 @@
 # User Guide
 
-* [About Hard2Do](#about-hard2do])
-* [Getting Started](#getting-started)
-* [Features](#features)
-* [FAQ](#faq)
-* [Command Summary](#command-summary)
+ [2 About Hard2Do](#about-hard2do])<br>
+ [3 Getting Started](#getting-started)<br>
+ [3.1 Prerequisites](#31-prerequisites) <br>
+ [3.2 Launch](#32-launch) <br>
+ [3.3 Commands](#33-commands) <br>
+ [4 Features](#features)<br>
+ [4.1 Adding tasks](#41-adding-tasks--add) <br>
+ [4.2 Listing all tasks](#42-listing-all-tasks--list) <br>
+ [4.3 Finding all tasks containing any keyword in their content](#43-finding-all-tasks-containing-any-keyword-in-their-content--find) <br>
+ [4.4 Deleting a task](#44-deleting-a-task--delete) <br>
+ [4.5 Select a task](#45-select-a-task--select) <br>
+ [4.6 Edit a task](#46-edit-a-task--edit) <br>
+ [4.7 Clearing all entries](#47-clearing-all-entries--clear) <br>
+ [4.8 Exiting the program](#48-exiting-the-program--exit) <br>
+ [4.9 Viewing help](#49-viewing-help--help) <br>
+ [5 FAQ](#faq) <br>
+ [6 Command Summary](#command-summary)<br>
 
 ## 2 About Hard2Do
 
@@ -26,10 +38,11 @@
  Download the latest `Hard2Name.jar` from the [releases](../../../releases) tab.
 
 ### 3.2 Launch
-Now you can finally begin your journey with `Hard2Do` Task Manager.
+Now you can finally begin your journey with `Hard2Do` Task Manager. <br>
 1. Copy the file to the folder you want to use as the home folder for your `Hard2Do` list.<br>
 
-2. Double-click the file to start the app. The GUI should appear in a few seconds.
+2. Double-click the file to start the app. The GUI should appear in a few seconds. <br>
+
    > <img src="images/Ui.png" width="600">
 
 ### 3.3 Commands
@@ -54,7 +67,7 @@ In the guide below, we will showcase how to execute the various features that `H
 > * Items with `...` after them can have multiple instances.
 > * Not all orders of parameters are fixed.
 
-### 4.1 Adding tasks: `add`
+### 4.1 Adding tasks : `add`
 Adds a task to the to-do list <br>
 Format: `add TASKDETAILS sd/DD-MM-YYYY ed/DD-MM-YYYY st/HH:MM et/HH:MM #TAGNAME...` <br>
 > * The `presence and order` of arguments after `TASKDETAILS` do not matter except end time and dates `cannot be added` without a start time or date.
