@@ -51,6 +51,10 @@ public interface Model {
 	void editTask(int targetIndex, String newDate, String newEndDate, String newTime, String newEndTime, String newContent) 
 			throws TaskNotFoundException, ParseException;
 
+    //@@author A0147989B
+    /** Fetch the next date of a recurring task. */
+    void nextTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+
     /** Mark the given task as done. */
     void doneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
     
@@ -62,7 +66,8 @@ public interface Model {
     
     /** Mark the given task as unimportant. */
     void unimportantTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
-
+    //@@author 
+    
 	void save(String commandType) throws IllegalValueException, ParseException;
 
 	void undo() throws StateNotFoundException;

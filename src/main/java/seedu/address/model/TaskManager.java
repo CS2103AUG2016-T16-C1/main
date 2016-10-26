@@ -137,6 +137,15 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+
+    //@@author A0147989B
+    public boolean fetchNextDate(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+        if (tasks.next(key)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
     
     public boolean markTaskAsDone(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.done(key)) {
@@ -169,6 +178,7 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+    //@@author
     
     public History getHistory(){
     	return history;

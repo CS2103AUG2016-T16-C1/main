@@ -166,7 +166,23 @@ public class UniqueTaskList implements Iterable<Task> {
         return tagsDeletedFromTask;
     	
     }
-
+    
+    
+    /**
+     * Fetch the next date of the task.
+     *
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     */
+    public boolean next(ReadOnlyTask toNext) throws TaskNotFoundException {
+        assert toNext != null;
+        final boolean taskFoundAndMarked = toNext.setNext();
+        if (!taskFoundAndMarked) {
+            throw new TaskNotFoundException();
+        }
+        return taskFoundAndMarked;
+    }
+    
+    
     /**
      * Mark the equivalent task as done.
      *

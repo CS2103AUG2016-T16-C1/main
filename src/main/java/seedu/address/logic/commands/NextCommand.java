@@ -7,20 +7,20 @@ import seedu.address.model.person.*;
 import seedu.address.model.person.UniqueTaskList.TaskNotFoundException;
 
 //@@author A0147989B
-public class ImportantCommand extends Command{
+public class NextCommand extends Command{
 
-    public static final String COMMAND_WORD = "important";
+    public static final String COMMAND_WORD = "next";
     
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Mark the task as important identified by the index number used in the last task listing.\n"
+            + ": Edit the Date of the task as the nearest next date identified by the index number used in the last task listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_IMPORTANT_TASK_SUCCESS = "Task marked as important: %1$s";
+    public static final String MESSAGE_DONE_TASK_SUCCESS = "Task edited as next date: %1$s";
     
     public final int targetIndex;
 
-    public ImportantCommand(int targetIndex) {
+    public NextCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
     
@@ -34,15 +34,15 @@ public class ImportantCommand extends Command{
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask taskToImportant = lastShownList.get(targetIndex - 1);
+        ReadOnlyTask taskToDone = lastShownList.get(targetIndex - 1);
 
         try {
-            model.importantTask(taskToImportant);
+            model.nextTask(taskToDone);
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_IMPORTANT_TASK_SUCCESS, taskToImportant));
+        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone));
 
     }
     
