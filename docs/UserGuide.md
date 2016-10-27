@@ -68,7 +68,7 @@ In the guide below, we will showcase how to execute the various features that `H
 > * Not all orders of parameters are fixed.
 
 ### 4.1 Adding tasks : `add`
-Adds a task to the to-do list <br>
+Adds a task to `Hard2Do` <br>
 Format: `add TASKDETAILS sd/DD-MM-YYYY ed/DD-MM-YYYY st/HH:MM et/HH:MM #TAGNAME...` <br>
 > * The `presence and order` of arguments after `TASKDETAILS` do not matter except end time and dates `cannot be added` without a start time or date.
 > * The format of time is `24 hours` e.g. `19:15`
@@ -84,9 +84,19 @@ Examples:
 * `add Do homework sd/28-10-2016`
 * `add Have a bbq`
 
-### 4.2 Listing all tasks : `list`
-Shows a list of all tasks in the future.<br>
+### 4.2 Listing tasks : `list`
+*4.2.1 List all tasks* <br>
+Shows a list of all tasks added.<br>
 Format: `list`
+> * This command shows all tasks added, regardless of priority and whether it is marked as done
+
+*4.2.2 List tasks that are marked as done* <br>
+Shows a list of tasks that are marked as done <br>
+Format : `list done`
+
+*4.2.3 List tasks that are marked as undone* <br>
+Shows a list of tasks that are not marked as undone <br>
+Format : `list undone`
 
 ### 4.3 Finding all tasks containing any keyword in their content : `find`
 Finds tasks whose names contain any of the given keywords.<br>
@@ -106,68 +116,70 @@ Examples:
   Returns ANY tasks having content `CS`, `EE`, or `CEG`
 
 ### 4.4 Deleting a task : `delete`
-Deletes the specified task from the address book. Irreversible.<br>
+Deletes the specified task from `Hard2Do`. This command is irreversible once `Hard2Do` is closed.<br>
 Format: `delete INDEX`
 
-> Deletes the task at the specified `INDEX`.
-  The index refers to the index number shown in the current listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+> * Deletes the task at the specified `INDEX` <br>
+> * The index refers to the index number shown in the current listing<br>
+> * The index **must be a positive integer** 1, 2, 3, ...
+> * Task deleted can be restored by using the `undo` command as long as it is within the same usage
 
 Examples:
 * `list`<br>
   `delete 2`<br>
-  Deletes the 2nd task in the address book.
+  Deletes the 2nd task in `Hard2Do`.
 * `find tutorial`<br>
   `delete 1`<br>
   Deletes the 1st task in the results of the `find` command.
 
-### 4.5 Select a task : `select`
+### 4.5 Selecting a task : `select`
 Selects the task identified by the index number used in the last task listing.<br>
 Format: `select INDEX`
 
-> Selects the task and loads the detail of the task at the specified `INDEX`.
-  The index refers to the index number shown in the current listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+> * Selects the task and loads the details of the task at the specified `INDEX` <br>
+> * The index refers to the index number shown in the current listing<br>
+> * The index **must be a positive integer** 1, 2, 3, ...
 
 Examples:
 * `list`<br>
   `select 2`<br>
-  Selects the 2nd task in the to-do list.
+  Selects and shows the details of the 2nd task in the to-do list.
 * `find CS` <br>
   `select 1`<br>
-  Selects the 1st task in the results of the `find` command.
+  Selects and shows the details of the 1st task in the results of the `find` command.
 
-### 4.6 Edit a task : `edit`
-Edits the current selected task.<br>
-Format: `edit DETAIL/NEW_DETAIL_INFO [OTHER_DETAILS/OTHER_NEW_DETAILS]`
+### 4.6 Editing a task : `edit`
+Edits the task identified by the index number used in the last task listing.<br>
+Format: `edit INDEX c/TASKDETAILS sd/DD-MM-YYYY ed/DD-MM-YYYY st/HH:MM et/HH:MM`
 
-> Edits the current selected task and updates the relevant `DETAIL`. <br>
-  The detail refers to a specific detail of the selected task.<br>
-  The detail **must be a valid detail** d/, t/, c/ . <br>
-  Repetition of detail type is not allowed..
+> * Edits the current selected task and updates the edited details <br>
+> * Tags can not be edited using this command<br>
+> * The `presence and order` of arguments after `TASKDETAILS` do not matter <br>
+> * The `INDEX` refers to the index number shown in the current listing <br>
+> * The index **must be a positive integer** 1, 2, 3, ...
+> * Repetition of detail type is not allowed
 
 Examples:
 * `list`<br>
-  `select 2` <br>
-  `edit /t1800`<br>
-  Updates the time in the task selected by the `select` command to 1800.
+  `edit 2 st/18:00`<br>
+  Updates the start time of the 2nd task to 18:00.
 * `list` <br>
-  `select 3`<br>
-  `edit d/2016.10.07 t/1800 c/update details`
-  Updates all details in the task selected by the `select` command.
+  `edit 3 sd/7-10-2016 st/1800 c/update details` <br>
+  Updates the start date, start time and task detail of the 3rd task.
 
 ### 4.7 Clearing all entries : `clear`
-Clears all entries from the address book.<br>
+Clears all entries in `Hard2Do`. <br>
 Format: `clear`  
 
 ### 4.8 Exiting the program : `exit`
-Exits the program.<br>
+Exits `Hard2Do`<br>
 Format: `exit`  
 
 ### 4.9 Viewing help : `help`
+Opens up the link to our user guide where the format of commands can be referred from. <br>
 Format: `help`
 
-> Help is also shown if you enter an incorrect command e.g. `abcd`
+> * The proper format of commands will also be shown if you enter an incorrect command e.g. `abcd`
 
 
 #### Saving the data
@@ -190,8 +202,8 @@ Delete | `delete INDEX`
 Edit | `edit INDEX c/CONTENT sd/DD-MM-YYYY ed/DD-MM-YYYY st/HH-MM et/HH-MM #TAGS`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 FindTag | `findtag TAGNAME`
-AddTag | `addtag TAGNAME`
-DeleteTag | `deltag TAGNAME`
+AddTag | `addtag INDEX TAGNAME`
+DeleteTag | `deltag INDEX TAGNAME`
 Undo | `undo`
 List | `list`
 List By Progress | `list done/undone`
@@ -199,7 +211,7 @@ Done | `done INDEX`
 Undone | `undone INDEX`
 Important | `important INDEX`
 Unimportant | `unimportant INDEX`
-Load | `load /FILENAME`
+Load | `load FILENAME`
 Help | `help`
 Select | `select INDEX`
 Exit | `exit`
