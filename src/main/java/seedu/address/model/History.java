@@ -25,7 +25,7 @@ import java.util.*;
  * @see Task#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-
+//@@author A0135787N
 
 public class History {
 	
@@ -76,14 +76,17 @@ public class History {
 	        TaskDate td = new TaskDate();
 	        TaskTime tt = new TaskTime();
 	        
+	        Integer duration = null;
+	        
 	        if(!t.getDate().dateString.isEmpty())
-	        	td = new TaskDate(t.getDate().dateString);
+	        	td = new TaskDate(t.getDate().dateString, t.getDate().enddateString);
 	        if(!t.getTime().timeString.isEmpty())
-	        	tt = new TaskTime(t.getTime().timeString);
+	        	tt = new TaskTime(t.getTime().timeString, t.getTime().endtimeString);
 			
 			newState.add( new Task( new Content(t.getContent().value), 
 					td,
-					tt, 
+					tt,
+					duration,
 					new UniqueTagList(tagSet))
 					);
 			
@@ -113,6 +116,8 @@ public class History {
 		
 		tasksState = taskStates.pop();
 		message = messages.pop();
+		if(tagsState.isEmpty())
+			return;
 		tagsState = tagStates.pop();
 	}
 	

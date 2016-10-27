@@ -6,11 +6,12 @@ import static org.junit.Assert.assertNotNull;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.DoneCommand;
+import seedu.address.logic.commands.ImportantCommand;
 import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.address.testutil.TestTask;
 import org.junit.Test;
 
-
+//@@author A0141054W
 public class DoneCommandTest extends TaskManagerGuiTest {
 
     
@@ -22,6 +23,7 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         assertDoneTaskSuccess(targetIndex, currentList);
         
         //done a middle item
+        commandBox.runCommand("list");
         targetIndex = 4;
         assertDoneTaskSuccess(targetIndex, currentList);
         
@@ -29,6 +31,8 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("list");
         assertDoneTaskSuccess(targetIndex, currentList);
 
+        
+        
         
     }
     
@@ -51,8 +55,8 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         assertResultMessage(String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, taskToDone));
         
         //confirm task is in the whole list
-        commandBox.runCommand("list");
-        assertNotNull(taskListPanel.navigateToTask(taskToDone.getContent().value));
+        //commandBox.runCommand("list");
+        //assertNotNull(taskListPanel.navigateToTask(taskToDone.getContent().value));
 
 
     }

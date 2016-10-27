@@ -1,5 +1,7 @@
 # Developer Guide
 
+
+* [Introduction](#introduction)
 * [Setting Up](#setting-up)
 * [Design](#design)
 * [Implementation](#implementation)
@@ -11,6 +13,9 @@
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e--product-survey)
 
+
+## Introduction
+Hard2Do is a to-do list software designed for the users who have the need to manage his to-do list by simply typing on keyboard and enter command.
 
 ## Setting up
 
@@ -51,17 +56,17 @@ The **_Architecture Diagram_** given above explains the high-level design of the
 Given below is a quick overview of each component.
 
 `Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
-* At app launch: Initializes the components in the correct sequence, and connect them up with each other.
-* At shut down: Shuts down the components and invoke cleanup method where necessary.
+* At app launch: Initialing the components in the correct sequence, and connecting them up with each other.
+* At shut down: Shutting down the components and invoking cleanup method where necessary.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 Two of those classes play important roles at the architecture level.
 * `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
-  is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+  is used by components to communicate with other components using events (i.e. a form of Event Driven design)
+* `LogsCenter` : This class is used by many classes to write log messages to the App's log file.
 
-The rest of the App consists four components.
-* [**`UI`**](#ui-component) : Present the UI of the App.
+The rest of the App consists of four components.
+* [**`UI`**](#ui-component) : Presents the UI of the App.
 * [**`Logic`**](#logic-component) : Distribute the commands from the user.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
@@ -104,6 +109,7 @@ and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
+
  For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
@@ -118,10 +124,8 @@ The `UI` component,
 
 **API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
-1. `Logic` uses the `Parser` class to parse the user command.
-2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
-4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+1. `Logic` uses the `Parser` class to parse the user command, this results in a `Command` object which is executed by the `LogicManager`.
+3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
@@ -147,12 +151,12 @@ The `Model`,
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
 The `Storage` component,
-* Save `UserPref` objects in json format and read it back.
-* Save the Task Manager data in xml format and read it back.
+* Saves `UserPref` objects in json format and read it back.
+* Saves the task manager data in xml format and read it back.
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `*.commons` package.
 
 ## Implementation
 
@@ -169,10 +173,10 @@ and logging destinations.
 
 **Logging Levels**
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging
+* `SEVERE` : Detected critical problem which may possibly cause the termination of the application
+* `WARNING` : Detected problem, the program will continue, but with caution
+* `INFO` : Show the information of the noteworthy actions by the App
+* `FINE` : Show the information of the actions by the app which may be useful in debugging
   e.g. print the actual list instead of just its size
 
 ### Configuration
@@ -191,12 +195,12 @@ Tests can be found in the `./src/test/java` folder.
 
 * To run all tests, right-click on the `src/test/java` folder and choose
   `Run as` > `JUnit Test`
-* To run a subset of tests, you can right-click on a test package, test class, or a test and choose
+* To run a subset of tests, right-click on a test package, test class, or a test and choose
   to run as a JUnit test.
 
 **Tests using Gradle**:
 
-* See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
+See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
 
 We have two types of tests:
 
@@ -209,13 +213,13 @@ We have two types of tests:
    2. _Integration tests_ that are checking the integration of multiple code units
      (those code units are assumed to be working).<br>
       e.g. `seedu.address.storage.StorageManagerTest`
-   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as
-      how the are connected together.<br>
+   3. Hybrids of unit and integration tests. These tests are checking multiple code units as well as
+      how they are connected together.<br>
       e.g. `seedu.address.logic.LogicManagerTest`
 
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
- our GUI tests can be run in the _headless_ mode.
+ our GUI tests can be run in the headless mode.
  In the headless mode, GUI tests do not show up on the screen.
  That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
@@ -237,7 +241,7 @@ Here are the steps to create a new release.
 
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/)
+ 2. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/)
     and upload the JAR file you created.
 
 ### Managing Dependencies
@@ -258,6 +262,7 @@ Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | user | add a new to-do item | keep track of tasks to be done
 `* * *` | user | clear all appointments | start afresh easily
+`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
 `* * *` | user | delete a to-do | remove entries that I no longer need
 `* * *` | user | edit a to-do | change my schedule
 `* * *` | user | find a to-do by word | locate details of to-dos without having to go through the entire list
@@ -347,8 +352,8 @@ Use case ends.
 #### Wunderlist
 * Nice:
 ~~~~
-UI, very responsive, and userfriendly
-Mail-to list function
+User Interface(UI) is responsive and effective
+Having Mail-to list function
 ~~~~
 * Not Nice:
 ~~~~
@@ -359,10 +364,10 @@ Cannot see calendar style
 #### Todoist
 * Nice:
 ~~~~
-UI is ok
-Automatically identify the time for to-do
-Can recognise short-hand like "tmr" "tues"
-Mail-to list function
+UI is responsive and effective
+Achieved automatically identify the time for to-do
+Achieved recognise short-hand like "tmr" "tues"
+Having Mail-to list function
 ~~~~
 * Not Nice:
 ~~~~
@@ -373,11 +378,11 @@ Cannot see calendar style
 #### Google Calendar
 * Nice:
 ~~~~
-UI, very responsive, and userfriendly, extremely good
-Mail-to list function
-Can sync well with other calendar
+UI is the most responsive and effective
+Having Mail-to list function
+Achieved sync well with other calendar
 ~~~~
 * Not Nice
 ~~~~
-Too much work to add an item
+Too much work needed to add an item
 ~~~~

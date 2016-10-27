@@ -22,6 +22,7 @@ import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
  * @see Task#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
+//@@author A0141054W-reused
 public class UniqueTaskList implements Iterable<Task> {
 
     /**
@@ -73,7 +74,7 @@ public class UniqueTaskList implements Iterable<Task> {
      * @throws TaskNotFoundException if no such task could be found in the list.
      * @throws ParseException 
      */
-    public boolean edit(int targetIndex, String newDate, String newTime, String newContent) 
+    public boolean edit(int targetIndex, String newDate, String newEndDate, String newTime, String newEndTime, String newContent) 
     		throws TaskNotFoundException, ParseException {
     	
         Task toEdit = internalList.get(targetIndex);
@@ -84,6 +85,15 @@ public class UniqueTaskList implements Iterable<Task> {
             Date date = simpleDateFormat.parse(newDate);
             toEdit.getDate().value = date;
         }
+        
+        if(newEndDate != null) {
+        	toEdit.getDate().enddateString = newEndDate;
+        	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        	
+        	Date date2 = simpleDateFormat.parse(newEndDate);
+        	toEdit.getDate().endDate = date2;
+        }
+        
         if(newTime != null){
         	toEdit.getTime().timeString = newTime;
         	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
@@ -91,6 +101,15 @@ public class UniqueTaskList implements Iterable<Task> {
             Date time = simpleDateFormat.parse(newTime);
             toEdit.getTime().value = time;
         }
+        
+        if(newEndTime != null){
+        	toEdit.getTime().endtimeString = newEndTime;
+        	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+        	
+        	Date time2 = simpleDateFormat.parse(newEndTime);
+        	toEdit.getTime().endTime = time2;
+        }
+        
         if(newContent != null)
         	toEdit.getContent().value = newContent;
         return true;
@@ -148,7 +167,23 @@ public class UniqueTaskList implements Iterable<Task> {
         return tagsDeletedFromTask;
     	
     }
-
+    
+    
+    /**
+     * Fetch the next date of the task.
+     *
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     */
+    public boolean next(ReadOnlyTask toNext) throws TaskNotFoundException {
+        assert toNext != null;
+        final boolean taskFoundAndMarked = toNext.setNext();
+        if (!taskFoundAndMarked) {
+            throw new TaskNotFoundException();
+        }
+        return taskFoundAndMarked;
+    }
+    
+    
     /**
      * Mark the equivalent task as done.
      *
@@ -162,6 +197,49 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         return taskFoundAndMarked;
     }
+    
+    /**
+     * Mark the equivalent task as undone.
+     *
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     */
+    public boolean undone(ReadOnlyTask toUnDone) throws TaskNotFoundException {
+        assert toUnDone != null;
+        final boolean taskFoundAndMarked = toUnDone.setUndone();
+        if (!taskFoundAndMarked) {
+            throw new TaskNotFoundException();
+        }
+        return taskFoundAndMarked;
+    }
+    
+    /**
+     * Mark the equivalent task as important.
+     *
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     */
+    public boolean important(ReadOnlyTask toImportant) throws TaskNotFoundException {
+        assert toImportant != null;
+        final boolean taskFoundAndMarked = toImportant.setImportant();
+        if (!taskFoundAndMarked) {
+            throw new TaskNotFoundException();
+        }
+        return taskFoundAndMarked;
+    }
+    
+    /**
+     * Mark the equivalent task as unimportant.
+     *
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     */
+    public boolean unimportant(ReadOnlyTask toUnimportant) throws TaskNotFoundException {
+        assert toUnimportant != null;
+        final boolean taskFoundAndMarked = toUnimportant.setUnimportant();
+        if (!taskFoundAndMarked) {
+            throw new TaskNotFoundException();
+        }
+        return taskFoundAndMarked;
+    }
+    
     
    
     public ObservableList<Task> getInternalList() {

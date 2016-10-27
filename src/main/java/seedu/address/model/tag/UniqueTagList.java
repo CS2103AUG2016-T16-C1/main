@@ -15,6 +15,7 @@ import java.util.*;
  * @see Tag#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
+//@@author A0135787N-reused
 public class UniqueTagList implements Iterable<Tag> {
 
     /**
@@ -104,6 +105,18 @@ public class UniqueTagList implements Iterable<Tag> {
     public boolean contains(Tag toCheck) {
         assert toCheck != null;
         return internalList.contains(toCheck);
+    }
+    /**
+     * Returns true if the list contains a Tag with the same tagname as the given argument.
+     * Is case-insensitive
+     */
+    public boolean hasTag(Tag toCheck) {
+        assert toCheck != null;
+        for(Tag tag: internalList){
+        	if(tag.tagName.equalsIgnoreCase(toCheck.tagName)){
+        		return true;
+        	}
+        }return false;
     }
 
     /**

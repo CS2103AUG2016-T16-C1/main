@@ -7,6 +7,7 @@ import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.Task;
 import seedu.address.model.person.UniqueTaskList;
 import seedu.address.model.person.UniqueTaskList.TaskNotFoundException;
+import seedu.address.model.tag.Tag;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.Set;
 /**
  * The API of the Model component.
  */
+//@@author A0139523E-reused
 public interface Model {
     /** Clears existing backing model and replaces with the provided new data. 
      * @throws ParseException 
@@ -39,14 +41,34 @@ public interface Model {
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
     
+    /** Updates the filter of the filtered task list to filter by the closest edit distance to given string input*/
+    void updateFilteredTaskList(String toFind);
+    
+    /** Updates the filter of the filtered task list to filter by the given Tag*/
+    void updateFilteredTaskList(Tag tagToFind);
+    
     /** Edit the given task. 
      * @throws ParseException */
-	void editTask(int targetIndex, String newDate, String newTime, String newContent) 
+	void editTask(int targetIndex, String newDate, String newEndDate, String newTime, String newEndTime, String newContent) 
 			throws TaskNotFoundException, ParseException;
+
+    //@@author A0147989B
+    /** Fetch the next date of a recurring task. */
+    void nextTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Mark the given task as done. */
     void doneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
-
+    
+    /** Mark the given task as undone. */
+    void undoneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    
+    /** Mark the given task as important. */
+    void importantTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    
+    /** Mark the given task as unimportant. */
+    void unimportantTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    //@@author 
+    
 	void save(String commandType) throws IllegalValueException, ParseException;
 
 	void undo() throws StateNotFoundException;

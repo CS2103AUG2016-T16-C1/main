@@ -10,13 +10,22 @@ import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
  * A read-only immutable interface for a task in Hard2Do.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
+//@@author A0139523E
 public interface ReadOnlyTask {
 
     Content getContent();
     TaskDate getDate();
     TaskTime getTime();
+    //@@author A0147989B
+    Integer getDuration();
+    boolean setNext();
     boolean getDone();
     boolean setDone();
+    boolean setUndone();
+    boolean getImportant();
+    boolean setImportant();
+    boolean setUnimportant();
+    //@@author
     boolean addTags(ArrayList<String> tagsToAdd) throws DuplicateTagException, IllegalValueException;
     boolean deleteTags(ArrayList<String> tagsToDel) throws DuplicateTagException, IllegalValueException;
     /**
@@ -46,11 +55,31 @@ public interface ReadOnlyTask {
                 .append(getDate())
                 .append(" ")
                 .append(getTime())
+                .append(" ")
+                .append("repeat per "+getDuration()+" days ")
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
+    
+    default String getAsText2() {
+    	final StringBuilder builder = new StringBuilder();
+    	builder.append(getContent())
+    			.append(" ")
+    			.append(getDate().dateString)
+    			.append(" ")
+    			.append(getTime().timeString)
+    			.append(" - ")
+    			.append(getDate().enddateString)
+    			.append(" ")
+    			.append(getTime().endtimeString)
+    			.append(" ")
+    			.append("repeat per "+getDuration()+" days ")
+    			.append(" Tags: ");
+    	getTags().forEach(builder::append);
+    	return builder.toString();
+    }
+    
     /**
      * Returns a string representation of this task's tags
      */

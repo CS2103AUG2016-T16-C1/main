@@ -8,6 +8,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+//@@author A0139523E-reused
 public class ConfigTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();

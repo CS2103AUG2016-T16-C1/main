@@ -12,6 +12,7 @@ import java.util.logging.*;
  *   at the {@code INFO} level. A new {@code .log} file with a new numbering will be created after the log
  *   file reaches 5MB big, up to a maximum of 5 files.<br>
  */
+//@@author A0141054W-reused
 public class LogsCenter {
     private static final int MAX_FILE_COUNT = 5;
     private static final int MAX_FILE_SIZE_IN_BYTES = (int) (Math.pow(2, 20) * 5); // 5MB

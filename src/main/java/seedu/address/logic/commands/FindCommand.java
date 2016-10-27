@@ -6,6 +6,7 @@ import java.util.Set;
  * Finds and lists all tasks in task manager whose content contains any of the argument keywords.
  * Keyword matching is case sensitive.
  */
+//@@author A0135787N
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
@@ -15,10 +16,10 @@ public class FindCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " go to tutorial";
 
-    private final Set<String> keywords;
+    private final String keywords;
 
-    public FindCommand(Set<String> keywords) {
-        this.keywords = keywords;
+    public FindCommand(String keywords) {
+        this.keywords = keywords.toLowerCase();
     }
 
     @Override

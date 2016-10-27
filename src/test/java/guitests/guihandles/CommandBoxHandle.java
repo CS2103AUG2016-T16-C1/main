@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 /**
  * A handle to the Command Box in the GUI.
  */
+//@@author A0139523E-reused
 public class CommandBoxHandle extends GuiHandle{
 
     private static final String COMMAND_INPUT_FIELD_ID = "#commandTextField";

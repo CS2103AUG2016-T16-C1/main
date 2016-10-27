@@ -9,6 +9,7 @@ import seedu.address.model.person.*;
 /**
  *
  */
+//@@author A0139523E-reused
 public class TaskBuilder {
 
     private TestTask task;
@@ -29,16 +30,26 @@ public class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder withDate(String taskdate) throws IllegalValueException, ParseException {
-        this.task.setDate(new TaskDate(taskdate));
+    public TaskBuilder withDate(String taskdate, String enddate) throws IllegalValueException, ParseException {
+        this.task.setDate(new TaskDate(taskdate, enddate));
         return this;
     }
 
-    public TaskBuilder withTime(String tasktime) throws IllegalValueException, ParseException {
-        this.task.setTime(new TaskTime(tasktime));
+    public TaskBuilder withTime(String startTime, String endTime) throws IllegalValueException, ParseException {
+        this.task.setTime(new TaskTime(startTime, endTime));
         return this;
     }
-
+    
+    public TaskBuilder withDuration(Integer duration) throws IllegalValueException, ParseException {
+    	this.task.setDuration(duration);
+		return this;
+    }
+    
+    public TaskBuilder withDone(boolean done) throws IllegalValueException, ParseException {
+    	this.task.setDone(done);
+    	return this;
+    }
+    
     public TestTask build() {
         return this.task;
     }

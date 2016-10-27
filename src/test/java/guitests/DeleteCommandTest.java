@@ -6,7 +6,7 @@ import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
-
+//@@author A0141054W-reused
 public class DeleteCommandTest extends TaskManagerGuiTest {
 
     @Test
@@ -29,6 +29,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
 
         //invalid index
         commandBox.runCommand("delete " + currentList.length + 1);
+        
         assertResultMessage("The task index provided is invalid");
 
     }
@@ -46,7 +47,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
 
         //confirm the list now contains all previous tasks except the deleted task
         assertTrue(taskListPanel.isListMatching(expectedRemainder));
-
+        
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }

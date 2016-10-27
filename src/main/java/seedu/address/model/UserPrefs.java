@@ -7,6 +7,7 @@ import java.util.Objects;
 /**
  * Represents User's preferences.
  */
+//@@author A0147989B-reused
 public class UserPrefs {
 
     public GuiSettings guiSettings;

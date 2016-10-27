@@ -4,6 +4,7 @@ package seedu.address.logic.commands;
 /**
  * Lists all persons in the address book to the user.
  */
+//@@author A0141054W
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
@@ -25,12 +26,12 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute() {
         if (listModification.compareTo("done") == 0) {
-            model.updateFilteredListToShowUndone();
+            model.updateFilteredListToShowDone();
             return new CommandResult(MESSAGE_SUCCESS_DONE);
         }
         else if (listModification.compareTo("undone") == 0) {
             model.updateFilteredListToShowUndone();
-            return new CommandResult(MESSAGE_SUCCESS_DONE);
+            return new CommandResult(MESSAGE_SUCCESS_UNDONE);
         }
         else {
             model.updateFilteredListToShowAll();

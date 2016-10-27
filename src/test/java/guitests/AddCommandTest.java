@@ -9,7 +9,7 @@ import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertTrue;
-
+//@@author A0139523E-reused
 public class AddCommandTest extends TaskManagerGuiTest {
 
     @Test
@@ -33,6 +33,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
 
         //add to empty list
         commandBox.runCommand("clear");
+        
         assertAddSuccess(TypicalTestTasks.homework);
 
         //invalid command

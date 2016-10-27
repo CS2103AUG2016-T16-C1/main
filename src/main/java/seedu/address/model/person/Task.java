@@ -1,5 +1,8 @@
 package seedu.address.model.person;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -18,30 +21,35 @@ public class Task implements ReadOnlyTask {
     private Content content;
     private TaskDate date;
     private TaskTime time;
+    private Integer duration;
     private boolean done = false;
+    private boolean important = false;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Content content, TaskDate date, TaskTime time, /*boolean done, */UniqueTagList tags) {
+    public Task(Content content, TaskDate date, TaskTime time, Integer duration, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(content, date, time, tags);
         this.content = content;
         this.date = date;
         this.time = time;
         this.tags = tags; 
+        this.duration = duration;
     }
     
     /**
      * create a task with done status
      */
-    public Task(Content content, TaskDate date, TaskTime time, boolean done, UniqueTagList tags) {
+    public Task(Content content, TaskDate date, TaskTime time, Integer duration, boolean done, boolean important, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(content, date, time, tags);
         this.content = content;
         this.date = date;
         this.time = time;
+        this.duration = duration;
         this.done = done;
+        this.important = important;
         this.tags = tags; 
     }
 
@@ -49,8 +57,13 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getContent(), source.getDate(), source.getTime(), source.getTags());
-        if (source.getDone()) setDone();
+        this(source.getContent(), 
+                source.getDate(), 
+                source.getTime(), 
+                source.getDuration(), 
+                source.getDone(), 
+                source.getImportant(), 
+                source.getTags());
     }
     @Override
     public boolean addTags(ArrayList<String> tagsToAdd) throws DuplicateTagException, IllegalValueException {
@@ -101,7 +114,11 @@ public class Task implements ReadOnlyTask {
 
     @Override
     public String toString() {
-        return getAsText();
+    	if(!date.enddateString.isEmpty() && !time.endtimeString.isEmpty()) {
+        return getAsText2();
+    	}
+    	else
+    		return getAsText();
     }
 
     @Override
@@ -120,13 +137,54 @@ public class Task implements ReadOnlyTask {
     }
     
     @Override
+    public Integer getDuration() {
+        return duration;
+    }
+    
+    @Override
+    public boolean setNext() {
+        if (duration != null){
+            while (date.getValue().before(Date.valueOf(LocalDate.now()))){
+                date.getValue().setDate(date.getValue().getDate()+duration);
+            };
+            System.out.println("nexting");
+        }
+        return true;
+    }
+    
+    @Override
     public boolean setDone() {
         if (!done) done = true;
         return true;
     }
     
     @Override
+    public boolean setUndone() {
+        if (done) done = false;
+        else return false;
+        return true;
+    }
+    
+    @Override
     public boolean getDone() {
         return done;
+    }
+    
+    @Override
+    public boolean setImportant() {
+        if (!important) important = true;
+        return true;
+    }
+    
+    @Override
+    public boolean setUnimportant() {
+        if (important) important = false;
+        else return false;
+        return true;
+    }
+    
+    @Override
+    public boolean getImportant() {
+        return important;
     }
 }
