@@ -165,7 +165,7 @@ public class ModelManager extends ComponentManager implements Model {
 		}
     	taskManager.deleteTags(target, tagsToDelete);
 
-        updateFilteredListToShowDone();
+        updateFilteredListToShowUndone();
     	indicateTaskManagerChanged();
     }
     
