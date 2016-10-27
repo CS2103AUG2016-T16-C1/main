@@ -6,6 +6,7 @@ import java.util.logging.Level;
 /**
  * Config values used by the app
  */
+//@@author A0147989B-reused
 public class Config {
 
     public static final String DEFAULT_CONFIG_FILE = "config.json";
@@ -88,7 +89,7 @@ public class Config {
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("App title : " + appTitle);
+        sb.append("Task Manager name: " + appTitle);
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
         sb.append("\nLocal data file location : " + taskManagerFilePath);

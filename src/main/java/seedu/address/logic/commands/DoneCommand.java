@@ -7,6 +7,7 @@ import seedu.address.model.person.*;
 import seedu.address.model.person.UniqueTaskList.TaskNotFoundException;
 
 
+//@@author A0147989B
 public class DoneCommand extends Command{
 
     public static final String COMMAND_WORD = "done";
@@ -16,7 +17,7 @@ public class DoneCommand extends Command{
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Task marked as done: %1$s";
+    public static final String MESSAGE_DONE_TASK_SUCCESS = "Task marked as done: %1$s";
     
     public final int targetIndex;
 
@@ -42,7 +43,7 @@ public class DoneCommand extends Command{
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDone));
+        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone));
 
     }
     

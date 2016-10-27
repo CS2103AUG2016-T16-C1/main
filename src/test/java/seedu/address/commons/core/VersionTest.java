@@ -6,7 +6,7 @@ import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
+//@@author A0139523E-reused
 public class VersionTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();

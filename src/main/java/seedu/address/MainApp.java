@@ -29,6 +29,7 @@ import java.util.logging.Logger;
 /**
  * The main entry point to the application.
  */
+//@@author A0139523E-reused
 public class MainApp extends Application {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -57,13 +58,13 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        logic = new LogicManager(model, storage);
+        logic = new LogicManager(model, storage, config);
 
         ui = new UiManager(logic, config, userPrefs);
 
         initEventsCenter();
     }
-
+  //@@author A0135787N-reused
     private String getApplicationParameter(String parameterName){
         Map<String, String> applicationParameters = getParameters().getNamed();
         return applicationParameters.get(parameterName);
@@ -88,7 +89,7 @@ public class MainApp extends Application {
 
         return new ModelManager(initialData, userPrefs);
     }
-
+  //@@author A0147989B-reused
     private void initLogging(Config config) {
         LogsCenter.init(config);
     }
@@ -123,7 +124,7 @@ public class MainApp extends Application {
         }
         return initializedConfig;
     }
-
+  //@@author A0141054W-reused
     protected UserPrefs initPrefs(Config config) {
         assert config != null;
 

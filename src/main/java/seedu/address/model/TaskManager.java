@@ -6,6 +6,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.History.StateNotFoundException;
 import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.UniqueTaskList;
+import seedu.address.model.person.UniqueTaskList.TaskNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 
  * Duplicates are not allowed (by .equals comparison)
  */
+//@@author A0139523E-reused
 public class TaskManager implements ReadOnlyTaskManager {
 
     private UniqueTaskList tasks;
@@ -127,10 +129,19 @@ public class TaskManager implements ReadOnlyTaskManager {
         }
     }
     
-    public boolean editTask(int targetIndex, String newDate, String newTime, String newContent) 
+    public boolean editTask(int targetIndex, String newDate, String newEndDate, String newTime, String newEndTime, String newContent) 
     		throws UniqueTaskList.TaskNotFoundException, ParseException {
     	
-        if (tasks.edit(targetIndex, newDate, newTime, newContent)) {
+        if (tasks.edit(targetIndex, newDate, newEndDate, newTime, newEndTime, newContent)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
+
+    //@@author A0147989B
+    public boolean fetchNextDate(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+        if (tasks.next(key)) {
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
@@ -144,6 +155,32 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+    
+    public boolean markTaskAsUndone(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+        if (tasks.undone(key)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
+    
+    public boolean markTaskAsImportant(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+        if (tasks.important(key)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
+    
+    public boolean markTaskAsUnimportant(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+        if (tasks.unimportant(key)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
+    //@@author
+    
     public History getHistory(){
     	return history;
     }
@@ -154,8 +191,25 @@ public class TaskManager implements ReadOnlyTaskManager {
         tags.add(t);
     }
     
-    public void addTags(int targetIndex, ArrayList<String> newTags) throws IllegalValueException{
-    	tasks.addTags( targetIndex, newTags);
+    public boolean addTags(ReadOnlyTask target, ArrayList<String> newTags) 
+    		throws IllegalValueException, TaskNotFoundException{
+    	
+    	if(tasks.addTags( target, newTags)){
+    		return true;
+    	} else {
+    		throw new UniqueTaskList.TaskNotFoundException();
+    	}
+		
+	}
+    
+    public boolean deleteTags(ReadOnlyTask target, ArrayList<String> newTags) 
+    		throws IllegalValueException, TaskNotFoundException{
+    	
+    	if(tasks.deleteTags( target, newTags)){
+    		return true;
+    	} else {
+    		throw new UniqueTaskList.TaskNotFoundException();
+    	}
 		
 	}
 

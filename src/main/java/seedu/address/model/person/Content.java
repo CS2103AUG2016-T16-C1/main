@@ -6,6 +6,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
  * Represents a Person's Content in the Content book.
  * Guarantees: immutable; is valid as declared in {@link #isValidContent(String)}
  */
+//@@author A0135787N
 public class Content {
     
     public static final String MESSAGE_CONTENT_CONSTRAINTS = "Task Content can be in any format";

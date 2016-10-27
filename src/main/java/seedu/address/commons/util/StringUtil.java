@@ -8,6 +8,7 @@ import java.util.List;
 /**
  * Helper functions for handling strings.
  */
+//@@author A0135787N
 public class StringUtil {
     public static boolean containsIgnoreCase(String source, String query) {
         String[] split = source.toLowerCase().split("\\s+");

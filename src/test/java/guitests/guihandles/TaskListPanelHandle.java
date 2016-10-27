@@ -20,6 +20,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Provides a handle for the panel containing the task list.
  */
+//@@author A0141054W-reused
 public class TaskListPanelHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;
@@ -103,12 +104,11 @@ public class TaskListPanelHandle extends GuiHandle {
     public TaskCardHandle navigateToTask(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
         final Optional<ReadOnlyTask> task = getListView().getItems().stream()
-                                                    .filter(p -> p.getContent().equals(name))
+                                                    .filter(p -> p.getContent().value.equals(name))
                                                     .findAny();
         if (!task.isPresent()) {
-            throw new IllegalStateException("Name not found: " + name);
+            return null;
         }
-
         return navigateToTask(task.get());
     }
 

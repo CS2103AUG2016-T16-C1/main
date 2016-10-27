@@ -13,9 +13,12 @@ import seedu.address.model.person.Task;
 import seedu.address.model.person.UniqueTaskList;
 import seedu.address.model.person.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.person.UniqueTaskList.TaskNotFoundException;
+import seedu.address.model.tag.Tag;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -23,6 +26,7 @@ import java.util.logging.Logger;
  * Represents the in-memory model of the task manager data.
  * All changes to any model should be synchronized.
  */
+//@@author A0141054W-reused
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
@@ -105,12 +109,12 @@ public class ModelManager extends ComponentManager implements Model {
 			e.printStackTrace();
 		}
     	taskManager.addTask(task);
-    	updateFilteredListToShowDone();
+    	updateFilteredListToShowUndone();
         indicateTaskManagerChanged();
     }
-    
+
     @Override
-    public synchronized void editTask(int targetIndex, String newDate, String newTime, String newContent) 
+    public synchronized void editTask(int targetIndex, String newDate, String newEndDate, String newTime, String newEndTime, String newContent)
     		throws TaskNotFoundException, ParseException {
     	try {
 			taskManager.save("edit");
@@ -121,13 +125,15 @@ public class ModelManager extends ComponentManager implements Model {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	taskManager.editTask(targetIndex, newDate, newTime, newContent);
-        updateFilteredListToShowDone();
-    	indicateTaskManagerChanged();
+    	taskManager.editTask(targetIndex, newDate, newEndDate, newTime, newEndTime, newContent);
+        updateFilteredListToShowUndone();
+        indicateTaskManagerChanged();
+
     }
-    
+
+
     @Override
-    public synchronized void addTags(int targetIndex, ArrayList<String> newTags) 
+    public synchronized void addTags(ReadOnlyTask target, ArrayList<String> newTags)
     		throws TaskNotFoundException, ParseException, IllegalValueException {
     	try {
 			taskManager.save("addTag");
@@ -138,10 +144,48 @@ public class ModelManager extends ComponentManager implements Model {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	taskManager.addTags(targetIndex, newTags);
+    	taskManager.addTags(target, newTags);
 
-        updateFilteredListToShowDone();
+        updateFilteredListToShowUndone();
     	indicateTaskManagerChanged();
+    }
+
+    @Override
+    public synchronized void deleteTags(ReadOnlyTask target, ArrayList<String> tagsToDelete)
+    		throws TaskNotFoundException, ParseException, IllegalValueException {
+    	assert !(tagsToDelete.size() == 0);
+    	try {
+			taskManager.save("deleteTag");
+		} catch (IllegalValueException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	taskManager.deleteTags(target, tagsToDelete);
+
+        updateFilteredListToShowUndone();
+    	indicateTaskManagerChanged();
+    }
+    
+    
+    @Override
+    //@@author A0147989B 
+    public synchronized void nextTask(ReadOnlyTask target) throws TaskNotFoundException {
+        try {
+            taskManager.save("next");
+        } catch (IllegalValueException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        taskManager.fetchNextDate(target);
+        updateFilteredListToShowUndone();
+        indicateTaskManagerChanged();
+
     }
     
     @Override
@@ -157,9 +201,62 @@ public class ModelManager extends ComponentManager implements Model {
 		}
         taskManager.markTaskAsDone(target);
         logger.info("successfully mark as done"+target.getDone());
-        updateFilteredListToShowDone();
+        updateFilteredListToShowUndone();
         indicateTaskManagerChanged();
     }
+    
+    @Override
+    public synchronized void undoneTask(ReadOnlyTask target) throws TaskNotFoundException {
+        try {
+            taskManager.save("undone");
+        } catch (IllegalValueException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        taskManager.markTaskAsUndone(target);
+        logger.info("successfully mark as undone"+target.getDone());
+        updateFilteredListToShowUndone();
+        indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public synchronized void importantTask(ReadOnlyTask target) throws TaskNotFoundException {
+        try {
+            taskManager.save("important");
+        } catch (IllegalValueException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        taskManager.markTaskAsImportant(target);
+        logger.info("successfully mark as important"+target.getImportant());
+        updateFilteredListToShowUndone();
+        indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public synchronized void unimportantTask(ReadOnlyTask target) throws TaskNotFoundException {
+        try {
+            taskManager.save("unimportant");
+        } catch (IllegalValueException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        taskManager.markTaskAsUnimportant(target);
+        logger.info("successfully mark as unimportant"+target.getImportant());
+        updateFilteredListToShowUndone();
+        indicateTaskManagerChanged();
+    }
+    //@@author
+    
     @Override
     public synchronized void save(String commandType) throws IllegalValueException, ParseException{
     	taskManager.save(commandType);
@@ -167,10 +264,10 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void undo() throws StateNotFoundException{
     	taskManager.undo();
-    	updateFilteredListToShowDone();
+    	updateFilteredListToShowUndone();
     	indicateTaskManagerChanged();
     }
-    
+
     //=========== Filtered Person List Accessors ===============================================================
 
     @Override
@@ -182,8 +279,13 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
     }
-    
+
     public void updateFilteredListToShowDone() {
+        filteredTasks.setPredicate(null);
+        filteredTasks.setPredicate((Task t) -> t.getDone());
+    }
+
+    public void updateFilteredListToShowUndone() {
         filteredTasks.setPredicate(null);
         filteredTasks.setPredicate((Task t) -> !t.getDone());
     }
@@ -195,6 +297,28 @@ public class ModelManager extends ComponentManager implements Model {
 
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
+    }
+
+    public void updateFilteredTaskList(String toFind){
+
+    	filteredTasks.setPredicate((Task t) -> 
+    	new Scanner(t.getContent().value.toLowerCase()).findInLine(toFind) != null);
+    	Comparator<Task> byEditDistance = new Comparator<Task>() {
+    	    public int compare(Task left, Task right) {
+    	        if (left.getContent().value.length() > right.getContent().value.length()) {
+    	            return -1;
+    	        } else {
+    	            return 1;
+    	        }
+    	    }
+    	};
+
+    	filteredTasks.sorted(byEditDistance);
+    }
+
+    public void updateFilteredTaskList(Tag tagToFind){
+    	filteredTasks.setPredicate((Task t) -> t.getTags().hasTag(tagToFind));
+
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
@@ -251,7 +375,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 	@Override
 	public History getHistory() {
-		
+
 		return taskManager.getHistory();
 	}
 

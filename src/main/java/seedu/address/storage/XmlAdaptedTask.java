@@ -15,14 +15,20 @@ import java.util.List;
  */
 public class XmlAdaptedTask {
 
+    //@@author A0147989B
     @XmlElement(required = true)
-    private Content content;//name=>content
+    private Content content;
     @XmlElement(required = true)
-    private TaskDate date;//phone=>date
+    private TaskDate date;
     @XmlElement(required = true)
-    private TaskTime time;//email=>time
+    private TaskTime time;
+    @XmlElement(required = true)
+    private Integer duration;
     @XmlElement(required = true)
     private boolean done;
+    @XmlElement(required = true)
+    private boolean important;
+    //@@author
 
 
     @XmlElement
@@ -43,7 +49,11 @@ public class XmlAdaptedTask {
         content = source.getContent();
         date = source.getDate();
         time = source.getTime();
+        //@@author A0147989B
+        duration = source.getDuration();
         done = source.getDone();
+        important = source.getImportant();
+        //@@author
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -60,11 +70,14 @@ public class XmlAdaptedTask {
         for (XmlAdaptedTag tag : tagged) {
             taskTags.add(tag.toModelType());
         }
-        final Content content = this.content;//old version: new Content(this.content.toString());
-        final TaskDate date = this.date;     //Unknown purpose ??
+        final Content content = this.content;
+        final TaskDate date = this.date;     
         final TaskTime time = this.time;
+        //@@author A0147989B
+        final Integer duration = this.duration;
         final boolean done = this.done;
+        final boolean important = this.important;
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(content, date, time, done, tags);
+        return new Task(content, date, time, duration, done, important, tags);
     }
 }

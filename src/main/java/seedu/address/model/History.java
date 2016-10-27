@@ -25,7 +25,7 @@ import java.util.*;
  * @see Task#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-
+//@@author A0135787N
 
 public class History {
 	
@@ -40,7 +40,11 @@ public class History {
 	private Collection<Tag> tagsState;
 	
 	private String message;
-	
+
+	/**
+
+	 * Constructor that initialises History class whenever Hard2Do is started
+	 */
 	
 	History(){
 		taskStates =  new Stack <List<Task>>(); 
@@ -49,7 +53,9 @@ public class History {
 		tagsState = FXCollections.observableArrayList();
 	}
 	
-	
+	/*
+	 * method to save and store the existing state of the TaskManger before any overwrite operations
+	 */
 	public void save(ObservableList<Task> stateToSave, ObservableList<Tag> tagsToSave, String commandType) 
 			throws IllegalValueException, ParseException{
 		
@@ -70,14 +76,17 @@ public class History {
 	        TaskDate td = new TaskDate();
 	        TaskTime tt = new TaskTime();
 	        
+	        Integer duration = null;
+	        
 	        if(!t.getDate().dateString.isEmpty())
-	        	td = new TaskDate(t.getDate().dateString);
+	        	td = new TaskDate(t.getDate().dateString, t.getDate().enddateString);
 	        if(!t.getTime().timeString.isEmpty())
-	        	tt = new TaskTime(t.getTime().timeString);
+	        	tt = new TaskTime(t.getTime().timeString, t.getTime().endtimeString);
 			
 			newState.add( new Task( new Content(t.getContent().value), 
 					td,
-					tt, 
+					tt,
+					duration,
 					new UniqueTagList(tagSet))
 					);
 			
@@ -85,6 +94,7 @@ public class History {
 			if(t.getDone())
 				newState.get(newState.size() - 1).setDone();
 		}
+		//Store the current state of the TaskManger into Stacks
 		taskStates.push(newState);
 		messages.push(commandType);
 		
@@ -96,7 +106,9 @@ public class History {
 			tagStates.push(newTags);
 		}
 	}
-	
+	/**
+	 * Sets the state before last change
+	 */
 	public void undo() {
 		
 		if(taskStates.isEmpty())
@@ -104,8 +116,12 @@ public class History {
 		
 		tasksState = taskStates.pop();
 		message = messages.pop();
+		if(tagsState.isEmpty())
+			return;
 		tagsState = tagStates.pop();
 	}
+	
+	//Operations to retrieve previous state of Tasks and Tags
 	
 	public List<Task> getPreviousTasks(){
 		return tasksState;
