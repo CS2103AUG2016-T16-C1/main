@@ -17,7 +17,7 @@ import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
  * Represents a task in Hard2Do.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Task implements ReadOnlyTask {
+public class RecurringTask implements ReadOnlyTask {
 
     private Content content;
     private TaskDate date;
@@ -31,24 +31,25 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Content content, TaskDate date, TaskTime time, /*Integer duration,*/ UniqueTagList tags) {
+    public RecurringTask(Content content, TaskDate date, TaskTime time, Integer duration, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(content, date, time, tags);
         this.content = content;
         this.date = date;
         this.time = time;
         this.tags = tags; 
-        //this.duration = duration;
+        this.duration = duration;
     }
     
     /**
      * create a task with done status
      */
-    public Task(Content content, TaskDate date, TaskTime time, /*Integer duration,*/ boolean done, boolean important, UniqueTagList tags) {
+    public RecurringTask(Content content, TaskDate date, TaskTime time, Integer duration, boolean done, boolean important, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(content, date, time, tags);
+        //System.out.println("creating R-task: "+content.value);
         this.content = content;
         this.date = date;
         this.time = time;
-        //this.duration = duration;
+        this.duration = duration;
         this.done = done;
         this.important = important;
         this.tags = tags; 
@@ -57,33 +58,34 @@ public class Task implements ReadOnlyTask {
     /**
      * Copy constructor.
      */
-    public Task(ReadOnlyTask source) {
+    public RecurringTask(ReadOnlyTask source) {
         this(source.getContent(), 
                 source.getDate(), 
                 source.getTime(), 
-                //source.getDuration(), 
+                source.getDuration(), 
                 source.getDone(), 
                 source.getImportant(), 
                 source.getTags());
+        //System.out.println("backing R-task: "+content.value);
     }
     @Override
     public boolean addTags(ArrayList<String> tagsToAdd) throws DuplicateTagException, IllegalValueException {
-    	UniqueTagList newList = new UniqueTagList();
-    	for(String t : tagsToAdd){
-    		newList.add(new Tag(t));
-    	}
-    	newList.mergeFrom(tags);
+        UniqueTagList newList = new UniqueTagList();
+        for(String t : tagsToAdd){
+            newList.add(new Tag(t));
+        }
+        newList.mergeFrom(tags);
         setTags(newList);
         return true;
     }
     
     @Override
     public boolean deleteTags(ArrayList<String> tagsToDelete) 
-    		throws DuplicateTagException, IllegalValueException {
-    	UniqueTagList newList = new UniqueTagList(tags);
-    	for(String t : tagsToDelete){
-    		newList.remove(new Tag(t));
-    	}
+            throws DuplicateTagException, IllegalValueException {
+        UniqueTagList newList = new UniqueTagList(tags);
+        for(String t : tagsToDelete){
+            newList.remove(new Tag(t));
+        }
         setTags(newList);
         return true;
     }
@@ -115,11 +117,11 @@ public class Task implements ReadOnlyTask {
 
     @Override
     public String toString() {
-    	/*if(!date.enddateString.isEmpty() && !time.endtimeString.isEmpty()) {
-        return getAsText();
-    	}
-    	else*/
-    	return getAsText0();
+        /*if(!date.enddateString.isEmpty() && !time.endtimeString.isEmpty()) {
+        return getAsText2();
+        }
+        else*/
+            return getAsText0();
     }
 
     @Override

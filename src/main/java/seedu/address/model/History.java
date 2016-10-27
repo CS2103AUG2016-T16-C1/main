@@ -6,6 +6,8 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.person.Content;
+import seedu.address.model.person.ReadOnlyTask;
+import seedu.address.model.person.RecurringTask;
 import seedu.address.model.person.Task;
 import seedu.address.model.person.TaskDate;
 import seedu.address.model.person.TaskTime;
@@ -33,10 +35,10 @@ public class History {
 	public static class StateNotFoundException extends Exception {} 
 	
 	
-	private Stack<List<Task>> taskStates;
+	private Stack<List<ReadOnlyTask>> taskStates;
 	private Stack<Collection<Tag>> tagStates;
 	private Stack <String> messages;
-	private List<Task> tasksState;
+	private List<ReadOnlyTask> tasksState;
 	private Collection<Tag> tagsState;
 	
 	private String message;
@@ -47,7 +49,7 @@ public class History {
 	 */
 	
 	History(){
-		taskStates =  new Stack <List<Task>>(); 
+		taskStates =  new Stack <List<ReadOnlyTask>>(); 
 		messages = new Stack<String>();
 		tagStates = new Stack <Collection<Tag>>();
 		tagsState = FXCollections.observableArrayList();
@@ -56,16 +58,16 @@ public class History {
 	/*
 	 * method to save and store the existing state of the TaskManger before any overwrite operations
 	 */
-	public void save(ObservableList<Task> stateToSave, ObservableList<Tag> tagsToSave, String commandType) 
+	public void save(ObservableList<ReadOnlyTask> stateToSave, ObservableList<Tag> tagsToSave, String commandType) 
 			throws IllegalValueException, ParseException{
 		
 		if (stateToSave.isEmpty())
 			return;
 		
-		ObservableList<Task> newState = FXCollections.observableArrayList();
+		ObservableList<ReadOnlyTask> newState = FXCollections.observableArrayList();
 		
 		//Create deep copy of tasks
-		for(Task t : stateToSave){
+		for(ReadOnlyTask t : stateToSave){
 			
 			Set<Tag> tagSet = new HashSet<>();
 	        for (Tag tag : t.getTags().toSet()) {
@@ -82,13 +84,21 @@ public class History {
 	        	td = new TaskDate(t.getDate().dateString, t.getDate().enddateString);
 	        if(!t.getTime().timeString.isEmpty())
 	        	tt = new TaskTime(t.getTime().timeString, t.getTime().endtimeString);
-			
-			newState.add( new Task( new Content(t.getContent().value), 
+
+	        //@@author A0147989B
+			if (t.getDuration() != null) 
+			    newState.add( new RecurringTask( new Content(t.getContent().value), 
 					td,
 					tt,
 					duration,
 					new UniqueTagList(tagSet))
 					);
+			else //@@author
+			    newState.add( new Task( new Content(t.getContent().value), 
+                    td,
+                    tt,
+                    new UniqueTagList(tagSet))
+                    );
 			
 			
 			if(t.getDone())
@@ -123,7 +133,7 @@ public class History {
 	
 	//Operations to retrieve previous state of Tasks and Tags
 	
-	public List<Task> getPreviousTasks(){
+	public List<ReadOnlyTask> getPreviousTasks(){
 		return tasksState;
 	}
 	

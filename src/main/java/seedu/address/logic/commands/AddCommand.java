@@ -30,7 +30,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
-    private final Task toAdd;
+    private final ReadOnlyTask toAdd;
 
     private TaskDate dateToAdd;
     private TaskTime timeToAdd;
@@ -42,7 +42,13 @@ public class AddCommand extends Command {
      * @throws ParseException
      */
 
-    public AddCommand(String content, String date, String enddate, String time, String endTime, Integer duration, Set<String> tags)
+    public AddCommand(String content, 
+                      String date, 
+                      String enddate, 
+                      String time, 
+                      String endTime, 
+                      Integer duration, 
+                      Set<String> tags)
             throws IllegalValueException, ParseException {
     	assert content != null;
 
@@ -83,14 +89,23 @@ public class AddCommand extends Command {
         else
         	timeToAdd = new TaskTime(time, endTime);
 
-
-        this.toAdd = new Task(
-                new Content(content),
-                dateToAdd,
-                timeToAdd,
-                duration,
-                new UniqueTagList(tagSet)
-        );
+        //@@author A0147989B
+        if (duration!=null){
+            this.toAdd = new RecurringTask(
+                    new Content(content),
+                    dateToAdd,
+                    timeToAdd,
+                    duration,
+                    new UniqueTagList(tagSet));
+        }
+        else{
+            this.toAdd = new Task(
+                    new Content(content),
+                    dateToAdd,
+                    timeToAdd,
+                    new UniqueTagList(tagSet));
+        }
+        
     }
 
     @Override

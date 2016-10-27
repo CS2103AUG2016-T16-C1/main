@@ -31,7 +31,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private TaskManager taskManager;
-    private FilteredList<Task> filteredTasks;
+    private FilteredList<ReadOnlyTask> filteredTasks;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -98,7 +98,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+    public synchronized void addTask(ReadOnlyTask task) throws UniqueTaskList.DuplicateTaskException {
     	try {
 			taskManager.save("add");
 		} catch (IllegalValueException e) {
@@ -282,12 +282,12 @@ public class ModelManager extends ComponentManager implements Model {
 
     public void updateFilteredListToShowDone() {
         filteredTasks.setPredicate(null);
-        filteredTasks.setPredicate((Task t) -> t.getDone());
+        filteredTasks.setPredicate((ReadOnlyTask t) -> t.getDone());
     }
 
     public void updateFilteredListToShowUndone() {
         filteredTasks.setPredicate(null);
-        filteredTasks.setPredicate((Task t) -> !t.getDone());
+        filteredTasks.setPredicate((ReadOnlyTask t) -> !t.getDone());
     }
 
     @Override
@@ -301,10 +301,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     public void updateFilteredTaskList(String toFind){
 
-    	filteredTasks.setPredicate((Task t) -> 
+    	filteredTasks.setPredicate((ReadOnlyTask t) -> 
     	new Scanner(t.getContent().value.toLowerCase()).findInLine(toFind) != null);
-    	Comparator<Task> byEditDistance = new Comparator<Task>() {
-    	    public int compare(Task left, Task right) {
+    	Comparator<ReadOnlyTask> byEditDistance = new Comparator<ReadOnlyTask>() {
+    	    public int compare(ReadOnlyTask left, ReadOnlyTask right) {
     	        if (left.getContent().value.length() > right.getContent().value.length()) {
     	            return -1;
     	        } else {
@@ -317,7 +317,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public void updateFilteredTaskList(Tag tagToFind){
-    	filteredTasks.setPredicate((Task t) -> t.getTags().hasTag(tagToFind));
+    	filteredTasks.setPredicate((ReadOnlyTask t) -> t.getTags().hasTag(tagToFind));
 
     }
 
