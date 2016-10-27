@@ -85,10 +85,10 @@ public class Parser {
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
+        //@@author A0147989B
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-            
-        //@@author A0147989B    
+                
         case DoneCommand.COMMAND_WORD:
             return prepareDone(arguments);
 

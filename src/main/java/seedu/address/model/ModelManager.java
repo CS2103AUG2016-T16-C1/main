@@ -170,8 +170,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     
-    @Override
     //@@author A0147989B 
+    @Override
     public synchronized void nextTask(ReadOnlyTask target) throws TaskNotFoundException {
         try {
             taskManager.save("next");

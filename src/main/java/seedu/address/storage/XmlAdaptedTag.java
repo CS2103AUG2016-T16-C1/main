@@ -6,6 +6,7 @@ import seedu.address.model.tag.Tag;
 
 import javax.xml.bind.annotation.XmlValue;
 
+//@@author A0147989B-reused
 /**
  * JAXB-friendly adapted version of the Tag.
  */

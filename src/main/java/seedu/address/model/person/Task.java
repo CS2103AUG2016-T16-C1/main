@@ -12,6 +12,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 
+//@@author A0147989B
 /**
  * Represents a task in Hard2Do.
  * Guarantees: details are present and not null, field values are validated.
