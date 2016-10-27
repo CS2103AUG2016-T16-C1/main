@@ -77,14 +77,14 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
 
-<img src="images\SDforDeleteTask.png" width="800">
+<img src="images/SDforDeleteTask.png" width="800">
 
 >Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Task Manager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<img src="images\SDforDeleteTaskEventHandling.png" width="800">
+<img src="images/SDforDeleteTaskEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
@@ -256,14 +256,24 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new to-do item |
+`* * *` | user | add a new to-do item | keep track of tasks to be done
+`* * *` | user | clear all appointments | start afresh easily
 `* * *` | user | delete a to-do | remove entries that I no longer need
-`* * *` | user | find a to-do by word | locate details of to-dos without having to go through the entire list
 `* * *` | user | edit a to-do | change my schedule
+`* * *` | user | find a to-do by word | locate details of to-dos without having to go through the entire list
+`* * *` | user | find a to-do by its tag | locate details of my to-dos based on tags assigned
+`* * *` | user | add a tag to a to-do | label my to-dos by the same tag so it is easily found
+`* * *` | user | delete a tag from a to-do | change tags assigned to the to-dos
 `* * *` | user | mark to-do as done | keep track of completed tasks
-`* * *` | advanced user | edit a to-do | change my schedule quickly using hotkeys
 `* * *` | user | undo actions taken with a shortcut | fix mistakes in my schedule
+`* * *` | user | list all my to-dos | view all to-dos that have been added
+`* * *` | user | list all the to-dos that are marked as done | refer to what to-dos have been done`
+`* * *` | user | list all the to-dos that are marked as undone | refer to what to-dos have not been done
+`* * *` | user | change the priority of my to-do | focus on the to-dos which have been labelled more important
+`* * *` | user | be able to load my task manager from a saved state | go back to a previous state if needed
+`* * *` | user | select to-dos in the list with just commands | view its details without using a mouse
+`* * *` | user | exit the app with just commands | close the app without using a mouse
+`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
 `* *` | user | be reminded of the appointment | stop worry about deadlines
 `* *` | user | save email as to-do | save time re-writing and scheduling task
 `* *` | user | use it offline | use it anywhere
@@ -295,7 +305,7 @@ Use case ends.
 
 > 3a1. TaskManager shows an error message <br>
   Use case resumes at step 2
-  
+
 #### Use case : Mark As Done
 
 **MSS**
