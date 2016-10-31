@@ -7,7 +7,7 @@ import seedu.address.model.person.*;
 import seedu.address.model.person.UniqueTaskList.TaskNotFoundException;
 
 //@@author A0147989B
-public class ImportantCommand extends Command{
+public class ImportantCommand extends Command {
 
     public static final String COMMAND_WORD = "important";
     

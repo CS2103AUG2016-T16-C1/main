@@ -185,6 +185,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.fetchNextDate(target);
         updateFilteredListToShowUndone();
         indicateTaskManagerChanged();
+        System.out.println("hereerererer");
 
     }
     
