@@ -8,7 +8,7 @@ import seedu.address.model.person.UniqueTaskList.TaskNotFoundException;
 
 
 //@@author A0147989B
-public class DoneCommand extends Command{
+public class DoneCommand extends Command {
 
     public static final String COMMAND_WORD = "done";
     

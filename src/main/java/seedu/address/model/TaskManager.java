@@ -53,12 +53,12 @@ public class TaskManager implements ReadOnlyTaskManager {
 
 //// list overwrite operations
 
-    public ObservableList<Task> getTasks() {
+    public ObservableList<ReadOnlyTask> getTasks() {
         return tasks.getInternalList();
     }
 
-    public void setTasks(List<Task> tasks) {
-        this.tasks.getInternalList().setAll(tasks);
+    public void setTasks(List<ReadOnlyTask> list) {
+        this.tasks.getInternalList().setAll(list);
     }
 
     public void setTags(Collection<Tag> tags) {
@@ -92,7 +92,7 @@ public class TaskManager implements ReadOnlyTaskManager {
      *
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
-    public void addTask(Task t) throws UniqueTaskList.DuplicateTaskException {
+    public void addTask(ReadOnlyTask t) throws UniqueTaskList.DuplicateTaskException {
     	syncTagsWithMasterList(t);
         tasks.add(t);
     }
@@ -102,7 +102,7 @@ public class TaskManager implements ReadOnlyTaskManager {
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
-    private void syncTagsWithMasterList(Task task) {
+    private void syncTagsWithMasterList(ReadOnlyTask task) {
         final UniqueTagList taskTags = task.getTags();
         tags.mergeFrom(taskTags);
 

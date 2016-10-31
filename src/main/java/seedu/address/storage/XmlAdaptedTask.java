@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+//@@author A0147989B
 /**
  * JAXB-friendly version of the Task.
  */
 public class XmlAdaptedTask {
 
-    //@@author A0147989B
     @XmlElement(required = true)
     private Content content;
     @XmlElement(required = true)
@@ -62,7 +62,7 @@ public class XmlAdaptedTask {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
-    public Task toModelType() throws IllegalValueException {
+    public ReadOnlyTask toModelType() throws IllegalValueException {
         final List<Tag> taskTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             taskTags.add(tag.toModelType());
@@ -74,6 +74,10 @@ public class XmlAdaptedTask {
         final boolean done = this.done;
         final boolean important = this.important;
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(content, date, time, duration, done, important, tags);
+        if (duration != null) return new RecurringTask(content, date, time, duration, done, important, tags);
+        else {
+            System.out.println(content.value+" is back as task");
+            return new Task(content, date, time, done, important, tags);
+        }
     }
 }
