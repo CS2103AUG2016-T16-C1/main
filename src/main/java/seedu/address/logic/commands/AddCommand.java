@@ -69,15 +69,18 @@ public class AddCommand extends Command {
 
         if(time == null && endTime == null){
         	InferTimeUtil itu = new InferTimeUtil(content);
-        	if(itu.findTime()){
+        	if(itu.findTimeToTime()){
+        		timeToAdd = new TaskTime(itu.getStartTime(), itu.getEndTime());
+        	}
+        	else if(itu.findTime()){
         		timeToAdd = new TaskTime(itu.getTime(), endTime);
         	}else{
         		timeToAdd = new TaskTime();
         	}
         }
-        else
+        else{
         	timeToAdd = new TaskTime(time, endTime);
-
+        }
 
         this.toAdd = new Task(
                 new Content(content),
