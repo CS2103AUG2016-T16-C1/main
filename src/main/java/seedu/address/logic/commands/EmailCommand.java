@@ -31,8 +31,11 @@ public class EmailCommand extends Command {
     public static final String MESSAGE_NO_CONNECTION = "Cannot connect to gmail server";
 
     private static final String MESSAGE_NO_UNREAD_EMAIL = "There is currently no unread email";
-
-    public EmailCommand() {
+    
+    private String email;
+    
+    public EmailCommand(String email) {
+        this.email = email;
     }
 
     @Override
@@ -40,7 +43,11 @@ public class EmailCommand extends Command {
         List<String> unreadMessages;
         Gmail service = null;
         String user = "me";
-        String query = "is:unread";
+        String query;
+        if (email != "") 
+            query = "from:" + email + " is:unread";
+        else
+            query = "is:unread";
         ReadOnlyTask toAdd = null;
         
         try {

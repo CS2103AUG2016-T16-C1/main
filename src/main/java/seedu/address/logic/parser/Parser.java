@@ -12,6 +12,8 @@ import java.util.regex.Pattern;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EMAIL_FORMAT;
+
 
 /**
  * Parses user input.
@@ -41,6 +43,10 @@ public class Parser {
     
     private static final Pattern FIND_TAG_FORMAT =
     		Pattern.compile("(?<tagname>[\\p{Alnum}]+)");
+    //@@author A0141054W
+    public static final Pattern VALID_EMAIL_ADDRESS_FORMAT = 
+            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+    //@@author
 
     public Parser() {}
 
@@ -122,7 +128,7 @@ public class Parser {
         //@@author A0141054W
 
         case EmailCommand.COMMAND_WORD:
-            return new EmailCommand();
+            return prepareEmail(arguments);
         
 
         default:
@@ -253,7 +259,7 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-    
+    //@@author A0141054W
     private Command prepareList(String args) throws ParseException{
         if (args.trim().compareTo("done") != 0 && args.trim().compareTo("undone") != 0 && args.trim().compareTo("all") != 0 && args.trim().compareTo("") != 0) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_LIST_RESTRICTION));
@@ -261,16 +267,25 @@ public class Parser {
         else 
             return new ListCommand(args.trim());
     }
-  //@@author A0141054W
+    
+    private Command prepareEmail(String arg) throws ParseException{
+        String email = arg.trim();
+        final Matcher matcher = VALID_EMAIL_ADDRESS_FORMAT.matcher(email);
+        if (!matcher.matches()) {
+            return new IncorrectCommand(MESSAGE_INVALID_EMAIL_FORMAT);
+        } else {
+            return new EmailCommand(email);
+        }
+        
+        
+    }
     private Command prepareLoad(String args) throws ParseException{
         File file = new File(args.trim());
         if (file.isDirectory()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoadCommand.MESSAGE_DIRECTORY_FILEPATH));
-        }
-        else if (!file.exists()) {
+        } else if (!file.exists()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoadCommand.MESSAGE_INVALID_FILEPATH));
-        }
-        else
+        } else
             return new LoadCommand(args.trim());
     }
     
