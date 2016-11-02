@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.InferDateUtil;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -53,30 +54,17 @@ public class AddCommand extends Command {
 
         if(date != null ){
         	dateToAdd = new TaskDate(date, enddate);
+        	
         }else if (date == null && enddate == null){
-        	if(new Scanner(content).findInLine("tmr") != null
-        			|| new Scanner(content).findInLine("tommorrow") != null){
-
-        		SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy");
-        		Date now = new Date();
-        	    Calendar calendar = Calendar.getInstance();
-        	    calendar.setTime(now);
-        	    calendar.add(Calendar.DAY_OF_YEAR, 1);
-        	    String dateTmr = sdfDate.format(calendar.getTime());
-        	    dateToAdd = new TaskDate(dateTmr, enddate);
-
-        	}else if (new Scanner(content).findInLine("next week") != null){
-        		SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy");
-        		Date now = new Date();
-        	    Calendar calendar = Calendar.getInstance();
-        	    calendar.setTime(now);
-        	    calendar.add(Calendar.WEEK_OF_YEAR, 1);
-        	    String dateNextWeek = sdfDate.format(calendar.getTime());
-        	    dateToAdd = new TaskDate(dateNextWeek, enddate);
-        	}
-        	else
+        	InferDateUtil idu = new InferDateUtil(content);
+        	
+        	if(idu.findDate()){
+        		String inferredDate = idu.getDate();
+        		dateToAdd = new TaskDate(inferredDate, enddate);
+        	}else{
         		dateToAdd = new TaskDate();
         	}
+        }
 
         if(time == null && endTime == null)
         	timeToAdd = new TaskTime();
