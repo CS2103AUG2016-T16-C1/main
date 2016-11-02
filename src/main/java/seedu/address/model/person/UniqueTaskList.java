@@ -87,11 +87,11 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         
         if(newEndDate != null) {
-        	toEdit.getDate().enddateString = newEndDate;
+        	toEdit.getEndDate().dateString = newEndDate;
         	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         	
         	Date date2 = simpleDateFormat.parse(newEndDate);
-        	toEdit.getDate().endDate = date2;
+        	toEdit.getEndDate().value = date2;
         }
         
         if(newTime != null){
@@ -103,11 +103,11 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         
         if(newEndTime != null){
-        	toEdit.getTime().endtimeString = newEndTime;
+        	toEdit.getEndTime().timeString = newEndTime;
         	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
         	
         	Date time2 = simpleDateFormat.parse(newEndTime);
-        	toEdit.getTime().endTime = time2;
+        	toEdit.getEndTime().value = time2;
         }
         
         if(newContent != null)

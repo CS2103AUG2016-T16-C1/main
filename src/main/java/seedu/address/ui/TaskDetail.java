@@ -124,14 +124,14 @@ public class TaskDetail extends UiPart {
             startTimePicker.setValue(null);
         }
         
-        if (task.getDate().getEndDate() != null) {
-            endDatePicker.setValue(DateTimeUtil.changeDateToLocalDate(task.getDate().getEndDate()));
+        if (task.getEndDate().getValue() != null) {
+            endDatePicker.setValue(DateTimeUtil.changeDateToLocalDate(task.getEndDate().getValue()));
         } else {
             endDatePicker.setValue(null);
         }
-        if (task.getTime().getEndTime() != null) {
+        if (task.getEndTime().getValue() != null) {
 
-            endTimePicker.setTime(DateTimeUtil.changeDateToLocalTime(task.getTime().getEndTime()));
+            endTimePicker.setTime(DateTimeUtil.changeDateToLocalTime(task.getEndTime().getValue()));
         } else {
             endTimePicker.setValue(null);
         }

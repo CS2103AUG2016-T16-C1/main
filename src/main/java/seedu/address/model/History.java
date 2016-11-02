@@ -73,26 +73,27 @@ public class History {
 	        }
 	        
 
-	        TaskDate td = new TaskDate();
-	        TaskTime tt = new TaskTime();
+	        TaskDate td = new TaskDate(t.getDate());
+	        TaskDate ed = new TaskDate(t.getEndDate());
+	        TaskTime tt = new TaskTime(t.getTime());
+	        TaskTime et = new TaskTime(t.getEndTime());
 	        
 	        Integer duration = null;
-	        
-	        if(!t.getDate().dateString.isEmpty())
-	        	td = new TaskDate(t.getDate().dateString, t.getDate().enddateString);
-	        if(!t.getTime().timeString.isEmpty())
-	        	tt = new TaskTime(t.getTime().timeString, t.getTime().endtimeString);
 			
-			newState.add( new Task( new Content(t.getContent().value), 
-					td,
-					tt,
-					duration,
-					new UniqueTagList(tagSet))
-					);
-			
+	        	newState.add( new Task( new Content(t.getContent().value),
+	        			td,
+	        			ed,
+	        			tt,
+	        			et,
+	        			duration,
+	        			new UniqueTagList(tagSet))
+	        			);
 			
 			if(t.getDone())
 				newState.get(newState.size() - 1).setDone();
+			
+	        if(t.getImportant())
+	        	newState.get(newState.size() - 1).setImportant();
 		}
 		//Store the current state of the TaskManger into Stacks
 		taskStates.push(newState);

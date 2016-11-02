@@ -39,7 +39,16 @@ public class TaskDate {
 			this.value = date;
 		}
 	
-	
+    public TaskDate(TaskDate oldTaskDate) {
+    	if(oldTaskDate == null) {
+    		this.dateString = "";
+    	}
+    	else {
+    		this.dateString = oldTaskDate.dateString;
+    		this.value = oldTaskDate.value;
+    	}
+    }
+    
 	/**
 	 * Returns true if a given string is a valid date.
 	 */

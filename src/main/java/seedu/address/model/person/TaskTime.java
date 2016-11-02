@@ -39,6 +39,17 @@ public class TaskTime {
     	   this.value = time;
        }
     
+    public TaskTime(TaskTime oldTaskTime) {
+    	if(oldTaskTime == null) {
+    		this.timeString = "";
+    	}
+    	
+    	else {
+    		this.timeString = oldTaskTime.timeString;
+    		this.value = oldTaskTime.value;
+    	}
+    }
+    
     /**
      * Returns true if a given string is a valid date.
      */
@@ -57,7 +68,6 @@ public class TaskTime {
     		return timeString;
     	}
 
-    }
 
     @Override
     public boolean equals(Object other) {

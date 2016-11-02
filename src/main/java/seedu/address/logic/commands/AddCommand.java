@@ -86,7 +86,7 @@ public class AddCommand extends Command {
         		dateToAdd = new TaskDate();
         	}
         
-        if(endDate.isEmpty()) {
+        if(endDate == null) {
         	enddateToAdd = new TaskDate();
         }
         else
@@ -97,13 +97,13 @@ public class AddCommand extends Command {
         else
         	timeToAdd = new TaskTime(time);
         
-        if(endTime.isEmpty()) {
+        if(endTime == null) {
         	endtimeToAdd = new TaskTime();
         }
         else
         	endtimeToAdd = new TaskTime(endTime);
         
-        if(endDate.isEmpty()) {
+        if(endDate == null) {
         this.toAdd = new Task(
                 new Content(content),
                 dateToAdd,
@@ -139,23 +139,23 @@ public class AddCommand extends Command {
     }
     
     public static void isValidTimeDate(String startDate, String endDate, String startTime, String endTime) throws IllegalValueException {
-    	if((!endDate.isEmpty() && endTime.isEmpty()) || (endDate.isEmpty() && !endTime.isEmpty())) {
+    	if((endDate != null && endTime == null) || (endDate == null && endTime != null)) {
     		throw new IllegalValueException(MESSAGE_ENDDATETIME_CONSTRAINTS);
     	}
     	
-    	else if(!endDate.isEmpty() && !endTime.isEmpty() ) {
+    	else if(endDate != null && endTime != null ) {
     		hasStartDate(startDate);
     		hasStartTime(startTime);
     	}
     }
     
     public static void hasStartDate(String startDate) throws IllegalValueException {
-    	if(startDate.isEmpty()) 
+    	if(startDate == null) 
     		throw new IllegalValueException(MESSAGE_STARTENDDATE_CONSTRAINTS);
     }
     
     public static void hasStartTime(String startTime) throws IllegalValueException {
-    	if(startTime.isEmpty())
+    	if(startTime == null)
     		throw new IllegalValueException(MESSAGE_STARTENDTIME_CONSTRAINTS);
     }
 }
