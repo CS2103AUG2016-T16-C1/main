@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.InferDateUtil;
+import seedu.address.commons.util.InferTimeUtil;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -66,8 +67,14 @@ public class AddCommand extends Command {
         	}
         }
 
-        if(time == null && endTime == null)
-        	timeToAdd = new TaskTime();
+        if(time == null && endTime == null){
+        	InferTimeUtil itu = new InferTimeUtil(content);
+        	if(itu.findTime()){
+        		timeToAdd = new TaskTime(itu.getTime(), endTime);
+        	}else{
+        		timeToAdd = new TaskTime();
+        	}
+        }
         else
         	timeToAdd = new TaskTime(time, endTime);
 
