@@ -91,28 +91,29 @@ public class GmailService {
         return new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential).setApplicationName(APPLICATION_NAME).build();
     }
 
-    public static void main(String[] args) throws IOException {
-        // Build a new authorized API client service.
-        Gmail service = getGmailService();
-
-        // Print the labels in the user's account.
-        String user = "me";
-
-        List<Message> messages = listMessagesMatchingQuery(service, user, "is:unread");
-
-        // ListLabelsResponse listResponse =
-        // service.users().labels().list(user).execute();
-        // List<Label> labels = listResponse.getLabels();
-        // if (labels.size() == 0) {
-        // System.out.println("No labels found.");
-        // } else {
-        // System.out.println("Labels:");
-        // for (Label label : labels) {
-        // System.out.printf("- %s\n", label.getName());
-        // }
-        // }
-    }
-
+//    public static void main(String[] args) throws IOException {
+//        // Build a new authorized API client service.
+//        Gmail service = getGmailService();
+//
+//        // Print the labels in the user's account.
+//        String user = "me";
+//
+//        List<Message> messages = listMessagesMatchingQuery(service, user, "is:unread");
+//
+//        // ListLabelsResponse listResponse =
+//        // service.users().labels().list(user).execute();
+//        // List<Label> labels = listResponse.getLabels();
+//        // if (labels.size() == 0) {
+//        // System.out.println("No labels found.");
+//        // } else {
+//        // System.out.println("Labels:");
+//        // for (Label label : labels) {
+//        // System.out.printf("- %s\n", label.getName());
+//        // }
+//        // }
+//    }
+    
+    
     /**
      * List all Messages of the user's mailbox matching the query.
      *

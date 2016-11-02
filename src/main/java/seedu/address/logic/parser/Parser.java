@@ -119,6 +119,9 @@ public class Parser {
         	
         case LoadCommand.COMMAND_WORD:
             return prepareLoad(arguments);
+            
+        case EmailCommand.COMMAND_WORD:
+            return new EmailCommand();
         
 
         default:
