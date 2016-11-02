@@ -289,6 +289,16 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(null);
         filteredTasks.setPredicate((Task t) -> !t.getDone());
     }
+    
+    public void updateFilteredListToShowImportant() {
+    	filteredTasks.setPredicate(null);
+    	filteredTasks.setPredicate((Task t) -> t.getImportant());
+    }
+    
+    public void updateFilteredListToShowUnimportant(){
+    	filteredTasks.setPredicate(null);
+    	filteredTasks.setPredicate((Task t) -> !t.getImportant());
+    }
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){

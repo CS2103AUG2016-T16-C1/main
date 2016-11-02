@@ -41,6 +41,10 @@ public class Parser {
     
     private static final Pattern FIND_TAG_FORMAT =
     		Pattern.compile("(?<tagname>[\\p{Alnum}]+)");
+    
+    private static final ArrayList<String> listKeywords = 
+    		new ArrayList<>(Arrays.asList("all", "done", "undone", "important", "unimportant", 
+    				"-a", "-d", "-ud", "-ui", "-i"));
 
     public Parser() {}
 
@@ -251,7 +255,7 @@ public class Parser {
     }
     
     private Command prepareList(String args) throws ParseException{
-        if (args.trim().compareTo("done") != 0 && args.trim().compareTo("undone") != 0 && args.trim().compareTo("all") != 0 && args.trim().compareTo("") != 0) {
+        if (!listKeywords.contains(args.trim().toLowerCase())) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_LIST_RESTRICTION));
         }
         else 
