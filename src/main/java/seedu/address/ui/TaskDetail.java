@@ -1,10 +1,12 @@
 package seedu.address.ui;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
@@ -19,6 +21,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.TaskManagerChangedEvent;
+import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
@@ -106,6 +110,11 @@ public class TaskDetail extends UiPart {
     public void loadTaskDetail(ReadOnlyTask task, int index) {
         this.index = index + 1;
         this.task = task;
+        this.fillTaskDetail();
+    }
+    
+    
+    public void fillTaskDetail() {
         content.setText(task.getContent().toString());
         if (task.getDate().getValue() != null) {
             startDatePicker.setValue(DateTimeUtil.changeDateToLocalDate(task.getDate().getValue()));
@@ -132,7 +141,7 @@ public class TaskDetail extends UiPart {
         }
         tags.setText(task.tagsString());
     }
-
+    
     @FXML
     private void handleContentChanged() throws ParseException {
         newContent = content.getText();
