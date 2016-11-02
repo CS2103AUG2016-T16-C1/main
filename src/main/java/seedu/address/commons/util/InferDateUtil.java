@@ -72,14 +72,39 @@ public boolean hasDate(){
 					inferredDate = sdfDate.format(calendar.getTime());
 					sc.close();
 					return true;
+				}else{
+					calendar.add(Calendar.DAY_OF_YEAR, inferredDay - currentDay );
+					inferredDate = sdfDate.format(calendar.getTime());
+					sc.close();
+					return true;
 				}
+				
+			}while(sc.hasNext()){
+				if(sc.next().equals("this") && sc.hasNext()){
+
+					check = sc.next().toLowerCase();
+					if(days.containsKey(check)){
+						inferredDay = days.get(check);
+						if(inferredDay - currentDay <= 0){
+							calendar.add(Calendar.DAY_OF_YEAR, inferredDay - currentDay + 7);
+							inferredDate = sdfDate.format(calendar.getTime());
+							sc.close();
+							return true;
+						}else{
+							calendar.add(Calendar.DAY_OF_YEAR, inferredDay - currentDay );
+							inferredDate = sdfDate.format(calendar.getTime());
+							sc.close();
+							return true;
+						}
+				}
+				
+				
 			}
 		}
 	} 
 			
-	
-	
-	return true;
+	}
+	return false;
 }
 public String inferDate(){
 
