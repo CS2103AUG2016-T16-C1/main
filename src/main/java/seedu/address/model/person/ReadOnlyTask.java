@@ -15,7 +15,9 @@ public interface ReadOnlyTask {
 
     Content getContent();
     TaskDate getDate();
+    TaskDate getEndDate();
     TaskTime getTime();
+    TaskTime getEndTime();
     //@@author A0147989B
     Integer getDuration();
     boolean setNext();
@@ -66,13 +68,13 @@ public interface ReadOnlyTask {
     	final StringBuilder builder = new StringBuilder();
     	builder.append(getContent())
     			.append(" ")
-    			.append(getDate().dateString)
+    			.append(getDate())
     			.append(" ")
-    			.append(getTime().timeString)
+    			.append(getTime())
     			.append(" - ")
-    			.append(getDate().enddateString)
+    			.append(getEndDate())
     			.append(" ")
-    			.append(getTime().endtimeString)
+    			.append(getEndTime())
     			.append(" ")
     			.append("repeat per "+getDuration()+" days ")
     			.append(" Tags: ");

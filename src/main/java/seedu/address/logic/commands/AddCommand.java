@@ -30,11 +30,17 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
+    public static final String MESSAGE_STARTENDDATE_CONSTRAINTS = "Start date must be added";
+    public static final String MESSAGE_STARTENDTIME_CONSTRAINTS = "Start time must be added";
+    public static final String MESSAGE_ENDDATETIME_CONSTRAINTS = "End date must have a corresponding end time, vice versa";
+    
     private final Task toAdd;
 
     private TaskDate dateToAdd;
     private TaskTime timeToAdd;
-
+    private TaskDate enddateToAdd;
+    private TaskTime endtimeToAdd;
+    
     /**
      * Convenience constructor using raw values.
      *
@@ -42,18 +48,20 @@ public class AddCommand extends Command {
      * @throws ParseException
      */
 
-    public AddCommand(String content, String date, String enddate, String time, String endTime, Integer duration, Set<String> tags)
+    public AddCommand(String content, String date, String endDate, String time, String endTime, Integer duration, Set<String> tags)
             throws IllegalValueException, ParseException {
     	assert content != null;
+    	
+        isValidTimeDate(date, endDate, time, endTime);
 
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
-        }
-
+        }      
+               
         if(date != null ){
-        	dateToAdd = new TaskDate(date, enddate);
-        }else if (date == null && enddate == null){
+        	dateToAdd = new TaskDate(date);
+        }else if (date == null){
         	if(new Scanner(content).findInLine("tmr") != null
         			|| new Scanner(content).findInLine("tommorrow") != null){
 
@@ -63,7 +71,7 @@ public class AddCommand extends Command {
         	    calendar.setTime(now);
         	    calendar.add(Calendar.DAY_OF_YEAR, 1);
         	    String dateTmr = sdfDate.format(calendar.getTime());
-        	    dateToAdd = new TaskDate(dateTmr, enddate);
+        	    dateToAdd = new TaskDate(dateTmr);
 
         	}else if (new Scanner(content).findInLine("next week") != null){
         		SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy");
@@ -72,25 +80,50 @@ public class AddCommand extends Command {
         	    calendar.setTime(now);
         	    calendar.add(Calendar.WEEK_OF_YEAR, 1);
         	    String dateNextWeek = sdfDate.format(calendar.getTime());
-        	    dateToAdd = new TaskDate(dateNextWeek, enddate);
+        	    dateToAdd = new TaskDate(dateNextWeek);
         	}
         	else
         		dateToAdd = new TaskDate();
         	}
+        
+        if(endDate.isEmpty()) {
+        	enddateToAdd = new TaskDate();
+        }
+        else
+        	enddateToAdd = new TaskDate(endDate);
 
-        if(time == null && endTime == null)
+        if(time == null)
         	timeToAdd = new TaskTime();
         else
-        	timeToAdd = new TaskTime(time, endTime);
-
-
+        	timeToAdd = new TaskTime(time);
+        
+        if(endTime.isEmpty()) {
+        	endtimeToAdd = new TaskTime();
+        }
+        else
+        	endtimeToAdd = new TaskTime(endTime);
+        
+        if(endDate.isEmpty()) {
         this.toAdd = new Task(
                 new Content(content),
                 dateToAdd,
                 timeToAdd,
                 duration,
                 new UniqueTagList(tagSet)
-        );
+                );
+        }
+        
+        else {
+        	this.toAdd = new Task(
+        			new Content(content),
+        			dateToAdd,
+        			enddateToAdd,
+        			timeToAdd,
+        			endtimeToAdd,
+        			duration,
+        			new UniqueTagList(tagSet)
+        			);
+        }
     }
 
     @Override
@@ -104,5 +137,25 @@ public class AddCommand extends Command {
         }
 
     }
-
+    
+    public static void isValidTimeDate(String startDate, String endDate, String startTime, String endTime) throws IllegalValueException {
+    	if((!endDate.isEmpty() && endTime.isEmpty()) || (endDate.isEmpty() && !endTime.isEmpty())) {
+    		throw new IllegalValueException(MESSAGE_ENDDATETIME_CONSTRAINTS);
+    	}
+    	
+    	else if(!endDate.isEmpty() && !endTime.isEmpty() ) {
+    		hasStartDate(startDate);
+    		hasStartTime(startTime);
+    	}
+    }
+    
+    public static void hasStartDate(String startDate) throws IllegalValueException {
+    	if(startDate.isEmpty()) 
+    		throw new IllegalValueException(MESSAGE_STARTENDDATE_CONSTRAINTS);
+    }
+    
+    public static void hasStartTime(String startTime) throws IllegalValueException {
+    	if(startTime.isEmpty())
+    		throw new IllegalValueException(MESSAGE_STARTENDTIME_CONSTRAINTS);
+    }
 }

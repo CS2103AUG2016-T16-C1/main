@@ -21,7 +21,9 @@ public class Task implements ReadOnlyTask {
 
     private Content content;
     private TaskDate date;
+    private TaskDate endDate;
     private TaskTime time;
+    private TaskTime endTime;
     private Integer duration;
     private boolean done = false;
     private boolean important = false;
@@ -53,6 +55,30 @@ public class Task implements ReadOnlyTask {
         this.important = important;
         this.tags = tags; 
     }
+    
+    public Task(Content content, TaskDate date, TaskDate endDate, TaskTime time, TaskTime endTime, Integer duration, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(content, date, endDate, time, endTime, tags);
+        this.content = content;
+        this.date = date;
+        this.endDate = endDate;
+        this.time = time;
+        this.endTime = endTime;
+        this.tags = tags; 
+        this.duration = duration;
+    }
+    
+    public Task(Content content, TaskDate date, TaskDate endDate, TaskTime time, TaskTime endTime, Integer duration, boolean done, boolean important, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(content, date, endDate, time, endTime, tags);
+        this.content = content;
+        this.date = date;
+        this.endDate = endDate;
+        this.time = time;
+        this.endTime = endTime;
+        this.duration = duration;
+        this.done = done;
+        this.important = important;
+        this.tags = tags; 
+    }
 
     /**
      * Copy constructor.
@@ -66,6 +92,14 @@ public class Task implements ReadOnlyTask {
                 source.getImportant(), 
                 source.getTags());
     }
+    
+    public boolean isEvent(Task taskToCheck) {
+    	if(taskToCheck.getEndDate() == null)
+    		return false;
+    	else
+    		return true;
+    }
+    
     @Override
     public boolean addTags(ArrayList<String> tagsToAdd) throws DuplicateTagException, IllegalValueException {
     	UniqueTagList newList = new UniqueTagList();
@@ -115,11 +149,11 @@ public class Task implements ReadOnlyTask {
 
     @Override
     public String toString() {
-    	if(!date.enddateString.isEmpty() && !time.endtimeString.isEmpty()) {
-        return getAsText2();
+    	if(endDate == null) {
+        return getAsText();
     	}
     	else
-    		return getAsText();
+    		return getAsText2();
     }
 
     @Override
@@ -131,10 +165,21 @@ public class Task implements ReadOnlyTask {
     public TaskDate getDate() {
         return date;
     }
+    
+    @Override
+    public TaskDate getEndDate() {
+    	return endDate;
+    			
+    }
 
     @Override
     public TaskTime getTime() {
         return time;
+    }
+
+    @Override
+    public TaskTime getEndTime() {
+    	return endTime;
     }
     
     @Override
@@ -188,4 +233,5 @@ public class Task implements ReadOnlyTask {
     public boolean getImportant() {
         return important;
     }
+    
 }
