@@ -17,17 +17,25 @@ import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.model.ListMessagesResponse;
 import com.google.api.services.gmail.model.Message;
 
+import seedu.address.logic.LogicManager;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+//@@author A0141054W
+/**
+ * In charge of connecting to gmail to retrieve data
+ */
 public class GmailService {
-    /** Application name. */
+    private final static Logger logger = LogsCenter.getLogger(GmailService.class);
+    
+    /** Application name on google. */
     private static final String APPLICATION_NAME = "Gmail API Java Quickstart";
 
     /** Directory to store user credentials for this application. */
@@ -68,6 +76,7 @@ public class GmailService {
      * @throws IOException
      */
     public static Credential authorize() throws IOException {
+        logger.info("authorizing gmail");
         // Load client secrets.
         InputStream in = GmailService.class.getResourceAsStream("/client_secret.json");
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
@@ -76,7 +85,7 @@ public class GmailService {
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY,
                 clientSecrets, SCOPES).setDataStoreFactory(DATA_STORE_FACTORY).setAccessType("offline").build();
         Credential credential = new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
-        System.out.println("Credentials saved to " + DATA_STORE_DIR.getAbsolutePath());
+        logger.info("Credentials saved to " + DATA_STORE_DIR.getAbsolutePath());
         return credential;
     }
 
@@ -87,33 +96,24 @@ public class GmailService {
      * @throws IOException
      */
     public static Gmail getGmailService() throws IOException {
+        logger.info("connecting to gmail server");
         Credential credential = authorize();
         return new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential).setApplicationName(APPLICATION_NAME).build();
     }
-
-    // public static void main(String[] args) throws IOException {
-    // // Build a new authorized API client service.
-    // Gmail service = getGmailService();
-    //
-    // // Print the labels in the user's account.
-    // String user = "me";
-    //
-    // List<Message> messages = listMessagesMatchingQuery(service, user,
-    // "is:unread");
-    //
-    // // ListLabelsResponse listResponse =
-    // // service.users().labels().list(user).execute();
-    // // List<Label> labels = listResponse.getLabels();
-    // // if (labels.size() == 0) {
-    // // System.out.println("No labels found.");
-    // // } else {
-    // // System.out.println("Labels:");
-    // // for (Label label : labels) {
-    // // System.out.printf("- %s\n", label.getName());
-    // // }
-    // // }
-    // }
-
+    
+    
+    /**
+     * List all subjects of Messages of the user's mailbox matching the query.
+     *
+     * @param service
+     *            Authorized Gmail API instance.
+     * @param userId
+     *            User's email address. The special value "me" can be used to
+     *            indicate the authenticated user.
+     * @param query
+     *            String used to filter the Messages listed.
+     * @throws IOException
+     */
     public static List<String> listSubjectsMatchingQuery(Gmail service, String userId, String query)
             throws IOException {
         List<Message> messages = GmailService.listMessagesMatchingQuery(service, userId, query);

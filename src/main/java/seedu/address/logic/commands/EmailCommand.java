@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 
 import com.google.api.services.gmail.Gmail;
-import com.google.api.services.gmail.model.Message;
 
 import seedu.address.commons.core.GmailService;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -16,6 +15,7 @@ import seedu.address.model.person.TaskDate;
 import seedu.address.model.person.TaskTime;
 import seedu.address.model.person.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.tag.UniqueTagList;
+//@@author A0141054W
 
 public class EmailCommand extends Command {
 
@@ -67,8 +67,6 @@ public class EmailCommand extends Command {
                             new TaskTime(),
                             new UniqueTagList(new HashSet<>()));
                 } catch (IllegalValueException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
                 }
                 try {
                     model.addTask(toAdd);

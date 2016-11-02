@@ -119,7 +119,8 @@ public class Parser {
         	
         case LoadCommand.COMMAND_WORD:
             return prepareLoad(arguments);
-            
+        //@@author A0141054W
+
         case EmailCommand.COMMAND_WORD:
             return new EmailCommand();
         
