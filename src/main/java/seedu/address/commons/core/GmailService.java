@@ -91,29 +91,47 @@ public class GmailService {
         return new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential).setApplicationName(APPLICATION_NAME).build();
     }
 
-//    public static void main(String[] args) throws IOException {
-//        // Build a new authorized API client service.
-//        Gmail service = getGmailService();
-//
-//        // Print the labels in the user's account.
-//        String user = "me";
-//
-//        List<Message> messages = listMessagesMatchingQuery(service, user, "is:unread");
-//
-//        // ListLabelsResponse listResponse =
-//        // service.users().labels().list(user).execute();
-//        // List<Label> labels = listResponse.getLabels();
-//        // if (labels.size() == 0) {
-//        // System.out.println("No labels found.");
-//        // } else {
-//        // System.out.println("Labels:");
-//        // for (Label label : labels) {
-//        // System.out.printf("- %s\n", label.getName());
-//        // }
-//        // }
-//    }
-    
-    
+    // public static void main(String[] args) throws IOException {
+    // // Build a new authorized API client service.
+    // Gmail service = getGmailService();
+    //
+    // // Print the labels in the user's account.
+    // String user = "me";
+    //
+    // List<Message> messages = listMessagesMatchingQuery(service, user,
+    // "is:unread");
+    //
+    // // ListLabelsResponse listResponse =
+    // // service.users().labels().list(user).execute();
+    // // List<Label> labels = listResponse.getLabels();
+    // // if (labels.size() == 0) {
+    // // System.out.println("No labels found.");
+    // // } else {
+    // // System.out.println("Labels:");
+    // // for (Label label : labels) {
+    // // System.out.printf("- %s\n", label.getName());
+    // // }
+    // // }
+    // }
+
+    public static List<String> listSubjectsMatchingQuery(Gmail service, String userId, String query)
+            throws IOException {
+        List<Message> messages = GmailService.listMessagesMatchingQuery(service, userId, query);
+        List<String> subjects = new ArrayList<String>();
+
+        for (Message message : messages) {
+            Message currentMessage = service.users().messages().get(userId, message.getId()).execute();
+            List<MessagePartHeader> headers = currentMessage.getPayload().getHeaders();
+            for (MessagePartHeader header : headers) {
+                if (header.getName().compareTo("Subject") == 0) {
+                    subjects.add(header.getValue());
+                }
+            }
+        }
+
+        return subjects;
+    }
+
     /**
      * List all Messages of the user's mailbox matching the query.
      *
@@ -140,19 +158,6 @@ public class GmailService {
                 break;
             }
         }
-
-        for (Message message : messages) {
-            Message currentMessage = service.users().messages().get(userId, message.getId()).execute();
-            List<MessagePartHeader> headers = currentMessage.getPayload().getHeaders();
-            for (MessagePartHeader header : headers) {
-                // System.out.println(header.getName());
-                if (header.getName().compareTo("Subject") == 0) {
-                    System.out.println(header.getValue());
-
-                }
-            }
-        }
-
         return messages;
     }
 

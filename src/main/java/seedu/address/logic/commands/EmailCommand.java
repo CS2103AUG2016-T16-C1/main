@@ -1,12 +1,21 @@
 package seedu.address.logic.commands;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.model.Message;
 
 import seedu.address.commons.core.GmailService;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.person.Content;
+import seedu.address.model.person.ReadOnlyTask;
+import seedu.address.model.person.Task;
+import seedu.address.model.person.TaskDate;
+import seedu.address.model.person.TaskTime;
+import seedu.address.model.person.UniqueTaskList.DuplicateTaskException;
+import seedu.address.model.tag.UniqueTagList;
 
 public class EmailCommand extends Command {
 
@@ -15,47 +24,61 @@ public class EmailCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": adds unread email as tasks to Hard2Do. \n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "Task updated with unread emails: %1$s";
+    public static final String MESSAGE_SUCCESS = "Unread Email added to Hard2Do";
+    
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Hard2Do. Try to mark read those emails that you have added before!";
+    
+    public static final String MESSAGE_NO_CONNECTION = "Cannot connect to gmail server";
 
     private static final String MESSAGE_NO_UNREAD_EMAIL = "There is currently no unread email";
 
-    List<Message> unreadMessages;
-    
-    public EmailCommand() {}
+    public EmailCommand() {
+    }
 
     @Override
     public CommandResult execute() {
-        Gmail service = null;        
+        List<String> unreadMessages;
+        Gmail service = null;
         String user = "me";
         String query = "is:unread";
+        ReadOnlyTask toAdd = null;
         
         try {
             service = GmailService.getGmailService();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            return new CommandResult(MESSAGE_NO_CONNECTION);
         }
 
-        
         try {
-            unreadMessages = GmailService.listMessagesMatchingQuery(service, user, query);
+            unreadMessages = GmailService.listSubjectsMatchingQuery(service, user, query);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            return new CommandResult(MESSAGE_NO_CONNECTION);
         }
-        
+
         if (unreadMessages.isEmpty())
             return new CommandResult(MESSAGE_NO_UNREAD_EMAIL);
         else {
             assert model != null;
-            for (Message message:unreadMessages) {
-                System.out.println(message.toPrettyString());
+            for (String message : unreadMessages) {
+                try {
+                    toAdd = new Task(
+                            new Content(message),
+                            new TaskDate(),
+                            new TaskTime(),
+                            new UniqueTagList(new HashSet<>()));
+                } catch (IllegalValueException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                try {
+                    model.addTask(toAdd);
+                } catch (DuplicateTaskException e) {
+                    return new CommandResult(MESSAGE_DUPLICATE_TASK);
+                }
             }
         }
-        
-        
 
-        return null;
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 
 }
