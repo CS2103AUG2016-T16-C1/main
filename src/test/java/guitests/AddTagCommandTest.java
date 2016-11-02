@@ -23,7 +23,7 @@ public class AddTagCommandTest extends TaskManagerGuiTest{
     public ExpectedException thrown = ExpectedException.none();
     
     @Test
-    public void addTag() throws DuplicateTagException, IllegalValueException {
+    public void testAddTag_differentIndex_updatedTasksExpected() throws DuplicateTagException, IllegalValueException {
         TestTask[] currentList = td.getTypicalTasks();
         int targetIndex = 1;
         String newTag = "newtag";
@@ -37,24 +37,23 @@ public class AddTagCommandTest extends TaskManagerGuiTest{
         //add tag to item with no task
         targetIndex = 2;
         assertAddTagSuccess(targetIndex, currentList, newTag);
-              
-        
     }
     
     
     @Test
-    public void addTagToInvalidIndex() throws DuplicateTagException, IllegalValueException {
+    public void testAddTag_invalidIndex_errorMessageExpected() throws DuplicateTagException, IllegalValueException {
         commandBox.runCommand("addtag " + "100 " + "newTag");
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
     
     @Test
-    public void addInvalidTag() throws DuplicateTagException, IllegalValueException {
+    public void testAddTag_invalidTag_errorMessageExpected() throws DuplicateTagException, IllegalValueException {
         commandBox.runCommand("addtag " + "1 " + "newTag$^&");
         assertResultMessage(AddTagCommand.MESSAGE_INVALID_TAG);
 
     }
     
+    //helper method for main test
     private void assertAddTagSuccess(int targetIndexOneIndexed, final TestTask[] currentList, String newTag) throws DuplicateTagException, IllegalValueException {
         TestTask taskToAddTag = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
         ArrayList<String> tagList = new ArrayList<String>();

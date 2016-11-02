@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import com.google.common.eventbus.Subscribe;
 
-import impl.org.controlsfx.autocompletion.AutoCompletionTextFieldBinding;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -11,7 +10,6 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.*;
@@ -19,14 +17,17 @@ import seedu.address.commons.util.FxViewUtil;
 import seedu.address.commons.core.LogsCenter;
 
 import java.text.ParseException;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.logging.Logger;
 
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.AutoCompletionBinding.AutoCompletionEvent;
 import org.controlsfx.control.textfield.TextFields;
+
 //@@author A0141054W-reused
+/**
+ * CommandBox is in charge of prompting the user of the commands (auto complete)
+ * and receive commands, passing it to Logic to handle
+ */
 public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private static final String FXML = "CommandBox.fxml";
@@ -42,31 +43,31 @@ public class CommandBox extends UiPart {
     private TextField commandTextField;
     private CommandResult mostRecentResult;
 
-    public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder,
-            ResultDisplay resultDisplay, Logic logic) {
+    public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder, ResultDisplay resultDisplay,
+            Logic logic) {
         CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
         commandBox.configure(resultDisplay, logic);
         commandBox.addToPlaceholder();
         return commandBox;
     }
-  //@@author A0141054W
+
+    // @@author A0141054W
     public void configure(ResultDisplay resultDisplay, Logic logic) {
         this.resultDisplay = resultDisplay;
         this.logic = logic;
-        AutoCompletionBinding<String> acb = TextFields.bindAutoCompletion(commandTextField , FXCollections.observableArrayList("Undo", "Select", "List", "Add"));
+        AutoCompletionBinding<String> acb = TextFields.bindAutoCompletion(commandTextField,
+                FXCollections.observableArrayList("Undo", "Select", "List", "Add"));
 
-        acb.setOnAutoCompleted(new EventHandler<AutoCompletionBinding.AutoCompletionEvent<String>>()
-        {
-
-        @Override
-        public void handle(AutoCompletionEvent<String> event) {
-            String valueFromAutoCompletion = event.getCompletion();
-            
-        }
-        });      
+        acb.setOnAutoCompleted(new EventHandler<AutoCompletionBinding.AutoCompletionEvent<String>>() {
+            @Override
+            public void handle(AutoCompletionEvent<String> event) {
+                String valueFromAutoCompletion = event.getCompletion();
+            }
+        });
         registerAsAnEventHandler(this);
     }
-  //@@author
+
+    // @@author
     private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(commandTextField);
@@ -89,21 +90,21 @@ public class CommandBox extends UiPart {
         this.placeHolderPane = pane;
     }
 
-
     @FXML
     private void handleCommandInputChanged() throws ParseException {
-        //Take a copy of the command text
+        // Take a copy of the command text
         previousCommandTest = commandTextField.getText();
 
-        /* We assume the command is correct. If it is incorrect, the command box will be changed accordingly
-         * in the event handling code {@link #handleIncorrectCommandAttempted}
+        /*
+         * We assume the command is correct. If it is incorrect, the command box
+         * will be changed accordingly in the event handling code {@link
+         * #handleIncorrectCommandAttempted}
          */
         setStyleToIndicateCorrectCommand();
         mostRecentResult = logic.execute(previousCommandTest);
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
-
 
     /**
      * Sets the command box style to indicate a correct command.
@@ -114,8 +115,8 @@ public class CommandBox extends UiPart {
     }
 
     @Subscribe
-    private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event){
-        logger.info(LogsCenter.getEventHandlingLogMessage(event,"Invalid command: " + previousCommandTest));
+    private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Invalid command: " + previousCommandTest));
         setStyleToIndicateIncorrectCommand();
         restoreCommandText();
     }

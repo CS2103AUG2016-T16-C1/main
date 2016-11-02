@@ -9,7 +9,7 @@ public class SelectCommandTest extends TaskManagerGuiTest {
 
 
     @Test
-    public void selectTask_nonEmptyList() {
+    public void testSelectTask_nonEmptyList_taskSelectedExpected() {
 
         assertSelectionInvalid(10); //invalid index
         assertNoTaskSelected();
@@ -27,12 +27,13 @@ public class SelectCommandTest extends TaskManagerGuiTest {
     }
 
     @Test
-    public void selectTask_emptyList(){
+    public void testSelectTask_emptyList_errorMessageExpected(){
         commandBox.runCommand("clear");
         assertListSize(0);
         assertSelectionInvalid(1); //invalid index
     }
-
+    
+    //helper method
     private void assertSelectionInvalid(int index) {
         commandBox.runCommand("select " + index);
         assertResultMessage("The task index provided is invalid");

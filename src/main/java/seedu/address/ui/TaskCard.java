@@ -12,11 +12,15 @@ import javafx.scene.shape.Circle;
 import seedu.address.logic.Logic;
 import seedu.address.model.person.ReadOnlyTask;
 //@@author A0141054W
+
+/**
+ * The task card on the task list on the left
+ * Including the content, date and tag of a task
+ */
 public class TaskCard extends UiPart{
 
     private static final String FXML = "TaskListCard.fxml";
     private Logic logic;
-
 
     @FXML
     private HBox cardPane;
@@ -56,10 +60,8 @@ public class TaskCard extends UiPart{
         doneCheckBox.setSelected(task.getDone());
         if (task.getImportant()) {
         	importantCircle.setFill(Paint.valueOf("red"));
-        }
-        else {
+        } else {
         	importantCircle.setFill(Paint.valueOf("green"));
-
         }
 
         tags.setText(task.tagsString());
@@ -83,8 +85,7 @@ public class TaskCard extends UiPart{
     public void handleDoneCheckBox() throws ParseException {
     	if (doneCheckBox.isSelected()) {
     		logic.execute("done " + displayedIndex);
-    	}
-    	else {
+    	} else {
     		logic.execute("undone " + displayedIndex);
     	}
     }

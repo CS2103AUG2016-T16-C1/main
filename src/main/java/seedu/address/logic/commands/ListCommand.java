@@ -1,10 +1,10 @@
 package seedu.address.logic.commands;
 
-
-/**
- * Lists all persons in the address book to the user.
- */
 //@@author A0141054W
+/**
+ * Lists all task in the task manager to the user.
+ * optional to list done, undone, important, unimportant
+ */
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";

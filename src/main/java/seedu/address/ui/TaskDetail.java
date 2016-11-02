@@ -26,6 +26,11 @@ import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.Task;
 
 //@@author A0141054W
+
+/**
+ * The task details on the right panel
+ * Able to do click and edit
+ */
 public class TaskDetail extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TaskDetail.class);
     private static final String FXML = "TaskDetail.fxml";

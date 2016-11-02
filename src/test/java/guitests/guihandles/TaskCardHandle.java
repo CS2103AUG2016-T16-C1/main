@@ -4,11 +4,11 @@ import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import seedu.address.model.person.ReadOnlyTask;
+//@@author A0139523E-reused
 
 /**
- * Provides a handle to a task card in the person list panel.
+ * Provides a handle to a task card in the task list panel.
  */
-//@@author A0139523E-reused
 public class TaskCardHandle extends GuiHandle {
     private static final String CONTENT_FIELD_ID = "#content";
     private static final String DATE_FIELD_ID = "#date";

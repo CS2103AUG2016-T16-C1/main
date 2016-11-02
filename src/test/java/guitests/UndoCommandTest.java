@@ -9,7 +9,7 @@ import org.junit.Test;
 public class UndoCommandTest extends TaskManagerGuiTest{
     
     @Test
-    public void undoSingleCommand() {
+    public void testUndo_oneCommand_previousStateExpected() {
         //undo 1 command
         commandBox.runCommand(td.appointment.getAddCommand());
         commandBox.runCommand("undo");
@@ -17,7 +17,7 @@ public class UndoCommandTest extends TaskManagerGuiTest{
     }
     
     @Test
-    public void undoMultipleCommand() {
+    public void testUndo_multipleCommand_originalStateExpected() {
         //undo more than 1 command
         commandBox.runCommand(td.appointment.getAddCommand());
         commandBox.runCommand(td.flight.getAddCommand());
@@ -31,7 +31,7 @@ public class UndoCommandTest extends TaskManagerGuiTest{
     }
     
     @Test
-    public void undoNoCommand() {
+    public void testUndo_noCommand_errorMessageExpected() {
         commandBox.runCommand("undo");
         assertResultMessage("No available commands can be undone");
 

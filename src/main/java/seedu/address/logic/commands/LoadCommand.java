@@ -5,6 +5,9 @@ import java.io.IOException;
 import seedu.address.commons.util.ConfigUtil;
 
 //@@author A0141054W
+/**
+ * Load data from a specific file
+ */
 public class LoadCommand extends Command {
     
     public static final String COMMAND_WORD = "load";

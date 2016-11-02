@@ -14,9 +14,8 @@ import org.junit.Test;
 //@@author A0141054W
 public class DoneCommandTest extends TaskManagerGuiTest {
 
-    
     @Test
-    public void done() {
+    public void testDone_differentIndex_updatedDoneListExpected() {
         TestTask[] currentList = td.getTypicalTasks();
         //done first item
         int targetIndex = 1;
@@ -30,20 +29,18 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         //done already done item
         commandBox.runCommand("list");
         assertDoneTaskSuccess(targetIndex, currentList);
-
-        
-        
-        
+     
     }
     
     @Test
-    public void doneInvalidIndex() {
+    public void testDone_invalidIndex_errorMessageExpected() {
         //done a invalid index
         commandBox.runCommand("done " + "100");    
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         
     }
     
+    //helper method for main test
     private void assertDoneTaskSuccess(int targetIndexOneIndexed, final TestTask[] currentList) throws IllegalStateException {
         TestTask taskToDone = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
         taskToDone.setDone();

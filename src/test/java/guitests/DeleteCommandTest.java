@@ -10,7 +10,7 @@ import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUC
 public class DeleteCommandTest extends TaskManagerGuiTest {
 
     @Test
-    public void delete() {
+    public void testDelete_differentIndex_updatedTaskListExpected() {
 
         //delete the first in the list
         TestTask[] currentList = td.getTypicalTasks();
@@ -27,11 +27,14 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         targetIndex = currentList.length/2;
         assertDeleteSuccess(targetIndex, currentList);
 
+    }
+    
+    @Test
+    public void testDelete_invalidIndex_errorMessageExpected() {
+        TestTask[] currentList = td.getTypicalTasks();
         //invalid index
         commandBox.runCommand("delete " + currentList.length + 1);
-        
         assertResultMessage("The task index provided is invalid");
-
     }
 
     /**
