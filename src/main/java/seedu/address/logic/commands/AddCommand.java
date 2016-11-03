@@ -64,43 +64,33 @@ public class AddCommand extends Command {
 		if (date != null) {
 			dateToAdd = new TaskDate(date);
 		} else if (date == null) {
-			if (new Scanner(content).findInLine("tmr") != null
-					|| new Scanner(content).findInLine("tommorrow") != null) {
-
-				SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy");
-				Date now = new Date();
-				Calendar calendar = Calendar.getInstance();
-				calendar.setTime(now);
-				calendar.add(Calendar.DAY_OF_YEAR, 1);
-				String dateTmr = sdfDate.format(calendar.getTime());
-				dateToAdd = new TaskDate(dateTmr);
-
-			} else if (new Scanner(content).findInLine("next week") != null) {
-				SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy");
-				Date now = new Date();
-				Calendar calendar = Calendar.getInstance();
-				calendar.setTime(now);
-				calendar.add(Calendar.WEEK_OF_YEAR, 1);
-				String dateNextWeek = sdfDate.format(calendar.getTime());
-				dateToAdd = new TaskDate(dateNextWeek);
-			} else
+			InferDateUtil idu = new InferDateUtil(content);
+			if(idu.findDate()){
+				dateToAdd = new TaskDate(idu.getDate());
+			}else{
 				dateToAdd = new TaskDate();
+			}
 		}
 		// check null for date and time
 		if (endDate == null) {
 			enddateToAdd = new TaskDate();
 		} else
 			enddateToAdd = new TaskDate(endDate);
-
-		if (time == null)
-			timeToAdd = new TaskTime();
-		else
-			timeToAdd = new TaskTime(time);
-
-		if (endTime == null) {
-			endtimeToAdd = new TaskTime();
-		} else
-			endtimeToAdd = new TaskTime(endTime);
+		
+		InferTimeUtil itu = new InferTimeUtil(content);
+		
+		if(time == null){
+			if(itu.findTimeToTime()){
+				timeToAdd = new TaskTime(itu.getStartTime());
+				endtimeToAdd = new TaskTime(itu.getEndTime());
+			}
+			else if(itu.findTime()){
+				timeToAdd = new TaskTime(itu.getTime());
+			}
+			else{
+				timeToAdd = new TaskTime();
+			}
+		}
 		
 		if (endDate == null) {
 			if (duration != null) {
