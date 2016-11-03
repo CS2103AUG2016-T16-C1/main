@@ -35,6 +35,11 @@ public class InferDateUtil {
 	    contentToInfer = content;
 	    calendar = Calendar.getInstance();
 	    currentDay = calendar.get(Calendar.DAY_OF_WEEK);
+	    if(currentDay == 1){
+	    	currentDay = 7;
+	    }else{
+	    	currentDay -= 1;
+	    }
 	    now = new Date();
 	    days = new HashMap<String, Integer>();
 	    days.put("monday", 1);
@@ -97,6 +102,7 @@ public class InferDateUtil {
 				
 				if(days.containsKey(check)){
 					inferredDay = days.get(check);
+					
 					
 					if(inferredDay - currentDay <= 0){
 						calendar.add(Calendar.DAY_OF_YEAR, inferredDay - currentDay + 7);
