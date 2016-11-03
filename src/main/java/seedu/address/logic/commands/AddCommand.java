@@ -89,6 +89,7 @@ public class AddCommand extends Command {
 				endtimeToAdd = new TaskTime(itu.getEndTime());
 			} else if (itu.findTime()) {
 				timeToAdd = new TaskTime(itu.getTime());
+				endtimeToAdd = new TaskTime();
 			} else {
 				timeToAdd = new TaskTime();
 				endtimeToAdd = new TaskTime();
