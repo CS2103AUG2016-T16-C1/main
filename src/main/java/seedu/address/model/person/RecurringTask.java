@@ -190,4 +190,16 @@ public class RecurringTask implements ReadOnlyTask {
     public boolean getImportant() {
         return important;
     }
+
+	@Override
+	public TaskDate getEndDate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TaskTime getEndTime() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

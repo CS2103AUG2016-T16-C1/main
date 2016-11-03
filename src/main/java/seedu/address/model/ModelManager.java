@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 /**
@@ -293,12 +294,12 @@ public class ModelManager extends ComponentManager implements Model {
     
     public void updateFilteredListToShowImportant() {
     	filteredTasks.setPredicate(null);
-    	filteredTasks.setPredicate((Task t) -> t.getImportant());
+    	filteredTasks.setPredicate((ReadOnlyTask t) -> t.getImportant());
     }
     
     public void updateFilteredListToShowUnimportant(){
     	filteredTasks.setPredicate(null);
-    	filteredTasks.setPredicate((Task t) -> !t.getImportant());
+    	filteredTasks.setPredicate((ReadOnlyTask t) -> !t.getImportant());
     }
 
     @Override
