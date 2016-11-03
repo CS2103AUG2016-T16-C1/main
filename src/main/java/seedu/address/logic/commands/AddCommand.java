@@ -65,9 +65,9 @@ public class AddCommand extends Command {
 			dateToAdd = new TaskDate(date);
 		} else if (date == null) {
 			InferDateUtil idu = new InferDateUtil(content);
-			if(idu.findDate()){
+			if (idu.findDate()) {
 				dateToAdd = new TaskDate(idu.getDate());
-			}else{
+			} else {
 				dateToAdd = new TaskDate();
 			}
 		}
@@ -76,36 +76,37 @@ public class AddCommand extends Command {
 			enddateToAdd = new TaskDate();
 		} else
 			enddateToAdd = new TaskDate(endDate);
-		
-		InferTimeUtil itu = new InferTimeUtil(content);
-		
-		if(time == null){
-			if(itu.findTimeToTime()){
+
+		if (time != null) {
+			timeToAdd = new TaskTime(time);
+		if(endTime != null) {
+				endtimeToAdd = new TaskTime(endTime);
+			}		
+		} else if (time == null && endTime == null) {
+			InferTimeUtil itu = new InferTimeUtil(content);
+			if (itu.findTimeToTime()) {
 				timeToAdd = new TaskTime(itu.getStartTime());
 				endtimeToAdd = new TaskTime(itu.getEndTime());
-			}
-			else if(itu.findTime()){
+			} else if (itu.findTime()) {
 				timeToAdd = new TaskTime(itu.getTime());
-			}
-			else{
+			} else {
 				timeToAdd = new TaskTime();
+				endtimeToAdd = new TaskTime();
 			}
 		}
-		
+
 		if (endDate == null) {
 			if (duration != null) {
 				this.toAdd = new RecurringTask(new Content(content), dateToAdd, timeToAdd, duration,
 						new UniqueTagList(tagSet));
-			} 
-			else {
-			this.toAdd = new Task(new Content(content), dateToAdd, timeToAdd, new UniqueTagList(tagSet));
-		}
-		}
-		else {
+			} else {
+				this.toAdd = new Task(new Content(content), dateToAdd, timeToAdd, new UniqueTagList(tagSet));
+			}
+		} else {
 			this.toAdd = new Task(new Content(content), dateToAdd, enddateToAdd, timeToAdd, endtimeToAdd, duration,
 					new UniqueTagList(tagSet));
 		}
-		
+
 	}
 
 	@Override

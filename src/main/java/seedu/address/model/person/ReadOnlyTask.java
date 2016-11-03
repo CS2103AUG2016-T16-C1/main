@@ -85,7 +85,7 @@ public interface ReadOnlyTask {
     
     default String getAsText0() {
         final StringBuilder builder = new StringBuilder();
-        if (!this.getEndDate().dateString.isEmpty() && !this.getEndTime().timeString.isEmpty())
+        if (this.getEndDate() != null)
             builder.append(getContent())
                    .append(" ")
                    .append(getDate().dateString)
