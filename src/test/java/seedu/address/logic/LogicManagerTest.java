@@ -385,12 +385,14 @@ public class LogicManagerTest {
 
         Task homework() throws Exception {
             Content content = new Content("Do Homework");
-            TaskDate taskdate = new TaskDate("21-02-2016", "22-02-2016");
-            TaskTime tasktime = new TaskTime("13:00", "16:00");
+            TaskDate taskdate = new TaskDate("21-02-2016");
+            TaskDate enddate = new TaskDate("22-02-2016");
+            TaskTime tasktime = new TaskTime("13:00");
+            TaskTime endtime = new TaskTime("16:00");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(content, taskdate, tasktime, 0, tags);
+            return new Task(content, taskdate, enddate, tasktime, endtime, 0, tags);
         }
 
         /**
@@ -404,8 +406,10 @@ public class LogicManagerTest {
       
             return new Task(
                     new Content("Content " + seed),
-                    new TaskDate(("1" + Math.abs(seed) + "-0" + Math.abs(seed) + "-2016"), ("2" + Math.abs(seed) + "-0" + Math.abs(seed) + "-2016")),
-                    new TaskTime(("1" + Math.abs(seed) + ":0" + Math.abs(seed)), ("1" + Math.abs(seed) + ":1" + Math.abs(seed))), 5,
+                    new TaskDate("1" + Math.abs(seed) + "-0" + Math.abs(seed) + "-2016"), 
+                    new TaskDate("2" + Math.abs(seed) + "-0" + Math.abs(seed) + "-2016"),
+                    new TaskTime("1" + Math.abs(seed) + ":0" + Math.abs(seed)), 
+                    new TaskTime("1" + Math.abs(seed) + ":1" + Math.abs(seed)), 5,
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -419,9 +423,9 @@ public class LogicManagerTest {
 
             cmd.append(t.getContent().value);
             cmd.append(" sd/").append(t.getDate().dateString);
-            cmd.append(" ed/").append(t.getDate().enddateString);
+            cmd.append(" ed/").append(t.getEndDate().dateString);
             cmd.append(" st/").append(t.getTime().timeString);
-            cmd.append(" et/").append(t.getTime().endtimeString);
+            cmd.append(" et/").append(t.getEndTime().timeString);
             cmd.append(" r/").append(t.getDuration());
 
             UniqueTagList tags = t.getTags();
@@ -505,8 +509,10 @@ public class LogicManagerTest {
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
                     new Content(name),
-                    new TaskDate("13-02-2016", null),
-                    new TaskTime("13:00", null), null,
+                    new TaskDate("13-02-2016"), 
+                    new TaskDate("14-02-2016"),
+                    new TaskTime("13:00"),
+                    new TaskTime("14:00"), null,
                     new UniqueTagList(new Tag("tag"))
             );
         }

@@ -96,7 +96,6 @@ public class History {
 	        			ed,
 	        			tt,
 	        			et,
-	        			duration,
 	        			new UniqueTagList(tagSet))
 	        			);
 			}

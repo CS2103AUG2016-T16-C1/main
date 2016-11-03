@@ -79,9 +79,9 @@ public class AddCommand extends Command {
 
 		if (time != null) {
 			timeToAdd = new TaskTime(time);
-		if(endTime != null) {
+			if (endTime != null) {
 				endtimeToAdd = new TaskTime(endTime);
-			}		
+			}
 		} else if (time == null && endTime == null) {
 			InferTimeUtil itu = new InferTimeUtil(content);
 			if (itu.findTimeToTime()) {
@@ -95,18 +95,16 @@ public class AddCommand extends Command {
 			}
 		}
 
-		if (endDate == null) {
-			if (duration != null) {
-				this.toAdd = new RecurringTask(new Content(content), dateToAdd, timeToAdd, duration,
-						new UniqueTagList(tagSet));
-			} else {
-				this.toAdd = new Task(new Content(content), dateToAdd, timeToAdd, new UniqueTagList(tagSet));
-			}
-		} else {
-			this.toAdd = new Task(new Content(content), dateToAdd, enddateToAdd, timeToAdd, endtimeToAdd, duration,
+		if (duration != null) {
+			this.toAdd = new RecurringTask(new Content(content), dateToAdd, timeToAdd, duration,
 					new UniqueTagList(tagSet));
+		} else if(endtimeToAdd != null || enddateToAdd != null) {
+				this.toAdd = new Task(new Content(content), dateToAdd, enddateToAdd, timeToAdd, endtimeToAdd,
+						new UniqueTagList(tagSet));
+			}
+		else {
+			this.toAdd = new Task(new Content(content), dateToAdd, timeToAdd, new UniqueTagList(tagSet));
 		}
-
 	}
 
 	@Override
