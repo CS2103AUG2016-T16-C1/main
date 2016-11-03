@@ -7,7 +7,7 @@ import seedu.address.model.person.*;
 import seedu.address.model.person.UniqueTaskList.TaskNotFoundException;
 
 //@@author A0147989B
-public class UndoneCommand extends Command{
+public class UndoneCommand extends Command {
 
     public static final String COMMAND_WORD = "undone";
     

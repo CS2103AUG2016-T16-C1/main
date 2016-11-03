@@ -12,6 +12,8 @@ import java.util.regex.Pattern;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EMAIL_FORMAT;
+
 
 /**
  * Parses user input.
@@ -41,6 +43,14 @@ public class Parser {
     
     private static final Pattern FIND_TAG_FORMAT =
     		Pattern.compile("(?<tagname>[\\p{Alnum}]+)");
+    //@@author A0141054W
+    public static final Pattern VALID_EMAIL_ADDRESS_FORMAT = 
+            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+    //@@author
+    
+    private static final ArrayList<String> listKeywords = 
+    		new ArrayList<>(Arrays.asList("all", "done", "undone", "important", "unimportant", 
+    				"-a", "-d", "-ud", "-ui", "-i"));
 
     public Parser() {}
 
@@ -119,6 +129,10 @@ public class Parser {
         	
         case LoadCommand.COMMAND_WORD:
             return prepareLoad(arguments);
+        //@@author A0141054W
+
+        case EmailCommand.COMMAND_WORD:
+            return prepareEmail(arguments);
         
 
         default:
@@ -126,7 +140,7 @@ public class Parser {
         }
     }
     /**
-     * Parses arguments in the context of the edit person command.
+     * Parses arguments in the context of the edit task command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -148,7 +162,7 @@ public class Parser {
         }
     }
     /**
-     * Parses arguments in the context of the add person command.
+     * Parses arguments in the context of the add task command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -249,27 +263,66 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-    
+    //@@author A0141054W
+    /**
+     * Parses arguments in the context of the list task command.
+     *
+     * @param done, undone, all
+     * @return the prepared command
+     * @throws ParseException 
+     */
     private Command prepareList(String args) throws ParseException{
-        if (args.trim().compareTo("done") != 0 && args.trim().compareTo("undone") != 0 && args.trim().compareTo("all") != 0 && args.trim().compareTo("") != 0) {
+        if (!listKeywords.contains(args.trim().toLowerCase())) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_LIST_RESTRICTION));
         }
         else 
             return new ListCommand(args.trim());
     }
-  //@@author A0141054W
+    
+    /**
+     * Parses arguments in the context of the email command.
+     *
+     * @param args should be an email address
+     * @return the prepared command
+     * @throws ParseException 
+     */
+    private Command prepareEmail(String arg) throws ParseException{
+        String email = arg.trim();
+        if (email.compareTo("") == 0) {
+            return new EmailCommand("");
+        }
+        final Matcher matcher = VALID_EMAIL_ADDRESS_FORMAT.matcher(email);
+        if (!matcher.matches()) {
+            return new IncorrectCommand(MESSAGE_INVALID_EMAIL_FORMAT);
+        } else {
+            return new EmailCommand(email);
+        }
+    }
+    
+    /**
+     * Parses arguments in the context of the load command.
+     *
+     * @param args should be the file path
+     * @return the prepared command
+     * @throws ParseException 
+     */
     private Command prepareLoad(String args) throws ParseException{
         File file = new File(args.trim());
         if (file.isDirectory()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoadCommand.MESSAGE_DIRECTORY_FILEPATH));
-        }
-        else if (!file.exists()) {
+        } else if (!file.exists()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoadCommand.MESSAGE_INVALID_FILEPATH));
-        }
-        else
+        } else
             return new LoadCommand(args.trim());
     }
     
+    /**
+     * Parses arguments in the context of the add tag command.
+     *
+     * @param args should be a valid tag
+     * @return the prepared command
+     * @throws ParseException 
+     */
     private Command prepareAddTags(String args) throws ParseException{
         Matcher matcher = ADD_TAGS_FORMAT.matcher(args.trim());
         // Validate arg string format
@@ -286,6 +339,13 @@ public class Parser {
         }
     }
     
+    /**
+     * Parses arguments in the context of the delete tag command.
+     *
+     * @param args should be a valid tag
+     * @return the prepared command
+     * @throws ParseException 
+     */
     private Command prepareDeleteTags(String args) throws ParseException{
         Matcher matcher = DELETE_TAGS_FORMAT.matcher(args.trim());
         // Validate arg string format

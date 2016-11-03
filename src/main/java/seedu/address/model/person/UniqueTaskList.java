@@ -23,7 +23,7 @@ import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
 //@@author A0141054W-reused
-public class UniqueTaskList implements Iterable<Task> {
+public class UniqueTaskList implements Iterable<ReadOnlyTask> {
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
@@ -41,7 +41,7 @@ public class UniqueTaskList implements Iterable<Task> {
     public static class TaskNotFoundException extends Exception {}
     
     
-    private ObservableList<Task> internalList = FXCollections.observableArrayList();
+    private ObservableList<ReadOnlyTask> internalList = FXCollections.observableArrayList();
 
     /**
      * Constructs empty TaskList.
@@ -61,7 +61,7 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
      */
-    public void add(Task toAdd) throws DuplicateTaskException {
+    public void add(ReadOnlyTask toAdd) throws DuplicateTaskException {
         assert toAdd != null;
         if (contains(toAdd)) {
             throw new DuplicateTaskException();
@@ -77,7 +77,7 @@ public class UniqueTaskList implements Iterable<Task> {
     public boolean edit(int targetIndex, String newDate, String newEndDate, String newTime, String newEndTime, String newContent) 
     		throws TaskNotFoundException, ParseException {
     	
-        Task toEdit = internalList.get(targetIndex);
+        ReadOnlyTask toEdit = internalList.get(targetIndex);
         if(newDate != null){
         	toEdit.getDate().dateString = newDate;
         	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -242,12 +242,12 @@ public class UniqueTaskList implements Iterable<Task> {
     
     
    
-    public ObservableList<Task> getInternalList() {
+    public ObservableList<ReadOnlyTask> getInternalList() {
         return internalList;
     }
 
     @Override
-    public Iterator<Task> iterator() {
+    public Iterator<ReadOnlyTask> iterator() {
         return internalList.iterator();
     }
 

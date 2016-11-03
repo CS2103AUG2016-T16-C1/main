@@ -30,7 +30,7 @@ public interface Model {
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Adds the given task */
-    void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+    void addTask(ReadOnlyTask task) throws UniqueTaskList.DuplicateTaskException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
@@ -78,6 +78,10 @@ public interface Model {
 	void updateFilteredListToShowDone();
 	
 	void updateFilteredListToShowUndone();
+	
+	void updateFilteredListToShowImportant();
+	
+	void updateFilteredListToShowUnimportant();
 
 
 	void addTags(ReadOnlyTask target, ArrayList<String> newTag) 
@@ -85,5 +89,7 @@ public interface Model {
 
 	void deleteTags(ReadOnlyTask taskToDelTags, ArrayList<String> tagsToDel) 
 			throws TaskNotFoundException, ParseException, IllegalValueException;
+
+	
 
 }

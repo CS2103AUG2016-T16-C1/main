@@ -7,7 +7,7 @@ import seedu.address.model.person.*;
 import seedu.address.model.person.UniqueTaskList.TaskNotFoundException;
 
 //@@author A0147989B
-public class NextCommand extends Command{
+public class NextCommand extends Command {
 
     public static final String COMMAND_WORD = "next";
     
@@ -34,15 +34,15 @@ public class NextCommand extends Command{
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask taskToDone = lastShownList.get(targetIndex - 1);
+        ReadOnlyTask taskToNext = lastShownList.get(targetIndex - 1);
 
         try {
-            model.nextTask(taskToDone);
+            model.nextTask(taskToNext);
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone));
+        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToNext));
 
     }
     

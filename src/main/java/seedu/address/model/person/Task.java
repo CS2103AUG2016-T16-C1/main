@@ -33,24 +33,24 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Content content, TaskDate date, TaskTime time, Integer duration, UniqueTagList tags) {
+    public Task(Content content, TaskDate date, TaskTime time, /*Integer duration,*/ UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(content, date, time, tags);
         this.content = content;
         this.date = date;
         this.time = time;
         this.tags = tags; 
-        this.duration = duration;
+        //this.duration = duration;
     }
     
     /**
      * create a task with done status
      */
-    public Task(Content content, TaskDate date, TaskTime time, Integer duration, boolean done, boolean important, UniqueTagList tags) {
+    public Task(Content content, TaskDate date, TaskTime time, /*Integer duration,*/ boolean done, boolean important, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(content, date, time, tags);
         this.content = content;
         this.date = date;
         this.time = time;
-        this.duration = duration;
+        //this.duration = duration;
         this.done = done;
         this.important = important;
         this.tags = tags; 
@@ -87,7 +87,7 @@ public class Task implements ReadOnlyTask {
         this(source.getContent(), 
                 source.getDate(), 
                 source.getTime(), 
-                source.getDuration(), 
+                //source.getDuration(), 
                 source.getDone(), 
                 source.getImportant(), 
                 source.getTags());
@@ -149,11 +149,8 @@ public class Task implements ReadOnlyTask {
 
     @Override
     public String toString() {
-    	if(endDate == null) {
-        return getAsText();
-    	}
-    	else
-    		return getAsText2();
+
+    	return getAsText0();
     }
 
     @Override

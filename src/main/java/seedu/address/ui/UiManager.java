@@ -10,6 +10,7 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
@@ -123,5 +124,12 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.loadTaskDetail(event.getNewSelection(), event.getNewIndex());
     }
-
+    
+    //@@author A0141054W
+    @Subscribe
+    public void handleTaskManagerChangedEvent(TaskManagerChangedEvent event) {
+        System.out.println("REFRESH");
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, refreshing TaskDetail"));
+        mainWindow.getTaskDetail().fillTaskDetail();
+    }
 }

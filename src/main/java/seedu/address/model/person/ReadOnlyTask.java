@@ -50,6 +50,7 @@ public interface ReadOnlyTask {
     /**
      * Formats the task as text, showing all task details.
      */
+    /*
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getContent())
@@ -80,6 +81,33 @@ public interface ReadOnlyTask {
     			.append(" Tags: ");
     	getTags().forEach(builder::append);
     	return builder.toString();
+    }*/
+    
+    default String getAsText0() {
+        final StringBuilder builder = new StringBuilder();
+        if (!this.getEndDate().dateString.isEmpty() && !this.getEndTime().timeString.isEmpty())
+            builder.append(getContent())
+                   .append(" ")
+                   .append(getDate().dateString)
+                   .append(" ")
+                   .append(getTime().timeString)
+                   .append(" - ")
+                   .append(getEndDate().dateString)
+                   .append(" ")
+                   .append(getEndTime().timeString)
+                   .append(" ");
+        else         
+            builder.append(getContent())
+                   .append(" ")
+                   .append(getDate())
+                   .append(" ")
+                   .append(getTime())
+                   .append(" ");
+                   
+        if (getDuration() != null) builder .append("repeat per "+getDuration()+" days ");
+        builder.append(" Tags: ");
+        getTags().forEach(builder::append);
+        return builder.toString();
     }
     
     /**
@@ -95,6 +123,7 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
+    void setTags(UniqueTagList uniqueTagList);
 	
 	
 }

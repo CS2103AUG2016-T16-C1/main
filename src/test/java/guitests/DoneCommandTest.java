@@ -22,12 +22,12 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         assertDoneTaskSuccess(targetIndex, currentList);
         
         //done a middle item
-        commandBox.runCommand("list");
+        commandBox.runCommand("list all");
         targetIndex = 4;
         assertDoneTaskSuccess(targetIndex, currentList);
         
         //done already done item
-        commandBox.runCommand("list");
+        commandBox.runCommand("list all");
         assertDoneTaskSuccess(targetIndex, currentList);
      
     }
