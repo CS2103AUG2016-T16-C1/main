@@ -284,6 +284,9 @@ public class Parser {
      */
     private Command prepareEmail(String arg) throws ParseException{
         String email = arg.trim();
+        if (email.compareTo("") == 0) {
+            return new EmailCommand("");
+        }
         final Matcher matcher = VALID_EMAIL_ADDRESS_FORMAT.matcher(email);
         if (!matcher.matches()) {
             return new IncorrectCommand(MESSAGE_INVALID_EMAIL_FORMAT);
