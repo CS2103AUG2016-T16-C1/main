@@ -31,7 +31,7 @@ public class Parser {
 
             		
     private static final Pattern EDIT_TASK_ARGS_FORMAT = 
-    		Pattern.compile("(?<index>\\S+)(?<taskDetails>.+)");
+    		Pattern.compile("(?<index>[0-9]+) (?<taskDetails>.+)");
     
     private static final Pattern ADD_TAGS_FORMAT =
     		Pattern.compile("(?<index>\\S+)(?<tagsToAdd>[^#/%]+)");
