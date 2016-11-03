@@ -78,6 +78,10 @@ public interface Model {
 	void updateFilteredListToShowDone();
 	
 	void updateFilteredListToShowUndone();
+	
+	void updateFilteredListToShowImportant();
+	
+	void updateFilteredListToShowUnimportant();
 
 
 	void addTags(ReadOnlyTask target, ArrayList<String> newTag) 
@@ -85,5 +89,7 @@ public interface Model {
 
 	void deleteTags(ReadOnlyTask taskToDelTags, ArrayList<String> tagsToDel) 
 			throws TaskNotFoundException, ParseException, IllegalValueException;
+
+	
 
 }
