@@ -135,29 +135,29 @@ Adds tag "CS2103" to the 1st task in the list
 `addtag 2 shag tough tired` <br>
 Adds tags "shag", "tough" and "tired" to the 2nd task in the list
 
-### 4.2 Listing tasks : `list`
-*4.2.1 List all undone tasks* <br>
+### 4.3 Listing tasks : `list`
+*4.3.1 List all undone tasks* <br>
 Shows a list of all undone tasks added.<br>
 Format: `list`
 
-*4.2.2 List `all` tasks added* <br>
+*4.3.2 List `all` tasks added* <br>
 Shows the entire list of tasks that are added <br>
 Format: `list all` or `list -a`
 > * This command shows all added task, regardless of priority or status
 
-*4.2.3 List all tasks that are marked as `done`* <br>
+*4.3.3 List all tasks that are marked as `done`* <br>
 Shows a list of all tasks that are marked as done <br>
 Format: `list undone` or `list -ud`
 
-*4.2.4 List all tasks that are marked as `important`* <br>
+*4.3.4 List all tasks that are marked as `important`* <br>
 Shows a list of all tasks that are marked as important <br>
 Format: `list important` or `list -i`
 
-*4.2.5 List all tasks that are marked as `unimportant`* <br>
+*4.3.5 List all tasks that are marked as `unimportant`* <br>
 Shows a list of all tasks that are marked as unimportant <br>
 Format: `list unimportant` or `list -ui`
 
-### 4.3 Finding all tasks containing any keyword in their content : `find`
+### 4.4 Finding a task: `find`
 Finds tasks whose names contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
@@ -176,7 +176,20 @@ Examples:
 * `find lab` <br>
   Returns `label cup` and `go to lab`
 
-### 4.4 Deleting a task : `delete`
+### 4.5 Finding a tag: `findtag`
+Finds all tasks with the specified tag given <br>
+Format: findtag TAGNAME
+> * This command is only able to find `one` tag
+> * The search is `case insensitive`
+> * Only full words will be matched e.g. `CS21` will not match `CS2103`
+
+Examples:
+* `findtag CS2103` <br>
+Returns ANY tasks which have the tag "CSS2103"
+* `findtag homework` <br>
+Returns ANY tasks which have the tag "homework"
+
+### 4.6 Deleting a task : `delete`
 Deletes the specified task from `Hard2Do`. This command is irreversible once `Hard2Do` is closed.<br>
 Format: `delete INDEX`
 
@@ -193,7 +206,7 @@ Examples:
   `delete 1`<br>
   Deletes the 1st task in the results of the `find` command.
 
-### 4.5 Deleting tags from task : `deltag`
+### 4.7 Deleting tags from task : `deltag`
 Deletes tags from the specific task <br>
 Format: `deltag INDEX TAGNAMES...`
 > * The `INDEX` refers to the index number shown in the current listing<br>
@@ -209,7 +222,12 @@ Examples:
   `deltag 3 everything something nothing` <br>
   Deletes tags "everything", "something" and "nothing" from the 3rd task
 
-### 4.5 Selecting a task : `select`
+### 4.8 Undo an action : `undo`
+Undo the previous action <br>
+Format: `undo`
+> * Only commands that change the state of `Hard2Do` can be undone
+
+### 4.9 Selecting a task : `select`
 Selects the task identified by the index number used in the last task listing.<br>
 Format: `select INDEX`
 
@@ -225,7 +243,7 @@ Examples:
   `select 1`<br>
   Selects and shows the details of the 1st task in the results of the `find` command.
 
-### 4.6 Editing a task : `edit`
+### 4.10 Editing a task : `edit`
 Edits the task identified by the index number used in the last task listing.<br>
 Format: `edit INDEX c/TASKDETAILS sd/DD-MM-YYYY ed/DD-MM-YYYY st/HH:MM et/HH:MM`
 
@@ -244,16 +262,82 @@ Examples:
   `edit 3 sd/7-10-2016 st/1800 c/update details` <br>
   Updates the start date, start time and task detail of the 3rd task.
 
-### 4.7 Clearing all entries : `clear`
+### 4.11 Mark task as important : `important`
+Sets the specified task of the current task listing to important priority <br>
+Format: `important INDEX`
+> * Indicator next to the task name turns from `green` to `red`
+> * The `INDEX` refers to the index number shown in the current listing <br>
+> * The index **must be a positive integer** 1, 2, 3, ...
+
+Examples:
+* `important 2` <br>
+Changes the priority of the 2nd task to important
+* `list` <br>
+`important 3` <br>
+Changes the priority of the 3rd task in the current task listing to important
+
+### 4.12 Mark task as unimportant : `unimportant`
+Sets the specified task of the current task listing to unimportant priority <br>
+Format: `unimportant INDEX`
+> * Indicator next to the task name turns from `red` to `green`
+> * The `INDEX` refers to the index number shown in the current listing <br>
+> * The index **must be a positive integer** 1, 2, 3, ...
+
+Examples:
+* `unimportant 1` <br>
+Changes the priority of the 1st task to unimportant
+* `list` <br>
+`unimportant 3` <br>
+Changes the priority of the 3rd task in the current task listing to unimportant
+
+### 4.13 Mark task as done
+Changes the state of a task to done when it is completed <br>
+Format: `done INDEX`
+> * The checkbox next to the task name becomes ticked
+> * The `INDEX` refers to the index number shown in the current listing <br>
+> * The index **must be a positive integer** 1, 2, 3, ...
+
+Examples:
+* `done 1` <br>
+Marks the 1st task as done
+* `list` <br>
+`done 3` <br>
+Marks the 3rd task in the current task listing as done
+
+### 4.14 Mark task as undone
+Changes the state of a task to undone <br>
+Format: `undone INDEX`
+> * The checkbox next to the task name becomes unticked
+> * The `INDEX` refers to the index number shown in the current listing <br>
+> * The index **must be a positive integer** 1, 2, 3, ...
+
+Examples:
+* `undone 1` <br>
+Marks the 1st task as undone
+* `list` <br>
+`undone 2`
+Marks the 2nd task in the current task listing as undone
+
+### 4.15 Clearing all entries : `clear`
 Clears all entries in `Hard2Do`. <br>
 Format: `clear`  
 > * This command can still be undone if `Hard2Do` has not been closed
 
-### 4.8 Exiting the program : `exit`
+### 4.16 Load tasks : `load`
+Loads a previous saved state of `Hard2Do`
+Format: `load FILELOCATION`
+> * `Hard2Do` has to be restarted after the command is used
+> * `FILELOCATION` includes the `filename` e.g. `data/taskmanager.xml`
+
+Examples:
+* `load data/taskmanager.xml` <br>
+* `load data/taskmanager2.xml`
+
+### 4.17 Exiting the program : `exit`
 Exits and closes `Hard2Do`<br>
 Format: `exit`  
 
-### 4.9 Viewing help : `help`
+### 4.18 Viewing help : `help`
 Opens up the link to our user guide where the format of commands can be referred from. <br>
 Format: `help`
 
@@ -284,11 +368,15 @@ AddTag | `addtag INDEX TAGNAME`
 DeleteTag | `deltag INDEX TAGNAME`
 Undo | `undo`
 List | `list`
-List By Progress | `list done/undone`
+List All | `list all` or `list -a`
+List Done | `list done` or `list -d`
+List Important | `list important` or `list -i`
+List Unimportant | `list unimportant` or `list -ui`
 Done | `done INDEX`
 Undone | `undone INDEX`
 Important | `important INDEX`
 Unimportant | `unimportant INDEX`
+Next | `next INDEX`
 Load | `load FILENAME`
 Help | `help`
 Select | `select INDEX`
