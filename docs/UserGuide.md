@@ -2,19 +2,67 @@
 
  [2 About Hard2Do](#2-about-hard2do)<br>
  [3 Getting Started](#3-getting-started)<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  [3.1 Prerequisites](#31-prerequisites) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  [3.2 Launch](#32-launch) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  [3.3 Commands](#33-commands) <br>
  [4 Features](#4-features-)<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  [4.1 Adding tasks](#41-adding-tasks--add) <br>
- [4.2 Listing all tasks](#42-listing-all-tasks--list) <br>
- [4.3 Finding all tasks containing any keyword in their content](#43-finding-all-tasks-containing-any-keyword-in-their-content--find) <br>
- [4.4 Deleting a task](#44-deleting-a-task--delete) <br>
- [4.5 Select a task](#45-select-a-task--select) <br>
- [4.6 Edit a task](#46-edit-a-task--edit) <br>
- [4.7 Clearing all entries](#47-clearing-all-entries--clear) <br>
- [4.8 Exiting the program](#48-exiting-the-program--exit) <br>
- [4.9 Viewing help](#49-viewing-help--help) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ [4.1.1 Adds a floating task to Hard2Do](#411-adds-a-floating-task-to-hard2do) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ [4.1.2 Adds a task with date and time to Hard2Do](#412-adds-a-task-with-date-and-time-to-hard2do) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ [4.1.3 Adds a task with date to Hard2Do with shortcuts](#413-adds-a-task-with-date-to-hard2do-with-shortcuts) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ [4.1.4 Adds a task with time to Hard2Do using shortcuts](#414-adds-a-task-with-time-to-hard2do-using-shortcuts) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ [4.2 Adding tags](#42-adding-tags--addtag) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ [4.3 Listing tasks](#42-listing-tasks--list) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ [4.3.1 List all undone tasks](#431-list-all-undone-tasks) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ [4.3.2 List all tasks added](#432-list-all-tasks-added) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ [4.3.3 List all tasks that are marked as done](#433-list-all-tasks-that-are-marked-as-done) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ [4.3.4 List all tasks that are marked as important](#434-list-all-tasks-that-are-marked-as-important) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ [4.3.5 List all tasks that are marked as unimportant](#435-list-all-tasks-that-are-marked-as-unimportant) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ [4.4 Finding a task](#44-finding-a-task--find) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ [4.5 Finding a tag](#45-finding-a-tag--findtag) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ [4.6 Deleting a task](#46-deleting-a-task--delete) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ [4.7 Deleting tags from task](#47-deleting-tags-from-task--deltag)<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ [4.8 Undo an action](#48-undo-an-action--undo) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ [4.9 Select a task](#49-select-a-task--select) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ [4.10 Edit a task](#410-edit-a-task--edit) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ [4.11 Mark task as important](#411-mark-task-as-important--important) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ [4.12 Mark task as unimportant](#412-mark-task-as-unimportant--unimportant) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ [4.13 Mark task as done](#413-mark-task-as-done--done) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ [4.14 Mark task as undone](#414-mark-task-as-undone--undone) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ [4.15 Clearing all entries](#415-clearing-all-entries--clear) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ [4.16 Load tasks](#416-load-tasks--load) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ [4.17 Exiting the program](#417-exiting-the-program--exit) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ [4.18 Viewing help](#418-viewing-help--help) <br>
  [5 FAQ](#5-faq) <br>
  [6 Command Summary](#6-command-summary)<br>
 
@@ -176,7 +224,7 @@ Examples:
 * `find lab` <br>
   Returns `label cup` and `go to lab`
 
-### 4.5 Finding a tag: `findtag`
+### 4.5 Finding a tag : `findtag`
 Finds all tasks with the specified tag given <br>
 Format: findtag TAGNAME
 > * This command is only able to find `one` tag
@@ -290,7 +338,7 @@ Changes the priority of the 1st task to unimportant
 `unimportant 3` <br>
 Changes the priority of the 3rd task in the current task listing to unimportant
 
-### 4.13 Mark task as done
+### 4.13 Mark task as done : `done`
 Changes the state of a task to done when it is completed <br>
 Format: `done INDEX`
 > * The checkbox next to the task name becomes ticked
@@ -304,7 +352,7 @@ Marks the 1st task as done
 `done 3` <br>
 Marks the 3rd task in the current task listing as done
 
-### 4.14 Mark task as undone
+### 4.14 Mark task as undone `undone`
 Changes the state of a task to undone <br>
 Format: `undone INDEX`
 > * The checkbox next to the task name becomes unticked
