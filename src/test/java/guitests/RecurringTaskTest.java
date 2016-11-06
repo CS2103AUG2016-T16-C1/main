@@ -26,6 +26,8 @@ public class RecurringTaskTest extends TaskManagerGuiTest {
         TestTask taskToAdd = TypicalTestTasks.appointment;
         commandBox.runCommand(taskToAdd.getAddCommand());
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+        commandBox.runCommand("addtag 7 testtag");
+        commandBox.runCommand("deltag 7 testtag");
         
         assertNextSuccess(7,currentList);
     }
