@@ -380,7 +380,20 @@ Examples:
 * `load data/taskmanager.xml` <br>
 * `load data/taskmanager2.xml`
 
-### 4.17 Save tasks : `save`
+### 4.17 Get the next date after today of a recurring task : `next`
+Sets the date of specified recurring task of the current task listing to the next date after today <br>
+Format: `next INDEX`
+> * The `INDEX` refers to the index number shown in the current listing <br>
+> * The index **must be a positive integer** 1, 2, 3, ...
+
+Examples:
+* `next 2` <br>
+Sets the date of the 2nd task to the next date after today
+* `list` <br>
+`next 3` <br>
+Sets the date of the 3rd task in the current task listing to the next date after today
+
+### 4.18 Save tasks : `save`
 Save a different copy of the current data of `Hard2Do`
 Format: `save FILELOCATION`
 > *  Any changes after `save` will be saved to the old file
@@ -390,22 +403,22 @@ Examples:
 * `save data/taskmanager.xml` <br>
 * `save data/taskmanager2.xml`
 
-### 4.18 Email tasks : `email`
-*4.18.1 Add all unread email* <br>
+### 4.19 Email tasks : `email`
+*4.19.1 Add all unread email* <br>
 Add all unread email inside your mailbox to `Hard2Do`<br>
 Format: `email`
 > * When used for the first time, this command will redirect you to a webpage for permission
 > * Grant the permission to `Hard2Do`
 
-*4.18.2 Add all unread email from a specific address* <br>
+*4.19.2 Add all unread email from a specific address* <br>
 Add all unread email inside your mailbox from a specific address to `Hard2Do` <br>
 Format: `email vitquay1996@gmail.com`
 
-### 4.19 Exiting the program : `exit`
+### 4.20 Exiting the program : `exit`
 Exits and closes `Hard2Do`<br>
 Format: `exit`  
 
-### 4.20 Viewing help : `help`
+### 4.21 Viewing help : `help`
 Opens up the link to our user guide where the format of commands can be referred from. <br>
 Format: `help`
 
