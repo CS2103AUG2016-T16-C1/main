@@ -428,7 +428,8 @@ public class LogicManagerTest {
             cmd.append(" ed/").append(t.getEndDate().dateString);
             cmd.append(" st/").append(t.getTime().timeString);
             cmd.append(" et/").append(t.getEndTime().timeString);
-            cmd.append(" r/").append(t.getDuration());
+            if (t.getDuration() != null)
+                cmd.append(" r/").append(t.getDuration());
 
             UniqueTagList tags = t.getTags();
             for(Tag tg: tags){

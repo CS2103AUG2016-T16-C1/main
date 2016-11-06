@@ -66,7 +66,6 @@ public class Task implements ReadOnlyTask {
     }
     
     public Task(Content content, TaskDate date, TaskDate endDate, TaskTime time, TaskTime endTime, boolean done, boolean important, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(content, date, endDate, time, endTime, tags);
         this.content = content;
         this.date = date;
         this.endDate = endDate;
