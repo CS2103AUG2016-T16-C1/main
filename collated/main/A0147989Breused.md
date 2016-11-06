@@ -84,6 +84,41 @@ public class UserPrefs {
 
 }
 ```
+###### /java/seedu/address/storage/XmlAdaptedTag.java
+``` java
+/**
+ * JAXB-friendly adapted version of the Tag.
+ */
+public class XmlAdaptedTag {
+
+    @XmlValue
+    public String tagName;
+
+    /**
+     * No-arg constructor for JAXB use.
+     */
+    public XmlAdaptedTag() {}
+
+    /**
+     * Converts a given Tag into this class for JAXB use.
+     *
+     * @param source future changes to this will not affect the created
+     */
+    public XmlAdaptedTag(Tag source) {
+        tagName = source.tagName;
+    }
+
+    /**
+     * Converts this jaxb-friendly adapted tag object into the model's Tag object.
+     *
+     * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     */
+    public Tag toModelType() throws IllegalValueException {
+        return new Tag(tagName);
+    }
+
+}
+```
 ###### /java/seedu/address/storage/StorageManager.java
 ``` java
 public class StorageManager extends ComponentManager implements Storage {
@@ -159,6 +194,70 @@ public class StorageManager extends ComponentManager implements Storage {
 
 }
 ```
+###### /java/seedu/address/storage/JsonUserPrefsStorage.java
+``` java
+/**
+ * A class to access UserPrefs stored in the hard disk as a json file
+ */
+public class JsonUserPrefsStorage implements UserPrefsStorage{
+
+    private static final Logger logger = LogsCenter.getLogger(JsonUserPrefsStorage.class);
+
+    private String filePath;
+
+    public JsonUserPrefsStorage(String filePath){
+        this.filePath = filePath;
+    }
+
+    @Override
+    public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
+        return readUserPrefs(filePath);
+    }
+
+    @Override
+    public void saveUserPrefs(UserPrefs userPrefs) throws IOException {
+        saveUserPrefs(userPrefs, filePath);
+    }
+
+    /**
+     * Similar to {@link #readUserPrefs()}
+     * @param prefsFilePath location of the data. Cannot be null.
+     * @throws DataConversionException if the file format is not as expected.
+     */
+    public Optional<UserPrefs> readUserPrefs(String prefsFilePath) throws DataConversionException {
+        assert prefsFilePath != null;
+
+        File prefsFile = new File(prefsFilePath);
+
+        if (!prefsFile.exists()) {
+            logger.info("Prefs file "  + prefsFile + " not found");
+            return Optional.empty();
+        }
+
+        UserPrefs prefs;
+
+        try {
+            prefs = FileUtil.deserializeObjectFromJsonFile(prefsFile, UserPrefs.class);
+        } catch (IOException e) {
+            logger.warning("Error reading from prefs file " + prefsFile + ": " + e);
+            throw new DataConversionException(e);
+        }
+
+        return Optional.of(prefs);
+    }
+
+    /**
+     * Similar to {@link #saveUserPrefs(UserPrefs)}
+     * @param prefsFilePath location of the data. Cannot be null.
+     */
+    public void saveUserPrefs(UserPrefs userPrefs, String prefsFilePath) throws IOException {
+        assert userPrefs != null;
+        assert prefsFilePath != null;
+
+        FileUtil.serializeObjectToJsonFile(new File(prefsFilePath), userPrefs);
+    }
+}
+```
 ###### /java/seedu/address/commons/core/Messages.java
 ``` java
 public class Messages {
@@ -167,8 +266,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_TASK_DISPLAYED_INDEX = "The task index provided is invalid";
     public static final String MESSAGE_TASKS_LISTED_OVERVIEW = "%1$d tasks listed!";
-     
-}
 ```
 ###### /java/seedu/address/commons/core/Config.java
 ``` java
@@ -270,22 +367,36 @@ public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Task Manager has been cleared!";
-
+    public static final String MESSAGE_CANCEL = "Clear command has been cancelled";
+    
     public ClearCommand() {}
 
 
     @Override
     public CommandResult execute() {
         assert model != null;
-        try {
-			model.resetData(TaskManager.getEmptyTaskManager());
-		} catch (IllegalValueException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setTitle("Warning Dialog");
+        alert.setHeaderText("Clear all tasks");
+        alert.setContentText("Action cannot be undone once Hard2Do has been closed! Are you sure you want to clear Hard2Do?");
+        
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.get() == ButtonType.OK) {
+            try {
+    			model.resetData(TaskManager.getEmptyTaskManager());
+    		} catch (IllegalValueException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		} catch (ParseException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+        } else {
+        	return new CommandResult(MESSAGE_CANCEL);
+        	
+        }
+        
+    
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

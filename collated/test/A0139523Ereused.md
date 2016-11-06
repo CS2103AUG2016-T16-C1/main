@@ -403,7 +403,7 @@ public class LogicManagerTest {
         // prepare task manager state
         helper.addToModel(model, 2);
 
-        assertCommandBehavior("list",
+        assertCommandBehavior("list all",
                 ListCommand.MESSAGE_SUCCESS_ALL,
                 expectedTM,
                 expectedList);
@@ -568,12 +568,14 @@ public class LogicManagerTest {
 
         Task homework() throws Exception {
             Content content = new Content("Do Homework");
-            TaskDate taskdate = new TaskDate("21-02-2016", "22-02-2016");
-            TaskTime tasktime = new TaskTime("13:00", "16:00");
+            TaskDate taskdate = new TaskDate("21-02-2016");
+            TaskDate enddate = new TaskDate("22-02-2016");
+            TaskTime tasktime = new TaskTime("13:00");
+            TaskTime endtime = new TaskTime("16:00");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(content, taskdate, tasktime, 0, tags);
+            return new Task(content, taskdate, enddate, tasktime, endtime, 0, tags);
         }
 
         /**
@@ -587,8 +589,10 @@ public class LogicManagerTest {
       
             return new Task(
                     new Content("Content " + seed),
-                    new TaskDate(("1" + Math.abs(seed) + "-0" + Math.abs(seed) + "-2016"), ("2" + Math.abs(seed) + "-0" + Math.abs(seed) + "-2016")),
-                    new TaskTime(("1" + Math.abs(seed) + ":0" + Math.abs(seed)), ("1" + Math.abs(seed) + ":1" + Math.abs(seed))), 5,
+                    new TaskDate("1" + Math.abs(seed) + "-0" + Math.abs(seed) + "-2016"), 
+                    new TaskDate("2" + Math.abs(seed) + "-0" + Math.abs(seed) + "-2016"),
+                    new TaskTime("1" + Math.abs(seed) + ":0" + Math.abs(seed)), 
+                    new TaskTime("1" + Math.abs(seed) + ":1" + Math.abs(seed)), 5,
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -602,9 +606,10 @@ public class LogicManagerTest {
 
             cmd.append(t.getContent().value);
             cmd.append(" sd/").append(t.getDate().dateString);
-            cmd.append(" ed/").append(t.getDate().enddateString);
+            cmd.append(" ed/").append(t.getEndDate().dateString);
             cmd.append(" st/").append(t.getTime().timeString);
-            cmd.append(" et/").append(t.getTime().endtimeString);
+            cmd.append(" et/").append(t.getEndTime().timeString);
+            cmd.append(" r/").append(t.getDuration());
 
             UniqueTagList tags = t.getTags();
             for(Tag tg: tags){
@@ -687,8 +692,10 @@ public class LogicManagerTest {
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
                     new Content(name),
-                    new TaskDate("13-02-2016", null),
-                    new TaskTime("13:00", null), null,
+                    new TaskDate("13-02-2016"), 
+                    new TaskDate("14-02-2016"),
+                    new TaskTime("13:00"),
+                    new TaskTime("14:00"), null,
                     new UniqueTagList(new Tag("tag"))
             );
         }
@@ -699,37 +706,57 @@ public class LogicManagerTest {
 ``` java
 public class TaskBuilder {
 
-    private TestTask task;
+	private TestTask task;
 
-    public TaskBuilder() {
-        this.task = new TestTask();
-    }
+	public TaskBuilder() {
+		this.task = new TestTask();
+	}
 
-    public TaskBuilder withContent(String content) throws IllegalValueException {
-        this.task.setContent(new Content(content));
-        return this;
-    }
+	public TaskBuilder withContent(String content) throws IllegalValueException {
+		this.task.setContent(new Content(content));
+		return this;
+	}
 
-    public TaskBuilder withTags(String ... tags) throws IllegalValueException {
-        for (String tag: tags) {
-            task.getTags().add(new Tag(tag));
-        }
-        return this;
-    }
+	public TaskBuilder withTags(String... tags) throws IllegalValueException {
+		for (String tag : tags) {
+			task.getTags().add(new Tag(tag));
+		}
+		return this;
+	}
 
-    public TaskBuilder withDate(String taskdate, String enddate) throws IllegalValueException, ParseException {
-        this.task.setDate(new TaskDate(taskdate, enddate));
-        return this;
-    }
+	public TaskBuilder withDate(String taskdate) throws IllegalValueException, ParseException {
+		this.task.setDate(new TaskDate(taskdate));
+		return this;
+	}
 
-    public TaskBuilder withTime(String startTime, String endTime) throws IllegalValueException, ParseException {
-        this.task.setTime(new TaskTime(startTime, endTime));
-        return this;
-    }
+	public TaskBuilder withEndDate(String enddate) throws IllegalValueException, ParseException {
+		this.task.setEndDate(new TaskDate(enddate));
+		return this;
+	}
 
-    public TestTask build() {
-        return this.task;
-    }
+	public TaskBuilder withTime(String startTime) throws IllegalValueException, ParseException {
+		this.task.setTime(new TaskTime(startTime));
+		return this;
+	}
+
+	public TaskBuilder withEndTime(String endTime) throws IllegalValueException, ParseException {
+		this.task.setEndTime(new TaskTime(endTime));
+		return this;
+	}
+
+	public TaskBuilder withDuration(Integer duration) throws IllegalValueException, ParseException {
+		this.task.setDuration(duration);
+		return this;
+	}
+
+	public TaskBuilder withDone(boolean done) throws IllegalValueException, ParseException {
+		this.task.setDone(done);
+		return this;
+	}
+
+	public TestTask build() {
+		return this.task;
+	}
 
 }
 ```
@@ -760,156 +787,203 @@ public class TaskManagerBuilder {
 ```
 ###### /java/seedu/address/testutil/TestTask.java
 ``` java
-	public class TestTask implements ReadOnlyTask {
+public class TestTask implements ReadOnlyTask {
 
-	    private Content content;
-	    private TaskDate taskdate;
-	    private TaskTime tasktime;
-	    private boolean done;
-	    private Integer duration;
+	private Content content;
+	private TaskDate taskdate;
+	private TaskDate enddate;
+	private TaskTime tasktime;
+	private TaskTime endtime;
+	private boolean done;
+	private Integer duration;
 
-	    private UniqueTagList tags;
+	private UniqueTagList tags;
 
-	    public TestTask() {
-	        tags = new UniqueTagList();
-	    }
-
-	    public void setContent(Content content) {
-	        this.content = content;
-	    }
-
-	    public void setDate(TaskDate taskdate) {
-	        this.taskdate = taskdate;
-	    }
-
-	    public void setTime(TaskTime tasktime) {
-	        this.tasktime = tasktime;
-	    }
-
-	    @Override
-	    public Content getContent() {
-	        return content;
-	    }
-
-	    @Override
-	    public TaskDate getDate() {
-	        return taskdate;
-	    }
-
-	    @Override
-	    public TaskTime getTime() {
-	        return tasktime;
-	    }
-
-	    @Override
-	    public UniqueTagList getTags() {
-	        return tags;
-	    }
-
-	    @Override
-	    public String toString() {
-	    if(this.getDate().enddateString == null) {
-	          return getAsText();
-	            }
-	            else
-	                return getAsText2();
-	        }
-
-	    public String getAddCommand() {
-	        StringBuilder sb = new StringBuilder();
-	        sb.append("add " + this.getContent().value + " ");
-	        sb.append("sd/" + this.getDate().dateString + " ");
-	        sb.append("ed/" + this.getDate().enddateString + " ");
-	        sb.append("st/" + this.getTime().timeString + " ");
-	        sb.append("et/" + this.getTime().endtimeString + " ");
-	        this.getTags().getInternalList().stream().forEach(s -> sb.append("#" + s.tagName + " "));
-	        return sb.toString();
-	    }
-
-        @Override
-        public boolean getDone() {
-            return done;
-        }
-
-        @Override
-        public boolean setDone() {
-            if (!done) done = true;
-            else return false;
-            return true;
-        }
-        
-        @Override
-        public Integer getDuration() {
-            return duration;
-        }
-        
-        @Override
-        public boolean addTags(ArrayList<String> tagsToAdd) throws DuplicateTagException, IllegalValueException {
-            UniqueTagList newList = new UniqueTagList();
-            for(String t : tagsToAdd){
-                newList.add(new Tag(t));
-            }
-            newList.mergeFrom(tags);
-            setTags(newList);
-            return true;
-        }
-        
-        /**
-         * Replaces this task's tags with the tags in the argument tag list.
-         */
-        public void setTags(UniqueTagList replacement) {
-            tags.setTags(replacement);
-        }
-
-        public boolean isDone() {
-            return done;
-        }
-
-        public void setDone(boolean done) {
-            this.done = done;
-        }
-        
-        public boolean setUndone(){
-        	if (done) done = false;
-        	else return false;
-        	return true;
-        }
-        
-
-		@Override
-		public boolean deleteTags(ArrayList<String> tagsToDel) throws DuplicateTagException, IllegalValueException {
-			
-			return false;
-		}
-
-        @Override
-        public boolean getImportant() {
-            // TODO Auto-generated method stub
-            return false;
-        }
-
-        @Override
-        public boolean setImportant() {
-            // TODO Auto-generated method stub
-            return false;
-        }
-
-        @Override
-        public boolean setUnimportant() {
-            // TODO Auto-generated method stub
-            return false;
-        }
-
-        @Override
-        public boolean setNext() {
-            // TODO Auto-generated method stub
-            return false;
-        }
-
-
-
+	public TestTask() {
+		tags = new UniqueTagList();
 	}
 
+	public void setContent(Content content) {
+		this.content = content;
+	}
+
+	public void setDate(TaskDate taskdate) {
+		this.taskdate = taskdate;
+	}
+
+	public void setEndDate(TaskDate enddate) {
+		this.enddate = enddate;
+	}
+
+	public void setTime(TaskTime tasktime) {
+		this.tasktime = tasktime;
+	}
+
+	public void setEndTime(TaskTime endtime) {
+		this.endtime = endtime;
+	}
+
+	public void setDuration(Integer duration) {
+		this.duration = duration;
+	}
+
+	@Override
+	public Content getContent() {
+		return content;
+	}
+
+	@Override
+	public TaskDate getDate() {
+		return taskdate;
+	}
+
+	@Override
+	public TaskDate getEndDate() {
+		return enddate;
+	}
+
+	@Override
+	public TaskTime getTime() {
+		return tasktime;
+	}
+
+	@Override
+	public TaskTime getEndTime() {
+		return endtime;
+	}
+
+	@Override
+	public UniqueTagList getTags() {
+		return tags;
+	}
+
+	@Override
+	public String toString() {
+		return getAsText0();
+	}
+
+	public String getAddCommand() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("add " + this.getContent().value + " ");
+		sb.append("sd/" + this.getDate().dateString + " ");
+		sb.append("ed/" + this.getEndDate().dateString + " ");
+		sb.append("st/" + this.getTime().timeString + " ");
+		sb.append("et/" + this.getEndTime().timeString + " ");
+		this.getTags().getInternalList().stream().forEach(s -> sb.append("#" + s.tagName + " "));
+		return sb.toString();
+	}
+
+	@Override
+	public boolean getDone() {
+		return done;
+	}
+
+	@Override
+	public boolean setDone() {
+		if (!done)
+			done = true;
+		else
+			return false;
+		return true;
+	}
+
+	@Override
+	public Integer getDuration() {
+		return duration;
+	}
+
+	@Override
+	public boolean addTags(ArrayList<String> tagsToAdd) throws DuplicateTagException, IllegalValueException {
+		UniqueTagList newList = new UniqueTagList();
+		for (String t : tagsToAdd) {
+			newList.add(new Tag(t));
+		}
+		newList.mergeFrom(tags);
+		setTags(newList);
+		return true;
+	}
+
+	/**
+	 * Replaces this task's tags with the tags in the argument tag list.
+	 */
+	public void setTags(UniqueTagList replacement) {
+		tags.setTags(replacement);
+	}
+
+	public boolean isDone() {
+		return done;
+	}
+
+	public void setDone(boolean done) {
+		this.done = done;
+	}
+
+	public boolean setUndone() {
+		if (done)
+			done = false;
+		else
+			return false;
+		return true;
+	}
+
+	@Override
+	public boolean deleteTags(ArrayList<String> tagsToDel) throws DuplicateTagException, IllegalValueException {
+
+		return false;
+	}
+
+	@Override
+	public boolean getImportant() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean setImportant() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean setUnimportant() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean setNext() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+    public boolean setDate(String date) throws IllegalValueException, ParseException{
+    	
+    	return true;
+    }
+    @Override
+    public boolean setEndDate(String newDate) throws IllegalValueException, ParseException{
+    	
+		return true;
+    }
+    @Override
+    public boolean setTime(String time) throws IllegalValueException, ParseException{
+    	
+    	return true;
+    }
+    @Override
+    public boolean setEndTime(String time) throws IllegalValueException, ParseException{
+    	
+    	return true;
+    }
+    @Override
+    public boolean setContent(String newContent) throws IllegalValueException{
+    	
+    	return true;
+    }
+    
+ 
+
+}
 ```
 ###### /java/guitests/AddCommandTest.java
 ``` java
@@ -921,12 +995,12 @@ public class AddCommandTest extends TaskManagerGuiTest {
 
     	TestTask[] currentList = td.getTypicalTasks();
         TestTask taskToAdd = TypicalTestTasks.appointment;
-        //assertAddSuccess(taskToAdd, currentList);
+        assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
    
         //add another task
         taskToAdd = TypicalTestTasks.flight;
-        //assertAddSuccess(taskToAdd, currentList);
+        assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add duplicate task
@@ -937,7 +1011,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
         //add to empty list
         commandBox.runCommand("clear");
         
-        //assertAddSuccess(TypicalTestTasks.homework);
+        assertAddSuccess(TypicalTestTasks.homework);
 
         //invalid command
         commandBox.runCommand("adds Johnny");
@@ -1078,6 +1152,10 @@ public class GuiHandle {
 ```
 ###### /java/guitests/guihandles/TaskCardHandle.java
 ``` java
+
+/**
+ * Provides a handle to a task card in the task list panel.
+ */
 public class TaskCardHandle extends GuiHandle {
     private static final String CONTENT_FIELD_ID = "#content";
     private static final String DATE_FIELD_ID = "#date";
@@ -1169,7 +1247,7 @@ public class FindCommandTest extends TaskManagerGuiTest {
     @Test
     public void find_emptyList(){
         commandBox.runCommand("clear");
-        //assertFindResult("find Jean"); //no results
+        assertFindResult("find Jean"); //no results
     }
 
     @Test
