@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import hard2do.taskmanager.commons.exceptions.IllegalValueException;
 import hard2do.taskmanager.commons.util.InferDateUtil;
@@ -33,6 +35,10 @@ public class AddCommand extends Command {
 	public static final String MESSAGE_STARTENDDATE_CONSTRAINTS = "Start date must be added";
 	public static final String MESSAGE_STARTENDTIME_CONSTRAINTS = "Start time must be added";
 	public static final String MESSAGE_ENDDATETIME_CONSTRAINTS = "End date must have a corresponding end time, vice versa";
+	public static final String MESSAGE_ENDDATE_CONSTRAINT = "End date cannot be earlier than start date";
+	
+	private final static Pattern DATE_STRING_FORMAT = Pattern.compile("(?<day>\\d+)-(?<month>\\d+)-(?<year>\\d+)");
+	private final static Pattern TIME_STRING_FORMAT = Pattern.compile("(?<hours>\\d+):(?<mins>\\d+)");
 
 	private final ReadOnlyTask toAdd;
 
@@ -111,6 +117,7 @@ public class AddCommand extends Command {
 	@Override
 	public CommandResult execute() {
 		assert model != null;
+		if (true){};
 		try {
 			model.addTask(toAdd);
 			return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
@@ -126,10 +133,14 @@ public class AddCommand extends Command {
 			throw new IllegalValueException(MESSAGE_ENDDATETIME_CONSTRAINTS);
 		}
 
-		else if (endDate != null && endTime != null) {
+		if (endDate != null && endTime != null) {
 			hasStartDate(startDate);
 			hasStartTime(startTime);
 		}
+		if (endDate != null && startDate != null) {
+			dateRangeValid(startDate, endDate);
+		}
+		
 	}
 
 	public static void hasStartDate(String startDate) throws IllegalValueException {
@@ -138,7 +149,36 @@ public class AddCommand extends Command {
 	}
 
 	public static void hasStartTime(String startTime) throws IllegalValueException {
-		if (startTime == null)
+		if (startTime == null) {
 			throw new IllegalValueException(MESSAGE_STARTENDTIME_CONSTRAINTS);
+		}
 	}
+	
+	public static void dateRangeValid(String startDate, String endDate) throws IllegalValueException {
+		final Matcher matchStart = DATE_STRING_FORMAT.matcher(startDate);
+		final Matcher matchEnd = DATE_STRING_FORMAT.matcher(endDate);
+		
+		if (!matchStart.matches() || !matchEnd.matches()) {
+			throw new IllegalValueException(MESSAGE_USAGE);
+		}
+		int startYear = Integer.parseInt(matchStart.group("year"));
+		int startMonth = Integer.parseInt(matchStart.group("month"));
+		int startDay = Integer.parseInt(matchStart.group("day"));
+		
+		int endYear = Integer.parseInt(matchEnd.group("year"));
+		int endMonth = Integer.parseInt(matchEnd.group("month"));
+		int endDay = Integer.parseInt(matchEnd.group("day"));
+		
+		if (endYear < startYear) {
+			throw new IllegalValueException(MESSAGE_ENDDATE_CONSTRAINT);
+		}
+		if (endMonth < startMonth && endYear == startYear) {
+			throw new IllegalValueException(MESSAGE_ENDDATE_CONSTRAINT);
+		}
+		if (endDay < startDay && endMonth == startMonth && endYear == startYear) {
+			throw new IllegalValueException(MESSAGE_ENDDATE_CONSTRAINT);
+		}
+		
+	}
+	
 }
