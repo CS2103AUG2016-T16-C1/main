@@ -4,9 +4,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.DuplicateDataException;
@@ -251,6 +253,19 @@ public class UniqueTaskList implements Iterable<ReadOnlyTask> {
         return internalList.iterator();
     }
 
+    /*public static ObservableValue<? extends Comparator<? super ReadOnlyTask>> comparatorByTime() { 
+        public int compare(ReadOnlyTask left, ReadOnlyTask right) {
+        if (left.getDate().value.before(right.getDate().value)) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+        return 0;
+    }*/
+    
+    
+    
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -263,4 +278,6 @@ public class UniqueTaskList implements Iterable<ReadOnlyTask> {
     public int hashCode() {
         return internalList.hashCode();
     }
+
+
 }
