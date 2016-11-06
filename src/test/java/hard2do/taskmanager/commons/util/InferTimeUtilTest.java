@@ -10,15 +10,15 @@ public class InferTimeUtilTest {
     @Test
     public void testInferTime_noTime_falseExpected() {
         String noTimeString = "there is no time here";
-        InferTimeUtil idu = new InferTimeUtil(noTimeString);
-        assertFalse(idu.findTime());
+        InferTimeUtil itu = new InferTimeUtil(noTimeString);
+        assertFalse(itu.findTime());
     }
     
     @Test
-    public void testInferTime_fromTime_matchesStringExpected() {
-        String fromTimeString = "there is time here from 1am to 2pm";
-        InferTimeUtil idu = new InferTimeUtil(fromTimeString);
-        assertTrue(idu.findTime());
+    public void testInferTime_atTime_matchesStringExpected() {
+        String fromTimeString = "there is time here at from 1am to 2pm";
+        InferTimeUtil itu = new InferTimeUtil(fromTimeString);
+        assertTrue(itu.findTime());
     }
 
 }
