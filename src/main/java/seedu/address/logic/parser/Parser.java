@@ -66,7 +66,7 @@ public class Parser {
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
-
+        
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord.toLowerCase()) {
@@ -80,8 +80,9 @@ public class Parser {
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
 
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+        case ClearCommand.COMMAND_WORD:{
+            System.out.println("in parser_sort");
+            return new ClearCommand();}
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
@@ -113,6 +114,9 @@ public class Parser {
             
         case NextCommand.COMMAND_WORD:
             return prepareNext(arguments);
+            
+        case SortCommand.COMMAND_WORD:
+            return new SortCommand();
         //@@author   
             
         case EditCommand.COMMAND_WORD:

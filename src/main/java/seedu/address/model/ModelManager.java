@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
@@ -33,6 +34,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private TaskManager taskManager;
     private FilteredList<ReadOnlyTask> filteredTasks;
+    private SortedList<ReadOnlyTask> sortingTasks;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -47,6 +49,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        //sortingTasks = new SortedList<>(taskManager.getTasks());
     }
 
     public ModelManager() {
@@ -330,6 +333,23 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskList(Tag tagToFind){
     	filteredTasks.setPredicate((ReadOnlyTask t) -> t.getTags().hasTag(tagToFind));
 
+    }
+    
+    public void updateFilteredTaskListByTime(){
+        //filteredTasks.setPredicate(null);
+        sortingTasks = new SortedList<>(filteredTasks);
+        Comparator<ReadOnlyTask> byTime = new Comparator<ReadOnlyTask>() {
+            public int compare(ReadOnlyTask left, ReadOnlyTask right) {
+                if (left.getDate().value.before(right.getDate().value)) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            }
+        };
+        sortingTasks.comparatorProperty().bind(Task.comparatorProperty());
+        logger.info("Sorting by time...");
+        filteredTasks.sorted(byTime);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================

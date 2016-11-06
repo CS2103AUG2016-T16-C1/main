@@ -66,7 +66,11 @@ public interface Model {
     void importantTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
     
     /** Mark the given task as unimportant. */
-    void unimportantTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    void unimportantTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;    
+    
+    /** Updates the filter of the filtered task list to sorted by time. */
+    void updateFilteredTaskListByTime();
+    
     //@@author 
     
 	void save(String commandType) throws IllegalValueException, ParseException;
