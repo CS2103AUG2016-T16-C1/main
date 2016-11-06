@@ -88,6 +88,7 @@ public class TaskDetail extends UiPart {
         RequiredFieldValidator validator = new RequiredFieldValidator();
         content.getValidators().add(validator);
         validator.setMessage("No Input Given");
+        
         content.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
@@ -96,13 +97,27 @@ public class TaskDetail extends UiPart {
                 }
             }
         });
+        
         startTimePicker.timeProperty().addListener(new ChangeListener<LocalTime>() {
 
             @Override
             public void changed(ObservableValue<? extends LocalTime> observable, LocalTime oldValue,
                     LocalTime newValue) {
                 try {
-                    handleTimeChanged();
+                    handleStartTimeChanged();
+                } catch (ParseException e) {
+                }
+            }
+                
+        });
+        
+        endTimePicker.timeProperty().addListener(new ChangeListener<LocalTime>() {
+
+            @Override
+            public void changed(ObservableValue<? extends LocalTime> observable, LocalTime oldValue,
+                    LocalTime newValue) {
+                try {
+                    handleEndTimeChanged();
                 } catch (ParseException e) {
                 }
             }
@@ -155,7 +170,7 @@ public class TaskDetail extends UiPart {
     }
 
     @FXML
-    private void handleDateChanged() throws ParseException {
+    private void handleStartDateChanged() throws ParseException {
         newDate = startDatePicker.getValue();
         formattedString = DateTimeUtil.changeLocalDateToFormattedString(newDate);
         if (formattedString.compareTo(task.getDate().toString()) != 0) {
@@ -166,12 +181,35 @@ public class TaskDetail extends UiPart {
     }
     
     @FXML
-    private void handleTimeChanged() throws ParseException {
+    private void handleEndDateChanged() throws ParseException {
+        newDate = endDatePicker.getValue();
+        formattedString = DateTimeUtil.changeLocalDateToFormattedString(newDate);
+        if (formattedString.compareTo(task.getDate().toString()) != 0) {
+            mostRecentResult = logic.execute("edit " + index + " ed/" + formattedString);
+            resultDisplay.postMessage(mostRecentResult.feedbackToUser);
+            logger.info("Result: " + mostRecentResult.feedbackToUser);
+        }
+    }
+    
+    @FXML
+    private void handleStartTimeChanged() throws ParseException {
         newTime = startTimePicker.getTime();
         formattedString = DateTimeUtil.changeLocalTimeToFormattedString(newTime);
         System.out.println(formattedString + " " + task.getTime().toString()); 
         if (formattedString.compareTo(task.getTime().toString()) != 0) {
             mostRecentResult = logic.execute("edit " + index + " st/" + formattedString);
+            resultDisplay.postMessage(mostRecentResult.feedbackToUser);
+            logger.info("Result: " + mostRecentResult.feedbackToUser);
+        }
+    }
+    
+    @FXML
+    private void handleEndTimeChanged() throws ParseException {
+        newTime = endTimePicker.getTime();
+        formattedString = DateTimeUtil.changeLocalTimeToFormattedString(newTime);
+        System.out.println(formattedString + " " + task.getTime().toString()); 
+        if (formattedString.compareTo(task.getTime().toString()) != 0) {
+            mostRecentResult = logic.execute("edit " + index + " et/" + formattedString);
             resultDisplay.postMessage(mostRecentResult.feedbackToUser);
             logger.info("Result: " + mostRecentResult.feedbackToUser);
         }
