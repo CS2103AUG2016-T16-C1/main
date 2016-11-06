@@ -63,11 +63,9 @@ public class ModelManager extends ComponentManager implements Model {
     	try {
 			taskManager.save("clear");
 		} catch (IllegalValueException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		}
         taskManager.resetData(newData);
         indicateTaskManagerChanged();
@@ -88,11 +86,9 @@ public class ModelManager extends ComponentManager implements Model {
     	try {
 			taskManager.save("delete");
 		} catch (IllegalValueException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		}
     	taskManager.removeTask(target);
         indicateTaskManagerChanged();
@@ -103,11 +99,9 @@ public class ModelManager extends ComponentManager implements Model {
     	try {
 			taskManager.save("add");
 		} catch (IllegalValueException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
 		}
     	taskManager.addTask(task);
     	updateFilteredListToShowUndone();
@@ -121,11 +115,9 @@ public class ModelManager extends ComponentManager implements Model {
     	try {
 			taskManager.save("edit");
 		} catch (IllegalValueException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
 		}
     	taskManager.editTask(target, newDate, newEndDate, newTime, newEndTime, newContent);
         indicateTaskManagerChanged();
@@ -139,11 +131,9 @@ public class ModelManager extends ComponentManager implements Model {
     	try {
 			taskManager.save("addTag");
 		} catch (IllegalValueException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		}
     	taskManager.addTags(target, newTags);
 
@@ -158,11 +148,9 @@ public class ModelManager extends ComponentManager implements Model {
     	try {
 			taskManager.save("deleteTag");
 		} catch (IllegalValueException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		}
     	taskManager.deleteTags(target, tagsToDelete);
 
@@ -177,11 +165,9 @@ public class ModelManager extends ComponentManager implements Model {
         try {
             taskManager.save("next");
         } catch (IllegalValueException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+          
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+          
         }
         taskManager.fetchNextDate(target);
         updateFilteredListToShowUndone();
@@ -194,11 +180,9 @@ public class ModelManager extends ComponentManager implements Model {
     	try {
 			taskManager.save("done");
 		} catch (IllegalValueException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		}
         taskManager.markTaskAsDone(target);
         logger.info("successfully mark as done"+target.getDone());
