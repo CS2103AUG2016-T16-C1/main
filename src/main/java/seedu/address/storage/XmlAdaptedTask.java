@@ -84,7 +84,6 @@ public class XmlAdaptedTask {
         final UniqueTagList tags = new UniqueTagList(taskTags);
         if (duration != null) return new RecurringTask(content, date, endDate, time, endTime, duration, done, important, tags);
         else {
-            System.out.println(content.value+" is back as task");
             return new Task(content, date, endDate, time, endTime, done, important, tags);
         }
     }

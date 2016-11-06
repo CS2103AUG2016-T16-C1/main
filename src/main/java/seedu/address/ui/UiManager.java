@@ -19,6 +19,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
+import java.text.ParseException;
 import java.util.logging.Logger;
 
 /**
@@ -130,5 +131,10 @@ public class UiManager extends ComponentManager implements Ui {
     public void handleTaskManagerChangedEvent(TaskManagerChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, refreshing TaskDetail"));
         mainWindow.getTaskDetail().fillTaskDetail();
+        try {
+			logic.execute("list");
+		} catch (ParseException e) {
+
+		}
     }
 }

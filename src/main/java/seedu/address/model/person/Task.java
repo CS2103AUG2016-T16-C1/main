@@ -178,6 +178,7 @@ public class Task implements ReadOnlyTask {
     }
     @Override
     public boolean setDate(String date) throws IllegalValueException, ParseException{
+    	this.getDate().dateString = date;
     	this.date = new TaskDate(date);
     	return true;
     }
