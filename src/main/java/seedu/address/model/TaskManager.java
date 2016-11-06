@@ -130,7 +130,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
     
     public boolean editTask(ReadOnlyTask target, String newDate, String newEndDate, String newTime, String newEndTime, String newContent) 
-    		throws UniqueTaskList.TaskNotFoundException, ParseException {
+    		throws UniqueTaskList.TaskNotFoundException, ParseException, IllegalValueException {
     	
         if (tasks.edit(target, newDate, newEndDate, newTime, newEndTime, newContent)) {
             return true;

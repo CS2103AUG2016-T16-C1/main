@@ -117,7 +117,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void editTask(ReadOnlyTask target, String newDate, String newEndDate, 
     		String newTime, String newEndTime, String newContent)
-    		throws TaskNotFoundException, ParseException {
+    		throws TaskNotFoundException, ParseException, IllegalValueException {
     	try {
 			taskManager.save("edit");
 		} catch (IllegalValueException e) {

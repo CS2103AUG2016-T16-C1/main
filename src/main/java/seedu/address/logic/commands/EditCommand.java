@@ -96,7 +96,9 @@ public class EditCommand extends Command {
             model.editTask(taskToEdit, newDate, newEndDate, newTime, newEndTime, newContent);
         } catch (TaskNotFoundException | ParseException tnfe) {
             assert false : "The target task cannot be missing";
-        }
+        } catch (IllegalValueException e) {
+			assert false : "Date or Time is invalid";
+		} 
         UnmodifiableObservableList<ReadOnlyTask> updatedList = model.getFilteredTaskList();
         ReadOnlyTask editedTask = updatedList.get(targetIndex - 1);
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedTask));

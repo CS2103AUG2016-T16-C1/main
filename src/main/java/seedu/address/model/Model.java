@@ -48,9 +48,10 @@ public interface Model {
     void updateFilteredTaskList(Tag tagToFind);
     
     /** Edit the given task. 
-     * @throws ParseException */
+     * @throws ParseException 
+     * @throws IllegalValueException */
 	void editTask(ReadOnlyTask target, String newDate, String newEndDate, String newTime, String newEndTime, String newContent) 
-			throws TaskNotFoundException, ParseException;
+			throws TaskNotFoundException, ParseException, IllegalValueException;
 
     //@@author A0147989B
     /** Fetch the next date of a recurring task. */
