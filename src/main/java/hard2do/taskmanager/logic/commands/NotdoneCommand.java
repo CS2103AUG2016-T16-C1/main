@@ -16,7 +16,7 @@ public class NotdoneCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Task marked as done: %1$s";
+    public static final String MESSAGE_NOTDONE_TASK_SUCCESS = "Task marked as not done: %1$s";
     
     public final int targetIndex;
 
@@ -42,7 +42,7 @@ public class NotdoneCommand extends Command {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToUndone));
+        return new CommandResult(String.format(MESSAGE_NOTDONE_TASK_SUCCESS, taskToUndone));
 
     }
     
