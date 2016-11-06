@@ -1,8 +1,9 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.commons.core.Messages;
-import seedu.address.testutil.TestTask;
+
+import hard2do.taskmanager.commons.core.Messages;
+import hard2do.taskmanager.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
 //@@author A0139523E-reused

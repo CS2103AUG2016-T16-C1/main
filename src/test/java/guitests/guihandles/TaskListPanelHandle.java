@@ -2,14 +2,14 @@ package guitests.guihandles;
 
 
 import guitests.GuiRobot;
+import hard2do.taskmanager.TestApp;
+import hard2do.taskmanager.model.task.ReadOnlyTask;
+import hard2do.taskmanager.model.task.Task;
+import hard2do.taskmanager.testutil.TestUtil;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import seedu.address.TestApp;
-import seedu.address.model.person.Task;
-import seedu.address.model.person.ReadOnlyTask;
-import seedu.address.testutil.TestUtil;
 
 import java.util.List;
 import java.util.Optional;

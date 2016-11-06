@@ -1,12 +1,13 @@
 package guitests;
 
 import guitests.guihandles.TaskCardHandle;
+import hard2do.taskmanager.commons.core.Messages;
+import hard2do.taskmanager.logic.commands.AddCommand;
+import hard2do.taskmanager.testutil.TestTask;
+import hard2do.taskmanager.testutil.TestUtil;
+import hard2do.taskmanager.testutil.TypicalTestTasks;
+
 import org.junit.Test;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.commons.core.Messages;
-import seedu.address.testutil.TestTask;
-import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertTrue;
 //@@author A0139523E-reused

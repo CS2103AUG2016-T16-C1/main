@@ -1,10 +1,9 @@
 package guitests.guihandles;
 
 import guitests.GuiRobot;
+import hard2do.taskmanager.model.task.ReadOnlyTask;
 import javafx.scene.Node;
 import javafx.stage.Stage;
-import seedu.address.model.person.ReadOnlyTask;
-//@@author A0139523E-reused
 
 /**
  * Provides a handle to a task card in the task list panel.

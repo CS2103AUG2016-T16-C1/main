@@ -82,7 +82,7 @@ allprojects {
         archiveName = "Hard2Do.jar"
 
         manifest {
-            attributes "Main-Class": "seedu.address.MainApp"
+            attributes "Main-Class": "hard2do.taskmanager.MainApp"
         }
 
         destinationDir = file("${buildDir}/jar/")
