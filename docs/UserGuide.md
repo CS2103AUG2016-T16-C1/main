@@ -90,7 +90,7 @@ Now you can finally begin your journey with `Hard2Do` Task Manager. <br>
 
 2. Double-click the file to start the app. The GUI should appear in a few seconds. <br>
 
-   > <img src="images/Ui.png" width="600">
+   > <img src="images/Hard2Do.png" width="600">
 
 ### 3.3 Commands
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
