@@ -6,7 +6,7 @@ import hard2do.taskmanager.commons.util.ConfigUtil;
 
 //@@author A0141054W
 /**
- * Load data from a specific file
+ * Loads data from a specific file
  */
 public class LoadCommand extends Command {
     

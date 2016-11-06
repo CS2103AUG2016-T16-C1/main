@@ -18,10 +18,10 @@ import hard2do.taskmanager.model.tag.Tag;
 import hard2do.taskmanager.model.tag.UniqueTagList;
 import hard2do.taskmanager.model.task.*;
 
+//@@author A0135787N-reused
 /**
  * Adds a task to the task manager.
  */
-// @@author A0135787N-reused
 public class AddCommand extends Command {
 
 	public static final String COMMAND_WORD = "add";
@@ -90,7 +90,7 @@ public class AddCommand extends Command {
 			if (itu.findTimeToTime()) {
 				timeToAdd = new TaskTime(itu.getStartTime());
 				endTimeToAdd = new TaskTime(itu.getEndTime());
-			}else if (itu.findTime()) {
+			} else if (itu.findTime()) {
 				timeToAdd = new TaskTime(itu.getTime());
 				endTimeToAdd = new TaskTime();
 			} else {
@@ -102,7 +102,7 @@ public class AddCommand extends Command {
 		if (duration != null) {
 			this.toAdd = new RecurringTask(new Content(content), dateToAdd, timeToAdd, duration,
 					new UniqueTagList(tagSet));
-		} else if(endTimeToAdd != null || endDateToAdd != null) {
+		} else if (endTimeToAdd != null || endDateToAdd != null) {
 				this.toAdd = new Task(new Content(content), dateToAdd, endDateToAdd, timeToAdd, endTimeToAdd,
 						new UniqueTagList(tagSet));
 			}

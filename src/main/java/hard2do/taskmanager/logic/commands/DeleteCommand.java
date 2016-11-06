@@ -5,10 +5,10 @@ import hard2do.taskmanager.commons.core.UnmodifiableObservableList;
 import hard2do.taskmanager.model.task.ReadOnlyTask;
 import hard2do.taskmanager.model.task.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0139523E-reused
 /**
  * Deletes a task identified using it's last displayed index from the task manager.
  */
-//@@author A0139523E-reused
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";

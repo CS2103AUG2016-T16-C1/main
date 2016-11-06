@@ -8,6 +8,9 @@ import hard2do.taskmanager.model.task.UniqueTaskList.TaskNotFoundException;
 
 
 //@@author A0147989B
+/**
+ * Marks as done a task identified using it's last displayed index from the task manager.
+ */
 public class DoneCommand extends Command {
 
     public static final String COMMAND_WORD = "done";

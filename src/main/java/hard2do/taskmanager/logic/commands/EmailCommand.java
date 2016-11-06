@@ -16,6 +16,10 @@ import hard2do.taskmanager.model.task.TaskDate;
 import hard2do.taskmanager.model.task.TaskTime;
 import hard2do.taskmanager.model.task.UniqueTaskList.DuplicateTaskException;
 
+//@@author A0141054W
+/**
+ * Adds a new task from unread email to task manager.
+ */
 public class EmailCommand extends Command {
 
     public static final String COMMAND_WORD = "email";
@@ -43,10 +47,11 @@ public class EmailCommand extends Command {
         Gmail service = null;
         String user = "me";
         String query;
-        if (email != "") 
+        if (email != "") {
             query = "from:" + email + " is:unread";
-        else
+        } else {
             query = "is:unread";
+        }
         ReadOnlyTask toAdd = null;
         
         try {
@@ -61,9 +66,9 @@ public class EmailCommand extends Command {
             return new CommandResult(MESSAGE_NO_CONNECTION);
         }
 
-        if (unreadMessages.isEmpty())
+        if (unreadMessages.isEmpty()) {
             return new CommandResult(MESSAGE_NO_UNREAD_EMAIL);
-        else {
+        } else {
             assert model != null;
             for (String message : unreadMessages) {
                 try {

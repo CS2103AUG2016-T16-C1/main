@@ -15,10 +15,10 @@ import hard2do.taskmanager.model.tag.UniqueTagList;
 import hard2do.taskmanager.model.task.*;
 import hard2do.taskmanager.model.task.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0135787N
 /**
  * Edits a task in the task manager.
  */
-//@@author A0141054W
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
@@ -51,36 +51,35 @@ public class EditCommand extends Command {
     		
     		
     		Scanner sc = new Scanner(taskDetails);
-    		if (sc.findInLine("sd/") != null){
+    		if (sc.findInLine("sd/") != null) {
     			newDate = sc.next();
     			valid = true;
     			sc = new Scanner(taskDetails);	
     		}
-    		if (sc.findInLine("ed/") != null){
+    		if (sc.findInLine("ed/") != null) {
     			newEndDate = sc.next();
     			valid = true;
     			sc = new Scanner(taskDetails);
     		}
-    		if (sc.findInLine("st/") != null){
+    		if (sc.findInLine("st/") != null) {
     			newTime = sc.next();
     			valid = true;
     			sc = new Scanner(taskDetails);
     		}	
-    		if (sc.findInLine("et/") != null){
+    		if (sc.findInLine("et/") != null) {
     			newEndTime = sc.next();
     			valid = true;
     			sc = new Scanner(taskDetails);
     		}
-    		if (sc.findInLine("c/") != null){
+    		if (sc.findInLine("c/") != null) {
     			valid = true;
     			StringBuilder data = new StringBuilder();
     			while(sc.hasNext()){
     				String check = sc.next();
-    				if(check.startsWith("d/") || check.startsWith("st/") || 
-    						check.startsWith("et/") || check.startsWith("ed/")){
+    				if (check.startsWith("d/") || check.startsWith("st/") || 
+    						check.startsWith("et/") || check.startsWith("ed/")) {
     					break;
-    				}
-    				else{
+    				} else {
     					data.append(" " + check);
     				}
     			}
@@ -114,6 +113,12 @@ public class EditCommand extends Command {
         ReadOnlyTask editedTask = updatedList.get(targetIndex - 1);
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedTask));
     }
+    /**
+     * Ensures that the new date and time values are valid
+     * 
+     * @param taskToEdit
+     * @throws IllegalValueException
+     */
     
 	public void isValidTimeDate(ReadOnlyTask taskToEdit) throws IllegalValueException {
 		

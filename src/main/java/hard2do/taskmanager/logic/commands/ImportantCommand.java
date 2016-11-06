@@ -7,6 +7,9 @@ import hard2do.taskmanager.model.task.*;
 import hard2do.taskmanager.model.task.UniqueTaskList.TaskNotFoundException;
 
 //@@author A0147989B
+/**
+ * Marks as important a task identified using it's last displayed index from the task manager.
+ */
 public class ImportantCommand extends Command {
 
     public static final String COMMAND_WORD = "important";

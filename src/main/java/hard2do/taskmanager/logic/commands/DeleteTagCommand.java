@@ -10,7 +10,12 @@ import hard2do.taskmanager.commons.exceptions.IllegalValueException;
 import hard2do.taskmanager.model.tag.Tag;
 import hard2do.taskmanager.model.task.ReadOnlyTask;
 import hard2do.taskmanager.model.task.UniqueTaskList.TaskNotFoundException;
+
+
 //@@author A0135787N-reused
+/**
+ * Deletes a tag from a task identified using it's last displayed index from the task manager.
+ */
 public class DeleteTagCommand extends Command {
     public static final String COMMAND_WORD = "deltag";
 
@@ -40,7 +45,7 @@ public class DeleteTagCommand extends Command {
     		tagsToDel = new ArrayList<String>();
     		
     		Scanner sc = new Scanner(tagsString.trim());
-    			while(sc.hasNext()){
+    			while (sc.hasNext()) {
     				String tagToAdd = sc.next();
     				tagsToDel.add(tagToAdd);
     			}
@@ -58,13 +63,13 @@ public class DeleteTagCommand extends Command {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-        if(tagsToDel.size() == 0)
+        if (tagsToDel.size() == 0){
         	return new CommandResult("No Tags To Delete");
-        
+        }
         ReadOnlyTask taskToDelTags= lastShownList.get(targetIndex - 1);
-        for(String s : tagsToDel){
+        for (String s : tagsToDel) {
         	try {
-				if(!taskToDelTags.getTags().contains(new Tag(s))){
+				if (!taskToDelTags.getTags().contains(new Tag(s))) {
 					return new CommandResult("Task does not have Tag: " + s );
 				}
 			} catch (IllegalValueException e) {
@@ -78,9 +83,9 @@ public class DeleteTagCommand extends Command {
             model.deleteTags(taskToDelTags, tagsToDel);
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
-        } catch (ParseException pe){
+        } catch (ParseException pe) {
         	return new CommandResult("ParseException");
-        } catch (IllegalValueException ive){
+        } catch (IllegalValueException ive) {
         	return new CommandResult("Tags must be alphanumerical");
         }
        lastShownList = model.getFilteredTaskList();

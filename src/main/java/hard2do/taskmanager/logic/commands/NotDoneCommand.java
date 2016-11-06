@@ -7,7 +7,10 @@ import hard2do.taskmanager.model.task.*;
 import hard2do.taskmanager.model.task.UniqueTaskList.TaskNotFoundException;
 
 //@@author A0147989B
-public class NotdoneCommand extends Command {
+/**
+ * Marks as undone a task identified using it's last displayed index from the task manager.
+ */
+public class NotDoneCommand extends Command {
 
     public static final String COMMAND_WORD = "notdone";
     
@@ -20,7 +23,7 @@ public class NotdoneCommand extends Command {
     
     public final int targetIndex;
 
-    public NotdoneCommand(int targetIndex) {
+    public NotDoneCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
     

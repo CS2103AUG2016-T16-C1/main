@@ -7,6 +7,9 @@ import hard2do.taskmanager.model.task.*;
 import hard2do.taskmanager.model.task.UniqueTaskList.TaskNotFoundException;
 
 //@@author A0147989B
+/**
+ * Sets date of recurring task to next relevant date.
+ */
 public class NextCommand extends Command {
 
     public static final String COMMAND_WORD = "next";

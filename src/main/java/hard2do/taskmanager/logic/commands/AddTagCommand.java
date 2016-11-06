@@ -11,6 +11,9 @@ import hard2do.taskmanager.model.task.ReadOnlyTask;
 import hard2do.taskmanager.model.task.UniqueTaskList.TaskNotFoundException;
 
 //@@author A0135787N
+/**
+ * Adds tags to a task identified using it's last displayed index from the task manager.
+ */
 public class AddTagCommand extends Command {
 	
     public static final String COMMAND_WORD = "addtag";

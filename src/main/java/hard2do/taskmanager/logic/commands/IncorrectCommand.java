@@ -1,10 +1,9 @@
 package hard2do.taskmanager.logic.commands;
 
-
+//@@author A0139523E
 /**
  * Represents an incorrect command. Upon execution, produces some feedback to the user.
  */
-//@@author A0139523E
 public class IncorrectCommand extends Command {
 
     public final String feedbackToUser;
