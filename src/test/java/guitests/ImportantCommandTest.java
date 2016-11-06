@@ -10,6 +10,7 @@ import hard2do.taskmanager.commons.core.Messages;
 import hard2do.taskmanager.commons.exceptions.IllegalValueException;
 import hard2do.taskmanager.logic.commands.DoneCommand;
 import hard2do.taskmanager.logic.commands.ImportantCommand;
+import hard2do.taskmanager.logic.commands.UnimportantCommand;
 import hard2do.taskmanager.model.tag.UniqueTagList.DuplicateTagException;
 import hard2do.taskmanager.testutil.TestTask;
 
@@ -27,6 +28,10 @@ public class ImportantCommandTest extends TaskManagerGuiTest {
         //important a middle item
         targetIndex = 4;
         assertImportantTaskSuccess(targetIndex, currentList);
+        
+        //unimportant the first item
+        targetIndex = 1;
+        assertUnimportantTaskSuccess(targetIndex, currentList);
         
         //important already important item
         assertImportantTaskSuccess(targetIndex, currentList);
@@ -48,10 +53,23 @@ public class ImportantCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("important " + index);
 
         //confirm marking the task as important
-        assertEquals(taskToImportant.getImportant(), false);
+        assertEquals(taskToImportant.getImportant(), true);
         
         //confirm the result message is correct
         assertResultMessage(String.format(ImportantCommand.MESSAGE_IMPORTANT_TASK_SUCCESS, taskToImportant));
+        
+    }
+    
+    private void assertUnimportantTaskSuccess(int index, final TestTask[] currentList) throws IllegalStateException {
+        TestTask taskToUnimportant = currentList[index-1]; //-1 because array uses zero indexing
+        taskToUnimportant.setImportant();
+        commandBox.runCommand("unimportant " + index);
+
+        //confirm marking the task as unimportant
+        assertEquals(taskToUnimportant.getImportant(), true);
+        
+        //confirm the result message is correct
+        assertResultMessage(String.format(UnimportantCommand.MESSAGE_UNIMPORTANT_TASK_SUCCESS, taskToUnimportant));
         
     }
 }

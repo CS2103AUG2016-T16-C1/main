@@ -21,6 +21,7 @@ public class TestTask implements ReadOnlyTask {
     private TaskTime tasktime;
     private TaskTime endtime;
     private boolean done;
+    private boolean important;
     private Integer duration;
 
     private UniqueTagList tags;
@@ -164,21 +165,21 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public boolean getImportant() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
     public boolean setImportant() {
-        // TODO Auto-generated method stub
-        return false;
+        if (!important) important = true;
+        return true;
     }
-
+    
     @Override
     public boolean setUnimportant() {
-        // TODO Auto-generated method stub
-        return false;
+        if (important) important = false;
+        else return false;
+        return true;
+    }
+    
+    @Override
+    public boolean getImportant() {
+        return important;
     }
 
     @Override
