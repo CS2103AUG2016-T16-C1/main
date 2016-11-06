@@ -15,6 +15,7 @@ import hard2do.taskmanager.logic.commands.EditCommand;
 import hard2do.taskmanager.model.tag.UniqueTagList.DuplicateTagException;
 import hard2do.taskmanager.testutil.TestTask;
 
+//@@author A0141054W
 public class DeleteTagTest extends TaskManagerGuiTest {
     
     @Test
@@ -53,6 +54,7 @@ public class DeleteTagTest extends TaskManagerGuiTest {
         commandBox.runCommand("deltag " + "1" + " notExisting");
         assertResultMessage("Task does not have Tag: notExisting");
     }
+    
     //helper method for main test
     private void assertDeleteTagSuccess(int targetIndexOneIndexed, final TestTask[] currentList, String tagToDelete) throws DuplicateTagException, IllegalValueException {
         TestTask taskToDeleteTag = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
@@ -61,7 +63,7 @@ public class DeleteTagTest extends TaskManagerGuiTest {
         taskToDeleteTag.deleteTags(tagList);
         commandBox.runCommand("deltag " + targetIndexOneIndexed + " " + tagToDelete);
 
-        //confirm added Task des not have the deleted tag
+        //confirm added Task does not have the deleted tag
         TaskCardHandle addedTagCard = taskListPanel.navigateToTask(taskToDeleteTag.getContent().value);
         assertEquals(taskToDeleteTag.tagsString(), addedTagCard.getTag());
         
