@@ -195,11 +195,9 @@ public class ModelManager extends ComponentManager implements Model {
         try {
             taskManager.save("undone");
         } catch (IllegalValueException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+          
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+         
         }
         taskManager.markTaskAsUndone(target);
         logger.info("successfully mark as undone"+target.getDone());
@@ -212,11 +210,9 @@ public class ModelManager extends ComponentManager implements Model {
         try {
             taskManager.save("important");
         } catch (IllegalValueException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+           
         }
         taskManager.markTaskAsImportant(target);
         logger.info("successfully mark as important"+target.getImportant());
@@ -297,7 +293,8 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskList(String toFind){
 
     	filteredTasks.setPredicate((ReadOnlyTask t) -> 
-    	new Scanner(t.getContent().value.toLowerCase()).findInLine(toFind) != null);
+    		new Scanner(t.getContent().value.toLowerCase()).findInLine(toFind) != null);
+    	
     	Comparator<ReadOnlyTask> byEditDistance = new Comparator<ReadOnlyTask>() {
     	    public int compare(ReadOnlyTask left, ReadOnlyTask right) {
     	        if (left.getContent().value.length() > right.getContent().value.length()) {

@@ -20,7 +20,7 @@ import java.text.ParseException;
 import java.util.*;
 
 /**
- * A list of states that records previous states of the task manager before changes.
+ * Records the current state of the task manager after every change.
  *
  * Supports a minimal set of list operations.
  *
@@ -55,8 +55,10 @@ public class History {
 		tagsState = FXCollections.observableArrayList();
 	}
 	
-	/*
+	/**
 	 * method to save and store the existing state of the TaskManger before any overwrite operations
+	 * 
+	 * @param {ObservableList<ReadOnlyTask>} stateToSave, {ObservableList<Tag>} tagsToSave, {String} commandType
 	 */
 	public void save(ObservableList<ReadOnlyTask> stateToSave, ObservableList<Tag> tagsToSave, String commandType) 
 			throws IllegalValueException, ParseException{
@@ -67,7 +69,7 @@ public class History {
 		ObservableList<ReadOnlyTask> newState = FXCollections.observableArrayList();
 		
 		//Create deep copy of tasks
-		for(ReadOnlyTask t : stateToSave){
+		for (ReadOnlyTask t : stateToSave){
 			
 			Set<Tag> tagSet = new HashSet<>();
 	        for (Tag tag : t.getTags().toSet()) {
@@ -83,14 +85,15 @@ public class History {
 	        Integer duration = null;
 	        
 	        //@@author A0147989B
-			if (t.getDuration() != null) 
+			if (t.getDuration() != null) {
 			    newState.add( new RecurringTask( new Content(t.getContent().value), 
 					td,
 					tt,
 					duration,
 					new UniqueTagList(tagSet))
 					);
-			else { //@@author
+			    
+			}else { //@@author
 	        	newState.add( new Task( new Content(t.getContent().value),
 	        			td,
 	        			ed,
@@ -100,35 +103,36 @@ public class History {
 	        			);
 			}
 
-			if(t.getDone())
+			if (t.getDone()) {
 				newState.get(newState.size() - 1).setDone();
-			
-	        if(t.getImportant())
+			}
+	        if (t.getImportant()) {
 	        	newState.get(newState.size() - 1).setImportant();
+	        }
 		}
 		//Store the current state of the TaskManger into Stacks
 		taskStates.push(newState);
 		messages.push(commandType);
 		
-		if(!tagsToSave.isEmpty()){
+		if (!tagsToSave.isEmpty()){
 			Collection <Tag> newTags = FXCollections.observableArrayList();
-			for(Tag g : tagsToSave){
+			for (Tag g : tagsToSave){
 				newTags.add(new Tag(g.tagName));
 			}
 			tagStates.push(newTags);
 		}
 	}
 	/**
-	 * Sets the previous state before the last change to addressbook
+	 * Sets the previous state before the last change to task manager
 	 */
 	public void undo() {
 		
-		if(taskStates.isEmpty())
+		if (taskStates.isEmpty())
 			return;
 		
 		tasksState = taskStates.pop();
 		message = messages.pop();
-		if(tagsState.isEmpty())
+		if (tagsState.isEmpty())
 			return;
 		tagsState = tagStates.pop();
 	}
