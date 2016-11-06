@@ -34,30 +34,28 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Content content, TaskDate date, TaskTime time, /*Integer duration,*/ UniqueTagList tags) {
+    public Task(Content content, TaskDate date, TaskTime time, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(content, date, time, tags);
         this.content = content;
         this.date = date;
         this.time = time;
         this.tags = tags; 
-        //this.duration = duration;
     }
     
     /**
      * create a task with done status
      */
-    public Task(Content content, TaskDate date, TaskTime time, /*Integer duration,*/ boolean done, boolean important, UniqueTagList tags) {
+    public Task(Content content, TaskDate date, TaskTime time, boolean done, boolean important, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(content, date, time, tags);
         this.content = content;
         this.date = date;
         this.time = time;
-        //this.duration = duration;
         this.done = done;
         this.important = important;
         this.tags = tags; 
     }
     
-    public Task(Content content, TaskDate date, TaskDate endDate, TaskTime time, TaskTime endTime, Integer duration, UniqueTagList tags) {
+    public Task(Content content, TaskDate date, TaskDate endDate, TaskTime time, TaskTime endTime, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(content, date, endDate, time, endTime, tags);
         this.content = content;
         this.date = date;
@@ -65,17 +63,15 @@ public class Task implements ReadOnlyTask {
         this.time = time;
         this.endTime = endTime;
         this.tags = tags; 
-        this.duration = duration;
     }
     
-    public Task(Content content, TaskDate date, TaskDate endDate, TaskTime time, TaskTime endTime, Integer duration, boolean done, boolean important, UniqueTagList tags) {
+    public Task(Content content, TaskDate date, TaskDate endDate, TaskTime time, TaskTime endTime, boolean done, boolean important, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(content, date, endDate, time, endTime, tags);
         this.content = content;
         this.date = date;
         this.endDate = endDate;
         this.time = time;
         this.endTime = endTime;
-        this.duration = duration;
         this.done = done;
         this.important = important;
         this.tags = tags; 
@@ -88,7 +84,6 @@ public class Task implements ReadOnlyTask {
         this(source.getContent(), 
                 source.getDate(), 
                 source.getTime(), 
-                //source.getDuration(), 
                 source.getDone(), 
                 source.getImportant(), 
                 source.getTags());
@@ -151,7 +146,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public String toString() {
 
-    	return getAsText0();
+		return getAsText0();
     }
 
     @Override
