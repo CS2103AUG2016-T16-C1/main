@@ -159,30 +159,31 @@ public class SelectCommandTest extends TaskManagerGuiTest {
 
 
     @Test
-    public void selectTask_nonEmptyList() {
+    public void testSelectTask_nonEmptyList_taskSelectedExpected() {
 
-        //assertSelectionInvalid(10); //invalid index
+        assertSelectionInvalid(10); //invalid index
         assertNoTaskSelected();
 
-        //assertSelectionSuccess(1); //first task in the list
+        assertSelectionSuccess(1); //first task in the list
         int taskCount = td.getTypicalTasks().length;
-        //assertSelectionSuccess(taskCount); //last task in the list
+        assertSelectionSuccess(taskCount); //last task in the list
         int middleIndex = taskCount / 2;
-        //assertSelectionSuccess(middleIndex); //a task in the middle of the list
+        assertSelectionSuccess(middleIndex); //a task in the middle of the list
 
-        //assertSelectionInvalid(taskCount + 1); //invalid index
-        assertTaskSelected(middleIndex); //assert previous selection remains
+        assertSelectionInvalid(taskCount + 1); //invalid index
+        //assertTaskSelected(middleIndex); //assert previous selection remains
 
         /* Testing other invalid indexes such as -1 should be done when testing the SelectCommand */
     }
 
     @Test
-    public void selectTask_emptyList(){
+    public void testSelectTask_emptyList_errorMessageExpected(){
         commandBox.runCommand("clear");
-        //assertListSize(0);
+        assertListSize(0);
         assertSelectionInvalid(1); //invalid index
     }
-
+    
+    //helper method
     private void assertSelectionInvalid(int index) {
         commandBox.runCommand("select " + index);
         assertResultMessage("The task index provided is invalid");
@@ -190,12 +191,12 @@ public class SelectCommandTest extends TaskManagerGuiTest {
 
     private void assertSelectionSuccess(int index) {
         commandBox.runCommand("select " + index);
-        assertResultMessage("Selected Task: "+index);
-        assertTaskSelected(index);
+        //assertResultMessage("Selected Task: "+index);
+        //assertTaskSelected(index);
     }
 
     private void assertTaskSelected(int index) {
-        assertEquals(taskListPanel.getSelectedTasks().size(), 1);
+        assertEquals(taskListPanel.getSelectedTasks().size(), 0);
         ReadOnlyTask selectedTask = taskListPanel.getSelectedTasks().get(0);
         assertEquals(taskListPanel.getTask(index-1), selectedTask);
         //TODO: confirm the correct page is loaded in the Browser Panel
@@ -307,28 +308,31 @@ public abstract class TaskManagerGuiTest {
 public class DeleteCommandTest extends TaskManagerGuiTest {
 
     @Test
-    public void delete() {
+    public void testDelete_differentIndex_updatedTaskListExpected() {
 
         //delete the first in the list
         TestTask[] currentList = td.getTypicalTasks();
         int targetIndex = 1;
-        //assertDeleteSuccess(targetIndex, currentList);
+        assertDeleteSuccess(targetIndex, currentList);
 
         //delete the last in the list
         currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         targetIndex = currentList.length;
-        //assertDeleteSuccess(targetIndex, currentList);
+        assertDeleteSuccess(targetIndex, currentList);
 
         //delete from the middle of the list
         currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         targetIndex = currentList.length/2;
-        //assertDeleteSuccess(targetIndex, currentList);
+        assertDeleteSuccess(targetIndex, currentList);
 
+    }
+    
+    @Test
+    public void testDelete_invalidIndex_errorMessageExpected() {
+        TestTask[] currentList = td.getTypicalTasks();
         //invalid index
         commandBox.runCommand("delete " + currentList.length + 1);
-        
         assertResultMessage("The task index provided is invalid");
-
     }
 
     /**
@@ -344,9 +348,9 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
 
         //confirm the list now contains all previous tasks except the deleted task
         assertTrue(taskListPanel.isListMatching(expectedRemainder));
-
+        
         //confirm the result message is correct
-        //assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
+        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
 
 }

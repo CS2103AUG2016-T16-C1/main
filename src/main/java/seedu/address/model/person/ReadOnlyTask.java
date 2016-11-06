@@ -57,40 +57,7 @@ public interface ReadOnlyTask {
 
     /**
      * Formats the task as text, showing all task details.
-     */
-    /*
-    default String getAsText() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getContent())
-                .append(" ")
-                .append(getDate())
-                .append(" ")
-                .append(getTime())
-                .append(" ")
-                .append("repeat per "+getDuration()+" days ")
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
-        return builder.toString();
-    }
-    
-    default String getAsText2() {
-    	final StringBuilder builder = new StringBuilder();
-    	builder.append(getContent())
-    			.append(" ")
-    			.append(getDate())
-    			.append(" ")
-    			.append(getTime())
-    			.append(" - ")
-    			.append(getEndDate())
-    			.append(" ")
-    			.append(getEndTime())
-    			.append(" ")
-    			.append("repeat per "+getDuration()+" days ")
-    			.append(" Tags: ");
-    	getTags().forEach(builder::append);
-    	return builder.toString();
-    }*/
-    
+     */   
     default String getAsText0() {
         final StringBuilder builder = new StringBuilder();
         if (this.getEndDate() != null)

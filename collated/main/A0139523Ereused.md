@@ -72,7 +72,7 @@ public interface Model {
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Adds the given task */
-    void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+    void addTask(ReadOnlyTask task) throws UniqueTaskList.DuplicateTaskException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
@@ -90,9 +90,10 @@ public interface Model {
     void updateFilteredTaskList(Tag tagToFind);
     
     /** Edit the given task. 
-     * @throws ParseException */
-	void editTask(int targetIndex, String newDate, String newEndDate, String newTime, String newEndTime, String newContent) 
-			throws TaskNotFoundException, ParseException;
+     * @throws ParseException 
+     * @throws IllegalValueException */
+	void editTask(ReadOnlyTask target, String newDate, String newEndDate, String newTime, String newEndTime, String newContent) 
+			throws TaskNotFoundException, ParseException, IllegalValueException;
 
 ```
 ###### /java/seedu/address/model/TaskManager.java
@@ -131,12 +132,12 @@ public class TaskManager implements ReadOnlyTaskManager {
 
 //// list overwrite operations
 
-    public ObservableList<Task> getTasks() {
+    public ObservableList<ReadOnlyTask> getTasks() {
         return tasks.getInternalList();
     }
 
-    public void setTasks(List<Task> tasks) {
-        this.tasks.getInternalList().setAll(tasks);
+    public void setTasks(List<ReadOnlyTask> list) {
+        this.tasks.getInternalList().setAll(list);
     }
 
     public void setTags(Collection<Tag> tags) {
@@ -170,7 +171,7 @@ public class TaskManager implements ReadOnlyTaskManager {
      *
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
-    public void addTask(Task t) throws UniqueTaskList.DuplicateTaskException {
+    public void addTask(ReadOnlyTask t) throws UniqueTaskList.DuplicateTaskException {
     	syncTagsWithMasterList(t);
         tasks.add(t);
     }
@@ -180,7 +181,7 @@ public class TaskManager implements ReadOnlyTaskManager {
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
-    private void syncTagsWithMasterList(Task task) {
+    private void syncTagsWithMasterList(ReadOnlyTask task) {
         final UniqueTagList taskTags = task.getTags();
         tags.mergeFrom(taskTags);
 
@@ -207,10 +208,10 @@ public class TaskManager implements ReadOnlyTaskManager {
         }
     }
     
-    public boolean editTask(int targetIndex, String newDate, String newEndDate, String newTime, String newEndTime, String newContent) 
-    		throws UniqueTaskList.TaskNotFoundException, ParseException {
+    public boolean editTask(ReadOnlyTask target, String newDate, String newEndDate, String newTime, String newEndTime, String newContent) 
+    		throws UniqueTaskList.TaskNotFoundException, ParseException, IllegalValueException {
     	
-        if (tasks.edit(targetIndex, newDate, newEndDate, newTime, newEndTime, newContent)) {
+        if (tasks.edit(target, newDate, newEndDate, newTime, newEndTime, newContent)) {
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
@@ -570,18 +571,20 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Model model;
     private final Parser parser;
     private final Config config;
+    private final Storage storage;
 
     public LogicManager(Model model, Storage storage, Config config) {
         this.model = model;
         this.parser = new Parser();
         this.config = config;
+        this.storage = storage;
     }
 
     @Override
     public CommandResult execute(String commandText) throws ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
-        command.setData(model, config);
+        command.setData(model, config, storage);
         return command.execute();
     }
 
