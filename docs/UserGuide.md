@@ -24,17 +24,17 @@
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  [4.2 Adding tags](#42-adding-tags--addtag) <br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- [4.3 Listing tasks](#42-listing-tasks--list) <br>
+ [4.3 Listing tasks](#43-listing-tasks--list) <br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- [4.3.1 List all undone tasks](#42-listing-tasks--list)  <br>
+ [4.3.1 List all undone tasks](#43-listing-tasks--list)  <br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- [4.3.2 List all tasks added](#42-listing-tasks--list) <br>
+ [4.3.2 List all tasks added](#43-listing-tasks--list) <br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- [4.3.3 List all tasks that are marked as done](#42-listing-tasks--list)  <br>
+ [4.3.3 List all tasks that are marked as done](#43-listing-tasks--list)  <br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- [4.3.4 List all tasks that are marked as important](#42-listing-tasks--list) <br>
+ [4.3.4 List all tasks that are marked as important](#43-listing-tasks--list) <br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- [4.3.5 List all tasks that are marked as unimportant](#42-listing-tasks--list)  <br>
+ [4.3.5 List all tasks that are marked as unimportant](#43-listing-tasks--list)  <br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  [4.4 Finding a task](#44-finding-a-task--find) <br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -56,7 +56,7 @@
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  [4.13 Marking task as done](#413-marking-task-as-done--done) <br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- [4.14 Marking task as undone](#414-marking-task-as-undone--undone) <br>
+ [4.14 Marking task as undone](#414-marking-task-as-undone--notdone) <br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  [4.15 Clearing all entries](#415-clearing-all-entries--clear) <br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -386,18 +386,18 @@ Marks the 1st task as done
 `done 3` <br>
 Marks the 3rd task in the current task listing as done
 
-### 4.14 Marking task as undone : `undone`
+### 4.14 Marking task as undone : `notdone`
 Changes the state of a task to undone <br>
-Format: `undone INDEX`
+Format: `notdone INDEX`
 > * The checkbox next to the task name becomes unticked.
 > * The `INDEX` refers to the index number shown in the current listing. <br>
 > * The index **must be a positive integer** 1, 2, 3, ...
 
 Examples:
-* `undone 1` <br>
+* `notdone 1` <br>
 Marks the 1st task as undone
 * `list` <br>
-`undone 2`<br>
+`notdone 2`<br>
 Marks the 2nd task in the current task listing as undone
 
 ### 4.15 Clearing all entries : `clear`
@@ -500,7 +500,7 @@ Edit | `edit INDEX c/TASKDETAILS sd/DD-MM-YYYY ed/DD-MM-YYYY st/HH:MM et/HH:MM`
 Important | `important INDEX`
 Unimportant | `unimportant INDEX`
 Done | `done INDEX`
-Undone | `undone INDEX`
+Undone | `notdone INDEX`
 Clear | `clear`
 Save | `save FILELOCATION`
 Load | `load FILELOCATION`
