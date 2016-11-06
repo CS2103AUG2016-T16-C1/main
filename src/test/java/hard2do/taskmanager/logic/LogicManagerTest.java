@@ -394,7 +394,7 @@ public class LogicManagerTest {
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(content, taskdate, enddate, tasktime, endtime, 0, tags);
+            return new Task(content, taskdate, enddate, tasktime, endtime, tags);
         }
 
         /**
@@ -411,7 +411,7 @@ public class LogicManagerTest {
                     new TaskDate("1" + Math.abs(seed) + "-0" + Math.abs(seed) + "-2016"), 
                     new TaskDate("2" + Math.abs(seed) + "-0" + Math.abs(seed) + "-2016"),
                     new TaskTime("1" + Math.abs(seed) + ":0" + Math.abs(seed)), 
-                    new TaskTime("1" + Math.abs(seed) + ":1" + Math.abs(seed)), 5,
+                    new TaskTime("1" + Math.abs(seed) + ":1" + Math.abs(seed)),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -514,7 +514,7 @@ public class LogicManagerTest {
                     new TaskDate("13-02-2016"), 
                     new TaskDate("14-02-2016"),
                     new TaskTime("13:00"),
-                    new TaskTime("14:00"), null,
+                    new TaskTime("14:00"),
                     new UniqueTagList(new Tag("tag"))
             );
         }

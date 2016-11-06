@@ -17,8 +17,8 @@ import javafx.scene.control.ButtonType;
 public class ClearCommand extends Command {
 	
     public static final String COMMAND_WORD = "clear";
-    private static final String MESSAGE_SUCCESS = "Task Manager has been cleared!";
-    private static final String MESSAGE_CANCEL = "Clear command has been cancelled";
+    public static final String MESSAGE_SUCCESS = "Task Manager has been cleared!";
+    public static final String MESSAGE_CANCEL = "Clear command has been cancelled";
     
     public ClearCommand() {}
 
