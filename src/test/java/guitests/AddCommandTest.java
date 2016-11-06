@@ -2,7 +2,9 @@ package guitests;
 
 import guitests.guihandles.TaskCardHandle;
 import hard2do.taskmanager.commons.core.Messages;
+import hard2do.taskmanager.commons.exceptions.IllegalValueException;
 import hard2do.taskmanager.logic.commands.AddCommand;
+import hard2do.taskmanager.model.task.UniqueTaskList.DuplicateTaskException;
 import hard2do.taskmanager.testutil.TestTask;
 import hard2do.taskmanager.testutil.TestUtil;
 import hard2do.taskmanager.testutil.TypicalTestTasks;
@@ -14,7 +16,7 @@ import static org.junit.Assert.assertTrue;
 public class AddCommandTest extends TaskManagerGuiTest {
 
     @Test
-    public void add() {
+    public void testAddTask_multipleTasks_addedTasksExpected() throws DuplicateTaskException, IllegalValueException {
         //add one task
 
     	TestTask[] currentList = td.getTypicalTasks();
@@ -26,22 +28,29 @@ public class AddCommandTest extends TaskManagerGuiTest {
         taskToAdd = TypicalTestTasks.flight;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-
-        //add duplicate task
-        commandBox.runCommand(TypicalTestTasks.flight.getAddCommand());
+    }
+    
+     @Test
+     public void testAddTask_duplicateTasks_errorMessageExpected() throws DuplicateTaskException, IllegalValueException {
+    	 TestTask[] currentList = td.getTypicalTasks();
+    	 commandBox.runCommand(TypicalTestTasks.study.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
-
-        //add to empty list
+     }
+     
+     @Test
+     public void testAddTask_emptyTaskManager_addedTaskExpected() throws DuplicateTaskException, IllegalValueException {
         commandBox.runCommand("clear");
-        
         assertAddSuccess(TypicalTestTasks.homework);
+     }
 
-        //invalid command
+     @Test
+     public void testAddTask_invalidCommand_errorMessageExpected() throws DuplicateTaskException, IllegalValueException {
         commandBox.runCommand("adds Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
+    //helper method for main test
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
         commandBox.runCommand(taskToAdd.getAddCommand());
 

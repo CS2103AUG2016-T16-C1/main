@@ -16,7 +16,7 @@ import hard2do.taskmanager.model.tag.UniqueTagList.DuplicateTagException;
 import hard2do.taskmanager.testutil.TestTask;
 
 //@@author A0141054W
-public class DeleteTagTest extends TaskManagerGuiTest {
+public class DeleteTagCommandTest extends TaskManagerGuiTest {
     
     @Test
     public void testDeleteTag_differentIndex_updatedTasksExpected() throws DuplicateTagException, IllegalValueException {
