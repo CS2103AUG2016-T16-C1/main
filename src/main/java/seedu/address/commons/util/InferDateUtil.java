@@ -103,7 +103,7 @@ public class InferDateUtil {
 				if(days.containsKey(check)){
 					inferredDay = days.get(check);
 					
-					
+					//Checks if the day is already over for the current week
 					if(inferredDay - currentDay <= 0){
 						calendar.add(Calendar.DAY_OF_YEAR, inferredDay - currentDay + 7);
 						inferredDate = sdfDate.format(calendar.getTime());

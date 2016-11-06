@@ -64,42 +64,17 @@ public class InferTimeUtil {
 			}
 			String numeral = matcher.group("time");
 			String meridiem = matcher.group("meridiem").toLowerCase();
-			int timePrefix = Integer.parseInt(numeral);
 			
-			if(timePrefix > 1259 && numeral.length() == 4 && timePrefix/100 > 59 
-					|| timePrefix > 12 && numeral.length() <= 2){
-				sc.close();
-				return false;
-				
-			}if(numeral.length() < 3){
-				timePrefix = timePrefix * 100;
-				numeral = numeral + "00";
-				
-			}if(meridiem.equals("pm")){
-				if(timePrefix < 1200){
-					timePrefix += 1200;
-					numeral = Integer.toString(timePrefix);
-				}
-				
-			}if(meridiem.equals("am")){
-				if(timePrefix >= 1200){
-					timePrefix -= 1200;
-					numeral = "00" + Integer.toString(timePrefix);
-				}
-			}
-			sc.close();
-			if(numeral.length() == 4){
-				inferredTime = numeral.substring(0, 2) + ":" + numeral.substring(2);
-				return true;
-			}
-			if(numeral.length() == 3){
-				inferredTime = numeral.substring(0, 1) + ":" + numeral.substring(1);
-				return true;
-			}
+			startTime = obtainTime(numeral, meridiem);
 			
 		}
 		sc.close();
-		return false;
+		if(inferredTime != null){
+			return true;
+			
+		}else{
+			return false;
+		}
 	}
 	
 	/**

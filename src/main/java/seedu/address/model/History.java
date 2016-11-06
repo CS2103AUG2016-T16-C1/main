@@ -119,7 +119,7 @@ public class History {
 		}
 	}
 	/**
-	 * Sets the state before last change
+	 * Sets the previous state before the last change to addressbook
 	 */
 	public void undo() {
 		
