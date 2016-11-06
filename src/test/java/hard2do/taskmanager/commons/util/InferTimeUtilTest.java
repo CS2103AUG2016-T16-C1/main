@@ -16,9 +16,11 @@ public class InferTimeUtilTest {
     
     @Test
     public void testInferTime_atTime_matchesStringExpected() {
-        String fromTimeString = "there is time here at from 1am to 2pm";
-        InferTimeUtil itu = new InferTimeUtil(fromTimeString);
+        String atTimeString = "there is time here at 1am";
+        InferTimeUtil itu = new InferTimeUtil(atTimeString);
         assertTrue(itu.findTime());
+        
+        
     }
 
 }
