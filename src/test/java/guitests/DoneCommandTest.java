@@ -3,13 +3,14 @@ package guitests;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertNotNull;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.DoneCommand;
-import seedu.address.logic.commands.ImportantCommand;
-import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
-import seedu.address.testutil.TestTask;
 import org.junit.Test;
+
+import hard2do.taskmanager.commons.core.Messages;
+import hard2do.taskmanager.commons.exceptions.IllegalValueException;
+import hard2do.taskmanager.logic.commands.DoneCommand;
+import hard2do.taskmanager.logic.commands.ImportantCommand;
+import hard2do.taskmanager.model.tag.UniqueTagList.DuplicateTagException;
+import hard2do.taskmanager.testutil.TestTask;
 
 //@@author A0141054W
 public class DoneCommandTest extends TaskManagerGuiTest {

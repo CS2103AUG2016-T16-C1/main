@@ -1,11 +1,5 @@
 package guitests;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
-import seedu.address.testutil.TestTask;
-import seedu.address.logic.commands.AddTagCommand;
-
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -15,6 +9,11 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import guitests.guihandles.TaskCardHandle;
+import hard2do.taskmanager.commons.core.Messages;
+import hard2do.taskmanager.commons.exceptions.IllegalValueException;
+import hard2do.taskmanager.logic.commands.AddTagCommand;
+import hard2do.taskmanager.model.tag.UniqueTagList.DuplicateTagException;
+import hard2do.taskmanager.testutil.TestTask;
 
 //@@author A0141054W
 public class AddTagCommandTest extends TaskManagerGuiTest{

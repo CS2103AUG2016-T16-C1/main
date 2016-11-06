@@ -2,11 +2,12 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.testutil.TestTask;
-import seedu.address.testutil.TestUtil;
 
+import hard2do.taskmanager.testutil.TestTask;
+import hard2do.taskmanager.testutil.TestUtil;
+
+import static hard2do.taskmanager.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 //@@author A0141054W-reused
 public class DeleteCommandTest extends TaskManagerGuiTest {
 

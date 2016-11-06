@@ -1,6 +1,12 @@
 package guitests;
 
 import guitests.guihandles.*;
+import hard2do.taskmanager.TestApp;
+import hard2do.taskmanager.commons.core.EventsCenter;
+import hard2do.taskmanager.model.TaskManager;
+import hard2do.taskmanager.model.person.ReadOnlyTask;
+import hard2do.taskmanager.testutil.TestUtil;
+import hard2do.taskmanager.testutil.TypicalTestTasks;
 import javafx.stage.Stage;
 import org.junit.After;
 import org.junit.Before;
@@ -8,12 +14,6 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
-import seedu.address.TestApp;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.model.TaskManager;
-import seedu.address.model.person.ReadOnlyTask;
-import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.TypicalTestTasks;
 
 import java.util.concurrent.TimeoutException;
 
