@@ -56,7 +56,12 @@ public class CommandBox extends UiPart {
         this.resultDisplay = resultDisplay;
         this.logic = logic;
         AutoCompletionBinding<String> acb = TextFields.bindAutoCompletion(commandTextField,
-                FXCollections.observableArrayList("Undo", "Select", "List", "Add"));
+                FXCollections.observableArrayList("undo", "select", "list", "add", "clear",
+                                                    "delete", "edit", "find", "findtag", 
+                                                    "addtag", "deltag", "list all", "list done",
+                                                    "list undone", "list important", "list unimportant",
+                                                    "done", "undone", "important", "unportant",
+                                                    "next", "load", "help", "exit"));
 
         acb.setOnAutoCompleted(new EventHandler<AutoCompletionBinding.AutoCompletionEvent<String>>() {
             @Override
