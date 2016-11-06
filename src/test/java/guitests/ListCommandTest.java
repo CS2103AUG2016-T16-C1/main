@@ -12,7 +12,21 @@ public class ListCommandTest extends TaskManagerGuiTest {
 	public void testList_listAll_correctListExpected() {
 		TestTask[] currentList = td.getTypicalTasks();
 		commandBox.runCommand("list all");
-		assertTrue(taskListPanel.isListMatching(currentList));
+		assertListAllSuccess(currentList);
+	}
+	
+	@Test
+	public void testList_listAllShortcut_correctListExpected() {
+		TestTask[] currentList = td.getTypicalTasks();
+		commandBox.runCommand("list -a");
+		assertListAllSuccess(currentList);
+	}
+	
+	@Test
+	public void testList_listUndone_correctListExpected() {
+		TestTask[] currentList = td.getTypicalTasks();
+		commandBox.runCommand("list");
+		assertListAllSuccess(currentList);
 	}
 	
 	@Test
@@ -20,15 +34,32 @@ public class ListCommandTest extends TaskManagerGuiTest {
 		commandBox.runCommand("done 1");
 		commandBox.runCommand("done 2");
 		commandBox.runCommand("list done");
-		assertListSize(2);
+		assertListChangeSuccess(2);
 	}
+	
+	@Test
+	public void testList_listDoneShortcut_correctListExpected() {
+		commandBox.runCommand("done 1");
+		commandBox.runCommand("done 2");
+		commandBox.runCommand("list -d");
+		assertListChangeSuccess(2);
+	}
+	
 	
 	@Test
 	public void testList_listImportant_correctListExpected() {
 		commandBox.runCommand("important 3");
 		commandBox.runCommand("important 1");
 		commandBox.runCommand("list important");
-		assertListSize(2);
+		assertListChangeSuccess(2);
+	}
+	
+	@Test
+	public void testList_listImportantShortcut_correctListExpected() {
+		commandBox.runCommand("important 3");
+		commandBox.runCommand("important 1");
+		commandBox.runCommand("list -i");
+		assertListChangeSuccess(2);
 	}
 	
 	@Test
@@ -36,6 +67,22 @@ public class ListCommandTest extends TaskManagerGuiTest {
 		commandBox.runCommand("important 1");
 		commandBox.runCommand("important 2");
 		commandBox.runCommand("list unimportant");
-		assertListSize(5);
+		assertListChangeSuccess(5);
+	}
+	
+	@Test
+	public void testList_listUnimportantShortcut_correctListExpected() {
+		commandBox.runCommand("important 1");
+		commandBox.runCommand("important 2");
+		commandBox.runCommand("list -ui");
+		assertListChangeSuccess(5);
+	}
+	
+	public void assertListAllSuccess(final TestTask[] currentList) {
+		assertTrue(taskListPanel.isListMatching(currentList));
+	}
+
+	public void assertListChangeSuccess(int taskChanged) {
+		assertListSize(taskChanged);
 	}
 }
