@@ -63,8 +63,9 @@ public class History {
 	public void save(ObservableList<ReadOnlyTask> stateToSave, ObservableList<Tag> tagsToSave, String commandType) 
 			throws IllegalValueException, ParseException{
 		
-		if (stateToSave.isEmpty())
+		if (stateToSave.isEmpty()) {
 			return;
+		}
 		
 		ObservableList<ReadOnlyTask> newState = FXCollections.observableArrayList();
 		
@@ -127,13 +128,14 @@ public class History {
 	 */
 	public void undo() {
 		
-		if (taskStates.isEmpty())
+		if (taskStates.isEmpty()) {
 			return;
-		
+		}
 		tasksState = taskStates.pop();
 		message = messages.pop();
-		if (tagsState.isEmpty())
+		if (tagsState.isEmpty()) {
 			return;
+		}
 		tagsState = tagStates.pop();
 	}
 	

@@ -64,9 +64,9 @@ public class ModelManager extends ComponentManager implements Model {
     	try {
 			taskManager.save("clear");
 		} catch (IllegalValueException e) {
-			
+			assert false : "State must always be valid.";
 		} catch (ParseException e) {
-			
+			assert false : "Values have already been validated.";
 		}
         taskManager.resetData(newData);
         indicateTaskManagerChanged();
@@ -86,10 +86,10 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
     	try {
 			taskManager.save("delete");
-		} catch (IllegalValueException e) {
-			
+    	} catch (IllegalValueException e) {
+			assert false : "State must always be valid.";
 		} catch (ParseException e) {
-			
+			assert false : "Values have already been validated.";
 		}
     	taskManager.removeTask(target);
         indicateTaskManagerChanged();
@@ -99,10 +99,10 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addTask(ReadOnlyTask task) throws UniqueTaskList.DuplicateTaskException {
     	try {
 			taskManager.save("add");
-		} catch (IllegalValueException e) {
-		
+    	} catch (IllegalValueException e) {
+			assert false : "State must always be valid.";
 		} catch (ParseException e) {
-
+			assert false : "Values have already been validated.";
 		}
     	taskManager.addTask(task);
     	updateFilteredListToShowUndone();
@@ -115,10 +115,10 @@ public class ModelManager extends ComponentManager implements Model {
     		throws TaskNotFoundException, ParseException, IllegalValueException {
     	try {
 			taskManager.save("edit");
-		} catch (IllegalValueException e) {
-	
+    	} catch (IllegalValueException e) {
+			assert false : "State must always be valid.";
 		} catch (ParseException e) {
-
+			assert false : "Values have already been validated.";
 		}
     	taskManager.editTask(target, newDate, newEndDate, newTime, newEndTime, newContent);
         indicateTaskManagerChanged();
@@ -131,10 +131,10 @@ public class ModelManager extends ComponentManager implements Model {
     		throws TaskNotFoundException, ParseException, IllegalValueException {
     	try {
 			taskManager.save("addTag");
-		} catch (IllegalValueException e) {
-		
+    	} catch (IllegalValueException e) {
+			assert false : "State must always be valid.";
 		} catch (ParseException e) {
-			
+			assert false : "Values have already been validated.";
 		}
     	taskManager.addTags(target, newTags);
 
@@ -147,11 +147,11 @@ public class ModelManager extends ComponentManager implements Model {
     		throws TaskNotFoundException, ParseException, IllegalValueException {
     	assert !(tagsToDelete.size() == 0);
     	try {
-			taskManager.save("deleteTag");
-		} catch (IllegalValueException e) {
-			
+			taskManager.save("delTag");
+    	} catch (IllegalValueException e) {
+			assert false : "State must always be valid.";
 		} catch (ParseException e) {
-			
+			assert false : "Values have already been validated.";
 		}
     	taskManager.deleteTags(target, tagsToDelete);
 
@@ -166,10 +166,10 @@ public class ModelManager extends ComponentManager implements Model {
         try {
             taskManager.save("next");
         } catch (IllegalValueException e) {
-          
-        } catch (ParseException e) {
-          
-        }
+			assert false : "State must always be valid.";
+		} catch (ParseException e) {
+			assert false : "Values have already been validated.";
+		}
         taskManager.fetchNextDate(target);
         updateFilteredListToShowUndone();
         indicateTaskManagerChanged();
@@ -180,10 +180,10 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void doneTask(ReadOnlyTask target) throws TaskNotFoundException {
     	try {
 			taskManager.save("done");
-		} catch (IllegalValueException e) {
-		
+    	} catch (IllegalValueException e) {
+			assert false : "State must always be valid.";
 		} catch (ParseException e) {
-			
+			assert false : "Values have already been validated.";
 		}
         taskManager.markTaskAsDone(target);
         logger.info("successfully mark as done"+target.getDone());
@@ -196,10 +196,10 @@ public class ModelManager extends ComponentManager implements Model {
         try {
             taskManager.save("undone");
         } catch (IllegalValueException e) {
-          
-        } catch (ParseException e) {
-         
-        }
+			assert false : "State must always be valid.";
+		} catch (ParseException e) {
+			assert false : "Values have already been validated.";
+		}
         taskManager.markTaskAsUndone(target);
         logger.info("successfully mark as undone"+target.getDone());
         updateFilteredListToShowUndone();
@@ -211,10 +211,10 @@ public class ModelManager extends ComponentManager implements Model {
         try {
             taskManager.save("important");
         } catch (IllegalValueException e) {
-            
-        } catch (ParseException e) {
-           
-        }
+			assert false : "State must always be valid.";
+		} catch (ParseException e) {
+			assert false : "Values have already been validated.";
+		}
         taskManager.markTaskAsImportant(target);
         logger.info("successfully mark as important"+target.getImportant());
         updateFilteredListToShowUndone();
@@ -226,12 +226,10 @@ public class ModelManager extends ComponentManager implements Model {
         try {
             taskManager.save("unimportant");
         } catch (IllegalValueException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+			assert false : "State must always be valid.";
+		} catch (ParseException e) {
+			assert false : "Values have already been validated.";
+		}
         taskManager.markTaskAsUnimportant(target);
         logger.info("successfully mark as unimportant"+target.getImportant());
         updateFilteredListToShowUndone();

@@ -7,8 +7,11 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import hard2do.taskmanager.commons.exceptions.IllegalValueException;
+import hard2do.taskmanager.commons.util.EndStartValuesUtil;
 import hard2do.taskmanager.commons.util.InferDateUtil;
 import hard2do.taskmanager.commons.util.InferTimeUtil;
 import hard2do.taskmanager.model.tag.Tag;
@@ -32,14 +35,14 @@ public class AddCommand extends Command {
 	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
 	public static final String MESSAGE_STARTENDDATE_CONSTRAINTS = "Start date must be added";
 	public static final String MESSAGE_STARTENDTIME_CONSTRAINTS = "Start time must be added";
-	public static final String MESSAGE_ENDDATETIME_CONSTRAINTS = "End date must have a corresponding end time, vice versa";
+	public static final String MESSAGE_ENDDATETIME_CONSTRAINTS = "End date must have a corresponding end time";
 
 	private final ReadOnlyTask toAdd;
 
 	private TaskDate dateToAdd;
 	private TaskTime timeToAdd;
-	private TaskDate enddateToAdd;
-	private TaskTime endtimeToAdd;
+	private TaskDate endDateToAdd;
+	private TaskTime endTimeToAdd;
 
 	/**
 	 * Convenience constructor using raw values.
@@ -73,34 +76,35 @@ public class AddCommand extends Command {
 		}
 		// check null for date and time
 		if (endDate == null) {
-			enddateToAdd = new TaskDate();
+			endDateToAdd = new TaskDate();
 		} else
-			enddateToAdd = new TaskDate(endDate);
+			endDateToAdd = new TaskDate(endDate);
 
 		if (time != null) {
 			timeToAdd = new TaskTime(time);
 			if (endTime != null) {
-				endtimeToAdd = new TaskTime(endTime);
+				endTimeToAdd = new TaskTime(endTime);
 			}
 		} else if (time == null && endTime == null) {
 			InferTimeUtil itu = new InferTimeUtil(content);
 			if (itu.findTimeToTime()) {
 				timeToAdd = new TaskTime(itu.getStartTime());
-				endtimeToAdd = new TaskTime(itu.getEndTime());
-			} else if (itu.findTime()) {
+				endTimeToAdd = new TaskTime(itu.getEndTime());
+			}
+			if (itu.findTime()) {
 				timeToAdd = new TaskTime(itu.getTime());
-				endtimeToAdd = new TaskTime();
+				endTimeToAdd = new TaskTime();
 			} else {
 				timeToAdd = new TaskTime();
-				endtimeToAdd = new TaskTime();
+				endTimeToAdd = new TaskTime();
 			}
-		}
+		} 
 
 		if (duration != null) {
 			this.toAdd = new RecurringTask(new Content(content), dateToAdd, timeToAdd, duration,
 					new UniqueTagList(tagSet));
-		} else if(endtimeToAdd != null || enddateToAdd != null) {
-				this.toAdd = new Task(new Content(content), dateToAdd, enddateToAdd, timeToAdd, endtimeToAdd,
+		} else if(endTimeToAdd != null || endDateToAdd != null) {
+				this.toAdd = new Task(new Content(content), dateToAdd, endDateToAdd, timeToAdd, endTimeToAdd,
 						new UniqueTagList(tagSet));
 			}
 		else {
@@ -111,6 +115,7 @@ public class AddCommand extends Command {
 	@Override
 	public CommandResult execute() {
 		assert model != null;
+
 		try {
 			model.addTask(toAdd);
 			return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
@@ -119,26 +124,45 @@ public class AddCommand extends Command {
 		}
 
 	}
-
+	
+	/**
+	 * Validates the given values
+	 * 
+	 * @param endDate
+	 * @param startTime
+	 * @param endTime
+	 * @throws IllegalValueException
+	 */
 	public static void isValidTimeDate(String startDate, String endDate, String startTime, String endTime)
 			throws IllegalValueException {
-		if ((endDate != null && endTime == null) || (endDate == null && endTime != null)) {
+		if (endDate != null && endTime == null) {
 			throw new IllegalValueException(MESSAGE_ENDDATETIME_CONSTRAINTS);
 		}
 
-		else if (endDate != null && endTime != null) {
+		if (endDate != null && endTime != null) {
 			hasStartDate(startDate);
 			hasStartTime(startTime);
 		}
+		if (endDate != null && startDate != null) {
+			EndStartValuesUtil.dateRangeValid(startDate, endDate);
+		}
+		if (startTime != null && endTime != null && endDate == null){
+			EndStartValuesUtil.timeRangeValid(startTime, endTime);
+		}
+		
 	}
-
+	
 	public static void hasStartDate(String startDate) throws IllegalValueException {
 		if (startDate == null)
 			throw new IllegalValueException(MESSAGE_STARTENDDATE_CONSTRAINTS);
 	}
 
 	public static void hasStartTime(String startTime) throws IllegalValueException {
-		if (startTime == null)
+		if (startTime == null) {
 			throw new IllegalValueException(MESSAGE_STARTENDTIME_CONSTRAINTS);
+		}
 	}
+	
+
+	
 }

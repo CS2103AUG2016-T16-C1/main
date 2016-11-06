@@ -10,7 +10,7 @@ import java.util.Date;
 //@@author A0141054W
 
 /**
- * Change the data type of date fromt Date to LocalDate and the other way around
+ * Change the data type of date front Date to LocalDate and the other way around
  * as well as Date and LocalTime
  */
 public class DateTimeUtil {

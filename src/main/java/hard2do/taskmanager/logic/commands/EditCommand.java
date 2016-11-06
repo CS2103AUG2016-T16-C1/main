@@ -9,6 +9,7 @@ import java.util.Set;
 import hard2do.taskmanager.commons.core.Messages;
 import hard2do.taskmanager.commons.core.UnmodifiableObservableList;
 import hard2do.taskmanager.commons.exceptions.IllegalValueException;
+import hard2do.taskmanager.commons.util.EndStartValuesUtil;
 import hard2do.taskmanager.model.tag.Tag;
 import hard2do.taskmanager.model.tag.UniqueTagList;
 import hard2do.taskmanager.model.task.*;
@@ -35,6 +36,7 @@ public class EditCommand extends Command {
     private String newContent;
     private String newEndTime;
     private String newEndDate;
+    boolean valid = false;
 
     /**
      * Convenience constructor using raw values.
@@ -44,27 +46,33 @@ public class EditCommand extends Command {
      */
     @SuppressWarnings("resource")
 	public EditCommand(String index, String taskDetails)
-            throws IllegalValueException, ParseException {
+            	throws IllegalValueException, ParseException {
     		this.targetIndex = Integer.parseInt(index.trim());
     		
+    		
     		Scanner sc = new Scanner(taskDetails);
-    		if(sc.findInLine("sd/") != null){
+    		if (sc.findInLine("sd/") != null){
     			newDate = sc.next();
+    			valid = true;
     			sc = new Scanner(taskDetails);	
     		}
-    		if(sc.findInLine("ed/") != null){
+    		if (sc.findInLine("ed/") != null){
     			newEndDate = sc.next();
+    			valid = true;
     			sc = new Scanner(taskDetails);
     		}
-    		if(sc.findInLine("st/") != null){
+    		if (sc.findInLine("st/") != null){
     			newTime = sc.next();
+    			valid = true;
     			sc = new Scanner(taskDetails);
     		}	
-    		if(sc.findInLine("et/") != null){
+    		if (sc.findInLine("et/") != null){
     			newEndTime = sc.next();
+    			valid = true;
     			sc = new Scanner(taskDetails);
     		}
-    		if(sc.findInLine("c/") != null){
+    		if (sc.findInLine("c/") != null){
+    			valid = true;
     			StringBuilder data = new StringBuilder();
     			while(sc.hasNext()){
     				String check = sc.next();
@@ -80,7 +88,9 @@ public class EditCommand extends Command {
     		}
     		
     		sc.close();
-        
+        if (!valid) {
+        	throw new IllegalValueException(MESSAGE_USAGE);
+        }
     }
 
     @Override
@@ -93,16 +103,49 @@ public class EditCommand extends Command {
         }
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
         try {
+        	isValidTimeDate(taskToEdit);
             model.editTask(taskToEdit, newDate, newEndDate, newTime, newEndTime, newContent);
         } catch (TaskNotFoundException | ParseException tnfe) {
-            assert false : "The target task cannot be missing";
+            assert false: "The target task cannot be missing";
         } catch (IllegalValueException e) {
-			assert false : "Date or Time is invalid";
+			return new CommandResult("Date or Time is invalid");
 		} 
         UnmodifiableObservableList<ReadOnlyTask> updatedList = model.getFilteredTaskList();
         ReadOnlyTask editedTask = updatedList.get(targetIndex - 1);
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedTask));
     }
+    
+	public void isValidTimeDate(ReadOnlyTask taskToEdit) throws IllegalValueException {
+		
+		if (newDate != null && newEndDate != null) {
+			EndStartValuesUtil.dateRangeValid(newDate, newEndDate);
+		}
+		if (newDate != null && newEndDate == null && !taskToEdit.getEndDate().dateString.isEmpty()) {
+			EndStartValuesUtil.dateRangeValid(newDate, taskToEdit.getEndDate().dateString);
+		}
+		if (newDate == null && newEndDate != null && !taskToEdit.getDate().dateString.isEmpty()) {
+			EndStartValuesUtil.dateRangeValid(newEndDate, taskToEdit.getDate().dateString);
+		}
+		if (newTime != null && newEndTime != null && newEndDate == null 
+				&& taskToEdit.getEndDate().dateString.isEmpty()) {
+			EndStartValuesUtil.timeRangeValid(newTime, newEndTime);
+		}
+		if (newTime != null && newEndTime == null && newEndDate == null 
+				&& taskToEdit.getEndDate().dateString.isEmpty() 
+				&& !taskToEdit.getDate().dateString.isEmpty()
+				&& !taskToEdit.getEndTime().timeString.isEmpty()) {
+			
+			EndStartValuesUtil.timeRangeValid(newTime, taskToEdit.getEndTime().timeString);
+		}
+		if (newTime == null && newEndTime != null && newEndDate == null 
+				&& taskToEdit.getEndDate().dateString.isEmpty() 
+				&& !taskToEdit.getDate().dateString.isEmpty()
+				&& !taskToEdit.getTime().timeString.isEmpty()) {
+			
+			EndStartValuesUtil.timeRangeValid(taskToEdit.getTime().timeString, newEndTime);
+		}
+		
+	}
 
 }
 
