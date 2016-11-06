@@ -49,7 +49,7 @@ public interface Model {
     
     /** Edit the given task. 
      * @throws ParseException */
-	void editTask(int targetIndex, String newDate, String newEndDate, String newTime, String newEndTime, String newContent) 
+	void editTask(ReadOnlyTask target, String newDate, String newEndDate, String newTime, String newEndTime, String newContent) 
 			throws TaskNotFoundException, ParseException;
 
     //@@author A0147989B

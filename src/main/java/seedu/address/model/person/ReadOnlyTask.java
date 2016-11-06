@@ -1,5 +1,7 @@
 package seedu.address.model.person;
 
+import java.sql.Date;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -27,9 +29,15 @@ public interface ReadOnlyTask {
     boolean getImportant();
     boolean setImportant();
     boolean setUnimportant();
+    boolean setDate(String newDate) throws IllegalValueException, ParseException;
+    boolean setEndDate(String newEndDate) throws IllegalValueException, ParseException;
+    boolean setContent(String newContent) throws IllegalValueException;
+    boolean setTime(String newTime) throws IllegalValueException, ParseException;
+    boolean setEndTime(String newEndTime) throws IllegalValueException, ParseException;
     //@@author
     boolean addTags(ArrayList<String> tagsToAdd) throws DuplicateTagException, IllegalValueException;
     boolean deleteTags(ArrayList<String> tagsToDel) throws DuplicateTagException, IllegalValueException;
+    void setTags(UniqueTagList uniqueTagList);
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the task's internal tags.
@@ -123,7 +131,8 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
-    void setTags(UniqueTagList uniqueTagList);
+    
+	
 	
 	
 }

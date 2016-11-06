@@ -68,10 +68,13 @@ public class EditCommand extends Command {
     			StringBuilder data = new StringBuilder();
     			while(sc.hasNext()){
     				String check = sc.next();
-    				if(check.startsWith("d/") || check.startsWith("st/") || check.startsWith("et/") || check.startsWith("ed/"))
+    				if(check.startsWith("d/") || check.startsWith("st/") || 
+    						check.startsWith("et/") || check.startsWith("ed/")){
     					break;
-    				else
+    				}
+    				else{
     					data.append(" " + check);
+    				}
     			}
     			newContent = data.toString().trim(); 
     		}
@@ -88,18 +91,14 @@ public class EditCommand extends Command {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-        
+        ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
         try {
-            model.editTask(targetIndex - 1, newDate, newEndDate, newTime, newEndTime, newContent);
+            model.editTask(taskToEdit, newDate, newEndDate, newTime, newEndTime, newContent);
         } catch (TaskNotFoundException | ParseException tnfe) {
             assert false : "The target task cannot be missing";
         }
         UnmodifiableObservableList<ReadOnlyTask> updatedList = model.getFilteredTaskList();
         ReadOnlyTask editedTask = updatedList.get(targetIndex - 1);
-        String[] contentArr = editedTask.getContent().value.split("\\s+"); 
-        Set<String> contentSet = new HashSet<>(Arrays.asList(contentArr));
-        model.updateFilteredTaskList(contentSet);
-        model.updateFilteredListToShowUndone();
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedTask));
     }
 
