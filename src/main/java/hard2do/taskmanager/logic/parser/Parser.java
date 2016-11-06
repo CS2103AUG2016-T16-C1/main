@@ -150,6 +150,12 @@ public class Parser {
 	// @@author A0135787N
 	private Command prepareEdit(String args) throws ParseException {
 		final Matcher matcher = EDIT_TASK_ARGS_FORMAT.matcher(args.trim());
+		Scanner sc = new Scanner(args);
+		if(sc.findInLine("/") == null){
+			sc.close();
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+		}
+		sc.close();
 		// Validate arg string format
 		if (!matcher.matches()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));

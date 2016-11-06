@@ -41,8 +41,8 @@ public class AddCommand extends Command {
 
 	private TaskDate dateToAdd;
 	private TaskTime timeToAdd;
-	private TaskDate enddateToAdd;
-	private TaskTime endtimeToAdd;
+	private TaskDate endDateToAdd;
+	private TaskTime endTimeToAdd;
 
 	/**
 	 * Convenience constructor using raw values.
@@ -76,34 +76,34 @@ public class AddCommand extends Command {
 		}
 		// check null for date and time
 		if (endDate == null) {
-			enddateToAdd = new TaskDate();
+			endDateToAdd = new TaskDate();
 		} else
-			enddateToAdd = new TaskDate(endDate);
+			endDateToAdd = new TaskDate(endDate);
 
 		if (time != null) {
 			timeToAdd = new TaskTime(time);
 			if (endTime != null) {
-				endtimeToAdd = new TaskTime(endTime);
+				endTimeToAdd = new TaskTime(endTime);
 			}
 		} else if (time == null && endTime == null) {
 			InferTimeUtil itu = new InferTimeUtil(content);
 			if (itu.findTimeToTime()) {
 				timeToAdd = new TaskTime(itu.getStartTime());
-				endtimeToAdd = new TaskTime(itu.getEndTime());
+				endTimeToAdd = new TaskTime(itu.getEndTime());
 			} else if (itu.findTime()) {
 				timeToAdd = new TaskTime(itu.getTime());
-				endtimeToAdd = new TaskTime();
+				endTimeToAdd = new TaskTime();
 			} else {
 				timeToAdd = new TaskTime();
-				endtimeToAdd = new TaskTime();
+				endTimeToAdd = new TaskTime();
 			}
 		}
 
 		if (duration != null) {
 			this.toAdd = new RecurringTask(new Content(content), dateToAdd, timeToAdd, duration,
 					new UniqueTagList(tagSet));
-		} else if(endtimeToAdd != null || enddateToAdd != null) {
-				this.toAdd = new Task(new Content(content), dateToAdd, enddateToAdd, timeToAdd, endtimeToAdd,
+		} else if(endTimeToAdd != null || endDateToAdd != null) {
+				this.toAdd = new Task(new Content(content), dateToAdd, endDateToAdd, timeToAdd, endTimeToAdd,
 						new UniqueTagList(tagSet));
 			}
 		else {
