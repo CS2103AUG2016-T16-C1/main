@@ -66,7 +66,7 @@
 ```
 ###### /java/seedu/address/model/person/UniqueTaskList.java
 ``` java
-public class UniqueTaskList implements Iterable<Task> {
+public class UniqueTaskList implements Iterable<ReadOnlyTask> {
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
@@ -84,7 +84,7 @@ public class UniqueTaskList implements Iterable<Task> {
     public static class TaskNotFoundException extends Exception {}
     
     
-    private ObservableList<Task> internalList = FXCollections.observableArrayList();
+    private ObservableList<ReadOnlyTask> internalList = FXCollections.observableArrayList();
 
     /**
      * Constructs empty TaskList.
@@ -104,7 +104,7 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
      */
-    public void add(Task toAdd) throws DuplicateTaskException {
+    public void add(ReadOnlyTask toAdd) throws DuplicateTaskException {
         assert toAdd != null;
         if (contains(toAdd)) {
             throw new DuplicateTaskException();
@@ -116,45 +116,30 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      * @throws TaskNotFoundException if no such task could be found in the list.
      * @throws ParseException 
+     * @throws IllegalValueException 
      */
-    public boolean edit(int targetIndex, String newDate, String newEndDate, String newTime, String newEndTime, String newContent) 
-    		throws TaskNotFoundException, ParseException {
-    	
-        Task toEdit = internalList.get(targetIndex);
+    public boolean edit(ReadOnlyTask taskToEdit, String newDate, String newEndDate, String newTime, String newEndTime, String newContent) 
+    		throws TaskNotFoundException, ParseException, IllegalValueException {
+    	assert taskToEdit != null;
+        
         if(newDate != null){
-        	toEdit.getDate().dateString = newDate;
-        	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-
-            Date date = simpleDateFormat.parse(newDate);
-            toEdit.getDate().value = date;
+        	taskToEdit.setDate(newDate);
         }
         
         if(newEndDate != null) {
-        	toEdit.getDate().enddateString = newEndDate;
-        	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        	
-        	Date date2 = simpleDateFormat.parse(newEndDate);
-        	toEdit.getDate().endDate = date2;
+        	taskToEdit.setEndDate(newEndDate);
         }
         
         if(newTime != null){
-        	toEdit.getTime().timeString = newTime;
-        	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
-
-            Date time = simpleDateFormat.parse(newTime);
-            toEdit.getTime().value = time;
+        	taskToEdit.setTime(newTime);
         }
         
         if(newEndTime != null){
-        	toEdit.getTime().endtimeString = newEndTime;
-        	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
-        	
-        	Date time2 = simpleDateFormat.parse(newEndTime);
-        	toEdit.getTime().endTime = time2;
+        	taskToEdit.setEndTime(newEndTime);
         }
         
         if(newContent != null)
-        	toEdit.getContent().value = newContent;
+        	taskToEdit.setContent(newContent);
         return true;
 
     }
@@ -285,12 +270,12 @@ public class UniqueTaskList implements Iterable<Task> {
     
     
    
-    public ObservableList<Task> getInternalList() {
+    public ObservableList<ReadOnlyTask> getInternalList() {
         return internalList;
     }
 
     @Override
-    public Iterator<Task> iterator() {
+    public Iterator<ReadOnlyTask> iterator() {
         return internalList.iterator();
     }
 
@@ -314,7 +299,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private TaskManager taskManager;
-    private FilteredList<Task> filteredTasks;
+    private FilteredList<ReadOnlyTask> filteredTasks;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -381,7 +366,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+    public synchronized void addTask(ReadOnlyTask task) throws UniqueTaskList.DuplicateTaskException {
     	try {
 			taskManager.save("add");
 		} catch (IllegalValueException e) {
@@ -397,8 +382,9 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void editTask(int targetIndex, String newDate, String newEndDate, String newTime, String newEndTime, String newContent)
-    		throws TaskNotFoundException, ParseException {
+    public synchronized void editTask(ReadOnlyTask target, String newDate, String newEndDate, 
+    		String newTime, String newEndTime, String newContent)
+    		throws TaskNotFoundException, ParseException, IllegalValueException {
     	try {
 			taskManager.save("edit");
 		} catch (IllegalValueException e) {
@@ -408,8 +394,7 @@ public class ModelManager extends ComponentManager implements Model {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	taskManager.editTask(targetIndex, newDate, newEndDate, newTime, newEndTime, newContent);
-        updateFilteredListToShowUndone();
+    	taskManager.editTask(target, newDate, newEndDate, newTime, newEndTime, newContent);
         indicateTaskManagerChanged();
 
     }
@@ -448,12 +433,11 @@ public class ModelManager extends ComponentManager implements Model {
 		}
     	taskManager.deleteTags(target, tagsToDelete);
 
-        updateFilteredListToShowDone();
+        updateFilteredListToShowUndone();
     	indicateTaskManagerChanged();
     }
     
     
-    @Override
 ```
 ###### /java/seedu/address/model/tag/Tag.java
 ``` java
@@ -677,6 +661,10 @@ public class MainWindow extends UiPart {
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }
+    
+    public TaskDetail getTaskDetail() {
+        return this.taskDetail;
+    }
 
     public void loadTaskDetail(ReadOnlyTask task, int index) {
         taskDetail.loadTaskDetail(task, index);
@@ -880,11 +868,14 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.loadTaskDetail(event.getNewSelection(), event.getNewIndex());
     }
-
-}
+    
 ```
 ###### /java/seedu/address/ui/CommandBox.java
 ``` java
+/**
+ * CommandBox is in charge of prompting the user of the commands (auto complete)
+ * and receive commands, passing it to Logic to handle
+ */
 public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private static final String FXML = "CommandBox.fxml";
@@ -900,13 +891,14 @@ public class CommandBox extends UiPart {
     private TextField commandTextField;
     private CommandResult mostRecentResult;
 
-    public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder,
-            ResultDisplay resultDisplay, Logic logic) {
+    public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder, ResultDisplay resultDisplay,
+            Logic logic) {
         CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
         commandBox.configure(resultDisplay, logic);
         commandBox.addToPlaceholder();
         return commandBox;
     }
+
 ```
 ###### /java/seedu/address/storage/TaskManagerStorage.java
 ``` java
@@ -1390,28 +1382,6 @@ public class LogsCenter {
      */
     public static String getEventHandlingLogMessage(BaseEvent e) {
         return getEventHandlingLogMessage(e,"");
-    }
-}
-```
-###### /java/seedu/address/commons/core/ComponentManager.java
-``` java
-public abstract class ComponentManager {
-    protected EventsCenter eventsCenter;
-
-    /**
-     * Uses default {@link EventsCenter}
-     */
-    public ComponentManager(){
-        this(EventsCenter.getInstance());
-    }
-
-    public ComponentManager(EventsCenter eventsCenter) {
-        this.eventsCenter = eventsCenter;
-        eventsCenter.registerHandler(this);
-    }
-
-    protected void raise(BaseEvent event){
-        eventsCenter.post(event);
     }
 }
 ```
