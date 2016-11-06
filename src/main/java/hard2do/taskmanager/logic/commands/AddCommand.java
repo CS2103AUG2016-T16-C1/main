@@ -90,14 +90,15 @@ public class AddCommand extends Command {
 			if (itu.findTimeToTime()) {
 				timeToAdd = new TaskTime(itu.getStartTime());
 				endTimeToAdd = new TaskTime(itu.getEndTime());
-			} else if (itu.findTime()) {
+			}
+			if (itu.findTime()) {
 				timeToAdd = new TaskTime(itu.getTime());
 				endTimeToAdd = new TaskTime();
 			} else {
 				timeToAdd = new TaskTime();
 				endTimeToAdd = new TaskTime();
 			}
-		}
+		} 
 
 		if (duration != null) {
 			this.toAdd = new RecurringTask(new Content(content), dateToAdd, timeToAdd, duration,

@@ -64,7 +64,7 @@ public class InferTimeUtil {
 			String numeral = matcher.group("time");
 			String meridiem = matcher.group("meridiem").toLowerCase();
 			
-			startTime = obtainTime(numeral, meridiem);
+			inferredTime = obtainTime(numeral, meridiem);
 			
 		}
 		sc.close();
