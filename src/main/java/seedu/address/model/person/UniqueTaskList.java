@@ -73,45 +73,30 @@ public class UniqueTaskList implements Iterable<ReadOnlyTask> {
      *
      * @throws TaskNotFoundException if no such task could be found in the list.
      * @throws ParseException 
+     * @throws IllegalValueException 
      */
-    public boolean edit(int targetIndex, String newDate, String newEndDate, String newTime, String newEndTime, String newContent) 
-    		throws TaskNotFoundException, ParseException {
-    	
-        ReadOnlyTask toEdit = internalList.get(targetIndex);
+    public boolean edit(ReadOnlyTask taskToEdit, String newDate, String newEndDate, String newTime, String newEndTime, String newContent) 
+    		throws TaskNotFoundException, ParseException, IllegalValueException {
+    	assert taskToEdit != null;
+        
         if(newDate != null){
-        	toEdit.getDate().dateString = newDate;
-        	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-
-            Date date = simpleDateFormat.parse(newDate);
-            toEdit.getDate().value = date;
+        	taskToEdit.setDate(newDate);
         }
         
         if(newEndDate != null) {
-        	toEdit.getEndDate().dateString = newEndDate;
-        	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        	
-        	Date date2 = simpleDateFormat.parse(newEndDate);
-        	toEdit.getEndDate().value = date2;
+        	taskToEdit.setEndDate(newEndDate);
         }
         
         if(newTime != null){
-        	toEdit.getTime().timeString = newTime;
-        	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
-
-            Date time = simpleDateFormat.parse(newTime);
-            toEdit.getTime().value = time;
+        	taskToEdit.setTime(newTime);
         }
         
         if(newEndTime != null){
-        	toEdit.getEndTime().timeString = newEndTime;
-        	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
-        	
-        	Date time2 = simpleDateFormat.parse(newEndTime);
-        	toEdit.getEndTime().value = time2;
+        	taskToEdit.setEndTime(newEndTime);
         }
         
         if(newContent != null)
-        	toEdit.getContent().value = newContent;
+        	taskToEdit.setContent(newContent);
         return true;
 
     }

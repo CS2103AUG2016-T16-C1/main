@@ -1,6 +1,7 @@
 package seedu.address.model.person;
 
 import java.sql.Date;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -202,4 +203,30 @@ public class RecurringTask implements ReadOnlyTask {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+    public boolean setDate(String date) throws IllegalValueException, ParseException{
+    	this.date = new TaskDate(date);
+    	return true;
+    }
+    @Override
+    public boolean setEndDate(String newDate) throws IllegalValueException, ParseException{
+    	
+		return false;
+    }
+    @Override
+    public boolean setTime(String time) throws IllegalValueException, ParseException{
+    	this.time = new TaskTime(time);
+    	return true;
+    }
+    @Override
+    public boolean setEndTime(String time) throws IllegalValueException, ParseException{
+    	
+    	return false;
+    }
+    @Override
+    public boolean setContent(String newContent) throws IllegalValueException{
+    	this.content = new Content(newContent);
+    	return true;
+    }
 }

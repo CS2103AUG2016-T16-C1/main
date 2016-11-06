@@ -104,8 +104,6 @@ public class TaskDetail extends UiPart {
                 try {
                     handleTimeChanged();
                 } catch (ParseException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
                 }
             }
                 
@@ -121,28 +119,29 @@ public class TaskDetail extends UiPart {
     
     public void fillTaskDetail() {
         content.setText(task.getContent().toString());
-        if (task.getDate().getValue() != null) {
+        
+        if (DateTimeUtil.changeDateToLocalDate(task.getDate().getValue()) != null) {
             startDatePicker.setValue(DateTimeUtil.changeDateToLocalDate(task.getDate().getValue()));
         } else {
             startDatePicker.setValue(null);
         }
-        if (task.getTime().getValue() != null) {
-
+        
+        if (DateTimeUtil.changeDateToLocalTime(task.getTime().getValue()) != null) {
             startTimePicker.setTime(DateTimeUtil.changeDateToLocalTime(task.getTime().getValue()));
         } else {
-            startTimePicker.setValue(null);
+            startTimePicker.setTime(LocalTime.MIN);
         }
         
-        if (task.getEndDate().getValue() != null) {
+        if (DateTimeUtil.changeDateToLocalDate(task.getEndDate().getValue()) != null) {
             endDatePicker.setValue(DateTimeUtil.changeDateToLocalDate(task.getEndDate().getValue()));
         } else {
             endDatePicker.setValue(null);
         }
-        if (task.getEndTime().getValue() != null) {
-
+        
+        if (DateTimeUtil.changeDateToLocalTime(task.getEndTime().getValue()) != null) {
             endTimePicker.setTime(DateTimeUtil.changeDateToLocalTime(task.getEndTime().getValue()));
         } else {
-            endTimePicker.setValue(null);
+            endTimePicker.setTime(LocalTime.MIN);
         }
         tags.setText(task.tagsString());
     }
@@ -157,7 +156,6 @@ public class TaskDetail extends UiPart {
 
     @FXML
     private void handleDateChanged() throws ParseException {
-        System.out.println("handle is called");
         newDate = startDatePicker.getValue();
         formattedString = DateTimeUtil.changeLocalDateToFormattedString(newDate);
         if (formattedString.compareTo(task.getDate().toString()) != 0) {
@@ -169,7 +167,6 @@ public class TaskDetail extends UiPart {
     
     @FXML
     private void handleTimeChanged() throws ParseException {
-        System.out.println("this is called");
         newTime = startTimePicker.getTime();
         formattedString = DateTimeUtil.changeLocalTimeToFormattedString(newTime);
         System.out.println(formattedString + " " + task.getTime().toString()); 
