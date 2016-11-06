@@ -8,10 +8,11 @@ import hard2do.taskmanager.commons.exceptions.IllegalValueException;
 import hard2do.taskmanager.model.TaskManager;
 import hard2do.taskmanager.model.History.StateNotFoundException;
 
-/**
- * Clears the address book.
- */
+
 //@@author A0135787N
+/**
+ * Undo the previous change to the task manager 
+ */
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
@@ -41,8 +42,7 @@ public class UndoCommand extends Command {
         try {
 			model.undo();
 		} catch (StateNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assert false : "State cannot be missing";
 		}
         String messageType = model.getHistory().getMessage();
         switch (messageType){

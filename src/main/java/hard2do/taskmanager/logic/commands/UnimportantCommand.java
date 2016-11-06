@@ -7,6 +7,9 @@ import hard2do.taskmanager.model.task.*;
 import hard2do.taskmanager.model.task.UniqueTaskList.TaskNotFoundException;
 
 //@@author A0147989B
+/**
+ * Marks as unimportant a task in the specified index from the list on the task manager.
+ */
 public class UnimportantCommand extends Command {
 
     public static final String COMMAND_WORD = "unimportant";

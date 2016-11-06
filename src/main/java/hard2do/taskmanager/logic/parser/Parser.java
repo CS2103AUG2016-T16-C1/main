@@ -14,10 +14,11 @@ import hard2do.taskmanager.commons.exceptions.IllegalValueException;
 import hard2do.taskmanager.commons.util.StringUtil;
 import hard2do.taskmanager.logic.commands.*;
 
+
+// @@author A0139523E
 /**
  * Parses user input.
  */
-// @@author A0139523E
 public class Parser {
 
 	/**
@@ -130,7 +131,6 @@ public class Parser {
 			return prepareSave(arguments);
 
 		// @@author A0141054W
-
 		case EmailCommand.COMMAND_WORD:
 			return prepareEmail(arguments);
 
@@ -138,7 +138,8 @@ public class Parser {
 			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
 		}
 	}
-
+	
+	// @@author A0135787N
 	/**
 	 * Parses arguments in the context of the edit task command.
 	 *
@@ -147,7 +148,6 @@ public class Parser {
 	 * @return the prepared command
 	 * @throws ParseException
 	 */
-	// @@author A0135787N
 	private Command prepareEdit(String args) throws ParseException {
 		final Matcher matcher = EDIT_TASK_ARGS_FORMAT.matcher(args.trim());
 		Scanner sc = new Scanner(args);
