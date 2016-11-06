@@ -33,6 +33,7 @@ public class LoadCommand extends Command {
             ConfigUtil.saveConfig(config, config.DEFAULT_CONFIG_FILE);
         } catch (IOException e) {
             e.printStackTrace();
+        	return new CommandResult(MESSAGE_INVALID_FILEPATH);
         }
         
         return new CommandResult(MESSAGE_SUCCESS);
