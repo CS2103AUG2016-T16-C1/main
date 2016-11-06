@@ -16,6 +16,8 @@ import java.util.Date;
 public class DateTimeUtil {
     
     public static LocalDate changeDateToLocalDate(Date value) {
+        if (value == null || value.toInstant() == null)
+            return null;
         Instant instant = value.toInstant();
         ZonedDateTime zdt = instant.atZone(ZoneId.systemDefault());
         LocalDate date = zdt.toLocalDate();
@@ -23,6 +25,8 @@ public class DateTimeUtil {
     }
     
     public static LocalTime changeDateToLocalTime(Date value) {
+        if (value == null || value.toInstant() == null)
+            return null;
         Instant instant = value.toInstant();
         ZonedDateTime zdt = instant.atZone(ZoneId.systemDefault());
         LocalTime time = zdt.toLocalTime();
@@ -30,12 +34,16 @@ public class DateTimeUtil {
     }
     
     public static String changeLocalDateToFormattedString(LocalDate value) {
+        if (value == null)
+            return "";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String formattedString = value.format(formatter);
         return formattedString;
     }
     
     public static String changeLocalTimeToFormattedString(LocalTime value) {
+        if (value == null)
+            return "";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         String formattedString = value.format(formatter);
         return formattedString;
