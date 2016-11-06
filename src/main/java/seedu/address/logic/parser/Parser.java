@@ -50,7 +50,7 @@ public class Parser {
     
     private static final ArrayList<String> listKeywords = 
     		new ArrayList<>(Arrays.asList("all", "done", "undone", "important", "unimportant", 
-    				"-a", "-d", "-ud", "-ui", "-i"));
+    				"-a", "-d", "-ud", "-ui", "-i", ""));
 
     public Parser() {}
 
@@ -273,7 +273,8 @@ public class Parser {
      */
     private Command prepareList(String args) throws ParseException{
         if (!listKeywords.contains(args.trim().toLowerCase())) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_LIST_RESTRICTION));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+            		ListCommand.MESSAGE_LIST_RESTRICTION));
         }
         else 
             return new ListCommand(args.trim());
@@ -309,9 +310,11 @@ public class Parser {
     private Command prepareLoad(String args) throws ParseException{
         File file = new File(args.trim());
         if (file.isDirectory()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoadCommand.MESSAGE_DIRECTORY_FILEPATH));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+            		LoadCommand.MESSAGE_DIRECTORY_FILEPATH));
         } else if (!file.exists()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoadCommand.MESSAGE_INVALID_FILEPATH));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+            		LoadCommand.MESSAGE_INVALID_FILEPATH));
         } else
             return new LoadCommand(args.trim());
     }
