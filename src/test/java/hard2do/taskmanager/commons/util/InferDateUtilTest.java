@@ -9,13 +9,12 @@ import static org.junit.Assert.assertEquals;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+//@@author A0141054W
 public class InferDateUtilTest {
     private Calendar calendar;
     private String inferredDate;
     private final SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy");
 
-
-    
     @Test
     public void testInferDate_noDate_falseExpected() {
         String noDateString = "there is no date here";
@@ -47,6 +46,5 @@ public class InferDateUtilTest {
         inferredDate = sdfDate.format(calendar.getTime());
         
         assertEquals(inferredDate, idu.getDate());
-    }
-    
+    }  
 }
