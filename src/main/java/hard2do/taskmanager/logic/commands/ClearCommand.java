@@ -18,7 +18,6 @@ public class ClearCommand extends Command {
 	
     public static final String COMMAND_WORD = "clear";
     private static final String MESSAGE_SUCCESS = "Task Manager has been cleared!";
-    private static final String MESSAGE_CANCEL = "Clear command has been cancelled";
     
     public ClearCommand() {}
 
@@ -26,13 +25,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        Alert alert = new Alert(AlertType.WARNING);
-        alert.setTitle("Warning Dialog");
-        alert.setHeaderText("Clear all tasks");
-        alert.setContentText("Action cannot be undone once Hard2Do has been closed! Are you sure you want to clear Hard2Do?");
-        
-        Optional<ButtonType> result = alert.showAndWait();
-        if(result.get() == ButtonType.OK) {
+
             try {
     			model.resetData(TaskManager.getEmptyTaskManager());
     		} catch (IllegalValueException e) {
@@ -42,12 +35,7 @@ public class ClearCommand extends Command {
     			// TODO Auto-generated catch block
     			e.printStackTrace();
     		}
-        } else {
-        	return new CommandResult(MESSAGE_CANCEL);
-        	
-        }
-        
-    
+        	           
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
