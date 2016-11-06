@@ -128,7 +128,6 @@ public class UiManager extends ComponentManager implements Ui {
     //@@author A0141054W
     @Subscribe
     public void handleTaskManagerChangedEvent(TaskManagerChangedEvent event) {
-        System.out.println("REFRESH");
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, refreshing TaskDetail"));
         mainWindow.getTaskDetail().fillTaskDetail();
     }
