@@ -10,7 +10,7 @@ import hard2do.taskmanager.commons.core.Messages;
 import hard2do.taskmanager.commons.exceptions.IllegalValueException;
 import hard2do.taskmanager.logic.commands.DoneCommand;
 import hard2do.taskmanager.logic.commands.ImportantCommand;
-import hard2do.taskmanager.logic.commands.NotdoneCommand;
+import hard2do.taskmanager.logic.commands.NotDoneCommand;
 import hard2do.taskmanager.model.tag.UniqueTagList.DuplicateTagException;
 import hard2do.taskmanager.testutil.TestTask;
 
@@ -76,7 +76,7 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         assertEquals(taskToUndone.getDone(),false);
         
         //confirm the result message is correct
-        assertResultMessage(String.format(NotdoneCommand.MESSAGE_NOTDONE_TASK_SUCCESS, taskToUndone));
+        assertResultMessage(String.format(NotDoneCommand.MESSAGE_NOTDONE_TASK_SUCCESS, taskToUndone));
         
     }
 }
