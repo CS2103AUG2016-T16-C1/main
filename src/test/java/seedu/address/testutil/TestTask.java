@@ -4,6 +4,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -181,5 +182,32 @@ public class TestTask implements ReadOnlyTask {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	@Override
+    public boolean setDate(String date) throws IllegalValueException, ParseException{
+    	
+    	return true;
+    }
+    @Override
+    public boolean setEndDate(String newDate) throws IllegalValueException, ParseException{
+    	
+		return true;
+    }
+    @Override
+    public boolean setTime(String time) throws IllegalValueException, ParseException{
+    	
+    	return true;
+    }
+    @Override
+    public boolean setEndTime(String time) throws IllegalValueException, ParseException{
+    	
+    	return true;
+    }
+    @Override
+    public boolean setContent(String newContent) throws IllegalValueException{
+    	
+    	return true;
+    }
+    
+ 
 
 }

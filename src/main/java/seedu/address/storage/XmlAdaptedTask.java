@@ -21,7 +21,11 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private TaskDate date;
     @XmlElement(required = true)
+    private TaskDate endDate;
+    @XmlElement(required = true)
     private TaskTime time;
+    @XmlElement(required = true)
+    private TaskTime endTime;
     @XmlElement(required = true)
     private Integer duration;
     @XmlElement(required = true)
@@ -47,7 +51,9 @@ public class XmlAdaptedTask {
     public XmlAdaptedTask(ReadOnlyTask source) {
         content = source.getContent();
         date = source.getDate();
+        endDate = source.getEndDate();
         time = source.getTime();
+        endTime = source.getEndTime();
         duration = source.getDuration();
         done = source.getDone();
         important = source.getImportant();
@@ -69,15 +75,17 @@ public class XmlAdaptedTask {
         }
         final Content content = this.content;
         final TaskDate date = this.date;     
+        final TaskDate endDate = this.endDate;
         final TaskTime time = this.time;
+        final TaskTime endTime = this.endTime;
         final Integer duration = this.duration;
         final boolean done = this.done;
         final boolean important = this.important;
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        if (duration != null) return new RecurringTask(content, date, time, duration, done, important, tags);
+        if (duration != null) return new RecurringTask(content, date, endDate, time, endTime, duration, done, important, tags);
         else {
             System.out.println(content.value+" is back as task");
-            return new Task(content, date, time, done, important, tags);
+            return new Task(content, date, endDate, time, endTime, done, important, tags);
         }
     }
 }

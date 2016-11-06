@@ -115,8 +115,9 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void editTask(int targetIndex, String newDate, String newEndDate, String newTime, String newEndTime, String newContent)
-    		throws TaskNotFoundException, ParseException {
+    public synchronized void editTask(ReadOnlyTask target, String newDate, String newEndDate, 
+    		String newTime, String newEndTime, String newContent)
+    		throws TaskNotFoundException, ParseException, IllegalValueException {
     	try {
 			taskManager.save("edit");
 		} catch (IllegalValueException e) {
@@ -126,8 +127,7 @@ public class ModelManager extends ComponentManager implements Model {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	taskManager.editTask(targetIndex, newDate, newEndDate, newTime, newEndTime, newContent);
-        updateFilteredListToShowUndone();
+    	taskManager.editTask(target, newDate, newEndDate, newTime, newEndTime, newContent);
         indicateTaskManagerChanged();
 
     }

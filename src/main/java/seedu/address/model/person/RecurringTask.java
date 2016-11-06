@@ -1,6 +1,7 @@
 package seedu.address.model.person;
 
 import java.sql.Date;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -21,7 +22,9 @@ public class RecurringTask implements ReadOnlyTask {
 
     private Content content;
     private TaskDate date;
+    private TaskDate endDate;
     private TaskTime time;
+    private TaskTime endTime;
     private Integer duration;
     private boolean done = false;
     private boolean important = false;
@@ -43,12 +46,14 @@ public class RecurringTask implements ReadOnlyTask {
     /**
      * create a task with done status
      */
-    public RecurringTask(Content content, TaskDate date, TaskTime time, Integer duration, boolean done, boolean important, UniqueTagList tags) {
+    public RecurringTask(Content content, TaskDate date, TaskDate endDate, TaskTime time, TaskTime endTime, Integer duration, boolean done, boolean important, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(content, date, time, tags);
         //System.out.println("creating R-task: "+content.value);
         this.content = content;
         this.date = date;
+        this.endDate = endDate;
         this.time = time;
+        this.endTime = endTime;
         this.duration = duration;
         this.done = done;
         this.important = important;
@@ -61,7 +66,9 @@ public class RecurringTask implements ReadOnlyTask {
     public RecurringTask(ReadOnlyTask source) {
         this(source.getContent(), 
                 source.getDate(), 
+                source.getEndDate(),
                 source.getTime(), 
+                source.getEndTime(),
                 source.getDuration(), 
                 source.getDone(), 
                 source.getImportant(), 
@@ -193,13 +200,37 @@ public class RecurringTask implements ReadOnlyTask {
 
 	@Override
 	public TaskDate getEndDate() {
-		// TODO Auto-generated method stub
-		return null;
+		return endDate;
 	}
 
 	@Override
 	public TaskTime getEndTime() {
-		// TODO Auto-generated method stub
-		return null;
+		return endTime;
 	}
+
+	@Override
+    public boolean setDate(String date) throws IllegalValueException, ParseException{
+    	this.date = new TaskDate(date);
+    	return true;
+    }
+    @Override
+    public boolean setEndDate(String newDate) throws IllegalValueException, ParseException{
+    	
+		return false;
+    }
+    @Override
+    public boolean setTime(String time) throws IllegalValueException, ParseException{
+    	this.time = new TaskTime(time);
+    	return true;
+    }
+    @Override
+    public boolean setEndTime(String time) throws IllegalValueException, ParseException{
+    	
+    	return false;
+    }
+    @Override
+    public boolean setContent(String newContent) throws IllegalValueException{
+    	this.content = new Content(newContent);
+    	return true;
+    }
 }
