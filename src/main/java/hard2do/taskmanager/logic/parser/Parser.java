@@ -98,7 +98,7 @@ public class Parser {
 		case DoneCommand.COMMAND_WORD:
 			return prepareDone(arguments);
 
-		case UndoneCommand.COMMAND_WORD:
+		case NotdoneCommand.COMMAND_WORD:
 			return prepareUndone(arguments);
 
 		case ImportantCommand.COMMAND_WORD:
@@ -469,10 +469,10 @@ public class Parser {
 
 		Optional<Integer> index = parseIndex(args);
 		if (!index.isPresent()) {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UndoneCommand.MESSAGE_USAGE));
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NotdoneCommand.MESSAGE_USAGE));
 		}
 
-		return new UndoneCommand(index.get());
+		return new NotdoneCommand(index.get());
 	}
 
 	/**

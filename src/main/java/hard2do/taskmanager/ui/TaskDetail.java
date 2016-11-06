@@ -133,7 +133,8 @@ public class TaskDetail extends UiPart {
     
     
     public void fillTaskDetail() {
-        content.setText(task.getContent().toString());
+        if (task.getContent() != null)
+            content.setText(task.getContent().toString());
         
         if (DateTimeUtil.changeDateToLocalDate(task.getDate().getValue()) != null) {
             startDatePicker.setValue(DateTimeUtil.changeDateToLocalDate(task.getDate().getValue()));
