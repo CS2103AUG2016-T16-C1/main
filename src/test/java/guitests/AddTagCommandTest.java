@@ -12,11 +12,12 @@ import guitests.guihandles.TaskCardHandle;
 import hard2do.taskmanager.commons.core.Messages;
 import hard2do.taskmanager.commons.exceptions.IllegalValueException;
 import hard2do.taskmanager.logic.commands.AddTagCommand;
+import hard2do.taskmanager.logic.commands.EditCommand;
 import hard2do.taskmanager.model.tag.UniqueTagList.DuplicateTagException;
 import hard2do.taskmanager.testutil.TestTask;
 
 //@@author A0141054W
-public class AddTagCommandTest extends TaskManagerGuiTest{
+public class AddTagCommandTest extends TaskManagerGuiTest {
     
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -61,10 +62,10 @@ public class AddTagCommandTest extends TaskManagerGuiTest{
         commandBox.runCommand("addtag " + targetIndexOneIndexed + " " + newTag);
 
         //confirm added Task has the new tag
-        //TaskCardHandle addedTagCard = taskListPanel.navigateToTask(taskToAddTag.getContent().value);
-        //assertEquals(taskToAddTag.tagsString(), addedTagCard.getTag());
+        TaskCardHandle addedTagCard = taskListPanel.navigateToTask(taskToAddTag.getContent().value);
+        assertEquals(taskToAddTag.tagsString(), addedTagCard.getTag());
         
         //confirm the result message is correct
-        //assertResultMessage(String.format(AddTagCommand.MESSAGE_SUCCESS, taskToAddTag));
+        assertResultMessage(String.format(EditCommand.MESSAGE_SUCCESS, taskToAddTag));
     }
 }
