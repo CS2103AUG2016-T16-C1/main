@@ -12,7 +12,7 @@ import hard2do.taskmanager.logic.commands.Command;
 import hard2do.taskmanager.logic.commands.CommandResult;
 import hard2do.taskmanager.logic.parser.Parser;
 import hard2do.taskmanager.model.Model;
-import hard2do.taskmanager.model.person.ReadOnlyTask;
+import hard2do.taskmanager.model.task.ReadOnlyTask;
 import hard2do.taskmanager.storage.Storage;
 
 /**

@@ -7,8 +7,8 @@ import java.util.Scanner;
 import hard2do.taskmanager.commons.core.Messages;
 import hard2do.taskmanager.commons.core.UnmodifiableObservableList;
 import hard2do.taskmanager.commons.exceptions.IllegalValueException;
-import hard2do.taskmanager.model.person.ReadOnlyTask;
-import hard2do.taskmanager.model.person.UniqueTaskList.TaskNotFoundException;
+import hard2do.taskmanager.model.task.ReadOnlyTask;
+import hard2do.taskmanager.model.task.UniqueTaskList.TaskNotFoundException;
 
 //@@author A0135787N
 public class AddTagCommand extends Command {

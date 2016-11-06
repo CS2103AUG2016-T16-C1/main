@@ -4,7 +4,7 @@ import hard2do.taskmanager.commons.core.EventsCenter;
 import hard2do.taskmanager.commons.core.Messages;
 import hard2do.taskmanager.commons.core.UnmodifiableObservableList;
 import hard2do.taskmanager.commons.events.ui.JumpToListRequestEvent;
-import hard2do.taskmanager.model.person.ReadOnlyTask;
+import hard2do.taskmanager.model.task.ReadOnlyTask;
 
 /**
  * Selects a task identified using it's last displayed index from the task manager.

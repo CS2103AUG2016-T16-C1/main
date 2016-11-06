@@ -2,10 +2,10 @@ package hard2do.taskmanager.model;
 
 import java.util.List;
 
-import hard2do.taskmanager.model.person.ReadOnlyTask;
-import hard2do.taskmanager.model.person.UniqueTaskList;
 import hard2do.taskmanager.model.tag.Tag;
 import hard2do.taskmanager.model.tag.UniqueTagList;
+import hard2do.taskmanager.model.task.ReadOnlyTask;
+import hard2do.taskmanager.model.task.UniqueTaskList;
 
 /**
  * Unmodifiable view of all Tasks

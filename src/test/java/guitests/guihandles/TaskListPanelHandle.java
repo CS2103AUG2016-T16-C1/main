@@ -3,8 +3,8 @@ package guitests.guihandles;
 
 import guitests.GuiRobot;
 import hard2do.taskmanager.TestApp;
-import hard2do.taskmanager.model.person.ReadOnlyTask;
-import hard2do.taskmanager.model.person.Task;
+import hard2do.taskmanager.model.task.ReadOnlyTask;
+import hard2do.taskmanager.model.task.Task;
 import hard2do.taskmanager.testutil.TestUtil;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;

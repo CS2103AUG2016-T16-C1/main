@@ -11,9 +11,9 @@ import java.util.Set;
 import hard2do.taskmanager.commons.exceptions.IllegalValueException;
 import hard2do.taskmanager.commons.util.InferDateUtil;
 import hard2do.taskmanager.commons.util.InferTimeUtil;
-import hard2do.taskmanager.model.person.*;
 import hard2do.taskmanager.model.tag.Tag;
 import hard2do.taskmanager.model.tag.UniqueTagList;
+import hard2do.taskmanager.model.task.*;
 
 /**
  * Adds a task to the task manager.

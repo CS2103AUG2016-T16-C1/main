@@ -4,7 +4,7 @@ import guitests.guihandles.*;
 import hard2do.taskmanager.TestApp;
 import hard2do.taskmanager.commons.core.EventsCenter;
 import hard2do.taskmanager.model.TaskManager;
-import hard2do.taskmanager.model.person.ReadOnlyTask;
+import hard2do.taskmanager.model.task.ReadOnlyTask;
 import hard2do.taskmanager.testutil.TestUtil;
 import hard2do.taskmanager.testutil.TypicalTestTasks;
 import javafx.stage.Stage;

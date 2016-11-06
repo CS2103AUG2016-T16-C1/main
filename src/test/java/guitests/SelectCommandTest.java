@@ -2,7 +2,7 @@ package guitests;
 
 import org.junit.Test;
 
-import hard2do.taskmanager.model.person.ReadOnlyTask;
+import hard2do.taskmanager.model.task.ReadOnlyTask;
 
 import static org.junit.Assert.assertEquals;
 //@@author A0141054W-reused

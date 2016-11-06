@@ -3,8 +3,8 @@ package hard2do.taskmanager.testutil;
 import java.text.ParseException;
 
 import hard2do.taskmanager.commons.exceptions.IllegalValueException;
-import hard2do.taskmanager.model.person.*;
 import hard2do.taskmanager.model.tag.Tag;
+import hard2do.taskmanager.model.task.*;
 
 /**
  *

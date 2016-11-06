@@ -3,7 +3,7 @@ package hard2do.taskmanager.logic;
 import java.text.ParseException;
 
 import hard2do.taskmanager.logic.commands.CommandResult;
-import hard2do.taskmanager.model.person.ReadOnlyTask;
+import hard2do.taskmanager.model.task.ReadOnlyTask;
 import javafx.collections.ObservableList;
 
 /**

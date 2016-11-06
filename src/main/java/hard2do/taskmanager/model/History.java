@@ -9,15 +9,15 @@ import java.util.*;
 
 import hard2do.taskmanager.commons.exceptions.IllegalValueException;
 import hard2do.taskmanager.commons.util.CollectionUtil;
-import hard2do.taskmanager.model.person.Content;
-import hard2do.taskmanager.model.person.ReadOnlyTask;
-import hard2do.taskmanager.model.person.RecurringTask;
-import hard2do.taskmanager.model.person.Task;
-import hard2do.taskmanager.model.person.TaskDate;
-import hard2do.taskmanager.model.person.TaskTime;
-import hard2do.taskmanager.model.person.UniqueTaskList;
 import hard2do.taskmanager.model.tag.Tag;
 import hard2do.taskmanager.model.tag.UniqueTagList;
+import hard2do.taskmanager.model.task.Content;
+import hard2do.taskmanager.model.task.ReadOnlyTask;
+import hard2do.taskmanager.model.task.RecurringTask;
+import hard2do.taskmanager.model.task.Task;
+import hard2do.taskmanager.model.task.TaskDate;
+import hard2do.taskmanager.model.task.TaskTime;
+import hard2do.taskmanager.model.task.UniqueTaskList;
 
 /**
  * Records the current state of the task manager after every change.

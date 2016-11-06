@@ -3,8 +3,8 @@ package hard2do.taskmanager.logic.commands;
 import hard2do.taskmanager.commons.core.Messages;
 import hard2do.taskmanager.commons.core.UnmodifiableObservableList;
 import hard2do.taskmanager.commons.exceptions.IllegalValueException;
-import hard2do.taskmanager.model.person.*;
-import hard2do.taskmanager.model.person.UniqueTaskList.TaskNotFoundException;
+import hard2do.taskmanager.model.task.*;
+import hard2do.taskmanager.model.task.UniqueTaskList.TaskNotFoundException;
 
 //@@author A0147989B
 public class UndoneCommand extends Command {

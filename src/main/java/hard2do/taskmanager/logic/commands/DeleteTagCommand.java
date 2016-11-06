@@ -7,9 +7,9 @@ import java.util.Scanner;
 import hard2do.taskmanager.commons.core.Messages;
 import hard2do.taskmanager.commons.core.UnmodifiableObservableList;
 import hard2do.taskmanager.commons.exceptions.IllegalValueException;
-import hard2do.taskmanager.model.person.ReadOnlyTask;
-import hard2do.taskmanager.model.person.UniqueTaskList.TaskNotFoundException;
 import hard2do.taskmanager.model.tag.Tag;
+import hard2do.taskmanager.model.task.ReadOnlyTask;
+import hard2do.taskmanager.model.task.UniqueTaskList.TaskNotFoundException;
 //@@author A0135787N-reused
 public class DeleteTagCommand extends Command {
     public static final String COMMAND_WORD = "deltag";

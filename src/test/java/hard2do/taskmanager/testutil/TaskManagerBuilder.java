@@ -2,9 +2,9 @@ package hard2do.taskmanager.testutil;
 
 import hard2do.taskmanager.commons.exceptions.IllegalValueException;
 import hard2do.taskmanager.model.TaskManager;
-import hard2do.taskmanager.model.person.Task;
-import hard2do.taskmanager.model.person.UniqueTaskList;
 import hard2do.taskmanager.model.tag.Tag;
+import hard2do.taskmanager.model.task.Task;
+import hard2do.taskmanager.model.task.UniqueTaskList;
 
 /**
  * A utility class to help with building TaskManager objects.

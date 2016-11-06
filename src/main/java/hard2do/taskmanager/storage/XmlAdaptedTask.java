@@ -3,9 +3,9 @@ package hard2do.taskmanager.storage;
 import javax.xml.bind.annotation.XmlElement;
 
 import hard2do.taskmanager.commons.exceptions.IllegalValueException;
-import hard2do.taskmanager.model.person.*;
 import hard2do.taskmanager.model.tag.Tag;
 import hard2do.taskmanager.model.tag.UniqueTagList;
+import hard2do.taskmanager.model.task.*;
 
 import java.util.ArrayList;
 import java.util.Date;

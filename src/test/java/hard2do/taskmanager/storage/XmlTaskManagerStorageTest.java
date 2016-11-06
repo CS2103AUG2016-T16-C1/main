@@ -10,7 +10,7 @@ import hard2do.taskmanager.commons.exceptions.DataConversionException;
 import hard2do.taskmanager.commons.util.FileUtil;
 import hard2do.taskmanager.model.ReadOnlyTaskManager;
 import hard2do.taskmanager.model.TaskManager;
-import hard2do.taskmanager.model.person.Task;
+import hard2do.taskmanager.model.task.Task;
 import hard2do.taskmanager.storage.XmlTaskManagerStorage;
 import hard2do.taskmanager.testutil.TypicalTestTasks;
 

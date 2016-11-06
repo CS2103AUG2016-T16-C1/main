@@ -1,4 +1,4 @@
-package hard2do.taskmanager.model.person;
+package hard2do.taskmanager.model.task;
 
 import hard2do.taskmanager.commons.exceptions.IllegalValueException;
 

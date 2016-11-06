@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 import hard2do.taskmanager.commons.core.LogsCenter;
 import hard2do.taskmanager.commons.util.FxViewUtil;
-import hard2do.taskmanager.model.person.ReadOnlyTask;
+import hard2do.taskmanager.model.task.ReadOnlyTask;
 
 /**
  * The Browser Panel of the App.

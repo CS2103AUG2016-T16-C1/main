@@ -5,10 +5,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import hard2do.taskmanager.commons.exceptions.IllegalValueException;
 import hard2do.taskmanager.model.ReadOnlyTaskManager;
-import hard2do.taskmanager.model.person.ReadOnlyTask;
-import hard2do.taskmanager.model.person.UniqueTaskList;
 import hard2do.taskmanager.model.tag.Tag;
 import hard2do.taskmanager.model.tag.UniqueTagList;
+import hard2do.taskmanager.model.task.ReadOnlyTask;
+import hard2do.taskmanager.model.task.UniqueTaskList;
 
 import java.util.ArrayList;
 import java.util.Collections;

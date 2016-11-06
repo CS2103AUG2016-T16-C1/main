@@ -14,9 +14,9 @@ import hard2do.taskmanager.model.Model;
 import hard2do.taskmanager.model.ModelManager;
 import hard2do.taskmanager.model.ReadOnlyTaskManager;
 import hard2do.taskmanager.model.TaskManager;
-import hard2do.taskmanager.model.person.*;
 import hard2do.taskmanager.model.tag.Tag;
 import hard2do.taskmanager.model.tag.UniqueTagList;
+import hard2do.taskmanager.model.task.*;
 import hard2do.taskmanager.storage.StorageManager;
 
 import org.junit.After;

@@ -2,8 +2,8 @@ package hard2do.taskmanager.logic.commands;
 
 import hard2do.taskmanager.commons.core.Messages;
 import hard2do.taskmanager.commons.core.UnmodifiableObservableList;
-import hard2do.taskmanager.model.person.ReadOnlyTask;
-import hard2do.taskmanager.model.person.UniqueTaskList.TaskNotFoundException;
+import hard2do.taskmanager.model.task.ReadOnlyTask;
+import hard2do.taskmanager.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Deletes a task identified using it's last displayed index from the task manager.

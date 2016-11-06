@@ -5,7 +5,7 @@ import hard2do.taskmanager.commons.core.GuiSettings;
 import hard2do.taskmanager.commons.events.ui.ExitAppRequestEvent;
 import hard2do.taskmanager.logic.Logic;
 import hard2do.taskmanager.model.UserPrefs;
-import hard2do.taskmanager.model.person.ReadOnlyTask;
+import hard2do.taskmanager.model.task.ReadOnlyTask;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;

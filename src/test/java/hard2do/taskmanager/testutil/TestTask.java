@@ -4,10 +4,10 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 import hard2do.taskmanager.commons.exceptions.IllegalValueException;
-import hard2do.taskmanager.model.person.*;
 import hard2do.taskmanager.model.tag.Tag;
 import hard2do.taskmanager.model.tag.UniqueTagList;
 import hard2do.taskmanager.model.tag.UniqueTagList.DuplicateTagException;
+import hard2do.taskmanager.model.task.*;
 
 /**
  * A mutable task object. For testing only.

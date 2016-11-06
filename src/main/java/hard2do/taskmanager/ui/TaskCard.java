@@ -3,7 +3,7 @@ package hard2do.taskmanager.ui;
 import java.text.ParseException;
 
 import hard2do.taskmanager.logic.Logic;
-import hard2do.taskmanager.model.person.ReadOnlyTask;
+import hard2do.taskmanager.model.task.ReadOnlyTask;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;

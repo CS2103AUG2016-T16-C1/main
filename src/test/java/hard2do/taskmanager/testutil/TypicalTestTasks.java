@@ -4,7 +4,7 @@ import java.text.ParseException;
 
 import hard2do.taskmanager.commons.exceptions.IllegalValueException;
 import hard2do.taskmanager.model.TaskManager;
-import hard2do.taskmanager.model.person.*;
+import hard2do.taskmanager.model.task.*;
 
 /**
  *

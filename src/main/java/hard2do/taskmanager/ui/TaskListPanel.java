@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 import hard2do.taskmanager.commons.core.LogsCenter;
 import hard2do.taskmanager.commons.events.ui.TaskPanelSelectionChangedEvent;
 import hard2do.taskmanager.logic.Logic;
-import hard2do.taskmanager.model.person.ReadOnlyTask;
+import hard2do.taskmanager.model.task.ReadOnlyTask;
 
 /**
  * Panel containing the list of persons.

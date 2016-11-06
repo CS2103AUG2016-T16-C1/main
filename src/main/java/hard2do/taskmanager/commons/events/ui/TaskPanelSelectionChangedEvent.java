@@ -1,7 +1,7 @@
 package hard2do.taskmanager.commons.events.ui;
 
 import hard2do.taskmanager.commons.events.BaseEvent;
-import hard2do.taskmanager.model.person.ReadOnlyTask;
+import hard2do.taskmanager.model.task.ReadOnlyTask;
 
 /**
  * Represents a selection change in the Person List Panel
