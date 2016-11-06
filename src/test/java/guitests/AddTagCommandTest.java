@@ -50,7 +50,6 @@ public class AddTagCommandTest extends TaskManagerGuiTest {
     public void testAddTag_invalidTag_errorMessageExpected() throws DuplicateTagException, IllegalValueException {
         commandBox.runCommand("addtag " + "1 " + "newTag$^&");
         assertResultMessage(AddTagCommand.MESSAGE_INVALID_TAG);
-
     }
     
     //helper method for main test

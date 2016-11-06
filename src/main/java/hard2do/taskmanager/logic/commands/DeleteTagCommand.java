@@ -20,7 +20,7 @@ public class DeleteTagCommand extends Command {
             + " 1 toughlife easygame";
 
     public static final String MESSAGE_SUCCESS = "Task tags updated: %1$s";
-    public static final String MESSAGE_INVALID_TAG = "Tags must be alphanumerical";
+    public static final String MESSAGE_INVALID_TAG = "Tag must be alphanumerical";
     public static final String MESSAGE_NO_TAG = "No Tag can be found";
     
     private int targetIndex;
