@@ -12,27 +12,27 @@
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  [4.1 Adding tasks](#41-adding-tasks--add) <br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- 4.1.1 Adds a floating task to Hard2Do <br>
+ [4.1.1 Adds a floating task to Hard2Do](#41-adding-tasks--add) <br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- 4.1.2 Adds a task with date and time to Hard2Do <br>
+ [4.1.2 Adds a task with date and time to Hard2Do](#41-adding-tasks--add) <br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- 4.1.3 Adds a task with date to Hard2Do with shortcuts<br>
+ [4.1.3 Adds a task with date to Hard2Do with shortcuts](#41-adding-tasks--add) <br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- 4.1.4 Adds a task with time to Hard2Do using shortcuts<br>
+ [4.1.4 Adds a task with time to Hard2Do using shortcuts](#41-adding-tasks--add) <br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  [4.2 Adding tags](#42-adding-tags--addtag) <br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  [4.3 Listing tasks](#42-listing-tasks--list) <br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- 4.3.1 List all undone tasks <br>
+ [4.3.1 List all undone tasks](#42-listing-tasks--list)  <br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- 4.3.2 List all tasks added <br>
+ [4.3.2 List all tasks added](#42-listing-tasks--list) <br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- 4.3.3 List all tasks that are marked as done <br>
+ [4.3.3 List all tasks that are marked as done](#42-listing-tasks--list)  <br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- 4.3.4 List all tasks that are marked as important <br>
+ [4.3.4 List all tasks that are marked as important](#42-listing-tasks--list) <br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- 4.3.5 List all tasks that are marked as unimportant <br>
+ [4.3.5 List all tasks that are marked as unimportant](#42-listing-tasks--list)  <br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  [4.4 Finding a task](#44-finding-a-task--find) <br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -61,7 +61,7 @@
  [4.16 Load tasks](#416-load-tasks--load) <br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  [4.17 Exiting the program](#417-exiting-the-program--exit) <br>
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.18 Viewing help](#418-viewing-help--help) <br>
+ [4.18 Viewing help](#418-viewing-help--help) <br>
  [5 FAQ](#5-faq) <br>
  [6 Command Summary](#6-command-summary)<br>
 
