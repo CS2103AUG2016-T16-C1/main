@@ -190,32 +190,29 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public boolean setDate(String date) throws IllegalValueException, ParseException {
-
+    public boolean setDate(String date) throws IllegalValueException, ParseException{
+        this.getDate().dateString = date;
+        this.taskdate = new TaskDate(date);
         return true;
     }
-
     @Override
-    public boolean setEndDate(String newDate) throws IllegalValueException, ParseException {
-
+    public boolean setEndDate(String newDate) throws IllegalValueException, ParseException{
+        this.enddate = new TaskDate(newDate);
         return true;
     }
-
     @Override
-    public boolean setTime(String time) throws IllegalValueException, ParseException {
-
+    public boolean setTime(String time) throws IllegalValueException, ParseException{
+        this.tasktime = new TaskTime(time);
         return true;
     }
-
     @Override
-    public boolean setEndTime(String time) throws IllegalValueException, ParseException {
-
+    public boolean setEndTime(String time) throws IllegalValueException, ParseException{
+        this.endtime = new TaskTime(time);
         return true;
     }
-
     @Override
-    public boolean setContent(String newContent) throws IllegalValueException {
-
+    public boolean setContent(String newContent) throws IllegalValueException{
+        this.content = new Content(newContent);
         return true;
     }
 
