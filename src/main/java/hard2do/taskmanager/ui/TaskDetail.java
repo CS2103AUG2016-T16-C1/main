@@ -136,25 +136,25 @@ public class TaskDetail extends UiPart {
         if (task.getContent() != null)
             content.setText(task.getContent().toString());
         
-        if (DateTimeUtil.changeDateToLocalDate(task.getDate().getValue()) != null) {
+        if (task.getDate() != null && DateTimeUtil.changeDateToLocalDate(task.getDate().getValue()) != null) {
             startDatePicker.setValue(DateTimeUtil.changeDateToLocalDate(task.getDate().getValue()));
         } else {
             startDatePicker.setValue(null);
         }
         
-        if (DateTimeUtil.changeDateToLocalTime(task.getTime().getValue()) != null) {
+        if (task.getTime() != null && DateTimeUtil.changeDateToLocalTime(task.getTime().getValue()) != null) {
             startTimePicker.setTime(DateTimeUtil.changeDateToLocalTime(task.getTime().getValue()));
         } else {
             startTimePicker.setTime(LocalTime.MIN);
         }
         
-        if (DateTimeUtil.changeDateToLocalDate(task.getEndDate().getValue()) != null) {
+        if (task.getEndDate() != null && DateTimeUtil.changeDateToLocalDate(task.getEndDate().getValue()) != null) {
             endDatePicker.setValue(DateTimeUtil.changeDateToLocalDate(task.getEndDate().getValue()));
         } else {
             endDatePicker.setValue(null);
         }
         
-        if (DateTimeUtil.changeDateToLocalTime(task.getEndTime().getValue()) != null) {
+        if (task.getEndTime() !=null && DateTimeUtil.changeDateToLocalTime(task.getEndTime().getValue()) != null) {
             endTimePicker.setTime(DateTimeUtil.changeDateToLocalTime(task.getEndTime().getValue()));
         } else {
             endTimePicker.setTime(LocalTime.MIN);
