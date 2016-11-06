@@ -20,9 +20,9 @@ public class AddTagCommand extends Command {
             + "Example: " + COMMAND_WORD
             + " 1 toughlife easygame";
     
-    private static final String MESSAGE_INVALID_TAG = "Tags must be alphanumerical";
-    private static final String MESSAGE_NO_TAG = "No Tag can be found";
-    private static final String MESSAGE_SUCCESS = "Task tags updated: %1$s";
+    public static final String MESSAGE_INVALID_TAG = "Tags must be alphanumerical";
+    public static final String MESSAGE_NO_TAG = "No Tag can be found";
+    public static final String MESSAGE_SUCCESS = "Task tags updated: %1$s";
    
     private int targetIndex;
     private ArrayList<String> tagsToAdd;
