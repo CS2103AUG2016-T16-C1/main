@@ -13,10 +13,10 @@ import java.util.Scanner;
 //@@author A0135787N
 public class InferDateUtil {
 	
-	private String contentToInfer;
-	private Calendar calendar;
-	private String inferredDate;
 	private final SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy");
+	private String contentToInfer;
+	private String inferredDate;
+	private Calendar calendar;
 	private Date now;
 	private int currentDay;
 	private int inferredDay;
@@ -29,15 +29,15 @@ public class InferDateUtil {
 	 * @param content
 	 */
 	
-	public InferDateUtil(String content){
+	public InferDateUtil(String content) {
 		assert content != null;
 		
 	    contentToInfer = content;
 	    calendar = Calendar.getInstance();
 	    currentDay = calendar.get(Calendar.DAY_OF_WEEK);
-	    if(currentDay == 1){
+	    if (currentDay == 1) {
 	    	currentDay = 7;
-	    }else{
+	    }else {
 	    	currentDay -= 1;
 	    }
 	    now = new Date();
@@ -68,7 +68,7 @@ public class InferDateUtil {
 	 * initalizes today's date and the day of the week only
 	 */
 	
-	public InferDateUtil(){
+	public InferDateUtil() {
 	    calendar = Calendar.getInstance();
 	    now = new Date();
 	    currentDay = calendar.get(Calendar.DAY_OF_WEEK);
@@ -81,10 +81,10 @@ public class InferDateUtil {
 	 * 
 	 */
 	
-	public boolean findDate(){
+	public boolean findDate() {
 		
-		if(new Scanner(contentToInfer).findInLine("tmr") != null
-				|| new Scanner(contentToInfer).findInLine("tommorrow") != null){
+		if (new Scanner(contentToInfer).findInLine("tmr") != null
+				|| new Scanner(contentToInfer).findInLine("tommorrow") != null) {
 			calendar.setTime(now);
 		    calendar.add(Calendar.DAY_OF_YEAR, 1);
 		    inferredDate = sdfDate.format(calendar.getTime());
@@ -92,85 +92,81 @@ public class InferDateUtil {
 		    return true;
 		}
 		Scanner sc = new Scanner(contentToInfer);
-		if(sc.findInLine("this") != null){
-			if(sc.hasNext()){
+		if (sc.findInLine("this") != null) {
+			if (sc.hasNext()) {
 				String check = sc.next().toLowerCase();
 				
-				if(check.equals("this")){
+				if (check.equals("this")) {
 					check = sc.next().toLowerCase();
 				}
 				
-				if(days.containsKey(check)){
+				if (days.containsKey(check)) {
 					inferredDay = days.get(check);
 					
 					//Checks if the day is already over for the current week
-					if(inferredDay - currentDay <= 0){
+					if (inferredDay - currentDay <= 0) {
 						calendar.add(Calendar.DAY_OF_YEAR, inferredDay - currentDay + 7);
 						inferredDate = sdfDate.format(calendar.getTime());
 						sc.close();
 						return true;
-					}else{
+					}else {
 						calendar.add(Calendar.DAY_OF_YEAR, inferredDay - currentDay );
 						inferredDate = sdfDate.format(calendar.getTime());
 						sc.close();
 						return true;
 					}
 					
-				}while(sc.hasNext()){
-					if(sc.next().equals("this") && sc.hasNext()){
+				}while(sc.hasNext()) {
+					if (sc.next().equals("this") && sc.hasNext()) {
 						check = sc.next().toLowerCase();
 						
-						if(days.containsKey(check)){
+						if (days.containsKey(check)) {
 							inferredDay = days.get(check);
 							
-							if(inferredDay - currentDay <= 0){
+							if (inferredDay - currentDay <= 0) {
 								calendar.add(Calendar.DAY_OF_YEAR, inferredDay - currentDay + 7);
 								inferredDate = sdfDate.format(calendar.getTime());
 								sc.close();
 								return true;
 								
-							}else{
+							}else {
 								calendar.add(Calendar.DAY_OF_YEAR, inferredDay - currentDay );
 								inferredDate = sdfDate.format(calendar.getTime());
 								sc.close();
 								return true;
 							}
 						}
-					
-					
 					}
 				}
 			} 
-				
 		}
 		sc.close();
 		Scanner vc = new Scanner(contentToInfer);
-		if(vc.findInLine("next") != null){
-			if(vc.hasNext()){
+		if (vc.findInLine("next") != null) {
+			if (vc.hasNext()) {
 				String check = vc.next().toLowerCase();
 				
-				if(check.equals("week")){
+				if (check.equals("week")) {
 					calendar.add(Calendar.DAY_OF_YEAR, 7);
 					inferredDate = sdfDate.format(calendar.getTime());
 					vc.close();
 					return true;
 				}
-				if(days.containsKey(check)){
+				if (days.containsKey(check)) {
 					inferredDay = days.get(check);
 					
-					if(inferredDay - currentDay <= 0){
+					if (inferredDay - currentDay <= 0) {
 						calendar.add(Calendar.DAY_OF_YEAR, inferredDay - currentDay + 14);
 						inferredDate = sdfDate.format(calendar.getTime());
 						vc.close();
 						return true;
 						
-					}else{
+					}else {
 						calendar.add(Calendar.DAY_OF_YEAR, inferredDay - currentDay + 7);
 						inferredDate = sdfDate.format(calendar.getTime());
 						vc.close();
 						return true;
 					}
-					
 				}
 			}
 		}
@@ -183,10 +179,8 @@ public class InferDateUtil {
 	 * 
 	 * @return null if there is no date. 
 	 */
-	public String getDate(){
+	public String getDate() {
 		
 	    return inferredDate;
-	
-	
 	}
 }

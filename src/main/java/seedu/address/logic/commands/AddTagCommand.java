@@ -11,6 +11,7 @@ import seedu.address.model.person.UniqueTaskList.TaskNotFoundException;
 
 //@@author A0135787N
 public class AddTagCommand extends Command {
+	
     public static final String COMMAND_WORD = "addtag";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": adds a tag to a task listed in the task manager. \n"

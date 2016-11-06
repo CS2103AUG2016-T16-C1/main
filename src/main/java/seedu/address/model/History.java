@@ -48,7 +48,7 @@ public class History {
 	 * Constructor that initialises History class whenever Hard2Do is started
 	 */
 	
-	History(){
+	History() {
 		taskStates =  new Stack <List<ReadOnlyTask>>(); 
 		messages = new Stack<String>();
 		tagStates = new Stack <Collection<Tag>>();
@@ -69,7 +69,7 @@ public class History {
 		ObservableList<ReadOnlyTask> newState = FXCollections.observableArrayList();
 		
 		//Create deep copy of tasks
-		for (ReadOnlyTask t : stateToSave){
+		for (ReadOnlyTask t : stateToSave) {
 			
 			Set<Tag> tagSet = new HashSet<>();
 	        for (Tag tag : t.getTags().toSet()) {
@@ -114,9 +114,9 @@ public class History {
 		taskStates.push(newState);
 		messages.push(commandType);
 		
-		if (!tagsToSave.isEmpty()){
+		if (!tagsToSave.isEmpty()) {
 			Collection <Tag> newTags = FXCollections.observableArrayList();
-			for (Tag g : tagsToSave){
+			for (Tag g : tagsToSave) {
 				newTags.add(new Tag(g.tagName));
 			}
 			tagStates.push(newTags);
@@ -139,18 +139,18 @@ public class History {
 	
 	//Operations to retrieve previous state of Tasks and Tags
 	
-	public List<ReadOnlyTask> getPreviousTasks(){
+	public List<ReadOnlyTask> getPreviousTasks() {
 		return tasksState;
 	}
 	
-	public Collection<Tag> getPreviousTags(){
+	public Collection<Tag> getPreviousTags() {
 		return tagsState;
 	}
 	
-	public boolean isEmpty(){
+	public boolean isEmpty() {
 		return taskStates.isEmpty();
 	}
-	public String getMessage(){
+	public String getMessage() {
 		return message;
 	}
 }
