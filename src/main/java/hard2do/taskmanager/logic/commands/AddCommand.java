@@ -28,11 +28,11 @@ public class AddCommand extends Command {
 			+ "Note: order and presence of parameters after CONTENT do not matter. \n" + "Example: " + COMMAND_WORD
 			+ " do this task manager sd/20-10-2016 ed/20-10-2016 st/13:00 et/16:00 #shaglife #wheregottime";
 
-	private static final String MESSAGE_SUCCESS = "New task added: %1$s";
-	private static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
-	private static final String MESSAGE_STARTENDDATE_CONSTRAINTS = "Start date must be added";
-	private static final String MESSAGE_STARTENDTIME_CONSTRAINTS = "Start time must be added";
-	private static final String MESSAGE_ENDDATETIME_CONSTRAINTS = "End date must have a corresponding end time, vice versa";
+	public static final String MESSAGE_SUCCESS = "New task added: %1$s";
+	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
+	public static final String MESSAGE_STARTENDDATE_CONSTRAINTS = "Start date must be added";
+	public static final String MESSAGE_STARTENDTIME_CONSTRAINTS = "Start time must be added";
+	public static final String MESSAGE_ENDDATETIME_CONSTRAINTS = "End date must have a corresponding end time, vice versa";
 
 	private final ReadOnlyTask toAdd;
 
