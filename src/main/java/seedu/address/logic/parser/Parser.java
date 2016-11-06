@@ -27,14 +27,9 @@ public class Parser {
 
 	private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
-	private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one
-																											// or
-																											// more
-																											// keywords
-																											// separated
-																											// by
-																											// whitespace
-
+	//one or more keywords separated by white space
+	private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); 
+	
 	private static final Pattern EDIT_TASK_ARGS_FORMAT = Pattern.compile("(?<index>[0-9]+) (?<taskDetails>.+)");
 
 	private static final Pattern ADD_TAGS_FORMAT = Pattern.compile("(?<index>\\S+)(?<tagsToAdd>[^#/%]+)");
@@ -48,7 +43,8 @@ public class Parser {
 	// @@author
 
 	private static final ArrayList<String> listKeywords = new ArrayList<>(
-			Arrays.asList("all", "done", "undone", "important", "unimportant", "-a", "-d", "-ud", "-ui", "-i"));
+			Arrays.asList("all", "done", "undone", "important", "unimportant", 
+					"-a", "-d", "-ud", "-ui", "-i", ""));
 
 	public Parser() {
 	}
