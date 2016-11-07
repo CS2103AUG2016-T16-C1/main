@@ -20,7 +20,6 @@ import hard2do.taskmanager.logic.commands.*;
  * Parses user input.
  */
 public class Parser {
-
 	/**
 	 * Used for initial separation of command word and args.
 	 */
@@ -288,8 +287,9 @@ public class Parser {
 		if (!listKeywords.contains(args.trim().toLowerCase())) {
 			return new IncorrectCommand(
 					String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_LIST_RESTRICTION));
-		} else
+		} else {
 			return new ListCommand(args.trim());
+		}
 	}
 
 	/**
@@ -348,8 +348,9 @@ public class Parser {
 		} else if (!file.exists()) {
 			return new IncorrectCommand(
 					String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoadCommand.MESSAGE_INVALID_FILEPATH));
-		} else
+		} else {
 			return new LoadCommand(args.trim());
+		}
 	}
 
 	/**
@@ -392,7 +393,6 @@ public class Parser {
 
 		try {
 			return new DeleteTagCommand(matcher.group("index"), matcher.group("tagsToDelete"));
-
 		} catch (IllegalValueException ive) {
 			return new IncorrectCommand(ive.getMessage());
 		}
@@ -425,7 +425,7 @@ public class Parser {
 		if (!index.isPresent()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
 		}
-
+		
 		return new DeleteCommand(index.get());
 	}
 

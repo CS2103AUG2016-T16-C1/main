@@ -32,24 +32,19 @@ public class ListCommand extends Command {
         if (listModification.equals("done") || listModification.equals("-d")) {
             model.updateFilteredListToShowDone();
             return new CommandResult(MESSAGE_SUCCESS_DONE);
-        }
-        else if (listModification.equals("all") || listModification.equals("-a")) {
+        } else if (listModification.equals("all") || listModification.equals("-a")) {
             model.updateFilteredListToShowAll();
             return new CommandResult(MESSAGE_SUCCESS_ALL);
-        }
-        else if (listModification.equals("important") || listModification.equals("-i")){
+        } else if (listModification.equals("important") || listModification.equals("-i")){
         	model.updateFilteredListToShowImportant();
             return new CommandResult(MESSAGE_SUCCESS_IMPORTANT);
-        }
-        else if (listModification.equals("unimportant") || listModification.equals("-ui")){
+        } else if (listModification.equals("unimportant") || listModification.equals("-ui")){
         	model.updateFilteredListToShowUnimportant();
             return new CommandResult(MESSAGE_SUCCESS_UNIMPORTANT);
-        }
-        else if (listModification.equals("undone") || listModification.equals("-ud")){
+        } else if (listModification.equals("undone") || listModification.equals("-ud")){
         	model.updateFilteredListToShowUndone();
             return new CommandResult(MESSAGE_SUCCESS_UNDONE);
-        }
-        else {
+        } else {
             model.updateFilteredListToShowUndone();
             return new CommandResult(MESSAGE_SUCCESS_UNDONE);
         }
