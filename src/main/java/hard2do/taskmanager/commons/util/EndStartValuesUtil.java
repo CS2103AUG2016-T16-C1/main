@@ -16,11 +16,11 @@ public class EndStartValuesUtil {
 	private final static Pattern DATE_STRING_FORMAT = Pattern.compile("(?<day>\\d+)-(?<month>\\d+)-(?<year>\\d+)");
 	private final static Pattern TIME_STRING_FORMAT = Pattern.compile("(?<hour>\\d+):(?<min>\\d+)");
 	
-	private static final String MESSAGE_ENDDATE_CONSTRAINT = "End date cannot be earlier than start date";
-	private static final String MESSAGE_ENDTIME_CONSTRAINT = "End time cannot be earlier than start time";
-	private static final String MESSAGE_SAME_TIME_CONSTRAINT = "End time cannot be same as start time";
-	private static final String MESSAGE_DATE_FORMAT = "Dates must be in [dd-mm-yyyy] format";
-	private static final String MESSAGE_TIME_FORMAT = "Time must be in [HH:mm] format";
+	public static final String MESSAGE_ENDDATE_CONSTRAINT = "End date cannot be earlier than start date";
+	public static final String MESSAGE_ENDTIME_CONSTRAINT = "End time cannot be earlier than start time";
+	public static final String MESSAGE_SAME_TIME_CONSTRAINT = "End time cannot be same as start time";
+	public static final String MESSAGE_DATE_FORMAT = "Dates must be in [dd-mm-yyyy] format";
+	public static final String MESSAGE_TIME_FORMAT = "Time must be in [HH:mm] format";
 	
 
 	/**
