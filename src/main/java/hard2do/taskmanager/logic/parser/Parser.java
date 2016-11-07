@@ -41,7 +41,6 @@ public class Parser {
 	// @@author A0141054W
 	public static final Pattern VALID_EMAIL_ADDRESS_FORMAT = Pattern
 			.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-	// @@author
 
 	private static final ArrayList<String> listKeywords = new ArrayList<>(
 			Arrays.asList("all", "done", "undone", "important", "unimportant", 
@@ -312,7 +311,7 @@ public class Parser {
 			return new EmailCommand(email);
 		}
 	}
-
+	//@@author A0139523E
 	/*
 	 * Parses arguments in the context of the save command.
 	 * 
@@ -331,7 +330,8 @@ public class Parser {
 			return new SaveCommand(args.trim());
 		}
 	}
-
+	
+	// @@author A0141054W
 	/**
 	 * Parses arguments in the context of the load command.
 	 *
