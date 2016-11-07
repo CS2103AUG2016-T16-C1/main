@@ -16,15 +16,15 @@ public class ClearCommandTest extends TaskManagerGuiTest {
     @Test
     public void testClear_afterCommands_listCleared() {
         //verify other commands can work after a clear command
-        commandBox.runCommand(td.homework.getAddCommand());
-        assertTrue(taskListPanel.isListMatching(td.homework));
-        commandBox.runCommand("delete 1");
+        commandBox.runCommand(td.flight.getAddCommand());
+        commandBox.runCommand("clear");
         assertListSize(0);
     }
     
     @Test
     public void testClear_emptyList_listCleared() {
         //verify clear command works when the list is empty
+    	commandBox.runCommand("clear");
         assertClearCommandSuccess();
     }
 
