@@ -69,6 +69,7 @@ public class TaskDate {
 	}
 	
 	//@@author A0147989B
+	//refresh the dateString corresponding to the format dd-mm-yyyy
 	public void refresh(){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
 	    dateString = simpleDateFormat.format(value);

@@ -44,11 +44,10 @@ public class RecurringTask implements ReadOnlyTask {
     }
     
     /**
-     * create a task with done status
+     * create a task with done and important status
      */
     public RecurringTask(Content content, TaskDate date, TaskDate endDate, TaskTime time, TaskTime endTime, Integer duration, boolean done, boolean important, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(content, date, time, tags);
-        //System.out.println("creating R-task: "+content.value);
         this.content = content;
         this.date = date;
         this.endDate = endDate;
@@ -73,8 +72,8 @@ public class RecurringTask implements ReadOnlyTask {
                 source.getDone(), 
                 source.getImportant(), 
                 source.getTags());
-        //System.out.println("backing R-task: "+content.value);
     }
+    
     @Override
     public boolean addTags(ArrayList<String> tagsToAdd) throws DuplicateTagException, IllegalValueException {
         UniqueTagList newList = new UniqueTagList();
@@ -150,7 +149,8 @@ public class RecurringTask implements ReadOnlyTask {
     public Integer getDuration() {
         return duration;
     }
-    
+
+    //set the date of recurring task to the next correct date of today
     @Override
     public boolean setNext() {
         if (duration != null){

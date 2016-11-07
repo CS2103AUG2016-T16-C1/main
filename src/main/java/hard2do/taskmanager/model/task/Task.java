@@ -43,7 +43,7 @@ public class Task implements ReadOnlyTask {
     }
     
     /**
-     * create a task with done status
+     * create a task with done and important status
      */
     public Task(Content content, TaskDate date, TaskTime time, boolean done, boolean important, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(content, date, time, tags);
@@ -207,6 +207,7 @@ public class Task implements ReadOnlyTask {
         return duration;
     }
     
+    //set the date of recurring task to the next correct date of today
     @Override
     public boolean setNext() {
         if (duration != null){
