@@ -76,7 +76,7 @@ public class EditCommand extends Command {
     			StringBuilder data = new StringBuilder();
     			while(sc.hasNext()){
     				String check = sc.next();
-    				if (check.startsWith("d/") || check.startsWith("st/") || 
+    				if (check.startsWith("sd/") || check.startsWith("st/") || 
     						check.startsWith("et/") || check.startsWith("ed/")) {
     					break;
     				} else {

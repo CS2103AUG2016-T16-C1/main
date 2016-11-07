@@ -146,47 +146,46 @@
     </tasks>
     <tasks>
         <content>
-            <value>Get Groceries</value>
+            <value>you sd/22-02-2016</value>
         </content>
         <date>
-            <value>2016-12-01T00:00:00+08:00</value>
-            <dateString>01-12-2016</dateString>
+            <value>2016-02-22T00:00:00+08:00</value>
+            <dateString>22-02-2016</dateString>
         </date>
         <endDate>
-            <value>2016-12-02T00:00:00+08:00</value>
-            <dateString>02-12-2016</dateString>
+            <value>2016-02-23T00:00:00+08:00</value>
+            <dateString>23-02-2016</dateString>
         </endDate>
         <time>
-            <value>1970-01-01T09:00:00+07:30</value>
-            <timeString>09:00</timeString>
+            <value>1970-01-01T13:00:00+07:30</value>
+            <timeString>13:00</timeString>
         </time>
         <endTime>
-            <value>1970-01-01T10:00:00+07:30</value>
-            <timeString>10:00</timeString>
+            <value>1970-01-01T15:00:00+07:30</value>
+            <timeString>15:00</timeString>
         </endTime>
         <done>false</done>
         <important>false</important>
         <tagged>food</tagged>
     </tasks>
-    <tags>
-        <tagName>shag</tagName>
-    </tags>
-    <tags>
-        <tagName>shaglife</tagName>
-    </tags>
-    <tags>
-        <tagName>tired</tagName>
-    </tags>
-    <tags>
-        <tagName>fun</tagName>
-    </tags>
-    <tags>
-        <tagName>money</tagName>
-    </tags>
-    <tags>
-        <tagName>love</tagName>
-    </tags>
-    <tags>
-        <tagName>food</tagName>
-    </tags>
+    <tasks>
+        <content>
+            <value>do</value>
+        </content>
+        <date>
+            <value>2016-02-23T00:00:00+08:00</value>
+            <dateString>23-02-2016</dateString>
+        </date>
+        <endDate>
+            <dateString></dateString>
+        </endDate>
+        <time>
+            <timeString></timeString>
+        </time>
+        <endTime>
+            <timeString></timeString>
+        </endTime>
+        <done>false</done>
+        <important>false</important>
+    </tasks>
 </taskmanager>
