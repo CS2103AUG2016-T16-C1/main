@@ -509,9 +509,9 @@ public class AddCommand extends Command {
 		// check null for date and time
 		if (endDate == null) {
 			endDateToAdd = new TaskDate();
-		} else
+		} else {
 			endDateToAdd = new TaskDate(endDate);
-
+		}
 		if (time != null) {
 			timeToAdd = new TaskTime(time);
 			if (endTime != null) {
@@ -566,14 +566,18 @@ public class AddCommand extends Command {
 	 */
 	public static void isValidTimeDate(String startDate, String endDate, String startTime, String endTime)
 			throws IllegalValueException {
-		if (endDate != null && endTime == null) {
+		if ((endDate != null && endTime == null) || (endDate == null && endTime != null)) {
 			throw new IllegalValueException(MESSAGE_ENDDATETIME_CONSTRAINTS);
 		}
-
-		if (endDate != null && endTime != null) {
+		
+		if (endDate != null) {
 			hasStartDate(startDate);
+		}
+		
+		if (endTime != null) {
 			hasStartTime(startTime);
 		}
+		
 		if (endDate != null && startDate != null) {
 			EndStartValuesUtil.dateRangeValid(startDate, endDate);
 		}

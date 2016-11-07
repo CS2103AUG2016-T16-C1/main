@@ -159,9 +159,7 @@ public class ModelManager extends ComponentManager implements Model {
 		}
     	taskManager.editTask(target, newDate, newEndDate, newTime, newEndTime, newContent);
         indicateTaskManagerChanged();
-
     }
-
 
     @Override
     public synchronized void addTags(ReadOnlyTask target, ArrayList<String> newTags)
@@ -217,7 +215,6 @@ public class UniqueTaskList implements Iterable<ReadOnlyTask> {
      */
     public static class TaskNotFoundException extends Exception {}
     
-    
     private ObservableList<ReadOnlyTask> internalList = FXCollections.observableArrayList();
 
     /**
@@ -272,10 +269,10 @@ public class UniqueTaskList implements Iterable<ReadOnlyTask> {
         	taskToEdit.setEndTime(newEndTime);
         }
         
-        if(newContent != null)
+        if(newContent != null) {
         	taskToEdit.setContent(newContent);
+        }
         return true;
-
     }
 
     /**
@@ -299,7 +296,6 @@ public class UniqueTaskList implements Iterable<ReadOnlyTask> {
      * @throws IllegalValueException if tags are not alphanumerical.
      * @throws DuplicateTagException if task already has similar tag.
      */
-    
     public boolean addTags(ReadOnlyTask target, ArrayList<String> tagsToAdd) 
     		throws DuplicateTagException, IllegalValueException, TaskNotFoundException{
     	assert target != null;
@@ -318,7 +314,6 @@ public class UniqueTaskList implements Iterable<ReadOnlyTask> {
      * @throws IllegalValueException if tags are not alphanumerical.
      * @throws DuplicateTagException if task already has similar tag.
      */
-    
     public boolean deleteTags(ReadOnlyTask target, ArrayList<String> tagsToDel) 
     		throws DuplicateTagException, IllegalValueException, TaskNotFoundException{
     	assert target != null;
@@ -329,7 +324,6 @@ public class UniqueTaskList implements Iterable<ReadOnlyTask> {
         return tagsDeletedFromTask;
     	
     }
-    
     
     /**
      * Fetch the next date of the task.
@@ -344,7 +338,6 @@ public class UniqueTaskList implements Iterable<ReadOnlyTask> {
         }
         return taskFoundAndMarked;
     }
-    
     
     /**
      * Mark the equivalent task as done.
@@ -402,8 +395,6 @@ public class UniqueTaskList implements Iterable<ReadOnlyTask> {
         return taskFoundAndMarked;
     }
     
-    
-   
     public ObservableList<ReadOnlyTask> getInternalList() {
         return internalList;
     }
@@ -478,7 +469,6 @@ public class Tag {
     public String toString() {
         return '[' + tagName + ']';
     }
-
 }
 ```
 ###### /java/hard2do/taskmanager/ui/MainWindow.java
@@ -820,7 +810,6 @@ public class UiManager extends ComponentManager implements Ui {
         alert.setTitle(title);
         alert.setHeaderText(headerText);
         alert.setContentText(contentText);
-
         alert.showAndWait();
     }
 
@@ -1049,7 +1038,6 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
         throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
 
-
     @Override
     public final FilteredList<E> filtered(Predicate<E> predicate) {
         return new FilteredList<>(this, predicate);
@@ -1277,7 +1265,6 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
     public final void forEach(Consumer<? super E> action) {
         backingList.forEach(action);
     }
-
 }
 ```
 ###### /java/hard2do/taskmanager/commons/core/LogsCenter.java
@@ -1434,9 +1421,7 @@ public class SelectCommand extends Command {
 
         EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
         return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, targetIndex));
-
     }
-
 }
 ```
 ###### /resources/view/MainWindow.fxml

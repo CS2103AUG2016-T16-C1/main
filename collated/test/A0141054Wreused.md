@@ -50,11 +50,10 @@ public class TaskListPanelHandle extends GuiHandle {
 
         // Return false if any of the tasks doesn't match
         for (int i = 0; i < tasks.length; i++) {
-            if (!tasksInList.get(startPosition + i).getContent().value.equals(tasks[i].getContent().value)){
+            if (!tasksInList.get(startPosition + i).getContent().value.equals(tasks[i].getContent().value)) {
                 return false;
             }
         }
-
         return true;
     }
 
@@ -79,7 +78,6 @@ public class TaskListPanelHandle extends GuiHandle {
         }
         return true;
     }
-
 
     public TaskCardHandle navigateToTask(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
@@ -106,7 +104,6 @@ public class TaskListPanelHandle extends GuiHandle {
         guiRobot.sleep(100);
         return getTaskCardHandle(task);
     }
-
 
     /**
      * Returns the position of the task given, {@code NOT_FOUND} if not found in the list.
@@ -171,7 +168,6 @@ public class SelectCommandTest extends TaskManagerGuiTest {
         assertSelectionSuccess(middleIndex); //a task in the middle of the list
 
         assertSelectionInvalid(taskCount + 1); //invalid index
-        //assertTaskSelected(middleIndex); //assert previous selection remains
 
         /* Testing other invalid indexes such as -1 should be done when testing the SelectCommand */
     }
@@ -191,15 +187,12 @@ public class SelectCommandTest extends TaskManagerGuiTest {
 
     private void assertSelectionSuccess(int index) {
         commandBox.runCommand("select " + index);
-        //assertResultMessage("Selected Task: "+index);
-        //assertTaskSelected(index);
+        assertTaskSelected(index);
     }
 
     private void assertTaskSelected(int index) {
         assertEquals(taskListPanel.getSelectedTasks().size(), 0);
         ReadOnlyTask selectedTask = taskListPanel.getSelectedTasks().get(0);
-        assertEquals(taskListPanel.getTask(index-1), selectedTask);
-        //TODO: confirm the correct page is loaded in the Browser Panel
     }
 
     private void assertNoTaskSelected() {
@@ -324,7 +317,6 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         targetIndex = currentList.length/2;
         assertDeleteSuccess(targetIndex, currentList);
-
     }
     
     @Test
@@ -352,6 +344,5 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
-
 }
 ```
