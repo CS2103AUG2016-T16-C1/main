@@ -147,6 +147,7 @@ Format: `add TASKDETAILS sd/DD-MM-YYYY ed/DD-MM-YYYY st/HH:MM et/HH:MM #TAGNAME.
 > * `sd/` takes in the start date, `ed/` takes in the end date, `st/` takes in the start time and `et/` takes in the end time.
 > * `#` takes in the tags assigned to that task and multiple tags can be added.
 > * Time inputted cannot be represented by a single digit. e.g. ~~`9:30`~~
+> * Default time for task if time is not specified is `00:00`.
 
 Examples:
 * `add Go to CS tutorial sd/10-6-2016 st/12:00 #takethelaptop` <br>
@@ -159,6 +160,8 @@ Adds a task "Go for night cycling" with a start date "1-7-2016", end date "2-7-2
 Adds a task "Watch movie" with start time "20:01" with the tag "gotmoney"
 * `add Do homework sd/28-10-2016` <br>
 Adds a task "Do homework" with a start date "28-10-2016"
+* `add Do Something`  <br>
+Adds a task "Do Something" with a default start time "00:00"
 
 *4.1.3 Add a task with date to `Hard2Do` using shortcuts* <br>
 Adds a task with date using specific keywords <br>
@@ -261,7 +264,7 @@ Examples:
   Returns ANY tasks having content `CS`, `EE`, or `CEG`
 * `find lab` <br>
   Returns `label cup` and `go to lab`
-
+[//]: # (@@author A0135787N)
 ### 4.5 Finding a tag : `findtag`
 Finds all tasks with the specified tag given <br>
 Format: `findtag TAGNAME`
@@ -274,7 +277,7 @@ Examples:
 Returns ANY tasks which have the tag "CSS2103"
 * `findtag homework` <br>
 Returns ANY tasks which have the tag "homework"
-
+[//]: # (@@author)
 ### 4.6 Deleting a task : `delete`
 Deletes the specified task from `Hard2Do` <br>
 Format: `delete INDEX`
