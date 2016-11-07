@@ -66,7 +66,12 @@ public class TaskDate {
 	public String toString() {
 		// return value.toString();
 		return dateString;
-
+	}
+	
+	//@@author A0147989B
+	public void refresh(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+	    dateString = simpleDateFormat.format(value);
 	}
 
 	@Override
