@@ -69,10 +69,6 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         assertNull(taskListPanel.navigateToTask(taskToDone.getContent().value));
         //confirm the result message is correct
         assertResultMessage(String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, taskToDone));
-        
-        //confirm task is in the whole list
-        commandBox.runCommand("list all");
-        assertNotNull(taskListPanel.navigateToTask(taskToDone.getContent().value));
     }
     
     //@@author A0147989B
