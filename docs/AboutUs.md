@@ -1,3 +1,4 @@
+[//]: # (@@author A0139523E)
 # About Us
 
 We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
@@ -57,6 +58,7 @@ We are a team based in the [School of Computing, National University of Singapor
     * Travis setting up
 
 -----
+[//]: # (@@author A0141054W)
 
 #### [Quang](http://github.com/vitquay1996)
 <img src="images/TranVietQuang.jpg" width="150"><br>
@@ -72,6 +74,7 @@ We are a team based in the [School of Computing, National University of Singapor
   * Did the UI which reflects the changes made to the task which includes the checkbox, calendar and priority signal
   * Integrate external libraries
   * Added auto-complete function
+[//]: # (@@author)
 
 -----
 ## Project Advisor

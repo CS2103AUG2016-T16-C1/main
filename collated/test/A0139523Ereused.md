@@ -1,5 +1,237 @@
 # A0139523Ereused
-###### /java/seedu/address/TestApp.java
+###### /java/guitests/AddCommandTest.java
+``` java
+public class AddCommandTest extends TaskManagerGuiTest {
+
+    @Test
+    public void testAddTask_multipleTasks_addedTasksExpected() throws DuplicateTaskException, IllegalValueException {
+        //add one task
+
+    	TestTask[] currentList = td.getTypicalTasks();
+        TestTask taskToAdd = TypicalTestTasks.appointment;
+        assertAddSuccess(taskToAdd, currentList);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+   
+        //add another task
+        taskToAdd = TypicalTestTasks.flight;
+        assertAddSuccess(taskToAdd, currentList);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+    }
+    
+     @Test
+     public void testAddTask_duplicateTasks_errorMessageExpected() throws DuplicateTaskException, IllegalValueException {
+    	 TestTask[] currentList = td.getTypicalTasks();
+    	 commandBox.runCommand(TypicalTestTasks.study.getAddCommand());
+        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
+        assertTrue(taskListPanel.isListMatching(currentList));
+     }
+     
+     @Test
+     public void testAddTask_emptyTaskManager_addedTaskExpected() throws DuplicateTaskException, IllegalValueException {
+        commandBox.runCommand("clear");
+        assertAddSuccess(TypicalTestTasks.homework);
+     }
+
+     @Test
+     public void testAddTask_invalidCommand_errorMessageExpected() throws DuplicateTaskException, IllegalValueException {
+        commandBox.runCommand("adds Johnny");
+        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        
+        commandBox.runCommand("add");
+        assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+    }
+
+    //helper method for main test
+    private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
+        commandBox.runCommand(taskToAdd.getAddCommand());
+
+        //confirm the new card contains the right data
+        try{
+        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getContent().value);
+        assertMatching(taskToAdd, addedCard);
+        }
+        catch(IllegalStateException e) {
+        	e.printStackTrace();
+        	assert false : "something wrong";
+        }
+        //confirm the list now contains all previous persons plus the new person
+        TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
+        assertTrue(taskListPanel.isListMatching(expectedList));
+    }
+
+}
+```
+###### /java/guitests/guihandles/CommandBoxHandle.java
+``` java
+public class CommandBoxHandle extends GuiHandle{
+
+    private static final String COMMAND_INPUT_FIELD_ID = "#commandTextField";
+
+    public CommandBoxHandle(GuiRobot guiRobot, Stage primaryStage, String stageTitle) {
+        super(guiRobot, primaryStage, stageTitle);
+    }
+
+    public void enterCommand(String command) {
+        setTextField(COMMAND_INPUT_FIELD_ID, command);
+    }
+
+    public String getCommandInput() {
+        return getTextFieldText(COMMAND_INPUT_FIELD_ID);
+    }
+
+    /**
+     * Enters the given command in the Command Box and presses enter.
+     */
+    public void runCommand(String command) {
+        enterCommand(command);
+        pressEnter();
+        guiRobot.sleep(200); //Give time for the command to take effect
+    }
+
+    public HelpWindowHandle runHelpCommand() {
+        enterCommand("help");
+        pressEnter();
+        return new HelpWindowHandle(guiRobot, primaryStage);
+    }
+}
+```
+###### /java/guitests/guihandles/GuiHandle.java
+``` java
+public class GuiHandle {
+    protected final GuiRobot guiRobot;
+    protected final Stage primaryStage;
+    protected final String stageTitle;
+
+    private final Logger logger = LogsCenter.getLogger(this.getClass());
+
+    public GuiHandle(GuiRobot guiRobot, Stage primaryStage, String stageTitle) {
+        this.guiRobot = guiRobot;
+        this.primaryStage = primaryStage;
+        this.stageTitle = stageTitle;
+        focusOnSelf();
+    }
+
+    public void focusOnWindow(String stageTitle) {
+        logger.info("Focusing " + stageTitle);
+        java.util.Optional<Window> window = guiRobot.listTargetWindows()
+                .stream()
+                .filter(w -> w instanceof Stage && ((Stage) w).getTitle().equals(stageTitle)).findAny();
+
+        if (!window.isPresent()) {
+            logger.warning("Can't find stage " + stageTitle + ", Therefore, aborting focusing");
+            return;
+        }
+
+        guiRobot.targetWindow(window.get());
+        guiRobot.interact(() -> window.get().requestFocus());
+        logger.info("Finishing focus " + stageTitle);
+    }
+
+    protected Node getNode(String query) {
+        return guiRobot.lookup(query).tryQuery().get();
+    }
+
+    protected String getTextFieldText(String filedName) {
+        return ((TextField) getNode(filedName)).getText();
+    }
+
+    protected void setTextField(String textFieldId, String newText) {
+        guiRobot.clickOn(textFieldId);
+        ((TextField)guiRobot.lookup(textFieldId).tryQuery().get()).setText(newText);
+        guiRobot.sleep(500); // so that the texts stays visible on the GUI for a short period
+    }
+
+    public void pressEnter() {
+        guiRobot.type(KeyCode.ENTER).sleep(500);
+    }
+
+    protected String getTextFromLabel(String fieldId, Node parentNode) {
+        return ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();
+    }
+
+    public void focusOnSelf() {
+        if (stageTitle != null) {
+            focusOnWindow(stageTitle);
+        }
+    }
+
+    public void focusOnMainApp() {
+        this.focusOnWindow(TestApp.APP_TITLE);
+    }
+
+    public void closeWindow() {
+        java.util.Optional<Window> window = guiRobot.listTargetWindows()
+                .stream()
+                .filter(w -> w instanceof Stage && ((Stage) w).getTitle().equals(stageTitle)).findAny();
+
+        if (!window.isPresent()) {
+            return;
+        }
+
+        guiRobot.targetWindow(window.get());
+        guiRobot.interact(() -> ((Stage)window.get()).close());
+        focusOnMainApp();
+    }
+}
+```
+###### /java/guitests/HelpWindowTest.java
+``` java
+public class HelpWindowTest extends TaskManagerGuiTest {
+
+    @Test
+    public void openHelpWindow() {
+
+        taskListPanel.clickOnListView();
+
+        assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
+
+        assertHelpWindowOpen(mainMenu.openHelpWindowUsingMenu());
+
+        assertHelpWindowOpen(commandBox.runHelpCommand());
+
+    }
+
+    private void assertHelpWindowOpen(HelpWindowHandle helpWindowHandle) {
+        assertTrue(helpWindowHandle.isWindowOpen());
+        helpWindowHandle.closeWindow();
+    }
+}
+```
+###### /java/guitests/FindCommandTest.java
+``` java
+public class FindCommandTest extends TaskManagerGuiTest {
+
+    @Test
+    public void find_nonEmptyList() {
+        assertFindResult("find Mark"); //no results
+        assertFindResult("find Study", td.study, td.activities); //multiple results
+
+        //find after deleting one result
+        commandBox.runCommand("delete 1");
+        assertFindResult("find Study",td.activities);
+    }
+
+    @Test
+    public void find_emptyList(){
+        commandBox.runCommand("clear");
+        assertFindResult("find Jean"); //no results
+    }
+
+    @Test
+    public void find_invalidCommand_fail() {
+        commandBox.runCommand("findgeorge");
+        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+    }
+
+    private void assertFindResult(String command, TestTask... expectedHits ) {
+        commandBox.runCommand(command);
+        assertListSize(expectedHits.length);
+        assertResultMessage(expectedHits.length + " tasks listed!");
+        assertTrue(taskListPanel.isListMatching(expectedHits));
+    }
+}
+```
+###### /java/hard2do/taskmanager/TestApp.java
 ``` java
 public class TestApp extends MainApp {
 
@@ -56,7 +288,7 @@ public class TestApp extends MainApp {
     }
 }
 ```
-###### /java/seedu/address/commons/core/ConfigTest.java
+###### /java/hard2do/taskmanager/commons/core/ConfigTest.java
 ``` java
 public class ConfigTest {
     @Rule
@@ -83,7 +315,7 @@ public class ConfigTest {
 
 }
 ```
-###### /java/seedu/address/commons/core/VersionTest.java
+###### /java/hard2do/taskmanager/commons/core/VersionTest.java
 ``` java
 public class VersionTest {
     @Rule
@@ -214,7 +446,7 @@ public class VersionTest {
     }
 }
 ```
-###### /java/seedu/address/logic/LogicManagerTest.java
+###### /java/hard2do/taskmanager/logic/LogicManagerTest.java
 ``` java
 public class LogicManagerTest {
 
@@ -575,7 +807,7 @@ public class LogicManagerTest {
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(content, taskdate, enddate, tasktime, endtime, 0, tags);
+            return new Task(content, taskdate, enddate, tasktime, endtime, tags);
         }
 
         /**
@@ -592,7 +824,7 @@ public class LogicManagerTest {
                     new TaskDate("1" + Math.abs(seed) + "-0" + Math.abs(seed) + "-2016"), 
                     new TaskDate("2" + Math.abs(seed) + "-0" + Math.abs(seed) + "-2016"),
                     new TaskTime("1" + Math.abs(seed) + ":0" + Math.abs(seed)), 
-                    new TaskTime("1" + Math.abs(seed) + ":1" + Math.abs(seed)), 5,
+                    new TaskTime("1" + Math.abs(seed) + ":1" + Math.abs(seed)),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -609,7 +841,8 @@ public class LogicManagerTest {
             cmd.append(" ed/").append(t.getEndDate().dateString);
             cmd.append(" st/").append(t.getTime().timeString);
             cmd.append(" et/").append(t.getEndTime().timeString);
-            cmd.append(" r/").append(t.getDuration());
+            if (t.getDuration() != null)
+                cmd.append(" r/").append(t.getDuration());
 
             UniqueTagList tags = t.getTags();
             for(Tag tg: tags){
@@ -695,14 +928,14 @@ public class LogicManagerTest {
                     new TaskDate("13-02-2016"), 
                     new TaskDate("14-02-2016"),
                     new TaskTime("13:00"),
-                    new TaskTime("14:00"), null,
+                    new TaskTime("14:00"),
                     new UniqueTagList(new Tag("tag"))
             );
         }
     }
 }
 ```
-###### /java/seedu/address/testutil/TaskBuilder.java
+###### /java/hard2do/taskmanager/testutil/TaskBuilder.java
 ``` java
 public class TaskBuilder {
 
@@ -760,7 +993,7 @@ public class TaskBuilder {
 
 }
 ```
-###### /java/seedu/address/testutil/TaskManagerBuilder.java
+###### /java/hard2do/taskmanager/testutil/TaskManagerBuilder.java
 ``` java
 public class TaskManagerBuilder {
 
@@ -785,482 +1018,112 @@ public class TaskManagerBuilder {
     }
 }
 ```
-###### /java/seedu/address/testutil/TestTask.java
+###### /java/hard2do/taskmanager/testutil/TestTask.java
 ``` java
 public class TestTask implements ReadOnlyTask {
 
-	private Content content;
-	private TaskDate taskdate;
-	private TaskDate enddate;
-	private TaskTime tasktime;
-	private TaskTime endtime;
-	private boolean done;
-	private Integer duration;
+    private Content content;
+    private TaskDate taskdate;
+    private TaskDate enddate;
+    private TaskTime tasktime;
+    private TaskTime endtime;
+    private boolean done;
+    private boolean important;
+    private Integer duration;
 
-	private UniqueTagList tags;
+    private UniqueTagList tags;
 
-	public TestTask() {
-		tags = new UniqueTagList();
-	}
-
-	public void setContent(Content content) {
-		this.content = content;
-	}
-
-	public void setDate(TaskDate taskdate) {
-		this.taskdate = taskdate;
-	}
-
-	public void setEndDate(TaskDate enddate) {
-		this.enddate = enddate;
-	}
-
-	public void setTime(TaskTime tasktime) {
-		this.tasktime = tasktime;
-	}
-
-	public void setEndTime(TaskTime endtime) {
-		this.endtime = endtime;
-	}
-
-	public void setDuration(Integer duration) {
-		this.duration = duration;
-	}
-
-	@Override
-	public Content getContent() {
-		return content;
-	}
-
-	@Override
-	public TaskDate getDate() {
-		return taskdate;
-	}
-
-	@Override
-	public TaskDate getEndDate() {
-		return enddate;
-	}
-
-	@Override
-	public TaskTime getTime() {
-		return tasktime;
-	}
-
-	@Override
-	public TaskTime getEndTime() {
-		return endtime;
-	}
-
-	@Override
-	public UniqueTagList getTags() {
-		return tags;
-	}
-
-	@Override
-	public String toString() {
-		return getAsText0();
-	}
-
-	public String getAddCommand() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("add " + this.getContent().value + " ");
-		sb.append("sd/" + this.getDate().dateString + " ");
-		sb.append("ed/" + this.getEndDate().dateString + " ");
-		sb.append("st/" + this.getTime().timeString + " ");
-		sb.append("et/" + this.getEndTime().timeString + " ");
-		this.getTags().getInternalList().stream().forEach(s -> sb.append("#" + s.tagName + " "));
-		return sb.toString();
-	}
-
-	@Override
-	public boolean getDone() {
-		return done;
-	}
-
-	@Override
-	public boolean setDone() {
-		if (!done)
-			done = true;
-		else
-			return false;
-		return true;
-	}
-
-	@Override
-	public Integer getDuration() {
-		return duration;
-	}
-
-	@Override
-	public boolean addTags(ArrayList<String> tagsToAdd) throws DuplicateTagException, IllegalValueException {
-		UniqueTagList newList = new UniqueTagList();
-		for (String t : tagsToAdd) {
-			newList.add(new Tag(t));
-		}
-		newList.mergeFrom(tags);
-		setTags(newList);
-		return true;
-	}
-
-	/**
-	 * Replaces this task's tags with the tags in the argument tag list.
-	 */
-	public void setTags(UniqueTagList replacement) {
-		tags.setTags(replacement);
-	}
-
-	public boolean isDone() {
-		return done;
-	}
-
-	public void setDone(boolean done) {
-		this.done = done;
-	}
-
-	public boolean setUndone() {
-		if (done)
-			done = false;
-		else
-			return false;
-		return true;
-	}
-
-	@Override
-	public boolean deleteTags(ArrayList<String> tagsToDel) throws DuplicateTagException, IllegalValueException {
-
-		return false;
-	}
-
-	@Override
-	public boolean getImportant() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean setImportant() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean setUnimportant() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean setNext() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-    public boolean setDate(String date) throws IllegalValueException, ParseException{
-    	
-    	return true;
-    }
-    @Override
-    public boolean setEndDate(String newDate) throws IllegalValueException, ParseException{
-    	
-		return true;
-    }
-    @Override
-    public boolean setTime(String time) throws IllegalValueException, ParseException{
-    	
-    	return true;
-    }
-    @Override
-    public boolean setEndTime(String time) throws IllegalValueException, ParseException{
-    	
-    	return true;
-    }
-    @Override
-    public boolean setContent(String newContent) throws IllegalValueException{
-    	
-    	return true;
-    }
-    
- 
-
-}
-```
-###### /java/guitests/AddCommandTest.java
-``` java
-public class AddCommandTest extends TaskManagerGuiTest {
-
-    @Test
-    public void add() {
-        //add one task
-
-    	TestTask[] currentList = td.getTypicalTasks();
-        TestTask taskToAdd = TypicalTestTasks.appointment;
-        assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-   
-        //add another task
-        taskToAdd = TypicalTestTasks.flight;
-        assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-
-        //add duplicate task
-        commandBox.runCommand(TypicalTestTasks.flight.getAddCommand());
-        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(taskListPanel.isListMatching(currentList));
-
-        //add to empty list
-        commandBox.runCommand("clear");
-        
-        assertAddSuccess(TypicalTestTasks.homework);
-
-        //invalid command
-        commandBox.runCommand("adds Johnny");
-        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+    public TestTask() {
+        tags = new UniqueTagList();
     }
 
-    private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
-        commandBox.runCommand(taskToAdd.getAddCommand());
-
-        //confirm the new card contains the right data
-        try{
-        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getContent().value);
-        assertMatching(taskToAdd, addedCard);
-        }
-        catch(IllegalStateException e) {
-        	e.printStackTrace();
-        	assert false : "something wrong";
-        }
-        //confirm the list now contains all previous persons plus the new person
-        TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
-        assertTrue(taskListPanel.isListMatching(expectedList));
+    public void setContent(Content content) {
+        this.content = content;
     }
 
-}
-```
-###### /java/guitests/guihandles/CommandBoxHandle.java
-``` java
-public class CommandBoxHandle extends GuiHandle{
-
-    private static final String COMMAND_INPUT_FIELD_ID = "#commandTextField";
-
-    public CommandBoxHandle(GuiRobot guiRobot, Stage primaryStage, String stageTitle) {
-        super(guiRobot, primaryStage, stageTitle);
+    public void setDate(TaskDate taskdate) {
+        this.taskdate = taskdate;
     }
 
-    public void enterCommand(String command) {
-        setTextField(COMMAND_INPUT_FIELD_ID, command);
+    public void setEndDate(TaskDate enddate) {
+        this.enddate = enddate;
     }
 
-    public String getCommandInput() {
-        return getTextFieldText(COMMAND_INPUT_FIELD_ID);
+    public void setTime(TaskTime tasktime) {
+        this.tasktime = tasktime;
     }
 
-    /**
-     * Enters the given command in the Command Box and presses enter.
-     */
-    public void runCommand(String command) {
-        enterCommand(command);
-        pressEnter();
-        guiRobot.sleep(200); //Give time for the command to take effect
+    public void setEndTime(TaskTime endtime) {
+        this.endtime = endtime;
     }
 
-    public HelpWindowHandle runHelpCommand() {
-        enterCommand("help");
-        pressEnter();
-        return new HelpWindowHandle(guiRobot, primaryStage);
-    }
-}
-```
-###### /java/guitests/guihandles/GuiHandle.java
-``` java
-public class GuiHandle {
-    protected final GuiRobot guiRobot;
-    protected final Stage primaryStage;
-    protected final String stageTitle;
-
-    private final Logger logger = LogsCenter.getLogger(this.getClass());
-
-    public GuiHandle(GuiRobot guiRobot, Stage primaryStage, String stageTitle) {
-        this.guiRobot = guiRobot;
-        this.primaryStage = primaryStage;
-        this.stageTitle = stageTitle;
-        focusOnSelf();
-    }
-
-    public void focusOnWindow(String stageTitle) {
-        logger.info("Focusing " + stageTitle);
-        java.util.Optional<Window> window = guiRobot.listTargetWindows()
-                .stream()
-                .filter(w -> w instanceof Stage && ((Stage) w).getTitle().equals(stageTitle)).findAny();
-
-        if (!window.isPresent()) {
-            logger.warning("Can't find stage " + stageTitle + ", Therefore, aborting focusing");
-            return;
-        }
-
-        guiRobot.targetWindow(window.get());
-        guiRobot.interact(() -> window.get().requestFocus());
-        logger.info("Finishing focus " + stageTitle);
-    }
-
-    protected Node getNode(String query) {
-        return guiRobot.lookup(query).tryQuery().get();
-    }
-
-    protected String getTextFieldText(String filedName) {
-        return ((TextField) getNode(filedName)).getText();
-    }
-
-    protected void setTextField(String textFieldId, String newText) {
-        guiRobot.clickOn(textFieldId);
-        ((TextField)guiRobot.lookup(textFieldId).tryQuery().get()).setText(newText);
-        guiRobot.sleep(500); // so that the texts stays visible on the GUI for a short period
-    }
-
-    public void pressEnter() {
-        guiRobot.type(KeyCode.ENTER).sleep(500);
-    }
-
-    protected String getTextFromLabel(String fieldId, Node parentNode) {
-        return ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();
-    }
-
-    public void focusOnSelf() {
-        if (stageTitle != null) {
-            focusOnWindow(stageTitle);
-        }
-    }
-
-    public void focusOnMainApp() {
-        this.focusOnWindow(TestApp.APP_TITLE);
-    }
-
-    public void closeWindow() {
-        java.util.Optional<Window> window = guiRobot.listTargetWindows()
-                .stream()
-                .filter(w -> w instanceof Stage && ((Stage) w).getTitle().equals(stageTitle)).findAny();
-
-        if (!window.isPresent()) {
-            return;
-        }
-
-        guiRobot.targetWindow(window.get());
-        guiRobot.interact(() -> ((Stage)window.get()).close());
-        focusOnMainApp();
-    }
-}
-```
-###### /java/guitests/guihandles/TaskCardHandle.java
-``` java
-
-/**
- * Provides a handle to a task card in the task list panel.
- */
-public class TaskCardHandle extends GuiHandle {
-    private static final String CONTENT_FIELD_ID = "#content";
-    private static final String DATE_FIELD_ID = "#date";
-    private static final String TAG_FIELD_ID = "#tags";
-
-
-    private Node node;
-
-    public TaskCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
-        super(guiRobot, primaryStage, null);
-        this.node = node;
-    }
-
-    protected String getTextFromLabel(String fieldId) {
-        return getTextFromLabel(fieldId, node);
-    }
-
-    public String getContent() {
-        return getTextFromLabel(CONTENT_FIELD_ID);
-    }
-
-    public String getDate() {
-        return getTextFromLabel(DATE_FIELD_ID);
-    }
-    
-    public String getTag() {
-        return getTextFromLabel(TAG_FIELD_ID);
-    }
-
-
-
-    public boolean isSameTask(ReadOnlyTask task){
-        return getContent().toString().equals(task.getContent().value) && getDate().toString().equals(task.getDate().toString());
+    public void setDuration(Integer duration) {
+        this.duration = duration;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if(obj instanceof TaskCardHandle) {
-            TaskCardHandle handle = (TaskCardHandle) obj;
-            return getContent().equals(handle.getContent())
-                    && getDate().equals(handle.getDate());
-        }
-        return super.equals(obj);
+    public Content getContent() {
+        return content;
+    }
+
+    @Override
+    public TaskDate getDate() {
+        return taskdate;
+    }
+
+    @Override
+    public TaskDate getEndDate() {
+        return enddate;
+    }
+
+    @Override
+    public TaskTime getTime() {
+        return tasktime;
+    }
+
+    @Override
+    public TaskTime getEndTime() {
+        return endtime;
+    }
+
+    @Override
+    public UniqueTagList getTags() {
+        return tags;
     }
 
     @Override
     public String toString() {
-        return getContent() + " " + getDate();
-    }
-}
-```
-###### /java/guitests/HelpWindowTest.java
-``` java
-public class HelpWindowTest extends TaskManagerGuiTest {
-
-    @Test
-    public void openHelpWindow() {
-
-        taskListPanel.clickOnListView();
-
-        assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
-
-        assertHelpWindowOpen(mainMenu.openHelpWindowUsingMenu());
-
-        assertHelpWindowOpen(commandBox.runHelpCommand());
-
+        return getAsText0();
     }
 
-    private void assertHelpWindowOpen(HelpWindowHandle helpWindowHandle) {
-        assertTrue(helpWindowHandle.isWindowOpen());
-        helpWindowHandle.closeWindow();
-    }
-}
-```
-###### /java/guitests/FindCommandTest.java
-``` java
-public class FindCommandTest extends TaskManagerGuiTest {
-
-    @Test
-    public void find_nonEmptyList() {
-        assertFindResult("find Mark"); //no results
-        assertFindResult("find Study", td.study, td.activities); //multiple results
-
-        //find after deleting one result
-        commandBox.runCommand("delete 1");
-        assertFindResult("find Study",td.activities);
+    public String getAddCommand() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("add " + this.getContent().value + " ");
+        sb.append("sd/" + this.getDate().dateString + " ");
+        sb.append("ed/" + this.getEndDate().dateString + " ");
+        sb.append("st/" + this.getTime().timeString + " ");
+        sb.append("et/" + this.getEndTime().timeString + " ");
+        if (this.getDuration() != null) sb.append("r/" + this.getDuration()+" ");
+        this.getTags().getInternalList().stream().forEach(s -> sb.append("#" + s.tagName + " "));
+        return sb.toString();
     }
 
-    @Test
-    public void find_emptyList(){
-        commandBox.runCommand("clear");
-        assertFindResult("find Jean"); //no results
+    @Override
+    public boolean getDone() {
+        return done;
     }
 
-    @Test
-    public void find_invalidCommand_fail() {
-        commandBox.runCommand("findgeorge");
-        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+    @Override
+    public boolean setDone() {
+        if (!done)
+            done = true;
+        else
+            return false;
+        return true;
     }
 
-    private void assertFindResult(String command, TestTask... expectedHits ) {
-        commandBox.runCommand(command);
-        assertListSize(expectedHits.length);
-        assertResultMessage(expectedHits.length + " tasks listed!");
-        assertTrue(taskListPanel.isListMatching(expectedHits));
+    @Override
+    public Integer getDuration() {
+        return duration;
     }
-}
 ```

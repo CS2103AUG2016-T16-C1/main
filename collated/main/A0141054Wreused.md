@@ -1,5 +1,5 @@
 # A0141054Wreused
-###### /java/seedu/address/MainApp.java
+###### /java/hard2do/taskmanager/MainApp.java
 ``` java
     protected UserPrefs initPrefs(Config config) {
         assert config != null;
@@ -64,7 +64,141 @@
     }
 }
 ```
-###### /java/seedu/address/model/person/UniqueTaskList.java
+###### /java/hard2do/taskmanager/model/ModelManager.java
+``` java
+public class ModelManager extends ComponentManager implements Model {
+    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+
+    private TaskManager taskManager;
+    private FilteredList<ReadOnlyTask> filteredTasks;
+
+    /**
+     * Initializes a ModelManager with the given TaskManager
+     * TaskManager and its variables should not be null
+     */
+    public ModelManager(TaskManager src, UserPrefs userPrefs) {
+        super();
+        assert src != null;
+        assert userPrefs != null;
+
+        logger.fine("Initializing with task manager: " + src + " and user prefs " + userPrefs);
+
+        taskManager = new TaskManager(src);
+        filteredTasks = new FilteredList<>(taskManager.getTasks());
+    }
+
+    public ModelManager() {
+        this(new TaskManager(), new UserPrefs());
+    }
+
+    public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
+        taskManager = new TaskManager(initialData);
+        filteredTasks = new FilteredList<>(taskManager.getTasks());
+    }
+
+    @Override
+    public void resetData(ReadOnlyTaskManager newData) throws IllegalValueException, ParseException {
+    	try {
+			taskManager.save("clear");
+		} catch (IllegalValueException e) {
+			assert false : "State must always be valid.";
+		} catch (ParseException e) {
+			assert false : "Values have already been validated.";
+		}
+        taskManager.resetData(newData);
+        indicateTaskManagerChanged();
+    }
+
+    @Override
+    public ReadOnlyTaskManager getTaskManager() {
+        return taskManager;
+    }
+
+    /** Raises an event to indicate the model has changed */
+    private void indicateTaskManagerChanged() {
+        raise(new TaskManagerChangedEvent(taskManager));
+    }
+
+    @Override
+    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+    	try {
+			taskManager.save("delete");
+    	} catch (IllegalValueException e) {
+			assert false : "State must always be valid.";
+		} catch (ParseException e) {
+			assert false : "Values have already been validated.";
+		}
+    	taskManager.removeTask(target);
+        indicateTaskManagerChanged();
+    }
+
+    @Override
+    public synchronized void addTask(ReadOnlyTask task) throws UniqueTaskList.DuplicateTaskException {
+    	try {
+			taskManager.save("add");
+    	} catch (IllegalValueException e) {
+			assert false : "State must always be valid.";
+		} catch (ParseException e) {
+			assert false : "Values have already been validated.";
+		}
+    	taskManager.addTask(task);
+    	updateFilteredListToShowUndone();
+        indicateTaskManagerChanged();
+    }
+
+    @Override
+    public synchronized void editTask(ReadOnlyTask target, String newDate, String newEndDate, 
+    		String newTime, String newEndTime, String newContent)
+    		throws TaskNotFoundException, ParseException, IllegalValueException {
+    	try {
+			taskManager.save("edit");
+    	} catch (IllegalValueException e) {
+			assert false : "State must always be valid.";
+		} catch (ParseException e) {
+			assert false : "Values have already been validated.";
+		}
+    	taskManager.editTask(target, newDate, newEndDate, newTime, newEndTime, newContent);
+        indicateTaskManagerChanged();
+
+    }
+
+
+    @Override
+    public synchronized void addTags(ReadOnlyTask target, ArrayList<String> newTags)
+    		throws TaskNotFoundException, ParseException, IllegalValueException {
+    	try {
+			taskManager.save("addTag");
+    	} catch (IllegalValueException e) {
+			assert false : "State must always be valid.";
+		} catch (ParseException e) {
+			assert false : "Values have already been validated.";
+		}
+    	taskManager.addTags(target, newTags);
+
+        updateFilteredListToShowUndone();
+    	indicateTaskManagerChanged();
+    }
+
+    @Override
+    public synchronized void deleteTags(ReadOnlyTask target, ArrayList<String> tagsToDelete)
+    		throws TaskNotFoundException, ParseException, IllegalValueException {
+    	assert !(tagsToDelete.size() == 0);
+    	try {
+			taskManager.save("delTag");
+    	} catch (IllegalValueException e) {
+			assert false : "State must always be valid.";
+		} catch (ParseException e) {
+			assert false : "Values have already been validated.";
+		}
+    	taskManager.deleteTags(target, tagsToDelete);
+
+        updateFilteredListToShowUndone();
+    	indicateTaskManagerChanged();
+    }
+    
+    
+```
+###### /java/hard2do/taskmanager/model/task/UniqueTaskList.java
 ``` java
 public class UniqueTaskList implements Iterable<ReadOnlyTask> {
 
@@ -293,153 +427,7 @@ public class UniqueTaskList implements Iterable<ReadOnlyTask> {
     }
 }
 ```
-###### /java/seedu/address/model/ModelManager.java
-``` java
-public class ModelManager extends ComponentManager implements Model {
-    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-
-    private TaskManager taskManager;
-    private FilteredList<ReadOnlyTask> filteredTasks;
-
-    /**
-     * Initializes a ModelManager with the given TaskManager
-     * TaskManager and its variables should not be null
-     */
-    public ModelManager(TaskManager src, UserPrefs userPrefs) {
-        super();
-        assert src != null;
-        assert userPrefs != null;
-
-        logger.fine("Initializing with task manager: " + src + " and user prefs " + userPrefs);
-
-        taskManager = new TaskManager(src);
-        filteredTasks = new FilteredList<>(taskManager.getTasks());
-    }
-
-    public ModelManager() {
-        this(new TaskManager(), new UserPrefs());
-    }
-
-    public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
-        taskManager = new TaskManager(initialData);
-        filteredTasks = new FilteredList<>(taskManager.getTasks());
-    }
-
-    @Override
-    public void resetData(ReadOnlyTaskManager newData) throws IllegalValueException, ParseException {
-    	try {
-			taskManager.save("clear");
-		} catch (IllegalValueException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        taskManager.resetData(newData);
-        indicateTaskManagerChanged();
-    }
-
-    @Override
-    public ReadOnlyTaskManager getTaskManager() {
-        return taskManager;
-    }
-
-    /** Raises an event to indicate the model has changed */
-    private void indicateTaskManagerChanged() {
-        raise(new TaskManagerChangedEvent(taskManager));
-    }
-
-    @Override
-    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-    	try {
-			taskManager.save("delete");
-		} catch (IllegalValueException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	taskManager.removeTask(target);
-        indicateTaskManagerChanged();
-    }
-
-    @Override
-    public synchronized void addTask(ReadOnlyTask task) throws UniqueTaskList.DuplicateTaskException {
-    	try {
-			taskManager.save("add");
-		} catch (IllegalValueException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	taskManager.addTask(task);
-    	updateFilteredListToShowUndone();
-        indicateTaskManagerChanged();
-    }
-
-    @Override
-    public synchronized void editTask(ReadOnlyTask target, String newDate, String newEndDate, 
-    		String newTime, String newEndTime, String newContent)
-    		throws TaskNotFoundException, ParseException, IllegalValueException {
-    	try {
-			taskManager.save("edit");
-		} catch (IllegalValueException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	taskManager.editTask(target, newDate, newEndDate, newTime, newEndTime, newContent);
-        indicateTaskManagerChanged();
-
-    }
-
-
-    @Override
-    public synchronized void addTags(ReadOnlyTask target, ArrayList<String> newTags)
-    		throws TaskNotFoundException, ParseException, IllegalValueException {
-    	try {
-			taskManager.save("addTag");
-		} catch (IllegalValueException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	taskManager.addTags(target, newTags);
-
-        updateFilteredListToShowUndone();
-    	indicateTaskManagerChanged();
-    }
-
-    @Override
-    public synchronized void deleteTags(ReadOnlyTask target, ArrayList<String> tagsToDelete)
-    		throws TaskNotFoundException, ParseException, IllegalValueException {
-    	assert !(tagsToDelete.size() == 0);
-    	try {
-			taskManager.save("deleteTag");
-		} catch (IllegalValueException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	taskManager.deleteTags(target, tagsToDelete);
-
-        updateFilteredListToShowUndone();
-    	indicateTaskManagerChanged();
-    }
-    
-    
-```
-###### /java/seedu/address/model/tag/Tag.java
+###### /java/hard2do/taskmanager/model/tag/Tag.java
 ``` java
 public class Tag {
 
@@ -493,7 +481,7 @@ public class Tag {
 
 }
 ```
-###### /java/seedu/address/ui/MainWindow.java
+###### /java/hard2do/taskmanager/ui/MainWindow.java
 ``` java
 public class MainWindow extends UiPart {
 
@@ -674,7 +662,7 @@ public class MainWindow extends UiPart {
     }
 }
 ```
-###### /java/seedu/address/ui/TaskListPanel.java
+###### /java/hard2do/taskmanager/ui/TaskListPanel.java
 ``` java
 public class TaskListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
@@ -767,7 +755,7 @@ public class TaskListPanel extends UiPart {
 
 }
 ```
-###### /java/seedu/address/ui/UiManager.java
+###### /java/hard2do/taskmanager/ui/UiManager.java
 ``` java
 public class UiManager extends ComponentManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
@@ -870,7 +858,7 @@ public class UiManager extends ComponentManager implements Ui {
     }
     
 ```
-###### /java/seedu/address/ui/CommandBox.java
+###### /java/hard2do/taskmanager/ui/CommandBox.java
 ``` java
 /**
  * CommandBox is in charge of prompting the user of the commands (auto complete)
@@ -900,7 +888,7 @@ public class CommandBox extends UiPart {
     }
 
 ```
-###### /java/seedu/address/storage/TaskManagerStorage.java
+###### /java/hard2do/taskmanager/storage/TaskManagerStorage.java
 ``` java
 public interface TaskManagerStorage {
 
@@ -936,7 +924,7 @@ public interface TaskManagerStorage {
 
 }
 ```
-###### /java/seedu/address/storage/XmlTaskManagerStorage.java
+###### /java/hard2do/taskmanager/storage/XmlTaskManagerStorage.java
 ``` java
 public class XmlTaskManagerStorage implements TaskManagerStorage {
 
@@ -996,7 +984,7 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
     }
 }
 ```
-###### /java/seedu/address/commons/core/UnmodifiableObservableList.java
+###### /java/hard2do/taskmanager/commons/core/UnmodifiableObservableList.java
 ``` java
 public class UnmodifiableObservableList<E> implements ObservableList<E> {
 
@@ -1292,7 +1280,7 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
 
 }
 ```
-###### /java/seedu/address/commons/core/LogsCenter.java
+###### /java/hard2do/taskmanager/commons/core/LogsCenter.java
 ``` java
 public class LogsCenter {
     private static final int MAX_FILE_COUNT = 5;
@@ -1385,7 +1373,7 @@ public class LogsCenter {
     }
 }
 ```
-###### /java/seedu/address/commons/events/ui/TaskPanelSelectionChangedEvent.java
+###### /java/hard2do/taskmanager/commons/events/ui/TaskPanelSelectionChangedEvent.java
 ``` java
 public class TaskPanelSelectionChangedEvent extends BaseEvent {
 
@@ -1412,8 +1400,11 @@ public class TaskPanelSelectionChangedEvent extends BaseEvent {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/SelectCommand.java
+###### /java/hard2do/taskmanager/logic/commands/SelectCommand.java
 ``` java
+/**
+ * Selects a task identified using it's last displayed index from the task manager.
+ */
 public class SelectCommand extends Command {
 
     public final int targetIndex;

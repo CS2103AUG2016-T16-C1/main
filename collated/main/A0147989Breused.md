@@ -1,5 +1,5 @@
 # A0147989Breused
-###### /java/seedu/address/MainApp.java
+###### /java/hard2do/taskmanager/MainApp.java
 ``` java
     private void initLogging(Config config) {
         LogsCenter.init(config);
@@ -36,7 +36,7 @@
         return initializedConfig;
     }
 ```
-###### /java/seedu/address/model/UserPrefs.java
+###### /java/hard2do/taskmanager/model/UserPrefs.java
 ``` java
 public class UserPrefs {
 
@@ -84,7 +84,7 @@ public class UserPrefs {
 
 }
 ```
-###### /java/seedu/address/storage/XmlAdaptedTag.java
+###### /java/hard2do/taskmanager/storage/XmlAdaptedTag.java
 ``` java
 /**
  * JAXB-friendly adapted version of the Tag.
@@ -119,7 +119,7 @@ public class XmlAdaptedTag {
 
 }
 ```
-###### /java/seedu/address/storage/StorageManager.java
+###### /java/hard2do/taskmanager/storage/StorageManager.java
 ``` java
 public class StorageManager extends ComponentManager implements Storage {
 
@@ -194,7 +194,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
 }
 ```
-###### /java/seedu/address/storage/JsonUserPrefsStorage.java
+###### /java/hard2do/taskmanager/storage/JsonUserPrefsStorage.java
 ``` java
 /**
  * A class to access UserPrefs stored in the hard disk as a json file
@@ -258,7 +258,7 @@ public class JsonUserPrefsStorage implements UserPrefsStorage{
     }
 }
 ```
-###### /java/seedu/address/commons/core/Messages.java
+###### /java/hard2do/taskmanager/commons/core/Messages.java
 ``` java
 public class Messages {
 
@@ -267,7 +267,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_TASK_DISPLAYED_INDEX = "The task index provided is invalid";
     public static final String MESSAGE_TASKS_LISTED_OVERVIEW = "%1$d tasks listed!";
 ```
-###### /java/seedu/address/commons/core/Config.java
+###### /java/hard2do/taskmanager/commons/core/Config.java
 ``` java
 public class Config {
 
@@ -361,13 +361,12 @@ public class Config {
 
 }
 ```
-###### /java/seedu/address/logic/commands/ClearCommand.java
+###### /java/hard2do/taskmanager/logic/commands/ClearCommand.java
 ``` java
 public class ClearCommand extends Command {
-
+	
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Task Manager has been cleared!";
-    public static final String MESSAGE_CANCEL = "Clear command has been cancelled";
     
     public ClearCommand() {}
 
@@ -375,13 +374,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        Alert alert = new Alert(AlertType.WARNING);
-        alert.setTitle("Warning Dialog");
-        alert.setHeaderText("Clear all tasks");
-        alert.setContentText("Action cannot be undone once Hard2Do has been closed! Are you sure you want to clear Hard2Do?");
-        
-        Optional<ButtonType> result = alert.showAndWait();
-        if(result.get() == ButtonType.OK) {
+
             try {
     			model.resetData(TaskManager.getEmptyTaskManager());
     		} catch (IllegalValueException e) {
@@ -391,13 +384,9 @@ public class ClearCommand extends Command {
     			// TODO Auto-generated catch block
     			e.printStackTrace();
     		}
-        } else {
-        	return new CommandResult(MESSAGE_CANCEL);
-        	
-        }
-        
-    
+        	           
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
 }
 ```

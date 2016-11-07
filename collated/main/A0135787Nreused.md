@@ -1,5 +1,5 @@
 # A0135787Nreused
-###### /java/seedu/address/MainApp.java
+###### /java/hard2do/taskmanager/MainApp.java
 ``` java
     private String getApplicationParameter(String parameterName){
         Map<String, String> applicationParameters = getParameters().getNamed();
@@ -26,7 +26,7 @@
         return new ModelManager(initialData, userPrefs);
     }
 ```
-###### /java/seedu/address/model/tag/UniqueTagList.java
+###### /java/hard2do/taskmanager/model/tag/UniqueTagList.java
 ``` java
 public class UniqueTagList implements Iterable<Tag> {
 
@@ -179,7 +179,7 @@ public class UniqueTagList implements Iterable<Tag> {
 	
 }
 ```
-###### /java/seedu/address/ui/StatusBarFooter.java
+###### /java/hard2do/taskmanager/ui/StatusBarFooter.java
 ``` java
 public class StatusBarFooter extends UiPart {
     private static final Logger logger = LogsCenter.getLogger(StatusBarFooter.class);
@@ -261,7 +261,7 @@ public class StatusBarFooter extends UiPart {
     }
 }
 ```
-###### /java/seedu/address/ui/HelpWindow.java
+###### /java/hard2do/taskmanager/ui/HelpWindow.java
 ``` java
 public class HelpWindow extends UiPart {
 
@@ -311,7 +311,7 @@ public class HelpWindow extends UiPart {
     }
 }
 ```
-###### /java/seedu/address/commons/core/EventsCenter.java
+###### /java/hard2do/taskmanager/commons/core/EventsCenter.java
 ``` java
 public class EventsCenter {
     private static final Logger logger = LogsCenter.getLogger(EventsCenter.class);
@@ -349,7 +349,7 @@ public class EventsCenter {
 
 }
 ```
-###### /java/seedu/address/commons/events/model/TaskManagerChangedEvent.java
+###### /java/hard2do/taskmanager/commons/events/model/TaskManagerChangedEvent.java
 ``` java
 /** Indicates the TaskManager in the model has changed*/
 public class TaskManagerChangedEvent extends BaseEvent {
@@ -366,8 +366,11 @@ public class TaskManagerChangedEvent extends BaseEvent {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/DeleteTagCommand.java
+###### /java/hard2do/taskmanager/logic/commands/DeleteTagCommand.java
 ``` java
+/**
+ * Deletes a tag from a task identified using it's last displayed index from the task manager.
+ */
 public class DeleteTagCommand extends Command {
     public static final String COMMAND_WORD = "deltag";
 
@@ -377,7 +380,7 @@ public class DeleteTagCommand extends Command {
             + " 1 toughlife easygame";
 
     public static final String MESSAGE_SUCCESS = "Task tags updated: %1$s";
-    public static final String MESSAGE_INVALID_TAG = "Tags must be alphanumerical";
+    public static final String MESSAGE_INVALID_TAG = "Tag must be alphanumerical";
     public static final String MESSAGE_NO_TAG = "No Tag can be found";
     
     private int targetIndex;
@@ -397,7 +400,7 @@ public class DeleteTagCommand extends Command {
     		tagsToDel = new ArrayList<String>();
     		
     		Scanner sc = new Scanner(tagsString.trim());
-    			while(sc.hasNext()){
+    			while (sc.hasNext()) {
     				String tagToAdd = sc.next();
     				tagsToDel.add(tagToAdd);
     			}
@@ -415,13 +418,13 @@ public class DeleteTagCommand extends Command {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-        if(tagsToDel.size() == 0)
+        if (tagsToDel.size() == 0){
         	return new CommandResult("No Tags To Delete");
-        
+        }
         ReadOnlyTask taskToDelTags= lastShownList.get(targetIndex - 1);
-        for(String s : tagsToDel){
+        for (String s : tagsToDel) {
         	try {
-				if(!taskToDelTags.getTags().contains(new Tag(s))){
+				if (!taskToDelTags.getTags().contains(new Tag(s))) {
 					return new CommandResult("Task does not have Tag: " + s );
 				}
 			} catch (IllegalValueException e) {
@@ -435,9 +438,9 @@ public class DeleteTagCommand extends Command {
             model.deleteTags(taskToDelTags, tagsToDel);
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
-        } catch (ParseException pe){
+        } catch (ParseException pe) {
         	return new CommandResult("ParseException");
-        } catch (IllegalValueException ive){
+        } catch (IllegalValueException ive) {
         	return new CommandResult("Tags must be alphanumerical");
         }
        lastShownList = model.getFilteredTaskList();
@@ -446,8 +449,11 @@ public class DeleteTagCommand extends Command {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/AddCommand.java
+###### /java/hard2do/taskmanager/logic/commands/AddCommand.java
 ``` java
+/**
+ * Adds a task to the task manager.
+ */
 public class AddCommand extends Command {
 
 	public static final String COMMAND_WORD = "add";
@@ -461,14 +467,14 @@ public class AddCommand extends Command {
 	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
 	public static final String MESSAGE_STARTENDDATE_CONSTRAINTS = "Start date must be added";
 	public static final String MESSAGE_STARTENDTIME_CONSTRAINTS = "Start time must be added";
-	public static final String MESSAGE_ENDDATETIME_CONSTRAINTS = "End date must have a corresponding end time, vice versa";
+	public static final String MESSAGE_ENDDATETIME_CONSTRAINTS = "End date must have a corresponding end time";
 
 	private final ReadOnlyTask toAdd;
 
 	private TaskDate dateToAdd;
 	private TaskTime timeToAdd;
-	private TaskDate enddateToAdd;
-	private TaskTime endtimeToAdd;
+	private TaskDate endDateToAdd;
+	private TaskTime endTimeToAdd;
 
 	/**
 	 * Convenience constructor using raw values.
@@ -502,34 +508,34 @@ public class AddCommand extends Command {
 		}
 		// check null for date and time
 		if (endDate == null) {
-			enddateToAdd = new TaskDate();
+			endDateToAdd = new TaskDate();
 		} else
-			enddateToAdd = new TaskDate(endDate);
+			endDateToAdd = new TaskDate(endDate);
 
 		if (time != null) {
 			timeToAdd = new TaskTime(time);
 			if (endTime != null) {
-				endtimeToAdd = new TaskTime(endTime);
+				endTimeToAdd = new TaskTime(endTime);
 			}
 		} else if (time == null && endTime == null) {
 			InferTimeUtil itu = new InferTimeUtil(content);
 			if (itu.findTimeToTime()) {
 				timeToAdd = new TaskTime(itu.getStartTime());
-				endtimeToAdd = new TaskTime(itu.getEndTime());
+				endTimeToAdd = new TaskTime(itu.getEndTime());
 			} else if (itu.findTime()) {
 				timeToAdd = new TaskTime(itu.getTime());
-				endtimeToAdd = new TaskTime();
+				endTimeToAdd = new TaskTime();
 			} else {
 				timeToAdd = new TaskTime();
-				endtimeToAdd = new TaskTime();
+				endTimeToAdd = new TaskTime();
 			}
-		}
+		} 
 
 		if (duration != null) {
 			this.toAdd = new RecurringTask(new Content(content), dateToAdd, timeToAdd, duration,
 					new UniqueTagList(tagSet));
-		} else if(endtimeToAdd != null || enddateToAdd != null) {
-				this.toAdd = new Task(new Content(content), dateToAdd, enddateToAdd, timeToAdd, endtimeToAdd,
+		} else if (endTimeToAdd != null || endDateToAdd != null) {
+				this.toAdd = new Task(new Content(content), dateToAdd, endDateToAdd, timeToAdd, endTimeToAdd,
 						new UniqueTagList(tagSet));
 			}
 		else {
@@ -540,6 +546,7 @@ public class AddCommand extends Command {
 	@Override
 	public CommandResult execute() {
 		assert model != null;
+
 		try {
 			model.addTask(toAdd);
 			return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
@@ -548,27 +555,46 @@ public class AddCommand extends Command {
 		}
 
 	}
-
+	
+	/**
+	 * Validates the given values
+	 * 
+	 * @param endDate
+	 * @param startTime
+	 * @param endTime
+	 * @throws IllegalValueException
+	 */
 	public static void isValidTimeDate(String startDate, String endDate, String startTime, String endTime)
 			throws IllegalValueException {
-		if ((endDate != null && endTime == null) || (endDate == null && endTime != null)) {
+		if (endDate != null && endTime == null) {
 			throw new IllegalValueException(MESSAGE_ENDDATETIME_CONSTRAINTS);
 		}
 
-		else if (endDate != null && endTime != null) {
+		if (endDate != null && endTime != null) {
 			hasStartDate(startDate);
 			hasStartTime(startTime);
 		}
+		if (endDate != null && startDate != null) {
+			EndStartValuesUtil.dateRangeValid(startDate, endDate);
+		}
+		if (startTime != null && endTime != null && endDate == null){
+			EndStartValuesUtil.timeRangeValid(startTime, endTime);
+		}
+		
 	}
-
+	
 	public static void hasStartDate(String startDate) throws IllegalValueException {
 		if (startDate == null)
 			throw new IllegalValueException(MESSAGE_STARTENDDATE_CONSTRAINTS);
 	}
 
 	public static void hasStartTime(String startTime) throws IllegalValueException {
-		if (startTime == null)
+		if (startTime == null) {
 			throw new IllegalValueException(MESSAGE_STARTENDTIME_CONSTRAINTS);
+		}
 	}
+	
+
+	
 }
 ```

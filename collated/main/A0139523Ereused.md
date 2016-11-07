@@ -1,5 +1,5 @@
 # A0139523Ereused
-###### /java/seedu/address/MainApp.java
+###### /java/hard2do/taskmanager/MainApp.java
 ``` java
 public class MainApp extends Application {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
@@ -36,7 +36,7 @@ public class MainApp extends Application {
         initEventsCenter();
     }
 ```
-###### /java/seedu/address/model/ReadOnlyTaskManager.java
+###### /java/hard2do/taskmanager/model/ReadOnlyTaskManager.java
 ``` java
 public interface ReadOnlyTaskManager {
 
@@ -57,7 +57,7 @@ public interface ReadOnlyTaskManager {
 }
 
 ```
-###### /java/seedu/address/model/Model.java
+###### /java/hard2do/taskmanager/model/Model.java
 ``` java
 public interface Model {
     /** Clears existing backing model and replaces with the provided new data. 
@@ -96,7 +96,7 @@ public interface Model {
 			throws TaskNotFoundException, ParseException, IllegalValueException;
 
 ```
-###### /java/seedu/address/model/TaskManager.java
+###### /java/hard2do/taskmanager/model/TaskManager.java
 ``` java
 public class TaskManager implements ReadOnlyTaskManager {
 
@@ -219,7 +219,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
 ```
-###### /java/seedu/address/ui/ResultDisplay.java
+###### /java/hard2do/taskmanager/ui/ResultDisplay.java
 ``` java
 public class ResultDisplay extends UiPart {
     public static final String RESULT_DISPLAY_ID = "resultDisplay";
@@ -274,63 +274,7 @@ public class ResultDisplay extends UiPart {
 
 }
 ```
-###### /java/seedu/address/ui/BrowserPanel.java
-``` java
-public class BrowserPanel extends UiPart{
-
-    private static Logger logger = LogsCenter.getLogger(BrowserPanel.class);
-    private WebView browser;
-
-    /**
-     * Constructor is kept private as {@link #load(AnchorPane)} is the only way to create a BrowserPanel.
-     */
-    private BrowserPanel() {
-
-    }
-
-    @Override
-    public void setNode(Node node) {
-        //not applicable
-    }
-
-    @Override
-    public String getFxmlPath() {
-        return null; //not applicable
-    }
-
-    /**
-     * Factory method for creating a Browser Panel.
-     * This method should be called after the FX runtime is initialized and in FX application thread.
-     * @param placeholder The AnchorPane where the BrowserPanel must be inserted
-     */
-    public static BrowserPanel load(AnchorPane placeholder){
-        logger.info("Initializing browser");
-        BrowserPanel browserPanel = new BrowserPanel();
-        browserPanel.browser = new WebView();
-        placeholder.setOnKeyPressed(Event::consume); // To prevent triggering events for typing inside the loaded Web page.
-        FxViewUtil.applyAnchorBoundaryParameters(browserPanel.browser, 0.0, 0.0, 0.0, 0.0);
-        placeholder.getChildren().add(browserPanel.browser);
-        return browserPanel;
-    }
-
-    public void loadPersonPage(ReadOnlyTask task) {
-        loadPage("https://www.google.com.sg/#safe=off&q=" + task.getContent().toString().replaceAll(" ", "+"));
-    }
-
-    public void loadPage(String url){
-        browser.getEngine().load(url);
-    }
-
-    /**
-     * Frees resources allocated to the browser.
-     */
-    public void freeResources() {
-        browser = null;
-    }
-
-}
-```
-###### /java/seedu/address/storage/XmlSerializableTaskManager.java
+###### /java/hard2do/taskmanager/storage/XmlSerializableTaskManager.java
 ``` java
 @XmlRootElement(name = "taskmanager")
 public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
@@ -402,7 +346,7 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
 
 }
 ```
-###### /java/seedu/address/commons/core/Version.java
+###### /java/hard2do/taskmanager/commons/core/Version.java
 ``` java
 public class Version implements Comparable<Version> {
 
@@ -496,7 +440,7 @@ public class Version implements Comparable<Version> {
     }
 }
 ```
-###### /java/seedu/address/commons/core/GuiSettings.java
+###### /java/hard2do/taskmanager/commons/core/GuiSettings.java
 ``` java
 public class GuiSettings implements Serializable {
 
@@ -563,7 +507,7 @@ public class GuiSettings implements Serializable {
     }
 }
 ```
-###### /java/seedu/address/logic/LogicManager.java
+###### /java/hard2do/taskmanager/logic/LogicManager.java
 ``` java
 public class LogicManager extends ComponentManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
@@ -594,8 +538,11 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/DeleteCommand.java
+###### /java/hard2do/taskmanager/logic/commands/DeleteCommand.java
 ``` java
+/**
+ * Deletes a task identified using it's last displayed index from the task manager.
+ */
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
