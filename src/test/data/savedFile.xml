@@ -2,17 +2,191 @@
 <taskmanager>
     <tasks>
         <content>
-            <value>aaa</value>
+            <value>Do Homework</value>
         </content>
         <date>
-            <value>2016-11-09T00:00:00+08:00</value>
-            <dateString>1-11-2016</dateString>
+            <value>2016-08-24T00:00:00+08:00</value>
+            <dateString>24-08-2016</dateString>
         </date>
+        <endDate>
+            <value>2016-08-25T00:00:00+08:00</value>
+            <dateString>25-08-2016</dateString>
+        </endDate>
         <time>
-            <timeString></timeString>
+            <value>1970-01-01T13:00:00+07:30</value>
+            <timeString>13:00</timeString>
         </time>
-        <duration>8</duration>
+        <endTime>
+            <value>1970-01-01T15:00:00+07:30</value>
+            <timeString>15:00</timeString>
+        </endTime>
+        <done>false</done>
+        <important>false</important>
+        <tagged>shag</tagged>
+    </tasks>
+    <tasks>
+        <content>
+            <value>Study</value>
+        </content>
+        <date>
+            <value>2016-08-28T00:00:00+08:00</value>
+            <dateString>28-08-2016</dateString>
+        </date>
+        <endDate>
+            <value>2016-08-29T00:00:00+08:00</value>
+            <dateString>29-08-2016</dateString>
+        </endDate>
+        <time>
+            <value>1970-01-01T14:00:00+07:30</value>
+            <timeString>14:00</timeString>
+        </time>
+        <endTime>
+            <value>1970-01-01T15:00:00+07:30</value>
+            <timeString>15:00</timeString>
+        </endTime>
         <done>false</done>
         <important>false</important>
     </tasks>
+    <tasks>
+        <content>
+            <value>Have Exam</value>
+        </content>
+        <date>
+            <value>2016-05-20T00:00:00+08:00</value>
+            <dateString>20-05-2016</dateString>
+        </date>
+        <endDate>
+            <value>2016-05-21T00:00:00+08:00</value>
+            <dateString>21-05-2016</dateString>
+        </endDate>
+        <time>
+            <value>1970-01-01T10:00:00+07:30</value>
+            <timeString>10:00</timeString>
+        </time>
+        <endTime>
+            <value>1970-01-01T11:00:00+07:30</value>
+            <timeString>11:00</timeString>
+        </endTime>
+        <done>false</done>
+        <important>false</important>
+        <tagged>shaglife</tagged>
+        <tagged>tired</tagged>
+    </tasks>
+    <tasks>
+        <content>
+            <value>Hall Activities and Study section</value>
+        </content>
+        <date>
+            <value>2016-06-15T00:00:00+08:00</value>
+            <dateString>15-06-2016</dateString>
+        </date>
+        <endDate>
+            <value>2016-06-16T00:00:00+08:00</value>
+            <dateString>16-06-2016</dateString>
+        </endDate>
+        <time>
+            <value>1970-01-01T19:00:00+07:30</value>
+            <timeString>19:00</timeString>
+        </time>
+        <endTime>
+            <value>1970-01-01T23:00:00+07:30</value>
+            <timeString>23:00</timeString>
+        </endTime>
+        <done>false</done>
+        <important>false</important>
+        <tagged>fun</tagged>
+    </tasks>
+    <tasks>
+        <content>
+            <value>Teach Tuition</value>
+        </content>
+        <date>
+            <value>2016-03-21T00:00:00+08:00</value>
+            <dateString>21-03-2016</dateString>
+        </date>
+        <endDate>
+            <value>2016-03-22T00:00:00+08:00</value>
+            <dateString>22-03-2016</dateString>
+        </endDate>
+        <time>
+            <value>1970-01-01T14:00:00+07:30</value>
+            <timeString>14:00</timeString>
+        </time>
+        <endTime>
+            <value>1970-01-01T15:00:00+07:30</value>
+            <timeString>15:00</timeString>
+        </endTime>
+        <done>false</done>
+        <important>false</important>
+        <tagged>money</tagged>
+    </tasks>
+    <tasks>
+        <content>
+            <value>Family Event</value>
+        </content>
+        <date>
+            <value>2016-11-02T00:00:00+08:00</value>
+            <dateString>02-11-2016</dateString>
+        </date>
+        <endDate>
+            <value>2016-11-03T00:00:00+08:00</value>
+            <dateString>03-11-2016</dateString>
+        </endDate>
+        <time>
+            <value>1970-01-01T12:00:00+07:30</value>
+            <timeString>12:00</timeString>
+        </time>
+        <endTime>
+            <value>1970-01-01T13:00:00+07:30</value>
+            <timeString>13:00</timeString>
+        </endTime>
+        <done>false</done>
+        <important>false</important>
+        <tagged>love</tagged>
+    </tasks>
+    <tasks>
+        <content>
+            <value>Get Groceries</value>
+        </content>
+        <date>
+            <value>2016-12-01T00:00:00+08:00</value>
+            <dateString>01-12-2016</dateString>
+        </date>
+        <endDate>
+            <value>2016-12-02T00:00:00+08:00</value>
+            <dateString>02-12-2016</dateString>
+        </endDate>
+        <time>
+            <value>1970-01-01T09:00:00+07:30</value>
+            <timeString>09:00</timeString>
+        </time>
+        <endTime>
+            <value>1970-01-01T10:00:00+07:30</value>
+            <timeString>10:00</timeString>
+        </endTime>
+        <done>false</done>
+        <important>false</important>
+        <tagged>food</tagged>
+    </tasks>
+    <tags>
+        <tagName>shag</tagName>
+    </tags>
+    <tags>
+        <tagName>shaglife</tagName>
+    </tags>
+    <tags>
+        <tagName>tired</tagName>
+    </tags>
+    <tags>
+        <tagName>fun</tagName>
+    </tags>
+    <tags>
+        <tagName>money</tagName>
+    </tags>
+    <tags>
+        <tagName>love</tagName>
+    </tags>
+    <tags>
+        <tagName>food</tagName>
+    </tags>
 </taskmanager>
