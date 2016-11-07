@@ -19,9 +19,6 @@ import hard2do.taskmanager.testutil.TestTask;
 //@@author A0141054W
 public class AddTagCommandTest extends TaskManagerGuiTest {
     
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-    
     @Test
     public void testAddTag_differentIndex_updatedTasksExpected() throws DuplicateTagException, IllegalValueException {
         TestTask[] currentList = td.getTypicalTasks();
