@@ -55,14 +55,8 @@ public class DoneCommandTest extends TaskManagerGuiTest {
     }
     
     @Test
-    public void testDone_noIndex_errorMessageExpected() {
-    	commandBox.runCommand("done");
-    	assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
-    }
-
-    @Test
     public void testUndone_noIndex_errorMessageExpected() {
-    	commandBox.runCommand("undone");
+    	commandBox.runCommand("notdone");
     	assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, NotDoneCommand.MESSAGE_USAGE));
     }
     //helper method for main test

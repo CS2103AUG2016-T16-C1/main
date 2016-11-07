@@ -27,7 +27,8 @@ public class InferTimeUtilTest {
     public void testInferTime_startEndTime_matchesStringExpected() {
         String startEndTimeString = "there is time here at from 1am to 2pm";
         InferTimeUtil itu = new InferTimeUtil(startEndTimeString);
-        assertTrue(itu.findTime());
+        assertTrue(itu.findTimeToTime());
+        assertEquals(itu.getStartTime(), "1:00");
+        assertEquals(itu.getEndTime(), "14:00");
     }
-
 }

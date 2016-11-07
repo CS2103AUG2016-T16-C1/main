@@ -59,18 +59,6 @@ public class ImportantCommandTest extends TaskManagerGuiTest {
         
     }
     
-    @Test
-    public void testUImportant_noIndex_errorMessageExpected() {
-    	commandBox.runCommand("unimportant");
-    	assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, UnimportantCommand.MESSAGE_USAGE));
-    }
-    
-    @Test
-    public void testImportant_noIndex_errorMessageExpected() {
-    	commandBox.runCommand("important");
-    	assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ImportantCommand.MESSAGE_USAGE));
-    }
-    
     //helper method for main test
     private void assertImportantTaskSuccess(int index, final TestTask[] currentList) throws IllegalStateException {
         TestTask taskToImportant = currentList[index-1]; //-1 because array uses zero indexing

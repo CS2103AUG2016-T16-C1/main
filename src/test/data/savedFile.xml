@@ -168,6 +168,27 @@
         <important>false</important>
         <tagged>food</tagged>
     </tasks>
+    <tasks>
+        <content>
+            <value>something from 1am to 2pm</value>
+        </content>
+        <date>
+            <dateString></dateString>
+        </date>
+        <endDate>
+            <dateString></dateString>
+        </endDate>
+        <time>
+            <value>1970-01-01T01:00:00+07:30</value>
+            <timeString>01:00</timeString>
+        </time>
+        <endTime>
+            <value>1970-01-01T14:00:00+07:30</value>
+            <timeString>14:00</timeString>
+        </endTime>
+        <done>false</done>
+        <important>false</important>
+    </tasks>
     <tags>
         <tagName>shag</tagName>
     </tags>

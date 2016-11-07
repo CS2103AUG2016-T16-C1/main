@@ -53,7 +53,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
 		assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 		
 		commandBox.runCommand("edit " + "1 " + "/");
-		assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+		assertResultMessage(EditCommand.MESSAGE_USAGE);
 	}
 	
     private void assertEditTaskSuccess(int targetIndexOneIndexed, final TestTask[] currentList) throws DuplicateTagException, IllegalValueException, ParseException {
