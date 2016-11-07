@@ -81,7 +81,7 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 3`.
+command `delete 1`.
 
 <img src="images/SDforDeleteTask.png" width="800">
 
@@ -271,12 +271,14 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | add a tag to a to-do | label my to-dos by the same tag so it is easily found
 `* * *` | user | delete a tag from a to-do | change tags assigned to the to-dos
 `* * *` | user | mark to-do as done | keep track of completed tasks
-`* * *` | user | undo actions taken with a shortcut | fix mistakes in my schedule
+`* * *` | user | undo actions taken | fix mistakes in my schedule
 `* * *` | user | list all my to-dos | view all to-dos that have been added
 `* * *` | user | list all the to-dos that are marked as done | refer to what to-dos have been done`
 `* * *` | user | list all the to-dos that are marked as undone | refer to what to-dos have not been done
+`* * *` | user | list all the to-dos that are marked as important | refer to what to-dos should be done first
 `* * *` | user | change the priority of my to-do | focus on the to-dos which have been labelled more important
 `* * *` | user | be able to load my task manager from a saved state | go back to a previous state if needed
+`* * *` | user | be able to save a copy of my task manager | go back to a previous state if needed
 `* * *` | user | select to-dos in the list with just commands | view its details without using a mouse
 `* * *` | user | exit the app with just commands | close the app without using a mouse
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
@@ -290,6 +292,24 @@ Priority | As a ... | I want to ... | So that I can...
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `user`, unless specified otherwise)
+
+#### Use case: Add task
+
+**MSS**
+
+1. User requests to add tasks
+2. TaskManger adds tasks to its data
+Use case ends.
+
+**Extensions**
+
+2a. An invalid command is entered
+> 2a1. User is shown the correct format with an example
+  Use case resumes at step 1
+
+2b. Adding a duplicate task
+> 2b1. User is notified that task already exists
+  Use case resumes at step 1
 
 #### Use case: Delete task
 
@@ -312,23 +332,58 @@ Use case ends.
 > 3a1. TaskManager shows an error message <br>
   Use case resumes at step 2
 
+#### Use case : Find tasks
+
+**MSS**
+
+1. User requests to find tasks with specific keywords
+2. TaskManager returns a list of tasks with all matching keywords
+Use case ends
+
+**Extensions**
+
+1a. No keywords were inputted
+> TaskManager shows an error message <br>
+  Use case resumes at step 1
+
+#### Use case : List all tasks
+
+**MSS**
+
+1. User requests to list all tasks
+2. TaskManager shows all tasks added
+Use case ends
+
+**Extensions**
+
+2a. The list is empty
+
+> Use case ends
+
 #### Use case : Mark As Done
 
 **MSS**
 
-1. User requests to list tasks
-2. TaskManager shows a list of tasks
-3. User requests to mark specific or multiple tasks as done
-4. TaskManager marks the task(s) as done <br>
+1. User requests to list all undone tasks
+2. TaskManager shows a list of all undone tasks
+3. User requests to mark specific task as done
+4. TaskManager marks the task as done <br>
 Use case ends.
 
 **Extensions**
 
-4a. The task is already marked as done
+2a. The list is empty
 
-> Task becomes marked as undone
+> Use case ends
 
-{More to be added}
+3a. The given index is invalid
+
+> 3a1. TaskManager shows an error message <br>
+  Use case resumes at step 2
+
+4a. The task has already been marked as done <br>
+
+> Use case ends
 
 ## Appendix C : Non Functional Requirements
 
@@ -336,7 +391,6 @@ Use case ends.
 2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
-{More to be added}
 
 ## Appendix D : Glossary
 
@@ -353,39 +407,39 @@ Use case ends.
 ## Appendix E : Product Survey
 
 #### Wunderlist
-* Nice:
+* Pros:
 ~~~~
 User Interface(UI) is responsive and effective
 Mail-to list function is very convenient
 ~~~~
-* Not Nice:
+* Cons:
 ~~~~
 Wunderlist cannot sync with google calendar
 WunderList cannot show calendar style
 ~~~~
 
 #### Todoist
-* Nice:
+* Pros:
 ~~~~
 UI is responsive and effective
 Todoist can automatically identify the time for to-do
 Todoist can instantly recognise short-hand like "tmr" "tues"
 Todoist have Mail-to list function
 ~~~~
-* Not Nice:
+* Cons:
 ~~~~
 Todoist cannot sync with google calendar
 Todoist cannot see calendar style
 ~~~~
 
 #### Google Calendar
-* Nice:
+* Pros:
 ~~~~
 UI is the most responsive and effective
 Google Calendar have Mail-to list function
 Google Calendar can also sync well with other calendars
 ~~~~
-* Not Nice
+* Cons:
 ~~~~
 Google Calendar requires too much work needed to add an item
 ~~~~

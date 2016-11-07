@@ -1,5 +1,7 @@
+[//]: # (@@author A0139523E)
 # User Guide
 ## 1 Table Of Contents
+ [1 Table Of Contents](#1-table-of-contents) <br>
  [2 About Hard2Do](#2-about-hard2do)<br>
  [3 Getting Started](#3-getting-started)<br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -95,7 +97,7 @@
    This app will not work with earlier versions of Java 8.
 
 2. *Hard2Name.exe* <br>
- Download the latest `Hard2Name.jar` from the [releases](../../../releases) tab.
+ Download the latest `Hard2Name.jar` from the [releases](https://github.com/CS2103AUG2016-T16-C1/main/releases) tab.
 
 ### 3.2 Launch
 Now you can finally begin your journey with `Hard2Do` Task Manager. <br>
@@ -116,7 +118,7 @@ Now you can finally begin your journey with `Hard2Do` Task Manager. <br>
    * **`exit`** : exits the app
    * **`edit`**` 3 c/do homework ` :
       updates the contents in the 3rd task shown in the current list
-6. Refer to the [Features](#features) section below for details of each command.<br>
+6. Refer to the [Features](#4-features-) section below for details of each command.<br>
 
 
 ## 4 Features <br>
@@ -439,18 +441,19 @@ Loads the previously saved file taskmanager.xml
 Loads the previously saved file taskmanager2.xml
 
 ### 4.18 Getting the next date of a recurring task : `next`
-Sets the date of the specified recurring task in the current task listing to the next date that it will occur on <br>
+Sets the date of the specified recurring task in the current task listing to the next date that is nearest to the current date<br>
 Format: `next INDEX`
 > * The `INDEX` refers to the index number shown in the current listing. <br>
 > * This command only works on tasks which were added as `recurring`.
 > * The index **must be a positive integer** 1, 2, 3, ...
 
 Examples:
-* `next 2` <br>
-Sets the date of the 2nd task to the date of its next occurrence
-* `list` <br>
+* `add tuition sd/13-02-2016 r/7` <br>
+  `next 2`<br>
+If the current date is 24-02-2016, it sets the date of the 2nd task to 27-02-2016
+* `add movie sd/25-10-2016 r/3` <br>
 `next 3` <br>
-Sets the date of the 3rd task in the current task listing to the date of its next occurrence
+If the current date is 7-11-2016, it sets the date of the 3rd task to 9-11-2016
 
 ### 4.19 Emailing tasks : `email`
 *4.19.1 Add all unread email* <br>
@@ -489,29 +492,29 @@ Format: `help`
 
 Command | Format  
 -------- | :--------
-Add | `add TASKDETAILS [sd/DD-MM-YYYY] [ed/DD-MM-YYYY] [st/HH:MM] [et/HH:MM] [r/DURATION] [#TAGNAME...]`
-Add Shortcuts | `add TASKDETAILS KEYWORDS` or `add TASKDETAILS at STARTTIME` or `add TASKDETAILS from STARTTIME to ENDTIME`
-AddTag | `addtag INDEX TAGNAME...`
-List | `list`
-List All | `list all` or `list -a`
-List Done | `list done` or `list -d`
-List Important | `list important` or `list -i`
-List Unimportant | `list unimportant` or `list -ui`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-Find Tag | `findtag TAGNAME`
-Delete | `delete INDEX`
-Delete Tags | `deltag INDEX TAGNAME...`
-Undo | `undo`
-Select | `select INDEX`
-Edit | `edit INDEX c/TASKDETAILS sd/DD-MM-YYYY ed/DD-MM-YYYY st/HH:MM et/HH:MM`
-Important | `important INDEX`
-Unimportant | `unimportant INDEX`
-Done | `done INDEX`
-Undone | `notdone INDEX`
-Clear | `clear`
-Save | `save FILELOCATION`
-Load | `load FILELOCATION`
-Next Date | `next INDEX`
-Email | `email` or `email EMAILNAME`
-Exit | `exit`
-Help | `help`
+[Add](#41-adding-tasks--add) | `add TASKDETAILS [sd/DD-MM-YYYY] [ed/DD-MM-YYYY] [st/HH:MM] [et/HH:MM] [r/DURATION] [#TAGNAME...]`
+[Add Shortcuts](#41-adding-tasks--add) | `add TASKDETAILS KEYWORDS` or `add TASKDETAILS at STARTTIME` or `add TASKDETAILS from STARTTIME to ENDTIME`
+[AddTag](#42-adding-tags--addtag) | `addtag INDEX TAGNAME...`
+[List](#43-listing-tasks--list) | `list`
+[List All](#43-listing-tasks--list) | `list all` or `list -a`
+[List Done](#43-listing-tasks--list) | `list done` or `list -d`
+[List Important](#43-listing-tasks--list) | `list important` or `list -i`
+[List Unimportant](#43-listing-tasks--list) | `list unimportant` or `list -ui`
+[Find](#44-finding-a-task--find) | `find KEYWORD [MORE_KEYWORDS]`
+[Find Tag](#45-finding-a-tag--findtag) | `findtag TAGNAME`
+[Delete](#46-deleting-a-task--delete) | `delete INDEX`
+[Delete Tags](#47-deleting-tags-from-task--deltag) | `deltag INDEX TAGNAME...`
+[Undo](#48-undoing-an-action--undo) | `undo`
+[Select](#49-selecting-a-task--select) | `select INDEX`
+[Edit](#410-editing-a-task--edit) | `edit INDEX c/TASKDETAILS sd/DD-MM-YYYY ed/DD-MM-YYYY st/HH:MM et/HH:MM`
+[Important](#411-marking-task-as-important--important) | `important INDEX`
+[Unimportant](#412-marking-task-as-unimportant--unimportant) | `unimportant INDEX`
+[Done](#413-marking-task-as-done--done) | `done INDEX`
+[Undone](#414-marking-task-as-undone--notdone) | `notdone INDEX`
+[Clear](#415-clearing-all-entries--clear) | `clear`
+[Save](#416-saving-tasks--save) | `save FILELOCATION`
+[Load](#417-loading-tasks--load) | `load FILELOCATION`
+[Next Date](#418-getting-the-next-date-of-a-recurring-task--next) | `next INDEX`
+[Email](#419-emailing-tasks--email) | `email` or `email EMAILNAME`
+[Exit](#420-exiting-the-program--exit) | `exit`
+[Help](#421-viewing-help--help) | `help`
