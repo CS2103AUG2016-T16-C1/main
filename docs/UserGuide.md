@@ -67,6 +67,10 @@
  [4.18 Getting the next date of a recurring task](#418-getting-the-next-date-of-a-recurring-task--next) <br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  [4.19 Emailing tasks](#419-emailing-tasks--email) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ [4.19.1 Add all unread email](#419-emailing-tasks--email) <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ [4.19.2 Add all unread email from a specific address](#419-emailing-task--email) <br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  [4.20 Exiting the program](#420-exiting-the-program--exit) <br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -452,15 +456,15 @@ Format: `email`
 > * When used for the first time, this command will redirect you to a webpage for permission.
 > * Grant the permission to `Hard2Do`.
 
-*4.19.2 Add all unread email from a specific address* <br>
-Adds all unread email inside your mailbox from a specific address to `Hard2Do` <br>
+*4.19.2 Add all unread email from a specific email address* <br>
+Adds all unread email inside your mailbox sent by a specificied email address to `Hard2Do` <br>
 Format: `email EMAILNAME`
 
 Examples:
 * `email vitquay1996@gmail.com`<br>
-Adds all unread email from "vitquay1996@gmail.com" into `Hard2Do`
-* `email myemail@gmail.com` <br>
-Adds all unread email from "myemail@gmail.com" into `Hard2Do`
+Adds all unread email sent by "vitquay1996@gmail.com" into `Hard2Do`
+* `email mybossemail@gmail.com` <br>
+Adds all unread email sent by "mybossemail@gmail.com" into `Hard2Do`
 
 ### 4.20 Exiting the program : `exit`
 Exits and closes `Hard2Do`<br>

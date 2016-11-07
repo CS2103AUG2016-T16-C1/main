@@ -22,7 +22,7 @@ public class UndoCommandTest extends TaskManagerGuiTest{
         commandBox.runCommand(td.appointment.getAddCommand());
         commandBox.runCommand(td.flight.getAddCommand());
         commandBox.runCommand("delete 1");
-        commandBox.runCommand("edit 2 c/nothing d/10-10-2010");
+        commandBox.runCommand("edit 2 c/nothing sd/10-10-2010");
         commandBox.runCommand("undo");
         commandBox.runCommand("undo");
         commandBox.runCommand("undo");
@@ -34,7 +34,14 @@ public class UndoCommandTest extends TaskManagerGuiTest{
     public void testUndo_noCommand_errorMessageExpected() {
         commandBox.runCommand("undo");
         assertResultMessage("No available commands can be undone");
-
     }
     
+    @Test
+    public void testUndo_noChanges_errorMessageExpected() {
+    	//undo doesn't work with commands that doesn't change information
+    	commandBox.runCommand("find homework");
+    	commandBox.runCommand("list all");
+    	commandBox.runCommand("undo");
+    	assertResultMessage("No available commands can be undone");
+    }
 }
