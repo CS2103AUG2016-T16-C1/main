@@ -77,9 +77,9 @@ public class AddCommand extends Command {
 		// check null for date and time
 		if (endDate == null) {
 			endDateToAdd = new TaskDate();
-		} else
+		} else {
 			endDateToAdd = new TaskDate(endDate);
-
+		}
 		if (time != null) {
 			timeToAdd = new TaskTime(time);
 			if (endTime != null) {
