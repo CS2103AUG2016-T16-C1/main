@@ -19,6 +19,7 @@ We are a team based in the [School of Computing, National University of Singapor
 * Other major contributions:
   * Did the initial refactoring from AddressBook to Hard2Do
   * Ensures refactoring of methods and tidied up code to follow coding standards  
+  
 -----
 
 #### [Nicolas](http://github.com/nicolashww)
