@@ -29,10 +29,16 @@ public class SaveLoadCommandTest extends TaskManagerGuiTest {
     }
     
     @Test
+    public void testSave_invalidName_errorMessageExcepted() {
+    	String savePath = "./src/test/data/savedFile";
+    	commandBox.runCommand("save " + savePath);
+    	assertResultMessage(SaveCommand.MESSAGE_INVALID_FILENAME);
+    }
+    @Test
     public void testSave_invalidPath_errorMessageExpected() {
-        String savePath = "not a file path";
+        String savePath = "not a file path.xml";
         commandBox.runCommand("save " + savePath);
-        assertResultMessage(SaveCommand.MESSAGE_INVALID_FILENAME);        
+        assertResultMessage(SaveCommand.MESSAGE_INVALID_FILEPATH);        
     }
     
     @Test
@@ -43,8 +49,15 @@ public class SaveLoadCommandTest extends TaskManagerGuiTest {
     }
     
     @Test
+    public void testLoad_invalidName_errorMessageExpected() {
+    	String savePath = "./src/test/data/savedFile";
+    	commandBox.runCommand("save " + savePath);
+    	assertResultMessage(SaveCommand.MESSAGE_INVALID_FILENAME);
+    }
+    
+    @Test
     public void testLoad_invalidPath_errorMessageExpected() {
-        String savePath = "not_a_file_path";
+        String savePath = "not_a_file_path.xml";
         commandBox.runCommand("load " + savePath);
         assertResultMessage("Invalid command format! \n" + LoadCommand.MESSAGE_INVALID_FILEPATH);        
     }

@@ -36,16 +36,22 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         
         //done already done item
         commandBox.runCommand("list all");
-        assertDoneTaskSuccess(targetIndex, currentList);
-        
+        targetIndex = 1;
+        assertDoneTaskSuccess(targetIndex, currentList);      
     }
     
     @Test
     public void testDone_invalidIndex_errorMessageExpected() {
         //done a invalid index
         commandBox.runCommand("done " + "100");    
-        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        
+        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);       
+    }
+    
+    @Test
+    public void testUnDone_invalidIndex_errorMessageExpected() {
+        //done a invalid index
+        commandBox.runCommand("notdone " + "100");    
+        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);      
     }
     
     //helper method for main test
@@ -62,8 +68,6 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         //confirm task is in the whole list
         //commandBox.runCommand("list");
         //assertNotNull(taskListPanel.navigateToTask(taskToDone.getContent().value));
-
-
     }
     
     //@@author A0147989B
@@ -76,7 +80,6 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         assertEquals(taskToUndone.getDone(),false);
         
         //confirm the result message is correct
-        assertResultMessage(String.format(NotDoneCommand.MESSAGE_NOTDONE_TASK_SUCCESS, taskToUndone));
-        
+        assertResultMessage(String.format(NotDoneCommand.MESSAGE_NOTDONE_TASK_SUCCESS, taskToUndone));      
     }
 }

@@ -33,7 +33,12 @@ public class ImportantCommandTest extends TaskManagerGuiTest {
         targetIndex = 1;
         assertUnimportantTaskSuccess(targetIndex, currentList);
         
+        //unimportant already unimportant item
+        targetIndex = 1;
+        assertImportantTaskSuccess(targetIndex, currentList);
+        
         //important already important item
+        targetIndex = 4;
         assertImportantTaskSuccess(targetIndex, currentList);
      
     }
@@ -42,6 +47,14 @@ public class ImportantCommandTest extends TaskManagerGuiTest {
     public void testImportant_invalidIndex_errorMessageExpected() {
         //important a invalid index
         commandBox.runCommand("important " + "100");    
+        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        
+    }
+    
+    @Test
+    public void testUnimportant_invalidIndex_errorMessageExpected() {
+        //important a invalid index
+        commandBox.runCommand("unimportant " + "100");    
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         
     }
