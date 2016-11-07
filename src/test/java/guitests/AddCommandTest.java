@@ -4,6 +4,7 @@ import guitests.guihandles.TaskCardHandle;
 import hard2do.taskmanager.commons.core.Messages;
 import hard2do.taskmanager.commons.exceptions.IllegalValueException;
 import hard2do.taskmanager.logic.commands.AddCommand;
+import hard2do.taskmanager.logic.commands.EditCommand;
 import hard2do.taskmanager.model.task.UniqueTaskList.DuplicateTaskException;
 import hard2do.taskmanager.testutil.TestTask;
 import hard2do.taskmanager.testutil.TestUtil;
@@ -48,6 +49,9 @@ public class AddCommandTest extends TaskManagerGuiTest {
      public void testAddTask_invalidCommand_errorMessageExpected() throws DuplicateTaskException, IllegalValueException {
         commandBox.runCommand("adds Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        
+        commandBox.runCommand("add");
+        assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 
     //helper method for main test

@@ -48,12 +48,23 @@ public class DoneCommandTest extends TaskManagerGuiTest {
     }
     
     @Test
-    public void testUnDone_invalidIndex_errorMessageExpected() {
+    public void testUndone_invalidIndex_errorMessageExpected() {
         //done a invalid index
         commandBox.runCommand("notdone " + "100");    
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);      
     }
     
+    @Test
+    public void testDone_noIndex_errorMessageExpected() {
+    	commandBox.runCommand("done");
+    	assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void testUndone_noIndex_errorMessageExpected() {
+    	commandBox.runCommand("undone");
+    	assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, NotDoneCommand.MESSAGE_USAGE));
+    }
     //helper method for main test
     private void assertDoneTaskSuccess(int targetIndexOneIndexed, final TestTask[] currentList) throws IllegalStateException {
         TestTask taskToDone = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing

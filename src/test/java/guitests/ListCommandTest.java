@@ -3,6 +3,10 @@ package guitests;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+
+import hard2do.taskmanager.commons.core.Messages;
+import hard2do.taskmanager.logic.commands.AddCommand;
+import hard2do.taskmanager.logic.commands.ListCommand;
 import hard2do.taskmanager.testutil.TestTask;
 
 //@@author A0139523E
@@ -76,6 +80,12 @@ public class ListCommandTest extends TaskManagerGuiTest {
 		commandBox.runCommand("important 2");
 		commandBox.runCommand("list -ui");
 		assertListChangeSuccess(5);
+	}
+	
+	@Test
+	public void testList_invalidCommand_errorMessageExpected() {
+		commandBox.runCommand("list me");
+		assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_LIST_RESTRICTION));
 	}
 	
 	public void assertListAllSuccess(final TestTask[] currentList) {

@@ -10,6 +10,7 @@ import guitests.guihandles.TaskCardHandle;
 import hard2do.taskmanager.commons.core.Messages;
 import hard2do.taskmanager.commons.exceptions.IllegalValueException;
 import hard2do.taskmanager.logic.commands.EditCommand;
+import hard2do.taskmanager.logic.parser.Parser;
 import hard2do.taskmanager.model.tag.UniqueTagList.DuplicateTagException;
 import hard2do.taskmanager.model.task.Content;
 import hard2do.taskmanager.model.task.TaskDate;
@@ -44,6 +45,15 @@ public class EditCommandTest extends TaskManagerGuiTest {
         //edit an invalid index
         commandBox.runCommand("edit " + "100 " + "c/movie");    
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+	}
+	
+	@Test
+	public void testEdit_invalidCommand_errorMessageExpected() {
+		commandBox.runCommand("edit " + "1 " + "content");
+		assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+		
+		commandBox.runCommand("edit " + "1 " + "/");
+		assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 	}
 	
     private void assertEditTaskSuccess(int targetIndexOneIndexed, final TestTask[] currentList) throws DuplicateTagException, IllegalValueException, ParseException {

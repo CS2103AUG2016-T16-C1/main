@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import hard2do.taskmanager.commons.core.Messages;
 import hard2do.taskmanager.commons.util.FileUtil;
+import hard2do.taskmanager.logic.commands.EditCommand;
 import hard2do.taskmanager.logic.commands.LoadCommand;
 import hard2do.taskmanager.logic.commands.SaveCommand;
 import hard2do.taskmanager.testutil.TestTask;
@@ -39,6 +40,15 @@ public class SaveLoadCommandTest extends TaskManagerGuiTest {
         String savePath = "not a file path.xml";
         commandBox.runCommand("save " + savePath);
         assertResultMessage(SaveCommand.MESSAGE_INVALID_FILEPATH);        
+        
+        
+    }
+    
+    @Test
+    public void testSave_invalidCommand_errorMessageExpected() {
+    	String savePath = "C:";
+    	commandBox.runCommand("save " + savePath);
+    	assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_DIRECTORY_FILEPATH));
     }
     
     @Test
@@ -60,5 +70,12 @@ public class SaveLoadCommandTest extends TaskManagerGuiTest {
         String savePath = "not_a_file_path.xml";
         commandBox.runCommand("load " + savePath);
         assertResultMessage("Invalid command format! \n" + LoadCommand.MESSAGE_INVALID_FILEPATH);        
+    }
+    
+    @Test
+    public void testLoad_invalidDirectory_errorMessageExpected() {
+    	String savePath = "C:";
+    	commandBox.runCommand("load " + savePath);
+    	assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_DIRECTORY_FILEPATH));
     }
 }
