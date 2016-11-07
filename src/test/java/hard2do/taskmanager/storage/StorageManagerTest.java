@@ -23,7 +23,7 @@ import java.io.IOException;
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
+//@@author A0139523E-reused
 public class StorageManagerTest {
 
     private StorageManager storageManager;

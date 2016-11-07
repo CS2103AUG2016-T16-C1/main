@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
+//@@author A0141054W
 public class InferTimeUtilTest {
     
     @Test
