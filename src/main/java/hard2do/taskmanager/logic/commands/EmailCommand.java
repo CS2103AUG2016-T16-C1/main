@@ -86,8 +86,6 @@ public class EmailCommand extends Command {
                 }
             }
         }
-
         return new CommandResult(MESSAGE_SUCCESS);
     }
-
 }

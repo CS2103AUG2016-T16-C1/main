@@ -122,9 +122,7 @@ public class ModelManager extends ComponentManager implements Model {
 		}
     	taskManager.editTask(target, newDate, newEndDate, newTime, newEndTime, newContent);
         indicateTaskManagerChanged();
-
     }
-
 
     @Override
     public synchronized void addTags(ReadOnlyTask target, ArrayList<String> newTags)
@@ -342,8 +340,7 @@ public class ModelManager extends ComponentManager implements Model {
         boolean run(ReadOnlyTask task);
         String toString();
     }
-    //TODO
-    //Check in future: find command
+
     private class NameQualifier implements Qualifier {
         private Set<String> nameKeyWords;
 
@@ -364,11 +361,9 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+    
 	@Override
 	public History getHistory() {
-
 		return taskManager.getHistory();
 	}
-
-
 }

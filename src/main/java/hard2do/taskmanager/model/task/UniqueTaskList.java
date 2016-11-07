@@ -40,7 +40,6 @@ public class UniqueTaskList implements Iterable<ReadOnlyTask> {
      */
     public static class TaskNotFoundException extends Exception {}
     
-    
     private ObservableList<ReadOnlyTask> internalList = FXCollections.observableArrayList();
 
     /**
@@ -95,10 +94,10 @@ public class UniqueTaskList implements Iterable<ReadOnlyTask> {
         	taskToEdit.setEndTime(newEndTime);
         }
         
-        if(newContent != null)
+        if(newContent != null) {
         	taskToEdit.setContent(newContent);
+        }
         return true;
-
     }
 
     /**
@@ -122,7 +121,6 @@ public class UniqueTaskList implements Iterable<ReadOnlyTask> {
      * @throws IllegalValueException if tags are not alphanumerical.
      * @throws DuplicateTagException if task already has similar tag.
      */
-    
     public boolean addTags(ReadOnlyTask target, ArrayList<String> tagsToAdd) 
     		throws DuplicateTagException, IllegalValueException, TaskNotFoundException{
     	assert target != null;
@@ -141,7 +139,6 @@ public class UniqueTaskList implements Iterable<ReadOnlyTask> {
      * @throws IllegalValueException if tags are not alphanumerical.
      * @throws DuplicateTagException if task already has similar tag.
      */
-    
     public boolean deleteTags(ReadOnlyTask target, ArrayList<String> tagsToDel) 
     		throws DuplicateTagException, IllegalValueException, TaskNotFoundException{
     	assert target != null;
@@ -152,7 +149,6 @@ public class UniqueTaskList implements Iterable<ReadOnlyTask> {
         return tagsDeletedFromTask;
     	
     }
-    
     
     /**
      * Fetch the next date of the task.
@@ -167,7 +163,6 @@ public class UniqueTaskList implements Iterable<ReadOnlyTask> {
         }
         return taskFoundAndMarked;
     }
-    
     
     /**
      * Mark the equivalent task as done.
@@ -225,8 +220,6 @@ public class UniqueTaskList implements Iterable<ReadOnlyTask> {
         return taskFoundAndMarked;
     }
     
-    
-   
     public ObservableList<ReadOnlyTask> getInternalList() {
         return internalList;
     }

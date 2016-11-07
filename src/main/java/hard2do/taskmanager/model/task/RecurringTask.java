@@ -157,7 +157,7 @@ public class RecurringTask implements ReadOnlyTask {
             while (date.getValue().before(Date.valueOf(LocalDate.now()))){
                 date.getValue().setDate(date.getValue().getDate()+duration);
             };
-            System.out.println("nexting");
+            date.refresh();
         }
         return true;
     }

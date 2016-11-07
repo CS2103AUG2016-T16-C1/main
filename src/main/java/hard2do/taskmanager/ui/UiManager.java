@@ -90,7 +90,6 @@ public class UiManager extends ComponentManager implements Ui {
         alert.setTitle(title);
         alert.setHeaderText(headerText);
         alert.setContentText(contentText);
-
         alert.showAndWait();
     }
 
@@ -135,7 +134,7 @@ public class UiManager extends ComponentManager implements Ui {
         try {
 			logic.execute("list");
 		} catch (ParseException e) {
-
+		    logger.warning("cannot list after task manager is changed");
 		}
     }
 }
