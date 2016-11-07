@@ -15,5 +15,4 @@ public class TaskDetailHandle extends GuiHandle {
     public TaskDetailHandle(GuiRobot guiRobot, Stage primaryStage, String stageTitle) {
         super(guiRobot, primaryStage, stageTitle);
     }   
-
 }

@@ -28,7 +28,6 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         targetIndex = currentList.length/2;
         assertDeleteSuccess(targetIndex, currentList);
-
     }
     
     @Test
@@ -56,5 +55,4 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
-
 }

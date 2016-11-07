@@ -80,7 +80,6 @@ public class TaskDetail extends UiPart {
 
     private void configure(ResultDisplay resultDisplay, Logic logic) {
         this.logic = logic;
-
         this.resultDisplay = resultDisplay;
     }
 
@@ -88,7 +87,7 @@ public class TaskDetail extends UiPart {
         RequiredFieldValidator validator = new RequiredFieldValidator();
         content.getValidators().add(validator);
         validator.setMessage("No Input Given");
-        
+        // Listener for content
         content.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
@@ -97,7 +96,7 @@ public class TaskDetail extends UiPart {
                 }
             }
         });
-        
+        // Listener for startTimePicker
         startTimePicker.timeProperty().addListener(new ChangeListener<LocalTime>() {
 
             @Override
@@ -110,7 +109,7 @@ public class TaskDetail extends UiPart {
             }
                 
         });
-        
+        // Listener for endTimePicker
         endTimePicker.timeProperty().addListener(new ChangeListener<LocalTime>() {
 
             @Override
@@ -234,5 +233,4 @@ public class TaskDetail extends UiPart {
     public String getFxmlPath() {
         return FXML;
     }
-
 }

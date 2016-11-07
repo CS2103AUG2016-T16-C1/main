@@ -101,7 +101,6 @@ public class GmailService {
         return new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential).setApplicationName(APPLICATION_NAME).build();
     }
     
-    
     /**
      * List all subjects of Messages of the user's mailbox matching the query.
      *

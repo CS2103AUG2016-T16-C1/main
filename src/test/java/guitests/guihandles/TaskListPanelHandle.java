@@ -70,11 +70,10 @@ public class TaskListPanelHandle extends GuiHandle {
 
         // Return false if any of the tasks doesn't match
         for (int i = 0; i < tasks.length; i++) {
-            if (!tasksInList.get(startPosition + i).getContent().value.equals(tasks[i].getContent().value)){
+            if (!tasksInList.get(startPosition + i).getContent().value.equals(tasks[i].getContent().value)) {
                 return false;
             }
         }
-
         return true;
     }
 
@@ -99,7 +98,6 @@ public class TaskListPanelHandle extends GuiHandle {
         }
         return true;
     }
-
 
     public TaskCardHandle navigateToTask(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
@@ -126,7 +124,6 @@ public class TaskListPanelHandle extends GuiHandle {
         guiRobot.sleep(100);
         return getTaskCardHandle(task);
     }
-
 
     /**
      * Returns the position of the task given, {@code NOT_FOUND} if not found in the list.
