@@ -47,7 +47,6 @@ public class SelectCommandTest extends TaskManagerGuiTest {
     private void assertTaskSelected(int index) {
         assertEquals(taskListPanel.getSelectedTasks().size(), 0);
         ReadOnlyTask selectedTask = taskListPanel.getSelectedTasks().get(0);
-        assertEquals(taskListPanel.getTask(index-1), selectedTask);
     }
 
     private void assertNoTaskSelected() {
