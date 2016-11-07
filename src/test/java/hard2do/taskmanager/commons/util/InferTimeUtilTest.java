@@ -20,7 +20,14 @@ public class InferTimeUtilTest {
         InferTimeUtil itu = new InferTimeUtil(atTimeString);
         assertTrue(itu.findTime());
         
-        
+        assertEquals(itu.getTime(), "1:00");
+    }
+    
+    @Test
+    public void testInferTime_startEndTime_matchesStringExpected() {
+        String startEndTimeString = "there is time here at from 1am to 2pm";
+        InferTimeUtil itu = new InferTimeUtil(startEndTimeString);
+        assertTrue(itu.findTime());
     }
 
 }

@@ -46,5 +46,19 @@ public class InferDateUtilTest {
         inferredDate = sdfDate.format(calendar.getTime());
         
         assertEquals(inferredDate, idu.getDate());
-    }  
+    }
+    
+    @Test 
+    public void testInferDate_thisKeyWord_InferDateExpected() {
+        String thisDateString = "there is date which is this Saturday";
+        InferDateUtil idu = new InferDateUtil(thisDateString);
+        assertTrue(idu.findDate());
+    }
+    
+    @Test
+    public void testInferDate_nextDayKeyWord_InferDateExpected() {
+        String nextDayDateString = "there is date which is next Saturday";
+        InferDateUtil idu = new InferDateUtil(nextDayDateString);
+        assertTrue(idu.findDate());
+    }
 }
