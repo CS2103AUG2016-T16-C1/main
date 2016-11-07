@@ -129,7 +129,7 @@ public class EditCommand extends Command {
 			EndStartValuesUtil.dateRangeValid(newDate, taskToEdit.getEndDate().dateString);
 		}
 		if (newDate == null && newEndDate != null && !taskToEdit.getDate().dateString.isEmpty()) {
-			EndStartValuesUtil.dateRangeValid(newEndDate, taskToEdit.getDate().dateString);
+			EndStartValuesUtil.dateRangeValid(taskToEdit.getDate().dateString, newEndDate);
 		}
 		if (newTime != null && newEndTime != null && newEndDate == null 
 				&& taskToEdit.getEndDate().dateString.isEmpty()) {
