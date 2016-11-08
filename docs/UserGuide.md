@@ -352,6 +352,7 @@ Examples:
 * `list` <br>
   `edit 3 sd/7-10-2016 st/1800 c/update details` <br>
   Updates the start date, start time and task detail of the 3rd task
+[//]: # (@@author A0147989B)
 
 ### 4.11 Marking task as important : `important`
 Sets the specified task of the current task listing to important priority <br>
