@@ -145,6 +145,7 @@ The `Model`,
   so that the UI automatically updates when the data in the list change.
 * Does not depend on any of the other three components.
 
+[//]: # (@@author A0147989B)
 ### Storage component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
