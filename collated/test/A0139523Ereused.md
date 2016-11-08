@@ -1,5 +1,5 @@
 # A0139523Ereused
-###### /java/guitests/AddCommandTest.java
+###### \java\guitests\AddCommandTest.java
 ``` java
 public class AddCommandTest extends TaskManagerGuiTest {
 
@@ -61,7 +61,41 @@ public class AddCommandTest extends TaskManagerGuiTest {
 
 }
 ```
-###### /java/guitests/guihandles/CommandBoxHandle.java
+###### \java\guitests\FindCommandTest.java
+``` java
+public class FindCommandTest extends TaskManagerGuiTest {
+
+    @Test
+    public void find_nonEmptyList() {
+        assertFindResult("find Mark"); //no results
+        assertFindResult("find Study", td.study, td.activities); //multiple results
+
+        //find after deleting one result
+        commandBox.runCommand("delete 1");
+        assertFindResult("find Study",td.activities);
+    }
+
+    @Test
+    public void find_emptyList(){
+        commandBox.runCommand("clear");
+        assertFindResult("find Jean"); //no results
+    }
+
+    @Test
+    public void find_invalidCommand_fail() {
+        commandBox.runCommand("findgeorge");
+        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+    }
+
+    private void assertFindResult(String command, TestTask... expectedHits ) {
+        commandBox.runCommand(command);
+        assertListSize(expectedHits.length);
+        assertResultMessage(expectedHits.length + " tasks listed!");
+        assertTrue(taskListPanel.isListMatching(expectedHits));
+    }
+}
+```
+###### \java\guitests\guihandles\CommandBoxHandle.java
 ``` java
 public class CommandBoxHandle extends GuiHandle{
 
@@ -95,7 +129,7 @@ public class CommandBoxHandle extends GuiHandle{
     }
 }
 ```
-###### /java/guitests/guihandles/GuiHandle.java
+###### \java\guitests\guihandles\GuiHandle.java
 ``` java
 public class GuiHandle {
     protected final GuiRobot guiRobot;
@@ -174,7 +208,7 @@ public class GuiHandle {
     }
 }
 ```
-###### /java/guitests/HelpWindowTest.java
+###### \java\guitests\HelpWindowTest.java
 ``` java
 public class HelpWindowTest extends TaskManagerGuiTest {
 
@@ -197,176 +231,7 @@ public class HelpWindowTest extends TaskManagerGuiTest {
     }
 }
 ```
-###### /java/guitests/FindCommandTest.java
-``` java
-public class FindCommandTest extends TaskManagerGuiTest {
-
-    @Test
-    public void find_nonEmptyList() {
-        assertFindResult("find Mark"); //no results
-        assertFindResult("find Study", td.study, td.activities); //multiple results
-
-        //find after deleting one result
-        commandBox.runCommand("delete 1");
-        assertFindResult("find Study",td.activities);
-    }
-
-    @Test
-    public void find_emptyList(){
-        commandBox.runCommand("clear");
-        assertFindResult("find Jean"); //no results
-    }
-
-    @Test
-    public void find_invalidCommand_fail() {
-        commandBox.runCommand("findgeorge");
-        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
-    }
-
-    private void assertFindResult(String command, TestTask... expectedHits ) {
-        commandBox.runCommand(command);
-        assertListSize(expectedHits.length);
-        assertResultMessage(expectedHits.length + " tasks listed!");
-        assertTrue(taskListPanel.isListMatching(expectedHits));
-    }
-}
-```
-###### /java/hard2do/taskmanager/TestApp.java
-``` java
-public class TestApp extends MainApp {
-
-    public static final String SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
-    protected static final String DEFAULT_PREF_FILE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("pref_testing.json");
-    public static final String APP_TITLE = "Test App";
-    protected static final String TASK_MANAGER_NAME = "Test";
-    protected Supplier<ReadOnlyTaskManager> initialDataSupplier = () -> null;
-    protected String saveFileLocation = SAVE_LOCATION_FOR_TESTING;
-
-    public TestApp() {
-    }
-
-    public TestApp(Supplier<ReadOnlyTaskManager> initialDataSupplier, String saveFileLocation) {
-        super();
-        this.initialDataSupplier = initialDataSupplier;
-        this.saveFileLocation = saveFileLocation;
-
-        // If some initial local data has been provided, write those to the file
-        if (initialDataSupplier.get() != null) {
-            TestUtil.createDataFileWithData(
-                    new XmlSerializableTaskManager(this.initialDataSupplier.get()),
-                    this.saveFileLocation);
-        }
-    }
-
-    @Override
-    protected Config initConfig(String configFilePath) {
-        Config config = super.initConfig(configFilePath);
-        config.setAppTitle(APP_TITLE);
-        config.setTaskManagerFilePath(saveFileLocation);
-        config.setUserPrefsFilePath(DEFAULT_PREF_FILE_LOCATION_FOR_TESTING);
-        config.setTaskManagerName(TASK_MANAGER_NAME);
-        return config;
-    }
-
-    @Override
-    protected UserPrefs initPrefs(Config config) {
-        UserPrefs userPrefs = super.initPrefs(config);
-        double x = Screen.getPrimary().getVisualBounds().getMinX();
-        double y = Screen.getPrimary().getVisualBounds().getMinY();
-        userPrefs.updateLastUsedGuiSetting(new GuiSettings(600.0, 600.0, (int) x, (int) y));
-        return userPrefs;
-    }
-
-
-    @Override
-    public void start(Stage primaryStage) {
-        ui.start(primaryStage);
-    }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-}
-```
-###### /java/hard2do/taskmanager/storage/StorageManagerTest.java
-``` java
-public class StorageManagerTest {
-
-    private StorageManager storageManager;
-
-    @Rule
-    public TemporaryFolder testFolder = new TemporaryFolder();
-
-
-    @Before
-    public void setup() {
-        storageManager = new StorageManager(getTempFilePath("ab"), getTempFilePath("prefs"));
-    }
-
-
-    private String getTempFilePath(String fileName) {
-        return testFolder.getRoot().getPath() + fileName;
-    }
-
-
-    /*
-     * Note: This is an integration test that verifies the StorageManager is properly wired to the
-     * {@link JsonUserPrefsStorage} class.
-     * More extensive testing of UserPref saving/reading is done in {@link JsonUserPrefsStorageTest} class.
-     */
-
-    @Test
-    public void prefsReadSave() throws Exception {
-        UserPrefs original = new UserPrefs();
-        original.setGuiSettings(300, 600, 4, 6);
-        storageManager.saveUserPrefs(original);
-        UserPrefs retrieved = storageManager.readUserPrefs().get();
-        assertEquals(original, retrieved);
-    }
-
-    @Test
-    public void taskManagerReadSave() throws Exception {
-        TaskManager original = new TypicalTestTasks().getTypicalTaskManager();
-        storageManager.saveTaskManager(original);
-        ReadOnlyTaskManager retrieved = storageManager.readTaskManager().get();
-        assertEquals(original, new TaskManager(retrieved));
-        //More extensive testing of TaskManager saving/reading is done in XmlTaskManagerStorageTest
-    }
-
-    @Test
-    public void getTaskManagerFilePath(){
-        assertNotNull(storageManager.getTaskManagerFilePath());
-    }
-
-    @Test
-    public void handleTaskManagerChangedEvent_exceptionThrown_eventRaised() throws IOException {
-        //Create a StorageManager while injecting a stub that throws an exception when the save method is called
-        Storage storage = new StorageManager(new XmlTaskManagerStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
-        EventsCollector eventCollector = new EventsCollector();
-        storage.handleTaskManagerChangedEvent(new TaskManagerChangedEvent(new TaskManager()));
-        assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
-    }
-
-
-    /**
-     * A Stub class to throw an exception when the save method is called
-     */
-    class XmlTaskManagerStorageExceptionThrowingStub extends XmlTaskManagerStorage{
-
-        public XmlTaskManagerStorageExceptionThrowingStub(String filePath) {
-            super(filePath);
-        }
-
-        @Override
-        public void saveTaskManager(ReadOnlyTaskManager taskManager, String filePath) throws IOException {
-            throw new IOException("dummy exception");
-        }
-    }
-
-
-}
-```
-###### /java/hard2do/taskmanager/commons/core/ConfigTest.java
+###### \java\hard2do\taskmanager\commons\core\ConfigTest.java
 ``` java
 public class ConfigTest {
     @Rule
@@ -393,7 +258,7 @@ public class ConfigTest {
 
 }
 ```
-###### /java/hard2do/taskmanager/commons/core/VersionTest.java
+###### \java\hard2do\taskmanager\commons\core\VersionTest.java
 ``` java
 public class VersionTest {
     @Rule
@@ -524,7 +389,7 @@ public class VersionTest {
     }
 }
 ```
-###### /java/hard2do/taskmanager/logic/LogicManagerTest.java
+###### \java\hard2do\taskmanager\logic\LogicManagerTest.java
 ``` java
 public class LogicManagerTest {
 
@@ -1013,7 +878,142 @@ public class LogicManagerTest {
     }
 }
 ```
-###### /java/hard2do/taskmanager/testutil/TaskBuilder.java
+###### \java\hard2do\taskmanager\storage\StorageManagerTest.java
+``` java
+public class StorageManagerTest {
+
+    private StorageManager storageManager;
+
+    @Rule
+    public TemporaryFolder testFolder = new TemporaryFolder();
+
+
+    @Before
+    public void setup() {
+        storageManager = new StorageManager(getTempFilePath("ab"), getTempFilePath("prefs"));
+    }
+
+
+    private String getTempFilePath(String fileName) {
+        return testFolder.getRoot().getPath() + fileName;
+    }
+
+
+    /*
+     * Note: This is an integration test that verifies the StorageManager is properly wired to the
+     * {@link JsonUserPrefsStorage} class.
+     * More extensive testing of UserPref saving/reading is done in {@link JsonUserPrefsStorageTest} class.
+     */
+
+    @Test
+    public void prefsReadSave() throws Exception {
+        UserPrefs original = new UserPrefs();
+        original.setGuiSettings(300, 600, 4, 6);
+        storageManager.saveUserPrefs(original);
+        UserPrefs retrieved = storageManager.readUserPrefs().get();
+        assertEquals(original, retrieved);
+    }
+
+    @Test
+    public void taskManagerReadSave() throws Exception {
+        TaskManager original = new TypicalTestTasks().getTypicalTaskManager();
+        storageManager.saveTaskManager(original);
+        ReadOnlyTaskManager retrieved = storageManager.readTaskManager().get();
+        assertEquals(original, new TaskManager(retrieved));
+        //More extensive testing of TaskManager saving/reading is done in XmlTaskManagerStorageTest
+    }
+
+    @Test
+    public void getTaskManagerFilePath(){
+        assertNotNull(storageManager.getTaskManagerFilePath());
+    }
+
+    @Test
+    public void handleTaskManagerChangedEvent_exceptionThrown_eventRaised() throws IOException {
+        //Create a StorageManager while injecting a stub that throws an exception when the save method is called
+        Storage storage = new StorageManager(new XmlTaskManagerStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
+        EventsCollector eventCollector = new EventsCollector();
+        storage.handleTaskManagerChangedEvent(new TaskManagerChangedEvent(new TaskManager()));
+        assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
+    }
+
+
+    /**
+     * A Stub class to throw an exception when the save method is called
+     */
+    class XmlTaskManagerStorageExceptionThrowingStub extends XmlTaskManagerStorage{
+
+        public XmlTaskManagerStorageExceptionThrowingStub(String filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveTaskManager(ReadOnlyTaskManager taskManager, String filePath) throws IOException {
+            throw new IOException("dummy exception");
+        }
+    }
+
+
+}
+```
+###### \java\hard2do\taskmanager\TestApp.java
+``` java
+public class TestApp extends MainApp {
+
+    public static final String SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
+    protected static final String DEFAULT_PREF_FILE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("pref_testing.json");
+    public static final String APP_TITLE = "Test App";
+    protected static final String TASK_MANAGER_NAME = "Test";
+    protected Supplier<ReadOnlyTaskManager> initialDataSupplier = () -> null;
+    protected String saveFileLocation = SAVE_LOCATION_FOR_TESTING;
+
+    public TestApp() {
+    }
+
+    public TestApp(Supplier<ReadOnlyTaskManager> initialDataSupplier, String saveFileLocation) {
+        super();
+        this.initialDataSupplier = initialDataSupplier;
+        this.saveFileLocation = saveFileLocation;
+
+        // If some initial local data has been provided, write those to the file
+        if (initialDataSupplier.get() != null) {
+            TestUtil.createDataFileWithData(
+                    new XmlSerializableTaskManager(this.initialDataSupplier.get()),
+                    this.saveFileLocation);
+        }
+    }
+
+    @Override
+    protected Config initConfig(String configFilePath) {
+        Config config = super.initConfig(configFilePath);
+        config.setAppTitle(APP_TITLE);
+        config.setTaskManagerFilePath(saveFileLocation);
+        config.setUserPrefsFilePath(DEFAULT_PREF_FILE_LOCATION_FOR_TESTING);
+        config.setTaskManagerName(TASK_MANAGER_NAME);
+        return config;
+    }
+
+    @Override
+    protected UserPrefs initPrefs(Config config) {
+        UserPrefs userPrefs = super.initPrefs(config);
+        double x = Screen.getPrimary().getVisualBounds().getMinX();
+        double y = Screen.getPrimary().getVisualBounds().getMinY();
+        userPrefs.updateLastUsedGuiSetting(new GuiSettings(600.0, 600.0, (int) x, (int) y));
+        return userPrefs;
+    }
+
+
+    @Override
+    public void start(Stage primaryStage) {
+        ui.start(primaryStage);
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+```
+###### \java\hard2do\taskmanager\testutil\TaskBuilder.java
 ``` java
 public class TaskBuilder {
 
@@ -1071,7 +1071,7 @@ public class TaskBuilder {
 
 }
 ```
-###### /java/hard2do/taskmanager/testutil/TaskManagerBuilder.java
+###### \java\hard2do\taskmanager\testutil\TaskManagerBuilder.java
 ``` java
 public class TaskManagerBuilder {
 
@@ -1096,7 +1096,7 @@ public class TaskManagerBuilder {
     }
 }
 ```
-###### /java/hard2do/taskmanager/testutil/TestTask.java
+###### \java\hard2do\taskmanager\testutil\TestTask.java
 ``` java
 public class TestTask implements ReadOnlyTask {
 
